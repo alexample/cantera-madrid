@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cantera Madrid · Prototipo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3f1ea; --card:#ffffff; --ink:#15211b; --muted:#66736b; --line:#e2dfd4;
+  --pitch:#0f5132; --pitch2:#16714a; --chalk:#e9f5ee; --accent:#d9480f; --win:#2b8a3e; --draw:#868e96; --loss:#c92a2a;
+  --bubble:#e6efe9; --radius:16px;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#0e1411;--card:#17201b;--ink:#e8efe9;--muted:#93a39a;--line:#26322b;--chalk:#1d2b24;--bubble:#1f2c25}
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:15px}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+.app{max-width:520px;margin:0 auto;height:100%;display:flex;flex-direction:column;position:relative}
+header.top{background:var(--pitch);color:#fff;padding:calc(env(safe-area-inset-top) + 14px) 18px 16px;
+  background-image:repeating-linear-gradient(90deg,transparent 0 38px,rgba(255,255,255,.05) 38px 76px)}
+.top h1{font-family:"Barlow Condensed",sans-serif;font-size:28px;letter-spacing:.5px;margin:0;line-height:1}
+.top .sub{opacity:.8;font-size:13px;margin-top:4px}
+.toprow{display:flex;align-items:center;gap:10px}
+.toprow .grow{flex:1;min-width:0}
+.iconbtn{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.12);color:#fff;flex:none}
+.iconbtn svg{width:20px;height:20px}
+main{flex:1;overflow-y:auto;padding:16px 16px calc(env(safe-area-inset-bottom) + 20px)}
+.section-t{font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-size:14px;margin:18px 2px 8px}
+.maincta{width:100%;display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;text-align:left}
+.maincta .ic{width:44px;height:44px;border-radius:12px;background:var(--accent);color:#fff;display:grid;place-items:center;flex:none}
+.maincta b{display:block;font-size:16px}
+.maincta span{color:var(--muted);font-size:13px}
+.team{width:100%;display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin-bottom:10px;text-align:left}
+.crest{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;font-family:"Barlow Condensed",system-ui,sans-serif;font-weight:700;font-size:16px;flex:none;border:2px solid rgba(255,255,255,.6);box-shadow:0 0 0 1px var(--line)}
+.team .info{flex:1;min-width:0}
+.team .nm{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.team .meta{color:var(--muted);font-size:12.5px;margin-top:2px}
+.team .side{text-align:right;font-size:12px;color:var(--muted)}
+.team .side b{display:block;font-family:"Barlow Condensed",system-ui,sans-serif;font-size:20px;color:var(--ink)}
+.addbtn{width:100%;border:1.5px dashed var(--line);border-radius:var(--radius);padding:14px;color:var(--pitch2);font-weight:600}
+.empty{color:var(--muted);text-align:center;padding:20px 10px;font-size:14px}
+.demo-note{margin-top:22px;font-size:12px;color:var(--muted);line-height:1.5;background:var(--chalk);padding:12px 14px;border-radius:12px}
+/* chat */
+.chat{display:flex;flex-direction:column;gap:10px}
+.msg{max-width:88%;padding:10px 13px;border-radius:16px;line-height:1.45;white-space:normal}
+.msg.u{align-self:flex-end;background:var(--pitch2);color:#fff;border-bottom-right-radius:4px}
+.msg.b{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-bottom-left-radius:4px}
+.msg.b.wide{max-width:100%;width:100%}
+.composer{border-top:1px solid var(--line);background:var(--card);padding:8px 10px calc(env(safe-area-inset-bottom) + 8px)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;padding:7px 12px;border-radius:999px;background:var(--chalk);color:var(--pitch2);font-size:13px;font-weight:500;border:1px solid var(--line)}
+@media (prefers-color-scheme: dark){.chip{color:#8ce0b0}}
+form.inp{display:flex;gap:8px}
+form.inp input{flex:1;min-width:0;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:11px 16px;font:inherit;font-size:16px;outline:none}
+form.inp input:focus{border-color:var(--pitch2)}
+form.inp button{width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;flex:none}
+/* cards inside answers */
+.score{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;margin:8px 0 4px;text-align:center}
+.score .t{font-size:13px;font-weight:600;line-height:1.2}
+.score .r{font-family:"Barlow Condensed",system-ui,sans-serif;font-size:30px;font-weight:700;padding:2px 12px;border-radius:10px;background:var(--chalk)}
+.small{font-size:12.5px;color:var(--muted)}
+.badge{display:inline-block;font-size:11px;font-weight:700;color:#fff;border-radius:6px;padding:2px 7px;margin-right:4px;font-family:Inter}
+.W{background:var(--win)}.D{background:var(--draw)}.L{background:var(--loss)}
+table.st{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+table.st th{font-weight:600;color:var(--muted);font-size:11px;text-transform:uppercase;padding:4px 3px;text-align:center}
+table.st td{padding:6px 3px;text-align:center;border-top:1px solid var(--line)}
+table.st td.n{text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px}
+table.st tr.me td{background:var(--chalk);font-weight:700}
+table.st td.p{font-weight:700}
+.next{border-left:4px solid var(--accent);padding:6px 0 6px 10px;margin:8px 0}
+.next .when{font-family:"Barlow Condensed",system-ui,sans-serif;font-size:20px;font-weight:700}
+a.map{display:inline-flex;align-items:center;gap:6px;margin-top:6px;color:var(--pitch2);font-weight:600;text-decoration:none}
+.plist{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.prow{display:flex;align-items:center;gap:10px;padding:8px;border:1px solid var(--line);border-radius:12px}
+.prow .dor{width:30px;height:30px;border-radius:8px;background:var(--pitch);color:#fff;display:grid;place-items:center;font-family:"Barlow Condensed",system-ui,sans-serif;font-weight:700}
+.prow .grow{flex:1;min-width:0}
+.btn{padding:7px 12px;border-radius:10px;background:var(--pitch2);color:#fff;font-size:13px;font-weight:600}
+.btn.ghost{background:var(--chalk);color:var(--pitch2)}
+.typing{display:inline-flex;gap:4px}.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:b 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes b{0%,80%,100%{opacity:.3}40%{opacity:1}}
+/* sheets */
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:10}
+.sheet{position:fixed;left:0;right:0;bottom:0;max-width:520px;margin:0 auto;background:var(--card);border-radius:20px 20px 0 0;padding:18px 16px calc(env(safe-area-inset-bottom) + 18px);max-height:80%;overflow-y:auto;transform:translateY(105%);transition:transform .25s;z-index:11}
+.sheet.open{transform:none}
+.sheet h3{font-family:"Barlow Condensed",system-ui,sans-serif;font-size:22px;margin:0 0 10px}
+.sheet input.search{width:100%;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:11px 14px;font:inherit;font-size:16px;margin-bottom:12px}
+.tog{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.tog .grow{flex:1}
+.sw{width:48px;height:28px;border-radius:999px;background:var(--line);position:relative;flex:none;transition:.2s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
+.sw.on{background:var(--win)}.sw.on::after{left:23px}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<div class="sheet-bg" id="sheetBg"></div>
+<div class="sheet" id="sheet"></div>
+
+<script>
+/* ============================================================
+   DATOS DE DEMOSTRACIÓN — clubes, campos y jugadores inventados.
+   En producción vendrán de D1 (Cloudflare), alimentada desde la web de la RFFM.
+   ============================================================ */
+const TODAY = new Date(); TODAY.setHours(0,0,0,0);
+function rng(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296}}
+const R = rng(20262027);
+
+const CLUBS = [
+  {id:"sno",name:"CD Sierra Norte",short:"SNO",town:"Colmenar Viejo",color:"#1c7ed6",field:"Campo Municipal La Dehesa",addr:"Av. de la Sierra 12, Colmenar Viejo"},
+  {id:"hen",name:"AD Henares",short:"HEN",town:"Alcalá de Henares",color:"#c92a2a",field:"Ciudad Deportiva El Ribero",addr:"C/ del Río 4, Alcalá de Henares"},
+  {id:"roz",name:"CF Rozas Atlético",short:"ROZ",town:"Las Rozas",color:"#7048e8",field:"Campo Municipal Los Olivos",addr:"C/ Olivar 21, Las Rozas"},
+  {id:"gsu",name:"UD Getafe Sur",short:"GSU",town:"Getafe",color:"#1098ad",field:"Campo San Isidro Sur",addr:"Av. de los Ángeles 88, Getafe"},
+  {id:"tcu",name:"CD Tres Cantos Unión",short:"TCU",town:"Tres Cantos",color:"#f08c00",field:"Campo La Foresta",addr:"Sector Foresta 7, Tres Cantos"},
+  {id:"lgn",name:"AD Leganés Norte",short:"LGN",town:"Leganés",color:"#2b8a3e",field:"Campo La Fortuna Norte",addr:"C/ Huertas 30, Leganés"},
+  {id:"vcb",name:"CF Vallecas Barrio",short:"VCB",town:"Madrid (Vallecas)",color:"#d6336c",field:"Campo Municipal Entrevías Este",addr:"C/ Ronda del Sur 140, Madrid"},
+  {id:"mos",name:"UD Móstoles Oeste",short:"MOS",town:"Móstoles",color:"#495057",field:"Campo El Soto Oeste",addr:"Av. del Soto 55, Móstoles"}
+];
+const CATS = [
+  {id:"inf",name:"Infantil",group:"Infantil Preferente · Grupo 2",times:["10:00","11:30"]},
+  {id:"cad",name:"Cadete",group:"Cadete Primera · Grupo 5",times:["12:00","16:00"]},
+  {id:"juv",name:"Juvenil",group:"Juvenil Preferente · Grupo 1",times:["17:00","18:30"]}
+];
+const NOMBRES="Hugo Mateo Martín Lucas Leo Daniel Pablo Álvaro Adrián Marcos Diego Mario Javier Sergio Iker Bruno Gonzalo Rodrigo Nicolás Izan Thiago Samuel Aitor Rubén Carlos Jorge Héctor Óscar Raúl Iván Unai Eric".split(" ");
+const APELL="García Martínez López Sánchez Pérez Gómez Martín Jiménez Ruiz Hernández Díaz Moreno Muñoz Álvarez Romero Navarro Torres Domínguez Gil Vázquez Serrano Ramos Blanco Castro Ortega Rubio Molina Delgado Morales Ortiz Cano Prieto".split(" ");
+const POS=["POR","DEF","DEF","DEF","DEF","MED","MED","MED","MED","DEL","DEL","DEL","MED","DEF","DEL","POR"];
+const pick=a=>a[Math.floor(R()*a.length)];
+
+const TEAMS=[]; const PLAYERS=[];
+CATS.forEach(cat=>CLUBS.forEach(club=>{
+  const t={id:club.id+"-"+cat.id,club,cat,name:club.name+" "+cat.name+" A",strength:0.6+R()*0.9};
+  TEAMS.push(t);
+  const used=new Set();
+  POS.forEach((pos,i)=>{
+    let n; do{n=pick(NOMBRES)+" "+pick(APELL)+" "+pick(APELL)}while(used.has(n)); used.add(n);
+    PLAYERS.push({id:t.id+"-"+i,name:n,dorsal:i+1,pos,team:t.id,goals:0});
+  });
+}));
+const teamById=id=>TEAMS.find(t=>t.id===id);
+
+// Calendario: liga a doble vuelta (método del círculo), una jornada por fin de semana desde el 19-sep-2026
+const MATCHES=[];
+function poisson(l){let L=Math.exp(-l),k=0,p=1;do{k++;p*=R()}while(p>L);return k-1}
+CATS.forEach(cat=>{
+  const ts=TEAMS.filter(t=>t.cat.id===cat.id); const n=ts.length; const idx=[...Array(n).keys()];
+  const rounds=[];
+  for(let r=0;r<n-1;r++){const pr=[];for(let i=0;i<n/2;i++){let a=idx[i],b=idx[n-1-i];if(i===0&&r%2)[a,b]=[b,a];pr.push([a,b])}rounds.push(pr);idx.splice(1,0,idx.pop())}
+  const all=[...rounds,...rounds.map(r=>r.map(([a,b])=>[b,a]))];
+  all.forEach((pr,j)=>{
+    const sat=new Date(2026,8,19+7*j);
+    pr.forEach(([a,b],k)=>{
+      const d=new Date(sat); if(k>=2) d.setDate(d.getDate()+1);
+      const time=cat.times[k%2];
+      const home=ts[a],away=ts[b];
+      const m={id:cat.id+"-"+(j+1)+"-"+k,cat:cat.id,jornada:j+1,date:d,time,home:home.id,away:away.id,played:d<TODAY,hg:null,ag:null,scorers:[]};
+      if(m.played){
+        m.hg=poisson(1.1+home.strength*0.9+0.25); m.ag=poisson(1.0+away.strength*0.9);
+        [[home,m.hg],[away,m.ag]].forEach(([t,g])=>{
+          const pl=PLAYERS.filter(p=>p.team===t.id&&p.pos!=="POR");
+          for(let x=0;x<g;x++){const w=pl.flatMap(p=>Array(p.pos==="DEL"?5:p.pos==="MED"?2:1).fill(p));const s=pick(w);s.goals++;m.scorers.push({p:s.id,team:t.id,min:1+Math.floor(R()*(cat.id==="inf"?70:cat.id==="cad"?80:90))})}
+        });
+        m.scorers.sort((x,y)=>x.min-y.min);
+      }
+      MATCHES.push(m);
+    });
+  });
+});
+
+function standings(catId){
+  const tab={}; TEAMS.filter(t=>t.cat.id===catId).forEach(t=>tab[t.id]={t,pj:0,g:0,e:0,p:0,gf:0,gc:0,pts:0});
+  MATCHES.filter(m=>m.cat===catId&&m.played).forEach(m=>{
+    const h=tab[m.home],a=tab[m.away];h.pj++;a.pj++;h.gf+=m.hg;h.gc+=m.ag;a.gf+=m.ag;a.gc+=m.hg;
+    if(m.hg>m.ag){h.g++;a.p++;h.pts+=3}else if(m.hg<m.ag){a.g++;h.p++;a.pts+=3}else{h.e++;a.e++;h.pts++;a.pts++}
+  });
+  return Object.values(tab).sort((x,y)=>y.pts-x.pts||(y.gf-y.gc)-(x.gf-x.gc)||y.gf-x.gf||x.t.club.name.localeCompare(y.t.club.name));
+}
+const teamMatches=id=>MATCHES.filter(m=>m.home===id||m.away===id).sort((a,b)=>a.date-b.date);
+const lastMatch=id=>teamMatches(id).filter(m=>m.played).pop();
+const nextMatch=id=>teamMatches(id).find(m=>!m.played);
+function outcome(m,id){const my=m.home===id?m.hg:m.ag,ot=m.home===id?m.ag:m.hg;return my>ot?"W":my<ot?"L":"D"}
+
+/* ============================================================
+   ESTADO
+   ============================================================ */
+const store={get(k,d){try{const v=localStorage.getItem("cm_"+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem("cm_"+k,JSON.stringify(v))}catch(e){}}};
+const state={
+  follows:store.get("follows",["gsu-cad","vcb-inf"]),
+  verified:store.get("verified",false),
+  chats:{}, // historial por ficha (solo en memoria)
+  iah:{},   // historial que se manda a la IA
+  view:"home", team:null
+};
+
+/* ============================================================
+   UTILIDADES
+   ============================================================ */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[¿?¡!.,;:]/g," ").replace(/\s+/g," ").trim();
+const DIAS=["domingo","lunes","martes","miércoles","jueves","viernes","sábado"];
+const MESES=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+const fdate=d=>`${DIAS[d.getDay()]} ${d.getDate()} ${MESES[d.getMonth()]}`;
+function rel(d){const diff=Math.round((d-TODAY)/864e5);if(diff===0)return"hoy";if(diff===1)return"mañana";if(diff===-1)return"ayer";if(diff>1&&diff<7)return"este "+DIAS[d.getDay()];return null}
+const crest=(t,size)=>`<div class="crest" style="background:${t.club.color};${size?`width:${size}px;height:${size}px;font-size:${size*.38}px`:""}">${t.club.short}</div>`;
+const shortName=t=>t.club.name;
+const icons={
+  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>',
+  gear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>',
+  send:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+  chat:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
+  pin:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+  trash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>'
+};
+
+/* ============================================================
+   MOTOR DE RESPUESTAS (DEMO)
+   En producción, la pregunta va al Worker → Llama 3.3 en Workers AI,
+   que llama a herramientas equivalentes a estas funciones sobre D1.
+   ============================================================ */
+function scoreCard(m,id){
+  const h=teamById(m.home),a=teamById(m.away);
+  const hs=m.scorers.filter(s=>s.team===h.id).map(s=>{const p=PLAYERS.find(x=>x.id===s.p);return esc(p.name.split(" ").slice(0,2).join(" "))+" "+s.min+"'"});
+  const as=m.scorers.filter(s=>s.team===a.id).map(s=>{const p=PLAYERS.find(x=>x.id===s.p);return esc(p.name.split(" ").slice(0,2).join(" "))+" "+s.min+"'"});
+  return `<div class="score"><div class="t">${esc(shortName(h))}</div><div class="r">${m.hg} – ${m.ag}</div><div class="t">${esc(shortName(a))}</div></div>
+  <div class="small" style="text-align:center">Jornada ${m.jornada} · ${fdate(m.date)} · ${esc(h.club.field)}</div>
+  ${m.scorers.length?`<div class="small" style="margin-top:6px">⚽ ${hs.length?esc(shortName(h))+": "+hs.join(", "):""}${hs.length&&as.length?"<br>⚽ ":""}${as.length?esc(shortName(a))+": "+as.join(", "):""}</div>`:""}`;
+}
+function ansLast(t){
+  const m=lastMatch(t.id); if(!m) return "Todavía no ha jugado ningún partido esta temporada.";
+  const o=outcome(m,t.id); const verb={W:"ganó",D:"empató",L:"perdió"}[o];
+  const rival=teamById(m.home===t.id?m.away:m.home); const r=rel(m.date);
+  return `El ${esc(t.cat.name)} ${verb} ${o==="D"?"con":o==="W"?"a":"contra"} <b>${esc(shortName(rival))}</b>${r?" "+r:""} (${m.home===t.id?"en casa":"fuera"}).${scoreCard(m,t.id)}`;
+}
+function ansNext(t){
+  const m=nextMatch(t.id); if(!m) return "No quedan partidos en el calendario.";
+  const h=teamById(m.home),a=teamById(m.away),home=m.home===t.id; const rival=home?a:h; const r=rel(m.date);
+  const q=encodeURIComponent(h.club.field+", "+h.club.addr);
+  return `Próximo partido: <b>${home?"en casa":"fuera"}</b> contra <b>${esc(shortName(rival))}</b>.
+  <div class="next"><div class="when">${r?r[0].toUpperCase()+r.slice(1)+" "+m.date.getDate()+" "+MESES[m.date.getMonth()]:fdate(m.date)} · ${m.time}</div>
+  <div>${esc(h.club.field)}</div><div class="small">${esc(h.club.addr)}</div>
+  <a class="map" href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" rel="noopener">${icons.pin} Abrir en mapas</a></div>
+  <div class="small">Jornada ${m.jornada} · ${esc(t.cat.group)}</div>`;
+}
+function tableHTML(catId,highlight){
+  const s=standings(catId);
+  return `<table class="st"><tr><th>#</th><th style="text-align:left">Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>DG</th><th>Pts</th></tr>
+  ${s.map((r,i)=>`<tr class="${r.t.id===highlight?"me":""}"><td>${i+1}</td><td class="n">${esc(shortName(r.t))}</td><td>${r.pj}</td><td>${r.g}</td><td>${r.e}</td><td>${r.p}</td><td>${r.gf-r.gc>0?"+":""}${r.gf-r.gc}</td><td class="p">${r.pts}</td></tr>`).join("")}</table>`;
+}
+function ansTable(t){
+  const s=standings(t.cat.id); const pos=s.findIndex(r=>r.t.id===t.id)+1; const me=s[pos-1];
+  const gap=pos>1?` a ${s[0].pts-me.pts} del líder`:", líder del grupo";
+  return `Va <b>${pos}º</b> con <b>${me.pts} puntos</b>${gap}.<div class="small">${esc(t.cat.group)}</div>${tableHTML(t.cat.id,t.id)}`;
+}
+function ansScorers(t){
+  const pl=PLAYERS.filter(p=>p.team===t.id&&p.goals>0).sort((a,b)=>b.goals-a.goals).slice(0,5);
+  if(!pl.length) return "Nadie ha marcado todavía esta temporada.";
+  return `Máximos goleadores del equipo:<div class="plist">${pl.map(p=>`<div class="prow"><div class="dor">${p.dorsal}</div><div class="grow">${esc(p.name)}<div class="small">${p.pos}</div></div><b>${p.goals} ⚽</b></div>`).join("")}</div>`;
+}
+function ansForm(t){
+  const ms=teamMatches(t.id).filter(m=>m.played).slice(-5);
+  const pts=ms.reduce((s,m)=>s+{W:3,D:1,L:0}[outcome(m,t.id)],0);
+  return `Últimos ${ms.length} partidos (${pts} de ${ms.length*3} puntos):<div style="margin:8px 0">${ms.map(m=>`<span class="badge ${outcome(m,t.id)}">${{W:"G",D:"E",L:"P"}[outcome(m,t.id)]}</span>`).join("")}</div>
+  ${ms.slice().reverse().map(m=>{const h=teamById(m.home),a=teamById(m.away);return `<div class="small">J${m.jornada} · ${esc(h.club.short)} ${m.hg}–${m.ag} ${esc(a.club.short)}</div>`}).join("")}`;
+}
+function ansSquad(t){
+  const pl=PLAYERS.filter(p=>p.team===t.id);
+  return `Plantilla (${pl.length} jugadores):<div class="plist">${pl.map(p=>`<div class="prow"><div class="dor">${p.dorsal}</div><div class="grow">${esc(p.name)}<div class="small">${p.pos}${p.goals?` · ${p.goals} gol${p.goals>1?"es":""}`:""}</div></div></div>`).join("")}</div>`;
+}
+function ansJornada(t,n){
+  const ms=MATCHES.filter(m=>m.cat===t.cat.id&&m.jornada===n);
+  if(!ms.length) return `La jornada ${n} no existe (la liga tiene ${Math.max(...MATCHES.filter(m=>m.cat===t.cat.id).map(m=>m.jornada))} jornadas).`;
+  return `Jornada ${n} · ${esc(t.cat.group)}<div style="margin-top:6px">${ms.map(m=>{const h=teamById(m.home),a=teamById(m.away);const me=m.home===t.id||m.away===t.id;return `<div class="small" style="padding:4px 0;${me?"font-weight:700;color:var(--ink)":""}">${esc(shortName(h))} ${m.played?`<b>${m.hg}–${m.ag}</b>`:m.time} ${esc(shortName(a))}${m.played?"":" · "+fdate(m.date)}</div>`}).join("")}</div>`;
+}
+function findClubInText(q,exclude){
+  return CLUBS.find(c=>c.id!==exclude&&(norm(c.name).split(" ").filter(w=>w.length>3&&!["atletico","union","barrio","norte","oeste"].includes(w)).some(w=>q.includes(w))||q.includes(norm(c.town).split(" ")[0])));
+}
+function ansVs(t,club){
+  const ms=teamMatches(t.id).filter(m=>teamById(m.home).club.id===club.id||teamById(m.away).club.id===club.id);
+  return `Contra ${esc(club.name)} esta temporada:<div style="margin-top:6px">${ms.map(m=>{const h=teamById(m.home),a=teamById(m.away);return `<div style="padding:4px 0">${m.played?`<span class="badge ${outcome(m,t.id)}">${{W:"G",D:"E",L:"P"}[outcome(m,t.id)]}</span>`:"🗓 "} J${m.jornada} · ${esc(h.club.short)} ${m.played?`<b>${m.hg}–${m.ag}</b>`:m.time} ${esc(a.club.short)} <span class="small">${fdate(m.date)}</span></div>`}).join("")}</div>`;
+}
+const HELP_TEAM="Puedo contarte el último resultado, el próximo partido y dónde se juega, la clasificación, los goleadores, la racha, la plantilla, una jornada concreta («jornada 3») o el historial contra un rival («¿cómo nos fue contra Henares?»).";
+
+function answerTeam(t,text){
+  const q=norm(text);
+  const jn=q.match(/jornada\s*(\d+)/); if(jn) return ansJornada(t,+jn[1]);
+  if(/(proxim|siguiente|cuando jug|cuando es|donde jug|donde es|a que hora|hora|campo|direcc|como llego|ubicac)/.test(q)) return ansNext(t);
+  if(/(clasific|tabla|posicion|puesto|lider|puntos|vamos)/.test(q)) return ansTable(t);
+  if(/(goleador|pichichi|quien marc|quienes marc|goles de|mas goles)/.test(q)) return ansScorers(t);
+  if(/(racha|ultimos partidos|forma|como van|como vamos)/.test(q)) return ansForm(t);
+  if(/(plantilla|jugadores|convocad|equipo complet)/.test(q)) return ansSquad(t);
+  const club=findClubInText(q,t.club.id); if(club) return ansVs(t,club);
+  if(/(quedo|resultado|gano|perdio|empato|ultimo|marcador|como fue|como salio|ayer|finde|fin de semana)/.test(q)) return ansLast(t);
+  return null; // sin intención clara: lo responde la IA (o la ayuda si no hay conexión)
+}
+
+// Chat principal: jugadores y equipos
+function answerMain(text){
+  const q=norm(text);
+  const cat=CATS.find(c=>q.includes(norm(c.name)));
+  if(/(clasific|tabla)/.test(q)){
+    if(!cat) return `¿De qué categoría? <div class="chips" style="margin-top:8px">${CATS.map(c=>`<button class="chip" data-ask="Clasificación ${c.name.toLowerCase()}">${c.name}</button>`).join("")}</div>`;
+    return `<b>${esc(cat.group)}</b>${tableHTML(cat.id)}`;
+  }
+  // equipos por club / municipio
+  const club=findClubInText(q);
+  const words=q.replace(/\b(busca|buscar|a|al|el|la|los|las|de|del|jugador|jugadora|donde|juega|en|que|equipo|equipos|quien|es|y|mi|hijo|hija)\b/g," ").split(" ").filter(w=>w.length>2);
+  let players=[],partial=false;
+  const stop=new Set([...(club?norm(club.name+" "+club.town).split(" "):[]),...CATS.map(c=>norm(c.name))]);
+  const nameWords=words.filter(w=>!stop.has(w));
+  if(nameWords.length){
+    let scored=PLAYERS.map(p=>{const pn=norm(p.name).split(" ");return{p,hits:nameWords.filter(w=>pn.some(x=>x.startsWith(w))).length}}).filter(x=>x.hits>0);
+    if(cat) scored=scored.filter(x=>teamById(x.p.team).cat.id===cat.id);
+    if(club) scored=scored.filter(x=>teamById(x.p.team).club.id===club.id);
+    const full=scored.filter(x=>x.hits===nameWords.length);
+    if(full.length) players=full.map(x=>x.p);
+    else if(nameWords.length>1){const best=Math.max(0,...scored.map(x=>x.hits));players=scored.filter(x=>x.hits===best).map(x=>x.p);partial=players.length>0}
+  }
+  const wantsPlayer=/(jugador|busca|donde juega|quien es)/.test(q)||(players.length&&!club);
+  if(wantsPlayer&&players.length){
+    if(!state.verified) return `He encontrado coincidencias, pero la búsqueda de jugadores solo está disponible para <b>cuentas verificadas</b> (familias, entrenadores o club). Son menores y su información está protegida.
+      <div style="margin-top:10px"><button class="btn" data-act="verify">Simular cuenta verificada</button></div>
+      <div class="small" style="margin-top:6px">En la app real, la verificación la hace el club o la familia con un código.</div>`;
+    const list=players.slice(0,6);
+    return `${partial?"No hay coincidencia exacta. Quizá buscas a alguno de estos:":players.length===1?"He encontrado a este jugador:":`He encontrado ${players.length} coincidencias${players.length>6?" (te muestro 6)":""}:`}
+    <div class="plist">${list.map(p=>{const t=teamById(p.team);const f=state.follows.includes(t.id);return `<div class="prow">${crest(t,34)}<div class="grow"><b>${esc(p.name)}</b><div class="small">${esc(t.name)} · dorsal ${p.dorsal} · ${p.pos}${p.goals?` · ${p.goals} gol${p.goals>1?"es":""}`:""}</div></div><button class="btn ${f?"ghost":""}" data-open="${t.id}">${f?"Abrir":"Seguir"}</button></div>`}).join("")}</div>`;
+  }
+  let teams=TEAMS.filter(t=>(!club||t.club.id===club.id)&&(!cat||t.cat.id===cat.id));
+  if(club||cat){
+    return `${teams.length===1?"Este es el equipo:":`Equipos encontrados (${teams.length}):`}<div class="plist">${teams.slice(0,8).map(t=>{const s=standings(t.cat.id);const pos=s.findIndex(r=>r.t.id===t.id)+1;const f=state.follows.includes(t.id);return `<div class="prow">${crest(t,34)}<div class="grow"><b>${esc(t.name)}</b><div class="small">${esc(t.cat.group)} · ${pos}º</div></div><button class="btn ${f?"ghost":""}" data-open="${t.id}">${f?"Abrir":"Seguir"}</button></div>`}).join("")}</div>`;
+  }
+  return null;
+}
+const HELP_MAIN="No he encontrado nada con eso. Prueba con el nombre y apellido de un jugador («busca a Hugo Jiménez»), un club o municipio («equipos de Getafe») o «clasificación cadete».";
+
+
+/* ============================================================
+   IA (Llama en Cloudflare Workers AI, el mismo worker de «Dónde lo Echan»)
+   Las preguntas que el motor local no entiende se mandan al modelo junto con
+   los datos de la ficha en texto. Solo funciona dentro de la app Android
+   (el worker solo acepta su origen); en otros sitios se muestra la ayuda.
+   ============================================================ */
+const IA_URL="https://dondeloechan-ia.alexample.workers.dev/cantera-ia";
+const iaDisponible=()=>location.host==="appassets.androidplatform.net";
+function contextoEquipo(t){
+  const s=standings(t.cat.id);
+  const L=[`FICHA: ${t.name} (${t.club.town}). Competición: ${t.cat.group}. Campo local: ${t.club.field}, ${t.club.addr}.`,`Hoy es ${fdate(TODAY)} de ${TODAY.getFullYear()}.`,"","CLASIFICACIÓN (pos. equipo PJ G E P GF GC Pts):"];
+  s.forEach((r,i)=>L.push(`${i+1}. ${r.t.club.name} ${r.pj} ${r.g} ${r.e} ${r.p} ${r.gf} ${r.gc} ${r.pts}`));
+  L.push("","PARTIDOS DEL EQUIPO:");
+  teamMatches(t.id).forEach(m=>{const h=teamById(m.home),a=teamById(m.away);
+    L.push(`J${m.jornada} ${fdate(m.date)} ${m.time} · ${h.club.name} ${m.played?m.hg+"-"+m.ag:"vs"} ${a.club.name} · ${h.club.field} (${h.club.addr})`+(m.played&&m.scorers.length?" · goles: "+m.scorers.map(x=>{const p=PLAYERS.find(y=>y.id===x.p);return p.name.split(" ").slice(0,2).join(" ")+" "+x.min+"'"+(x.team===t.id?"":" (rival)")}).join(", "):""))});
+  L.push("","GOLEADORES DEL EQUIPO:");
+  PLAYERS.filter(p=>p.team===t.id&&p.goals).sort((a,b)=>b.goals-a.goals).forEach(p=>L.push(`${p.name.split(" ").slice(0,2).join(" ")} (dorsal ${p.dorsal}, ${p.pos}): ${p.goals}`));
+  return L.join("\n");
+}
+function contextoGeneral(){
+  const L=[`Hoy es ${fdate(TODAY)} de ${TODAY.getFullYear()}. Datos de fútbol base de la Comunidad de Madrid (no incluye datos de jugadores).`];
+  CATS.forEach(c=>{L.push("",`${c.group} — clasificación:`);standings(c.id).forEach((r,i)=>L.push(`${i+1}. ${r.t.name} (${r.t.club.town}) ${r.pts} pts, ${r.pj} PJ, DG ${r.gf-r.gc}`));
+    const prox=MATCHES.filter(m=>m.cat===c.id&&!m.played);const j=prox.length?prox[0].jornada:null;
+    if(j){L.push(`Próxima jornada (${j}):`);prox.filter(m=>m.jornada===j).forEach(m=>L.push(`${fdate(m.date)} ${m.time} · ${teamById(m.home).club.name} vs ${teamById(m.away).club.name} · ${teamById(m.home).club.field}`))}});
+  return L.join("\n");
+}
+const fmtIA=t=>esc(t).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/^- /gm,"• ").replace(/\n/g,"<br>");
+async function preguntarIA(key,text,contexto){
+  if(!iaDisponible()) return null;
+  const hist=state.iah[key]||(state.iah[key]=[]);
+  const ctl=new AbortController();const tm=setTimeout(()=>ctl.abort(),25000);
+  try{
+    const r=await fetch(IA_URL,{method:"POST",headers:{"Content-Type":"application/json"},signal:ctl.signal,body:JSON.stringify({pregunta:text,historial:hist.slice(-6),contexto})});
+    const d=await r.json();
+    if(!r.ok||!d.respuesta) return `<span class="small">${esc(d.error||"La IA no ha podido responder ahora mismo.")}</span>`;
+    hist.push({rol:"usuario",texto:text},{rol:"asistente",texto:d.respuesta});
+    return fmtIA(d.respuesta)+`<div class="small" style="margin-top:6px">IA · puede equivocarse</div>`;
+  }catch(e){return `<span class="small">${navigator.onLine===false?"Sin conexión: el asistente necesita internet.":"La IA está tardando demasiado. Inténtalo otra vez."}</span>`}
+  finally{clearTimeout(tm)}
+}
+
+/* ============================================================
+   VISTAS
+   ============================================================ */
+function render(){
+  const app=$("#app");
+  if(state.view==="home") return renderHome(app);
+  if(state.view==="team") return renderChat(app,teamById(state.team));
+  if(state.view==="main") return renderChat(app,null);
+}
+function renderHome(app){
+  const followed=state.follows.map(teamById).filter(Boolean);
+  app.innerHTML=`<header class="top"><div class="toprow"><div class="grow"><h1>CANTERA MADRID</h1><div class="sub">Fútbol base · temporada 2026/27</div></div>
+    <button class="iconbtn" id="gear" aria-label="Ajustes">${icons.gear}</button></div></header>
+  <main>
+    <button class="maincta" id="openMain"><div class="ic">${icons.chat}</div><div><b>Chat principal</b><span>Busca jugadores, equipos y clasificaciones</span></div></button>
+    <div class="section-t">Mis equipos</div>
+    ${followed.length?followed.map(t=>{const s=standings(t.cat.id);const pos=s.findIndex(r=>r.t.id===t.id)+1;const lm=lastMatch(t.id);const nm=nextMatch(t.id);
+      return `<button class="team" data-team="${t.id}">${crest(t)}<div class="info"><div class="nm">${esc(t.club.name)}</div><div class="meta">${esc(t.cat.name)} A · ${lm?`<span class="badge ${outcome(lm,t.id)}">${lm.hg}-${lm.ag}</span>`:""}${nm?"próx. "+fdate(nm.date).split(" ").slice(0,2).join(" "):""}</div></div><div class="side"><b>${pos}º</b>${s[pos-1].pts} pts</div></button>`}).join("")
+      :`<div class="empty">Aún no sigues ningún equipo.</div>`}
+    <button class="addbtn" id="addTeam">+ Seguir un equipo</button>
+    <div class="demo-note"><b>Prototipo con datos inventados.</b> Clubes, campos, jugadores y resultados son ficticios. En la versión real, los datos vendrán de la RFFM. Las preguntas que no entiende el buscador las responde la IA (Llama en Cloudflare) cuando hay conexión.</div>
+  </main>`;
+  $("#gear").onclick=openSettings;
+  $("#openMain").onclick=()=>{state.view="main";render()};
+  $("#addTeam").onclick=openAdd;
+  app.querySelectorAll("[data-team]").forEach(b=>b.onclick=()=>{state.view="team";state.team=b.dataset.team;render()});
+}
+function renderChat(app,t){
+  const key=t?t.id:"_main";
+  if(!state.chats[key]) state.chats[key]=[{r:"b",h:t?`Hola, soy el asistente del <b>${esc(t.name)}</b>. Pregúntame lo que quieras sobre el equipo.`:`Busca un <b>jugador</b> por nombre y apellidos, un <b>club</b> o municipio, o pide la <b>clasificación</b> de una categoría.`}];
+  const chips=t?["¿Cómo quedó el último partido?","¿Cuándo y dónde es el próximo?","Clasificación","Goleadores","Racha","Plantilla"]
+               :["Busca a Hugo Jiménez","Equipos de Getafe","Clasificación cadete","Juvenil de Leganés"];
+  app.innerHTML=`<header class="top"><div class="toprow"><button class="iconbtn" id="back" aria-label="Volver">${icons.back}</button>
+    ${t?crest(t,40):""}<div class="grow"><h1 style="font-size:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(t.club.name):"Chat principal"}</h1><div class="sub">${t?esc(t.cat.group):"Jugadores y equipos de Madrid"}</div></div>
+    ${t?`<button class="iconbtn" id="unf" aria-label="Dejar de seguir">${icons.trash}</button>`:""}</div></header>
+  <main id="scroll"><div class="chat" id="chat"></div></main>
+  <div class="composer"><div class="chips">${chips.map(c=>`<button class="chip" data-ask="${esc(c)}">${esc(c)}</button>`).join("")}</div>
+  <form class="inp" id="f"><input id="q" placeholder="${t?"Pregunta sobre el equipo…":"Nombre, club o categoría…"}" autocomplete="off" enterkeyhint="send"><button aria-label="Enviar">${icons.send}</button></form></div>`;
+  const chat=$("#chat");
+  const draw=()=>{chat.innerHTML=state.chats[key].map(m=>`<div class="msg ${m.r}${m.h&&m.h.includes("<table")||m.h&&m.h.includes("plist")?" wide":""}">${m.h}</div>`).join("");$("#scroll").scrollTop=1e9};
+  draw();
+  const ask=text=>{
+    if(!text.trim())return;
+    state.chats[key].push({r:"u",h:esc(text)});
+    state.chats[key].push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span>'});draw();
+    setTimeout(async()=>{
+      let h=t?answerTeam(t,text):answerMain(text);
+      if(h===null) h=(await preguntarIA(key,text,t?contextoEquipo(t):contextoGeneral()))||(t?HELP_TEAM:HELP_MAIN);
+      state.chats[key].pop();state.chats[key].push({r:"b",h});draw();
+    },350);
+  };
+  $("#f").onsubmit=e=>{e.preventDefault();const v=$("#q").value;$("#q").value="";ask(v)};
+  app.onclick=e=>{
+    const a=e.target.closest("[data-ask]");if(a){ask(a.dataset.ask);return}
+    const o=e.target.closest("[data-open]");if(o){const id=o.dataset.open;if(!state.follows.includes(id)){state.follows.push(id);store.set("follows",state.follows)}state.view="team";state.team=id;app.onclick=null;render();return}
+    const v=e.target.closest("[data-act=verify]");if(v){state.verified=true;store.set("verified",true);state.chats[key].push({r:"b",h:"Listo, cuenta verificada (simulación). Repite la búsqueda."});draw()}
+  };
+  $("#back").onclick=()=>{state.view="home";app.onclick=null;render()};
+  if(t) $("#unf").onclick=()=>openConfirmUnfollow(t);
+}
+/* hojas inferiores */
+function openSheet(html,bind){$("#sheet").innerHTML=html;$("#sheetBg").style.display="block";requestAnimationFrame(()=>$("#sheet").classList.add("open"));bind&&bind()}
+function closeSheet(){$("#sheet").classList.remove("open");$("#sheetBg").style.display="none"}
+$("#sheetBg").onclick=closeSheet;
+function openAdd(){
+  openSheet(`<h3>Seguir un equipo</h3><input class="search" id="ts" placeholder="Club, municipio o categoría"><div class="plist" id="tl"></div>`,()=>{
+    const draw=()=>{const q=norm($("#ts").value);const list=TEAMS.filter(t=>!q||norm(t.name+" "+t.club.town+" "+t.cat.group).includes(q));
+      $("#tl").innerHTML=list.map(t=>{const f=state.follows.includes(t.id);return `<div class="prow">${crest(t,34)}<div class="grow"><b>${esc(t.name)}</b><div class="small">${esc(t.club.town)} · ${esc(t.cat.group)}</div></div><button class="btn ${f?"ghost":""}" data-add="${t.id}">${f?"Siguiendo":"Seguir"}</button></div>`}).join("")||'<div class="empty">Sin resultados</div>';
+      $("#tl").querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>{const id=b.dataset.add;if(!state.follows.includes(id)){state.follows.push(id);store.set("follows",state.follows)}draw();render()})};
+    $("#ts").oninput=draw;draw();
+  });
+}
+function openConfirmUnfollow(t){
+  openSheet(`<h3>¿Dejar de seguir?</h3><p>${esc(t.name)} desaparecerá de tus equipos y se borrará su conversación.</p><div style="display:flex;gap:10px"><button class="btn ghost" id="no" style="flex:1;padding:12px">Cancelar</button><button class="btn" id="yes" style="flex:1;padding:12px;background:var(--loss)">Dejar de seguir</button></div>`,()=>{
+    $("#no").onclick=closeSheet;
+    $("#yes").onclick=()=>{state.follows=state.follows.filter(x=>x!==t.id);store.set("follows",state.follows);delete state.chats[t.id];closeSheet();state.view="home";$("#app").onclick=null;render()};
+  });
+}
+function openSettings(){
+  openSheet(`<h3>Ajustes</h3>
+   <div class="tog"><div class="grow"><b>Cuenta verificada</b><div class="small">Permite buscar jugadores por nombre. En la app real lo valida el club o la familia.</div></div><button class="sw ${state.verified?"on":""}" id="vsw" aria-label="Cuenta verificada"></button></div>
+   <div class="tog"><div class="grow"><b>Fuente de datos</b><div class="small">Demo local · en producción: RFFM → Cloudflare D1, actualizado cada hora</div></div></div>
+   <div class="tog"><div class="grow"><b>Modelo</b><div class="small">Respuestas rápidas en el móvil; el resto, Llama 3.3 70B en Cloudflare Workers AI</div></div></div>`,()=>{
+    $("#vsw").onclick=()=>{state.verified=!state.verified;store.set("verified",state.verified);$("#vsw").classList.toggle("on",state.verified)};
+  });
+}
+/* Botón atrás de Android: cierra la hoja abierta o vuelve al inicio. Devuelve true si lo ha gestionado. */
+window.atras=()=>{
+  if($("#sheet").classList.contains("open")){closeSheet();return true}
+  if(state.view!=="home"){state.view="home";$("#app").onclick=null;render();return true}
+  return false;
+};
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+name = "cantera-madrid-api"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+
+# Modelo libre en Workers AI
+[ai]
+binding = "AI"
+
+# Base de datos con equipos, partidos, campos y jugadores
+[[d1_databases]]
+binding = "DB"
+database_name = "cantera-madrid"
+database_id = "PON_AQUI_EL_ID_QUE_TE_DA_wrangler_d1_create"
+
+# Actualización automática de datos desde la RFFM (cada hora, minuto 7)
+[triggers]
+crons = ["7 * * * *"]
+
+[vars]
+MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+ALLOWED_ORIGIN = "*"
