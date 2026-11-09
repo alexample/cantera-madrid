@@ -3,8 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Cantera Madrid · Prototipo</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<title>Cantera Madrid</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -105,114 +104,94 @@ a.map{display:inline-flex;align-items:center;gap:6px;margin-top:6px;color:var(--
 <div class="app" id="app"></div>
 <div class="sheet-bg" id="sheetBg"></div>
 <div class="sheet" id="sheet"></div>
-
 <script>
 /* ============================================================
-   DATOS DE DEMOSTRACIÓN — clubes, campos y jugadores inventados.
-   En producción vendrán de D1 (Cloudflare), alimentada desde la web de la RFFM.
+   CANTERA MADRID — fútbol base (Infantil, Cadete, Juvenil) de la Comunidad de Madrid
+   Datos: RFFM (www.rffm.es), descargados por el robot del repositorio (data/*.json).
    ============================================================ */
-const TODAY = new Date(); TODAY.setHours(0,0,0,0);
-function rng(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296}}
-const R = rng(20262027);
+const RAW="https://raw.githubusercontent.com/alexample/cantera-madrid/main/data/";
+const DATA_BASE=(()=>{try{return new URLSearchParams(location.search).get("datos")||RAW}catch(e){return RAW}})();
+const IA_URL="https://dondeloechan-ia.alexample.workers.dev/cantera-ia";
+const TODAY=new Date();TODAY.setHours(0,0,0,0);
+const CATN={inf:"Infantil",cad:"Cadete",juv:"Juvenil"};
+const CAT_ORDER=["inf","cad","juv"];
 
-const CLUBS = [
-  {id:"sno",name:"CD Sierra Norte",short:"SNO",town:"Colmenar Viejo",color:"#1c7ed6",field:"Campo Municipal La Dehesa",addr:"Av. de la Sierra 12, Colmenar Viejo"},
-  {id:"hen",name:"AD Henares",short:"HEN",town:"Alcalá de Henares",color:"#c92a2a",field:"Ciudad Deportiva El Ribero",addr:"C/ del Río 4, Alcalá de Henares"},
-  {id:"roz",name:"CF Rozas Atlético",short:"ROZ",town:"Las Rozas",color:"#7048e8",field:"Campo Municipal Los Olivos",addr:"C/ Olivar 21, Las Rozas"},
-  {id:"gsu",name:"UD Getafe Sur",short:"GSU",town:"Getafe",color:"#1098ad",field:"Campo San Isidro Sur",addr:"Av. de los Ángeles 88, Getafe"},
-  {id:"tcu",name:"CD Tres Cantos Unión",short:"TCU",town:"Tres Cantos",color:"#f08c00",field:"Campo La Foresta",addr:"Sector Foresta 7, Tres Cantos"},
-  {id:"lgn",name:"AD Leganés Norte",short:"LGN",town:"Leganés",color:"#2b8a3e",field:"Campo La Fortuna Norte",addr:"C/ Huertas 30, Leganés"},
-  {id:"vcb",name:"CF Vallecas Barrio",short:"VCB",town:"Madrid (Vallecas)",color:"#d6336c",field:"Campo Municipal Entrevías Este",addr:"C/ Ronda del Sur 140, Madrid"},
-  {id:"mos",name:"UD Móstoles Oeste",short:"MOS",town:"Móstoles",color:"#495057",field:"Campo El Soto Oeste",addr:"Av. del Soto 55, Móstoles"}
-];
-const CATS = [
-  {id:"inf",name:"Infantil",group:"Infantil Preferente · Grupo 2",times:["10:00","11:30"]},
-  {id:"cad",name:"Cadete",group:"Cadete Primera · Grupo 5",times:["12:00","16:00"]},
-  {id:"juv",name:"Juvenil",group:"Juvenil Preferente · Grupo 1",times:["17:00","18:30"]}
-];
-const NOMBRES="Hugo Mateo Martín Lucas Leo Daniel Pablo Álvaro Adrián Marcos Diego Mario Javier Sergio Iker Bruno Gonzalo Rodrigo Nicolás Izan Thiago Samuel Aitor Rubén Carlos Jorge Héctor Óscar Raúl Iván Unai Eric".split(" ");
-const APELL="García Martínez López Sánchez Pérez Gómez Martín Jiménez Ruiz Hernández Díaz Moreno Muñoz Álvarez Romero Navarro Torres Domínguez Gil Vázquez Serrano Ramos Blanco Castro Ortega Rubio Molina Delgado Morales Ortiz Cano Prieto".split(" ");
-const POS=["POR","DEF","DEF","DEF","DEF","MED","MED","MED","MED","DEL","DEL","DEL","MED","DEF","DEL","POR"];
-const pick=a=>a[Math.floor(R()*a.length)];
-
-const TEAMS=[]; const PLAYERS=[];
-CATS.forEach(cat=>CLUBS.forEach(club=>{
-  const t={id:club.id+"-"+cat.id,club,cat,name:club.name+" "+cat.name+" A",strength:0.6+R()*0.9};
-  TEAMS.push(t);
-  const used=new Set();
-  POS.forEach((pos,i)=>{
-    let n; do{n=pick(NOMBRES)+" "+pick(APELL)+" "+pick(APELL)}while(used.has(n)); used.add(n);
-    PLAYERS.push({id:t.id+"-"+i,name:n,dorsal:i+1,pos,team:t.id,goals:0});
-  });
-}));
-const teamById=id=>TEAMS.find(t=>t.id===id);
-
-// Calendario: liga a doble vuelta (método del círculo), una jornada por fin de semana desde el 19-sep-2026
-const MATCHES=[];
-function poisson(l){let L=Math.exp(-l),k=0,p=1;do{k++;p*=R()}while(p>L);return k-1}
-CATS.forEach(cat=>{
-  const ts=TEAMS.filter(t=>t.cat.id===cat.id); const n=ts.length; const idx=[...Array(n).keys()];
-  const rounds=[];
-  for(let r=0;r<n-1;r++){const pr=[];for(let i=0;i<n/2;i++){let a=idx[i],b=idx[n-1-i];if(i===0&&r%2)[a,b]=[b,a];pr.push([a,b])}rounds.push(pr);idx.splice(1,0,idx.pop())}
-  const all=[...rounds,...rounds.map(r=>r.map(([a,b])=>[b,a]))];
-  all.forEach((pr,j)=>{
-    const sat=new Date(2026,8,19+7*j);
-    pr.forEach(([a,b],k)=>{
-      const d=new Date(sat); if(k>=2) d.setDate(d.getDate()+1);
-      const time=cat.times[k%2];
-      const home=ts[a],away=ts[b];
-      const m={id:cat.id+"-"+(j+1)+"-"+k,cat:cat.id,jornada:j+1,date:d,time,home:home.id,away:away.id,played:d<TODAY,hg:null,ag:null,scorers:[]};
-      if(m.played){
-        m.hg=poisson(1.1+home.strength*0.9+0.25); m.ag=poisson(1.0+away.strength*0.9);
-        [[home,m.hg],[away,m.ag]].forEach(([t,g])=>{
-          const pl=PLAYERS.filter(p=>p.team===t.id&&p.pos!=="POR");
-          for(let x=0;x<g;x++){const w=pl.flatMap(p=>Array(p.pos==="DEL"?5:p.pos==="MED"?2:1).fill(p));const s=pick(w);s.goals++;m.scorers.push({p:s.id,team:t.id,min:1+Math.floor(R()*(cat.id==="inf"?70:cat.id==="cad"?80:90))})}
-        });
-        m.scorers.sort((x,y)=>x.min-y.min);
-      }
-      MATCHES.push(m);
-    });
-  });
-});
-
-function standings(catId){
-  const tab={}; TEAMS.filter(t=>t.cat.id===catId).forEach(t=>tab[t.id]={t,pj:0,g:0,e:0,p:0,gf:0,gc:0,pts:0});
-  MATCHES.filter(m=>m.cat===catId&&m.played).forEach(m=>{
-    const h=tab[m.home],a=tab[m.away];h.pj++;a.pj++;h.gf+=m.hg;h.gc+=m.ag;a.gf+=m.ag;a.gc+=m.hg;
-    if(m.hg>m.ag){h.g++;a.p++;h.pts+=3}else if(m.hg<m.ag){a.g++;h.p++;a.pts+=3}else{h.e++;a.e++;h.pts++;a.pts++}
-  });
-  return Object.values(tab).sort((x,y)=>y.pts-x.pts||(y.gf-y.gc)-(x.gf-x.gc)||y.gf-x.gf||x.t.club.name.localeCompare(y.t.club.name));
-}
-const teamMatches=id=>MATCHES.filter(m=>m.home===id||m.away===id).sort((a,b)=>a.date-b.date);
-const lastMatch=id=>teamMatches(id).filter(m=>m.played).pop();
-const nextMatch=id=>teamMatches(id).find(m=>!m.played);
-function outcome(m,id){const my=m.home===id?m.hg:m.ag,ot=m.home===id?m.ag:m.hg;return my>ot?"W":my<ot?"L":"D"}
-
-/* ============================================================
-   ESTADO
-   ============================================================ */
-const store={get(k,d){try{const v=localStorage.getItem("cm_"+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem("cm_"+k,JSON.stringify(v))}catch(e){}}};
-const state={
-  follows:store.get("follows",["gsu-cad","vcb-inf"]),
-  verified:store.get("verified",false),
-  chats:{}, // historial por ficha (solo en memoria)
-  iah:{},   // historial que se manda a la IA
-  flow:null, // asistente guiado en curso (chat principal)
-  view:"home", team:null
-};
-
-/* ============================================================
-   UTILIDADES
-   ============================================================ */
+/* ---------- utilidades ---------- */
 const $=s=>document.querySelector(s);
-const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const norm=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[¿?¡!.,;:]/g," ").replace(/\s+/g," ").trim();
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm=s=>String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[¿?¡!.,;:'"()\-\/]/g," ").replace(/\s+/g," ").trim();
 const DIAS=["domingo","lunes","martes","miércoles","jueves","viernes","sábado"];
 const MESES=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
 const fdate=d=>`${DIAS[d.getDay()]} ${d.getDate()} ${MESES[d.getMonth()]}`;
 function rel(d){const diff=Math.round((d-TODAY)/864e5);if(diff===0)return"hoy";if(diff===1)return"mañana";if(diff===-1)return"ayer";if(diff>1&&diff<7)return"este "+DIAS[d.getDay()];return null}
-const crest=(t,size)=>`<div class="crest" style="background:${t.club.color};${size?`width:${size}px;height:${size}px;font-size:${size*.38}px`:""}">${t.club.short}</div>`;
-const shortName=t=>t.club.name;
+const store={get(k,d){try{const v=localStorage.getItem("cm_"+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem("cm_"+k,JSON.stringify(v))}catch(e){}}};
+const SIGLAS=new Set(["a","d","c","f","u","s","e","r","sad","cd","ad","cf","ud","sd","ef","cde","adc","club","de","del","la","el","los","las","futbol","escuela","deportivo","deportiva","agrupacion","asociacion","sociedad","atletico","union","racing","real","rcd","cdf","ac","ce","cp","fc","ss","sporting","y","san"]);
+// "A.D. ALCORCON A" -> "A.D. Alcorcón A" (respeta siglas)
+function bonito(n){return String(n||"").toLowerCase().split(" ").map(w=>/\./.test(w)||/^[a-z]$/.test(w)||/^(sad|cd|ad|cf|ud|sd|cde|rcd|ef)$/.test(w)?w.toUpperCase():w.charAt(0).toUpperCase()+w.slice(1)).join(" ").replace(/\b(De|Del|La|Las|Los|El|Y)\b/g,x=>x.toLowerCase()).replace(/^./,c=>c.toUpperCase())}
+function siglas(club){const w=norm(club).split(" ").filter(x=>x.length>1&&!SIGLAS.has(x));const s=(w[0]||norm(club).replace(/ /g,"")).slice(0,3).toUpperCase();return s}
+function colorDe(s){let h=0;for(const c of String(s))h=(h*31+c.charCodeAt(0))>>>0;return `hsl(${h%360} 55% 38%)`}
+const cap=s=>String(s).replace(/(^|\s)\p{L}/gu,c=>c.toUpperCase()).replace(/\b(De|Del|La|Las|Los|El)\b/g,w=>w.toLowerCase());
+function km(a,b){if(!a||!b)return null;const R=6371,t=x=>x*Math.PI/180,dl=t(b[0]-a[0]),dn=t(b[1]-a[1]);const h=Math.sin(dl/2)**2+Math.cos(t(a[0]))*Math.cos(t(b[0]))*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(h))}
+
+/* ---------- datos ---------- */
+let IDX=null;          // índice
+let TEAMS=[];          // equipos
+const TEAM=new Map();  // id -> equipo
+const GD={};           // grupo -> datos cargados
+const CAMPOS={};       // id -> {name, addr, loc, ll}
+async function getJSON(name,{fresh=false}={}){
+  const url=DATA_BASE+name+(fresh?(DATA_BASE.startsWith("http")?"?t="+Date.now():""):"");
+  const r=await fetch(url,{cache:fresh?"no-store":"default"});
+  if(!r.ok)throw new Error("HTTP "+r.status);
+  return r.json();
+}
+function buildIndex(ix){
+  IDX=ix;TEAMS=[];TEAM.clear();
+  for(const [id,v] of Object.entries(ix.campos||{}))CAMPOS[id]={id,name:v[0],addr:v[1],loc:v[2],ll:v[3]!=null&&v[4]!=null?[v[3],v[4]]:null};
+  for(let [id,n,c,gs,campo] of ix.equipos){
+    const grupos=gs.filter(g=>ix.grupos[g]);if(!grupos.length)continue;
+    const g0=ix.grupos[grupos[0]];
+    const cp=CAMPOS[campo]||null;
+    c=String(c).replace(/\s+[A-Z]{1,2}$/,"");
+    const t={id,raw:n,name:bonito(n),club:bonito(c),clubKey:norm(c),cat:g0[0],fem:!!g0[3],grupos,campo:cp,town:cp?cap(cp.loc.toLowerCase()):"",ll:cp?cp.ll:null};
+    t.sig=siglas(c);t.color=colorDe(norm(c));
+    t.sName=" "+norm(n+" "+c)+" ";t.sPlace=" "+norm([cp&&cp.loc,cp&&cp.name].join(" "))+" ";t.search=t.sName+t.sPlace;
+    TEAMS.push(t);TEAM.set(id,t);
+  }
+}
+const grupo=gid=>{const g=IDX.grupos[gid];return g&&{id:gid,cat:g[0],comp:bonito(g[1]),grupo:bonito(g[2]),fem:g[3],compId:g[4],tj:g[5],temp:g[6]}};
+const grupoNombre=gid=>{const g=grupo(gid);return g?`${g.comp} · ${g.grupo}`:""};
+async function loadGroup(gid,fresh){
+  if(GD[gid]&&!fresh)return GD[gid];
+  const cached=store.get("g_"+gid,null);
+  if(cached&&!fresh&&Date.now()-(cached._t||0)<10*60e3){GD[gid]=prep(cached);return GD[gid]}
+  try{const d=await getJSON("g/"+gid+".json",{fresh:true});d._t=Date.now();store.set("g_"+gid,d);GD[gid]=prep(d)}
+  catch(e){if(cached){GD[gid]=prep(cached)}else throw e}
+  return GD[gid];
+}
+function prep(d){
+  d.matches=(d.part||[]).map(p=>({j:p[0],date:p[1]?new Date(p[1]+"T00:00:00"):null,time:p[2]||"",home:p[3],homeN:bonito(p[4]),away:p[5],awayN:bonito(p[6]),hg:p[7],ag:p[8],campo:p[9],campoN:p[10],played:p[7]!=null&&p[8]!=null}));
+  d.matches.sort((a,b)=>(a.j||0)-(b.j||0)||((a.date||0)-(b.date||0)));
+  if(d.clas&&d.clas.length)d.table=d.clas.map(r=>({pos:r[0],id:r[1],name:bonito(r[2]),pj:r[3]||0,g:r[4]||0,e:r[5]||0,p:r[6]||0,gf:r[7]||0,gc:r[8]||0,pts:r[9]||0}));
+  else{const tab={};const add=(id,n)=>tab[id]||(tab[id]={id,name:n,pj:0,g:0,e:0,p:0,gf:0,gc:0,pts:0});
+    d.matches.forEach(m=>{if(!m.home||!m.away)return;const h=add(m.home,m.homeN),a=add(m.away,m.awayN);if(!m.played)return;h.pj++;a.pj++;h.gf+=m.hg;h.gc+=m.ag;a.gf+=m.ag;a.gc+=m.hg;if(m.hg>m.ag){h.g++;a.p++;h.pts+=3}else if(m.hg<m.ag){a.g++;h.p++;a.pts+=3}else{h.e++;a.e++;h.pts++;a.pts++}});
+    d.table=Object.values(tab).sort((x,y)=>y.pts-x.pts||(y.gf-y.gc)-(x.gf-x.gc)).map((r,i)=>({...r,pos:i+1}))}
+  return d;
+}
+const teamGroup=t=>GD[t.grupos[0]];
+const teamMatches=t=>{const d=teamGroup(t);return d?d.matches.filter(m=>m.home===t.id||m.away===t.id):[]};
+const lastMatch=t=>teamMatches(t).filter(m=>m.played).sort((a,b)=>(a.date||0)-(b.date||0)||a.j-b.j).pop();
+const nextMatch=t=>{const ms=teamMatches(t).filter(m=>!m.played);return ms.find(m=>m.date&&m.date>=TODAY)||ms.find(m=>!m.date)};
+function outcome(m,id){const my=m.home===id?m.hg:m.ag,ot=m.home===id?m.ag:m.hg;return my>ot?"W":my<ot?"L":"D"}
+const fin=s=>/\.$/.test(s)?"":".";
+const rivalOf=(m,id)=>m.home===id?{id:m.away,n:m.awayN}:{id:m.home,n:m.homeN};
+
+/* ---------- estado ---------- */
+const state={follows:store.get("follows",[]).filter(Boolean),verified:store.get("verified",false),chats:{},iah:{},flow:null,view:"home",team:null};
+function follow(id){if(!state.follows.includes(id)){state.follows.push(id);store.set("follows",state.follows)}}
+
+/* ---------- piezas visuales ---------- */
+const crest=(t,size)=>`<div class="crest" style="background:${t.color};${size?`width:${size}px;height:${size}px;font-size:${Math.round(size*.36)}px`:""}">${esc(t.sig)}</div>`;
 const icons={
   back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>',
   gear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>',
@@ -221,376 +200,365 @@ const icons={
   pin:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>',
   trash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>'
 };
+function mapLink(c,label){if(!c)return"";const q=c.ll?c.ll.join(","):encodeURIComponent(c.name+", "+c.addr+", "+c.loc);return `<a class="map" href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" rel="noopener">${icons.pin} ${label||"Abrir en mapas"}</a>`}
+const opts=list=>`<div class="opts">${list.map(o=>`<button class="opt" data-ask="${esc(o.v||o.l||o)}">${o.ic?`<span>${o.ic}</span>`:""}${esc(o.l||o)}</button>`).join("")}</div>`;
+function teamRow(t,extra){const f=state.follows.includes(t.id);return `<div class="prow">${crest(t,34)}<div class="grow"><b>${esc(t.name)}</b><div class="small">${extra??esc(grupoNombre(t.grupos[0]))}</div></div><button class="btn ${f?"ghost":""}" data-open="${t.id}">${f?"Abrir":"Seguir"}</button></div>`}
+const teamCards=(ts,ll)=>`<div class="plist">${ts.map(t=>{const d=km(ll,t.ll);return teamRow(t,`${esc(CATN[t.cat])}${t.fem?" fem.":""} · ${esc(t.town||"")}${d!=null?` · a ${d<1?"menos de 1":Math.round(d)} km`:""}<br>${esc(grupoNombre(t.grupos[0]))}`)}).join("")}</div>`;
 
-/* ============================================================
-   MOTOR DE RESPUESTAS (DEMO)
-   En producción, la pregunta va al Worker → Llama 3.3 en Workers AI,
-   que llama a herramientas equivalentes a estas funciones sobre D1.
-   ============================================================ */
-function scoreCard(m,id){
-  const h=teamById(m.home),a=teamById(m.away);
-  const hs=m.scorers.filter(s=>s.team===h.id).map(s=>{const p=PLAYERS.find(x=>x.id===s.p);return esc(p.name.split(" ").slice(0,2).join(" "))+" "+s.min+"'"});
-  const as=m.scorers.filter(s=>s.team===a.id).map(s=>{const p=PLAYERS.find(x=>x.id===s.p);return esc(p.name.split(" ").slice(0,2).join(" "))+" "+s.min+"'"});
-  return `<div class="score"><div class="t">${esc(shortName(h))}</div><div class="r">${m.hg} – ${m.ag}</div><div class="t">${esc(shortName(a))}</div></div>
-  <div class="small" style="text-align:center">Jornada ${m.jornada} · ${fdate(m.date)} · ${esc(h.club.field)}</div>
-  ${m.scorers.length?`<div class="small" style="margin-top:6px">⚽ ${hs.length?esc(shortName(h))+": "+hs.join(", "):""}${hs.length&&as.length?"<br>⚽ ":""}${as.length?esc(shortName(a))+": "+as.join(", "):""}</div>`:""}`;
+const nombreJ=n=>{const m=String(n).match(/^(.*?),\s*(.+)$/);return m?m[2]+" "+m[1]:n};
+/* ---------- respuestas de la ficha ---------- */
+function scoreCard(m){
+  const c=CAMPOS[m.campo];
+  return `<div class="score"><div class="t">${esc(m.homeN)}</div><div class="r">${m.hg} – ${m.ag}</div><div class="t">${esc(m.awayN)}</div></div>
+  <div class="small" style="text-align:center">Jornada ${m.j??"?"}${m.date?" · "+fdate(m.date):""}${c||m.campoN?" · "+esc(c?c.name:m.campoN):""}</div>`;
 }
 function ansLast(t){
-  const m=lastMatch(t.id); if(!m) return "Todavía no ha jugado ningún partido esta temporada.";
-  const o=outcome(m,t.id); const verb={W:"ganó",D:"empató",L:"perdió"}[o];
-  const rival=teamById(m.home===t.id?m.away:m.home); const r=rel(m.date);
-  return `El ${esc(t.cat.name)} ${verb} ${o==="D"?"con":o==="W"?"a":"contra"} <b>${esc(shortName(rival))}</b>${r?" "+r:""} (${m.home===t.id?"en casa":"fuera"}).${scoreCard(m,t.id)}`;
+  const m=lastMatch(t);if(!m)return "Todavía no tiene resultados esta temporada.";
+  const o=outcome(m,t.id);const verb={W:"ganó",D:"empató",L:"perdió"}[o];const r=m.date&&rel(m.date);
+  return `${verb[0].toUpperCase()+verb.slice(1)} ${o==="D"?"con":o==="W"?"a":"contra"} <b>${esc(rivalOf(m,t.id).n)}</b>${r?" "+r:""} (${m.home===t.id?"en casa":"fuera"}).${scoreCard(m)}`;
 }
 function ansNext(t){
-  const m=nextMatch(t.id); if(!m) return "No quedan partidos en el calendario.";
-  const h=teamById(m.home),a=teamById(m.away),home=m.home===t.id; const rival=home?a:h; const r=rel(m.date);
-  const q=encodeURIComponent(h.club.field+", "+h.club.addr);
-  return `Próximo partido: <b>${home?"en casa":"fuera"}</b> contra <b>${esc(shortName(rival))}</b>.
-  <div class="next"><div class="when">${r?r[0].toUpperCase()+r.slice(1)+" "+m.date.getDate()+" "+MESES[m.date.getMonth()]:fdate(m.date)} · ${m.time}</div>
-  <div>${esc(h.club.field)}</div><div class="small">${esc(h.club.addr)}</div>
-  <a class="map" href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" rel="noopener">${icons.pin} Abrir en mapas</a></div>
-  <div class="small">Jornada ${m.jornada} · ${esc(t.cat.group)}</div>`;
+  const m=nextMatch(t);if(!m)return "No quedan partidos en el calendario de este grupo.";
+  const home=m.home===t.id;const r=m.date&&rel(m.date);const c=CAMPOS[m.campo];
+  const cuando=m.date?`${r?r[0].toUpperCase()+r.slice(1)+" "+m.date.getDate()+" "+MESES[m.date.getMonth()]:fdate(m.date)}${m.time?" · "+m.time:""}`:"Fecha por confirmar";
+  return `Próximo partido: <b>${home?"en casa":"fuera"}</b> contra <b>${esc(rivalOf(m,t.id).n)}</b>${fin(rivalOf(m,t.id).n)}
+  <div class="next"><div class="when">${cuando}</div>
+  ${c?`<div>${esc(c.name)}</div><div class="small">${esc([c.addr,c.loc].filter(Boolean).join(", "))}</div>${mapLink(c)}`:m.campoN?`<div>${esc(m.campoN)}</div>`:`<div class="small">Campo por confirmar</div>`}</div>
+  <div class="small">Jornada ${m.j??"?"} · ${esc(grupoNombre(t.grupos[0]))}</div>`;
 }
-function tableHTML(catId,highlight){
-  const s=standings(catId);
+function tableHTML(d,hl){
   return `<table class="st"><tr><th>#</th><th style="text-align:left">Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>DG</th><th>Pts</th></tr>
-  ${s.map((r,i)=>`<tr class="${r.t.id===highlight?"me":""}"><td>${i+1}</td><td class="n">${esc(shortName(r.t))}</td><td>${r.pj}</td><td>${r.g}</td><td>${r.e}</td><td>${r.p}</td><td>${r.gf-r.gc>0?"+":""}${r.gf-r.gc}</td><td class="p">${r.pts}</td></tr>`).join("")}</table>`;
+  ${d.table.map(r=>`<tr class="${r.id===hl?"me":""}"><td>${r.pos??""}</td><td class="n">${esc(r.name)}</td><td>${r.pj}</td><td>${r.g}</td><td>${r.e}</td><td>${r.p}</td><td>${r.gf-r.gc>0?"+":""}${r.gf-r.gc}</td><td class="p">${r.pts}</td></tr>`).join("")}</table>`;
 }
 function ansTable(t){
-  const s=standings(t.cat.id); const pos=s.findIndex(r=>r.t.id===t.id)+1; const me=s[pos-1];
-  const gap=pos>1?` a ${s[0].pts-me.pts} del líder`:", líder del grupo";
-  return `Va <b>${pos}º</b> con <b>${me.pts} puntos</b>${gap}.<div class="small">${esc(t.cat.group)}</div>${tableHTML(t.cat.id,t.id)}`;
+  const d=teamGroup(t);const me=d.table.find(r=>r.id===t.id);
+  if(!me)return `Clasificación de ${esc(grupoNombre(d.id))}:${tableHTML(d,t.id)}`;
+  const lider=d.table[0];
+  return `Va <b>${me.pos}º</b> con <b>${me.pts} puntos</b>${me.pos>1?` a ${lider.pts-me.pts} del líder`:", líder del grupo"}.<div class="small">${esc(grupoNombre(d.id))}</div>${tableHTML(d,t.id)}`;
 }
 function ansScorers(t){
-  const pl=PLAYERS.filter(p=>p.team===t.id&&p.goals>0).sort((a,b)=>b.goals-a.goals).slice(0,5);
-  if(!pl.length) return "Nadie ha marcado todavía esta temporada.";
-  return `Máximos goleadores del equipo:<div class="plist">${pl.map(p=>`<div class="prow"><div class="dor">${p.dorsal}</div><div class="grow">${esc(p.name)}<div class="small">${p.pos}</div></div><b>${p.goals} ⚽</b></div>`).join("")}</div>`;
+  const d=teamGroup(t);const pl=(d.gol||[]).filter(g=>g[1]===t.id).slice(0,8);
+  if(!pl.length)return (d.gol&&d.gol.length)?"Nadie del equipo aparece todavía en la tabla de goleadores del grupo.":"La federación no publica la tabla de goleadores de este grupo.";
+  return `Goleadores del equipo:<div class="plist">${pl.map((p,i)=>`<div class="prow"><div class="dor">${i+1}</div><div class="grow">${esc(nombreJ(p[0]))}</div><b>${p[2]} ⚽</b></div>`).join("")}</div>`;
 }
 function ansForm(t){
-  const ms=teamMatches(t.id).filter(m=>m.played).slice(-5);
+  const ms=teamMatches(t).filter(m=>m.played).sort((a,b)=>(a.date||0)-(b.date||0)).slice(-5);
+  if(!ms.length)return "Todavía no hay partidos jugados.";
   const pts=ms.reduce((s,m)=>s+{W:3,D:1,L:0}[outcome(m,t.id)],0);
   return `Últimos ${ms.length} partidos (${pts} de ${ms.length*3} puntos):<div style="margin:8px 0">${ms.map(m=>`<span class="badge ${outcome(m,t.id)}">${{W:"G",D:"E",L:"P"}[outcome(m,t.id)]}</span>`).join("")}</div>
-  ${ms.slice().reverse().map(m=>{const h=teamById(m.home),a=teamById(m.away);return `<div class="small">J${m.jornada} · ${esc(h.club.short)} ${m.hg}–${m.ag} ${esc(a.club.short)}</div>`}).join("")}`;
-}
-function ansSquad(t){
-  const pl=PLAYERS.filter(p=>p.team===t.id);
-  return `Plantilla (${pl.length} jugadores):<div class="plist">${pl.map(p=>`<div class="prow"><div class="dor">${p.dorsal}</div><div class="grow">${esc(p.name)}<div class="small">${p.pos}${p.goals?` · ${p.goals} gol${p.goals>1?"es":""}`:""}</div></div></div>`).join("")}</div>`;
+  ${ms.slice().reverse().map(m=>`<div class="small">J${m.j} · ${esc(m.homeN)} ${m.hg}–${m.ag} ${esc(m.awayN)}</div>`).join("")}`;
 }
 function ansJornada(t,n){
-  const ms=MATCHES.filter(m=>m.cat===t.cat.id&&m.jornada===n);
-  if(!ms.length) return `La jornada ${n} no existe (la liga tiene ${Math.max(...MATCHES.filter(m=>m.cat===t.cat.id).map(m=>m.jornada))} jornadas).`;
-  return `Jornada ${n} · ${esc(t.cat.group)}<div style="margin-top:6px">${ms.map(m=>{const h=teamById(m.home),a=teamById(m.away);const me=m.home===t.id||m.away===t.id;return `<div class="small" style="padding:4px 0;${me?"font-weight:700;color:var(--ink)":""}">${esc(shortName(h))} ${m.played?`<b>${m.hg}–${m.ag}</b>`:m.time} ${esc(shortName(a))}${m.played?"":" · "+fdate(m.date)}</div>`}).join("")}</div>`;
+  const d=teamGroup(t);const ms=d.matches.filter(m=>m.j===n);
+  if(!ms.length)return `No encuentro la jornada ${n} en este grupo.`;
+  return `Jornada ${n} · ${esc(grupoNombre(d.id))}<div style="margin-top:6px">${ms.map(m=>{if(!m.home||!m.away)return `<div class="small" style="padding:4px 0">Descansa: ${esc(m.home?m.homeN:m.awayN)}</div>`;const me=m.home===t.id||m.away===t.id;return `<div class="small" style="padding:4px 0;${me?"font-weight:700;color:var(--ink)":""}">${esc(m.homeN)} ${m.played?`<b>${m.hg}–${m.ag}</b>`:(m.time||"")} ${esc(m.awayN)}${!m.played&&m.date?" · "+fdate(m.date):""}</div>`}).join("")}</div>`;
 }
-function findClubInText(q,exclude){
-  return CLUBS.find(c=>c.id!==exclude&&(norm(c.name).split(" ").filter(w=>w.length>3&&!["atletico","union","barrio","norte","oeste"].includes(w)).some(w=>q.includes(w))||q.includes(norm(c.town).split(" ")[0])));
+function ansVs(t,rid){
+  const ms=teamMatches(t).filter(m=>m.home===rid||m.away===rid);const rn=TEAM.get(rid)?TEAM.get(rid).name:rivalOf(ms[0],t.id).n;
+  return `Contra ${esc(rn)} esta temporada:<div style="margin-top:6px">${ms.map(m=>`<div style="padding:4px 0">${m.played?`<span class="badge ${outcome(m,t.id)}">${{W:"G",D:"E",L:"P"}[outcome(m,t.id)]}</span>`:"🗓 "} J${m.j} · ${esc(m.homeN)} ${m.played?`<b>${m.hg}–${m.ag}</b>`:(m.time||"")} ${esc(m.awayN)} <span class="small">${m.date?fdate(m.date):"fecha por confirmar"}</span></div>`).join("")}</div>`;
 }
-function ansVs(t,club){
-  const ms=teamMatches(t.id).filter(m=>teamById(m.home).club.id===club.id||teamById(m.away).club.id===club.id);
-  return `Contra ${esc(club.name)} esta temporada:<div style="margin-top:6px">${ms.map(m=>{const h=teamById(m.home),a=teamById(m.away);return `<div style="padding:4px 0">${m.played?`<span class="badge ${outcome(m,t.id)}">${{W:"G",D:"E",L:"P"}[outcome(m,t.id)]}</span>`:"🗓 "} J${m.jornada} · ${esc(h.club.short)} ${m.played?`<b>${m.hg}–${m.ag}</b>`:m.time} ${esc(a.club.short)} <span class="small">${fdate(m.date)}</span></div>`}).join("")}</div>`;
+function findRival(t,q){
+  const d=teamGroup(t);const rivals=d.table.filter(r=>r.id!==t.id);
+  const words=q.split(" ").filter(w=>w.length>3&&!["como","contra","nos","fue","quedo","partido","resultado","jugamos","cuando","juega","equipo","ganamos","perdimos"].includes(w)&&!SIGLAS.has(w));
+  let best=null,score=0;for(const r of rivals){const n=norm(r.name);const s=words.filter(w=>n.includes(w)).length;if(s>score){score=s;best=r}}
+  return best&&best.id;
 }
-const HELP_TEAM="Puedo contarte el último resultado, el próximo partido y dónde se juega, la clasificación, los goleadores, la racha, la plantilla, una jornada concreta («jornada 3») o el historial contra un rival («¿cómo nos fue contra Henares?»).";
-
+const HELP_TEAM="Puedo contarte el último resultado, el próximo partido y dónde se juega, la clasificación, los goleadores, la racha, una jornada concreta («jornada 3») o cómo os fue contra un rival («¿cómo nos fue contra Alcorcón?»).";
 function answerTeam(t,text){
   const q=norm(text);
-  const jn=q.match(/jornada\s*(\d+)/); if(jn) return ansJornada(t,+jn[1]);
-  if(/(proxim|siguiente|cuando jug|cuando es|donde jug|donde es|a que hora|hora|campo|direcc|como llego|ubicac)/.test(q)) return ansNext(t);
-  if(/(clasific|tabla|posicion|puesto|lider|puntos|vamos)/.test(q)) return ansTable(t);
-  if(/(goleador|pichichi|quien marc|quienes marc|goles de|mas goles)/.test(q)) return ansScorers(t);
-  if(/(racha|ultimos partidos|forma|como van|como vamos)/.test(q)) return ansForm(t);
-  if(/(plantilla|jugadores|convocad|equipo complet)/.test(q)) return ansSquad(t);
-  const club=findClubInText(q,t.club.id); if(club) return ansVs(t,club);
-  if(/(quedo|resultado|gano|perdio|empato|ultimo|marcador|como fue|como salio|ayer|finde|fin de semana)/.test(q)) return ansLast(t);
-  return null; // sin intención clara: lo responde la IA (o la ayuda si no hay conexión)
-}
-
-// Chat principal: jugadores y equipos
-function answerMain(text){
-  const q=norm(text);
-  const cat=CATS.find(c=>q.includes(norm(c.name)));
-  if(/(clasific|tabla)/.test(q)){
-    if(!cat) return `¿De qué categoría? <div class="chips" style="margin-top:8px">${CATS.map(c=>`<button class="chip" data-ask="Clasificación ${c.name.toLowerCase()}">${c.name}</button>`).join("")}</div>`;
-    return `<b>${esc(cat.group)}</b>${tableHTML(cat.id)}`;
-  }
-  // equipos por club / municipio
-  const club=findClubInText(q);
-  const words=q.replace(/\b(busca|buscar|a|al|el|la|los|las|de|del|jugador|jugadora|donde|juega|en|que|equipo|equipos|quien|es|y|mi|hijo|hija)\b/g," ").split(" ").filter(w=>w.length>2);
-  let players=[],partial=false;
-  const stop=new Set([...(club?norm(club.name+" "+club.town).split(" "):[]),...CATS.map(c=>norm(c.name))]);
-  const nameWords=words.filter(w=>!stop.has(w));
-  if(nameWords.length){
-    let scored=PLAYERS.map(p=>{const pn=norm(p.name).split(" ");return{p,hits:nameWords.filter(w=>pn.some(x=>x.startsWith(w))).length}}).filter(x=>x.hits>0);
-    if(cat) scored=scored.filter(x=>teamById(x.p.team).cat.id===cat.id);
-    if(club) scored=scored.filter(x=>teamById(x.p.team).club.id===club.id);
-    const full=scored.filter(x=>x.hits===nameWords.length);
-    if(full.length) players=full.map(x=>x.p);
-    else if(nameWords.length>1){const best=Math.max(0,...scored.map(x=>x.hits));players=scored.filter(x=>x.hits===best).map(x=>x.p);partial=players.length>0}
-  }
-  const wantsPlayer=/(jugador|busca|donde juega|quien es)/.test(q)||(players.length&&!club);
-  if(wantsPlayer&&players.length){
-    if(!state.verified) return verifyMsg();
-    const list=players.slice(0,6);
-    return `${partial?"No hay coincidencia exacta. Quizá buscas a alguno de estos:":players.length===1?"He encontrado a este jugador:":`He encontrado ${players.length} coincidencias${players.length>6?" (te muestro 6)":""}:`}
-    <div class="plist">${list.map(p=>{const t=teamById(p.team);const f=state.follows.includes(t.id);return `<div class="prow">${crest(t,34)}<div class="grow"><b>${esc(p.name)}</b><div class="small">${esc(t.name)} · dorsal ${p.dorsal} · ${p.pos}${p.goals?` · ${p.goals} gol${p.goals>1?"es":""}`:""}</div></div><button class="btn ${f?"ghost":""}" data-open="${t.id}">${f?"Abrir":"Seguir"}</button></div>`}).join("")}</div>`;
-  }
-  let teams=TEAMS.filter(t=>(!club||t.club.id===club.id)&&(!cat||t.cat.id===cat.id));
-  if(club||cat){
-    return `${teams.length===1?"Este es el equipo:":`Equipos encontrados (${teams.length}):`}<div class="plist">${teams.slice(0,8).map(t=>{const s=standings(t.cat.id);const pos=s.findIndex(r=>r.t.id===t.id)+1;const f=state.follows.includes(t.id);return `<div class="prow">${crest(t,34)}<div class="grow"><b>${esc(t.name)}</b><div class="small">${esc(t.cat.group)} · ${pos}º</div></div><button class="btn ${f?"ghost":""}" data-open="${t.id}">${f?"Abrir":"Seguir"}</button></div>`}).join("")}</div>`;
-  }
+  const jn=q.match(/jornada\s*(\d+)/);if(jn)return ansJornada(t,+jn[1]);
+  if(/(proxim|siguiente|cuando jug|cuando es|donde jug|donde es|a que hora|hora|campo|direcc|como llego|ubicac)/.test(q))return ansNext(t);
+  if(/(clasific|tabla|posicion|puesto|lider|puntos|vamos)/.test(q))return ansTable(t);
+  if(/(goleador|pichichi|quien marc|quienes marc|goles de|mas goles)/.test(q))return ansScorers(t);
+  if(/(racha|ultimos partidos|forma|como van|como vamos)/.test(q))return ansForm(t);
+  if(/(plantilla|jugadores|convocad|alineacion)/.test(q))return "La federación no publica en abierto las plantillas. Sí puedo decirte quién ha marcado: pregúntame por los goleadores.";
+  const rid=/(contra|ante|frente|vs)/.test(q)||q.split(" ").length<=3?findRival(t,q):null;if(rid)return ansVs(t,rid);
+  if(/(quedo|resultado|gano|perdio|empato|ultimo|marcador|como fue|como salio|ayer|finde|fin de semana)/.test(q))return ansLast(t);
   return null;
 }
-const HELP_MAIN="No he encontrado nada con eso. Prueba con el nombre y apellido de un jugador («busca a Hugo Jiménez»), un club o municipio («equipos de Getafe») o «clasificación cadete».";
 
-
-/* ============================================================
-   CHAT PRINCIPAL GUIADO
-   Menú de inicio + asistentes paso a paso. El texto libre sigue funcionando.
-   ============================================================ */
-const SEASON=2026; // temporada 2026/27
-// Años de nacimiento por categoría (temporada que empieza en SEASON)
+/* ---------- búsqueda ---------- */
+const SEASON=(()=>{const d=new Date();return d.getMonth()>=6?d.getFullYear():d.getFullYear()-1})();
 const CAT_YEARS={juv:[SEASON-18,SEASON-16],cad:[SEASON-15,SEASON-14],inf:[SEASON-13,SEASON-12]};
 const OTHER_YEARS=[{name:"Alevín",y:[SEASON-11,SEASON-10]},{name:"Benjamín",y:[SEASON-9,SEASON-8]},{name:"Prebenjamín",y:[SEASON-7,SEASON-6]}];
-function catFromYear(y){
-  for(const c of CATS){const [a,b]=CAT_YEARS[c.id];if(y>=a&&y<=b)return{cat:c}}
-  for(const o of OTHER_YEARS){if(y>=o.y[0]&&y<=o.y[1])return{other:o.name}}
-  return{none:true};
-}
-const yrs=id=>CAT_YEARS[id][0]===CAT_YEARS[id][1]?""+CAT_YEARS[id][0]:CAT_YEARS[id][0]+"–"+CAT_YEARS[id][1];
-// Municipios y distritos con coordenadas aproximadas, para ordenar por cercanía
-const PLACES={"madrid":[40.4168,-3.7038],"vallecas":[40.384,-3.658],"puente de vallecas":[40.391,-3.668],"villa de vallecas":[40.373,-3.62],"entrevias":[40.381,-3.67],"alcala de henares":[40.482,-3.364],"alcala":[40.482,-3.364],"colmenar viejo":[40.659,-3.765],"colmenar":[40.659,-3.765],"las rozas":[40.492,-3.873],"rozas":[40.492,-3.873],"getafe":[40.305,-3.733],"tres cantos":[40.601,-3.708],"leganes":[40.328,-3.764],"mostoles":[40.322,-3.865],"fuenlabrada":[40.284,-3.794],"alcorcon":[40.345,-3.824],"parla":[40.237,-3.775],"alcobendas":[40.547,-3.642],"san sebastian de los reyes":[40.547,-3.626],"sanse":[40.547,-3.626],"torrejon de ardoz":[40.456,-3.48],"torrejon":[40.456,-3.48],"coslada":[40.426,-3.561],"rivas":[40.326,-3.518],"rivas-vaciamadrid":[40.326,-3.518],"majadahonda":[40.473,-3.872],"pozuelo":[40.435,-3.814],"pozuelo de alarcon":[40.435,-3.814],"boadilla":[40.405,-3.877],"boadilla del monte":[40.405,-3.877],"collado villalba":[40.634,-4.005],"villalba":[40.634,-4.005],"pinto":[40.241,-3.7],"valdemoro":[40.191,-3.674],"aranjuez":[40.033,-3.603],"arganda":[40.3,-3.438],"arganda del rey":[40.3,-3.438],"san fernando de henares":[40.425,-3.535],"villaviciosa de odon":[40.357,-3.9],"navalcarnero":[40.289,-4.013],"torrelodones":[40.577,-3.928],"galapagar":[40.578,-4.002],"algete":[40.597,-3.497],"mejorada del campo":[40.395,-3.488],"ciempozuelos":[40.159,-3.621],"humanes":[40.25,-3.828],"moralzarzal":[40.675,-3.97],"carabanchel":[40.383,-3.735],"latina":[40.403,-3.741],"hortaleza":[40.473,-3.641],"fuencarral":[40.493,-3.705],"moratalaz":[40.407,-3.645],"villaverde":[40.346,-3.7],"usera":[40.385,-3.706],"tetuan":[40.46,-3.698],"chamartin":[40.459,-3.677],"ciudad lineal":[40.443,-3.651],"san blas":[40.43,-3.611],"barajas":[40.473,-3.58],"vicalvaro":[40.4,-3.6],"arganzuela":[40.398,-3.697],"retiro":[40.411,-3.676],"salamanca":[40.427,-3.678],"chamberi":[40.434,-3.704],"centro":[40.415,-3.707],"moncloa":[40.435,-3.719],"aluche":[40.389,-3.76],"sanchinarro":[40.494,-3.66]};
-const CLUB_PLACE={sno:"colmenar viejo",hen:"alcala de henares",roz:"las rozas",gsu:"getafe",tcu:"tres cantos",lgn:"leganes",vcb:"vallecas",mos:"mostoles"};
-function findPlace(q){
-  q=norm(q);if(PLACES[q])return{name:q,ll:PLACES[q]};
+const yrs=id=>CAT_YEARS[id][0]+"–"+CAT_YEARS[id][1];
+function catFromYear(y){for(const c of CAT_ORDER){const[a,b]=CAT_YEARS[c];if(y>=a&&y<=b)return{cat:c}}for(const o of OTHER_YEARS)if(y>=o.y[0]&&y<=o.y[1])return{other:o.name};return{none:true}}
+const catInText=q=>/infantil/.test(q)?"inf":/cadete/.test(q)?"cad":/juvenil/.test(q)?"juv":null;
+const femInText=q=>/femenin|chicas|nina/.test(q);
+// Municipios y distritos (coordenadas aproximadas). Se completa con las localidades de los campos de la RFFM.
+const PLACES={"madrid":[40.4168,-3.7038],"vallecas":[40.384,-3.658],"puente de vallecas":[40.391,-3.668],"villa de vallecas":[40.373,-3.62],"entrevias":[40.381,-3.67],"carabanchel":[40.383,-3.735],"latina":[40.403,-3.741],"aluche":[40.389,-3.76],"hortaleza":[40.473,-3.641],"fuencarral":[40.493,-3.705],"moratalaz":[40.407,-3.645],"villaverde":[40.346,-3.7],"usera":[40.385,-3.706],"tetuan":[40.46,-3.698],"chamartin":[40.459,-3.677],"ciudad lineal":[40.443,-3.651],"san blas":[40.43,-3.611],"barajas":[40.473,-3.58],"vicalvaro":[40.4,-3.6],"arganzuela":[40.398,-3.697],"retiro":[40.411,-3.676],"salamanca":[40.427,-3.678],"chamberi":[40.434,-3.704],"centro":[40.415,-3.707],"moncloa":[40.435,-3.719],"aravaca":[40.459,-3.783],"sanchinarro":[40.494,-3.66],"valdebebas":[40.483,-3.618],"las tablas":[40.507,-3.668],"alcala de henares":[40.482,-3.364],"alcala":[40.482,-3.364],"colmenar viejo":[40.659,-3.765],"las rozas":[40.492,-3.873],"getafe":[40.305,-3.733],"tres cantos":[40.601,-3.708],"leganes":[40.328,-3.764],"mostoles":[40.322,-3.865],"fuenlabrada":[40.284,-3.794],"alcorcon":[40.345,-3.824],"parla":[40.237,-3.775],"alcobendas":[40.547,-3.642],"san sebastian de los reyes":[40.547,-3.626],"sanse":[40.547,-3.626],"torrejon de ardoz":[40.456,-3.48],"torrejon":[40.456,-3.48],"coslada":[40.426,-3.561],"rivas":[40.326,-3.518],"rivas vaciamadrid":[40.326,-3.518],"majadahonda":[40.473,-3.872],"pozuelo":[40.435,-3.814],"pozuelo de alarcon":[40.435,-3.814],"boadilla":[40.405,-3.877],"boadilla del monte":[40.405,-3.877],"collado villalba":[40.634,-4.005],"villalba":[40.634,-4.005],"pinto":[40.241,-3.7],"valdemoro":[40.191,-3.674],"aranjuez":[40.033,-3.603],"arganda":[40.3,-3.438],"arganda del rey":[40.3,-3.438],"san fernando de henares":[40.425,-3.535],"villaviciosa de odon":[40.357,-3.9],"navalcarnero":[40.289,-4.013],"torrelodones":[40.577,-3.928],"galapagar":[40.578,-4.002],"algete":[40.597,-3.497],"mejorada del campo":[40.395,-3.488],"ciempozuelos":[40.159,-3.621],"humanes":[40.25,-3.828],"moralzarzal":[40.675,-3.97],"villanueva de la canada":[40.446,-4.003],"villanueva del pardillo":[40.49,-3.966],"brunete":[40.405,-3.998],"griñon":[40.212,-3.85],"paracuellos de jarama":[40.505,-3.528],"daganzo":[40.544,-3.456],"meco":[40.553,-3.328],"velilla de san antonio":[40.365,-3.484],"san martin de la vega":[40.21,-3.57],"guadarrama":[40.672,-4.089],"el escorial":[40.582,-4.126],"san lorenzo de el escorial":[40.591,-4.147],"soto del real":[40.754,-3.78],"el molar":[40.735,-3.58],"buitrago":[40.995,-3.636],"cobeña":[40.565,-3.505],"sevilla la nueva":[40.347,-4.026]};
+function addLocalities(){const acc={};for(const c of Object.values(CAMPOS)){if(!c.loc||!c.ll)continue;const k=norm(c.loc);(acc[k]=acc[k]||[]).push(c.ll)}
+  for(const[k,l] of Object.entries(acc))if(!PLACES[k])PLACES[k]=[l.reduce((s,x)=>s+x[0],0)/l.length,l.reduce((s,x)=>s+x[1],0)/l.length]}
+function findPlace(text){
+  const q=norm(text);if(PLACES[q])return{name:q,ll:PLACES[q]};
   const keys=Object.keys(PLACES).sort((a,b)=>b.length-a.length);
-  const k=keys.find(k=>(" "+q+" ").includes(" "+k+" "))||keys.find(k=>k.startsWith(q)&&q.length>=4);
+  const k=keys.find(k=>(" "+q+" ").includes(" "+k+" "))||(q.length>=4&&keys.find(k=>k.startsWith(q)));
   return k?{name:k,ll:PLACES[k]}:null;
 }
-function km(a,b){const R=6371,t=x=>x*Math.PI/180,dl=t(b[0]-a[0]),dn=t(b[1]-a[1]);const h=Math.sin(dl/2)**2+Math.cos(t(a[0]))*Math.cos(t(b[0]))*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(h))}
-const clubKm=(club,ll)=>ll?km(ll,PLACES[CLUB_PLACE[club.id]]):null;
-const cap=s=>s.replace(/\b\p{L}/gu,c=>c.toUpperCase()).replace(/\b(De|Del|La|Las|Los|El)\b/g,w=>w.toLowerCase());
-
-const opts=(list)=>`<div class="opts">${list.map(o=>`<button class="opt" data-ask="${esc(o.v||o.l||o)}">${o.ic?`<span>${o.ic}</span>`:""}${esc(o.l||o)}</button>`).join("")}</div>`;
-const MENU=[{ic:"🔍",l:"Buscar un equipo"},{ic:"👤",l:"Buscar un jugador"},{ic:"🧭",l:"Ayúdame a encontrar un equipo"},{ic:"🏆",l:"Ver clasificaciones"}];
-const welcomeMain=()=>`¡Hola! ¿Qué quieres hacer?${opts(MENU)}<div class="small" style="margin-top:8px">También puedes escribir directamente, por ejemplo «cadete de Getafe».</div>`;
-const more=()=>`<div class="small" style="margin-top:10px">¿Algo más?</div>${opts([{l:"Volver al menú",v:"Menú"},{l:"Buscar otro equipo",v:"Buscar un equipo"}])}`;
-
-function teamCards(teams,ll){
-  return `<div class="plist">${teams.map(t=>{const s=standings(t.cat.id);const pos=s.findIndex(r=>r.t.id===t.id)+1;const f=state.follows.includes(t.id);const d=clubKm(t.club,ll);
-    return `<div class="prow">${crest(t,34)}<div class="grow"><b>${esc(t.name)}</b><div class="small">${esc(t.club.town)}${d!=null?` · a ${d<1?"menos de 1":Math.round(d)} km`:""} · ${pos}º en ${esc(t.cat.group.split(" · ")[0])}</div></div><button class="btn ${f?"ghost":""}" data-open="${t.id}">${f?"Abrir":"Seguir"}</button></div>`}).join("")}</div>`;
+const STOP=new Set(["busca","buscar","equipo","equipos","el","la","los","las","de","del","en","un","una","mi","hijo","hija","que","juega","donde","esta","quiero","ver","club","futbol","a","al","y","infantil","cadete","juvenil","femenino","femenina","masculino"]);
+function searchTeams(text,{cat,fem}={}){
+  const q=norm(text);cat=cat||catInText(q);fem=fem??(femInText(q)||null);
+  const words=q.split(" ").filter(w=>w.length>1&&!STOP.has(w));
+  let res=TEAMS.filter(t=>(!cat||t.cat===cat)&&(fem==null||t.fem===fem));
+  if(words.length){
+    res=res.map(t=>{let s=0,hit=0;for(const w of words){let k=0;if(t.sName.includes(" "+w+" "))k=3;else if(t.sName.includes(w))k=2;else if(t.sPlace.includes(" "+w+" "))k=1.5;else if(t.sPlace.includes(w))k=1;if(k)hit++;s+=k}return{t,s,hit}})
+      .filter(x=>x.hit===words.length).sort((a,b)=>b.s-a.s||a.t.name.localeCompare(b.t.name)).map(x=>x.t);
+  }else if(!cat)res=[];
+  return res;
 }
-function startFlow(type){state.flow={type,step:0,data:{}};}
+function nearestTeams(ll,{cat,fem,limit=6}={}){
+  return TEAMS.filter(t=>t.ll&&(!cat||t.cat===cat)&&(fem==null||t.fem===fem)).map(t=>({t,d:km(ll,t.ll)})).sort((a,b)=>a.d-b.d).slice(0,limit).map(x=>x.t);
+}
+function nearestClubs(ll,cat,limit=5,fem=null){
+  const best={};for(const t of TEAMS){if(cat&&t.cat!==cat)continue;if(fem!=null&&t.fem!==fem)continue;const d=ll&&t.ll?km(ll,t.ll):null;const b=best[t.clubKey];if(!b||(d!=null&&(b.d==null||d<b.d)))best[t.clubKey]={club:t.club,key:t.clubKey,d,town:t.town}}
+  return Object.values(best).sort((a,b)=>(a.d??1e9)-(b.d??1e9)||a.club.localeCompare(b.club)).slice(0,limit);
+}
 
-function handleMain(text){
-  const q=norm(text);
-  // Comandos globales
-  if(/^(menu|inicio|empezar|hola|cancelar|salir|volver al menu)$/.test(q)){state.flow=null;return welcomeMain()}
-  if(/buscar (un )?equipo/.test(q)&&q.split(" ").length<=4){startFlow("team");return "¿Cómo se llama el club o en qué municipio o barrio juega?"+opts(CLUBS.slice(0,4).map(c=>c.town.split(" (")[0]))}
-  if(/buscar (un |a un )?jugador/.test(q)&&q.split(" ").length<=4){
-    if(!state.verified){state.flow=null;return verifyMsg()}
-    startFlow("player");return "Escribe el <b>nombre y apellidos</b> del jugador (con el nombre y un apellido suele bastar)."}
-  if(/(ayudame a encontrar|encontrar (un |su |mi )?equipo|no se (en )?que equipo|que equipo le toca)/.test(q)){startFlow("wizard");return wizardAsk()}
-  if(/^(ver )?clasificacion(es)?$/.test(q)){state.flow=null;return "¿De qué categoría?"+opts(CATS.map(c=>({l:`${c.name} (${yrs(c.id)})`,v:"Clasificación "+c.name.toLowerCase()})))}
-
-  const f=state.flow;
-  if(f&&f.type==="team"){state.flow=null;let r=answerMain(text);
-    const pl=!r&&findPlace(text);
-    if(pl){const near=CLUBS.map(c=>({c,d:clubKm(c,pl.ll)})).sort((a,b)=>a.d-b.d).slice(0,2);
-      r=`No hay equipos registrados en ${esc(cap(pl.name))}. Los clubes más cercanos son estos:`+teamCards(TEAMS.filter(t=>near.some(x=>x.c.id===t.club.id)).sort((a,b)=>clubKm(a.club,pl.ll)-clubKm(b.club,pl.ll)),pl.ll)}return (r||"No he encontrado ningún equipo con eso. Prueba con otro nombre o municipio, o deja que te ayude a encontrarlo."+opts(["Ayúdame a encontrar un equipo","Buscar un equipo"]))+(r?more():"")}
-  if(f&&f.type==="player"){
-    const r=answerMain("busca "+text);
-    if(r&&r.includes("data-open")){state.flow=null;return r+more()}
-    return "No he encontrado a nadie con ese nombre. Revisa cómo se escribe o prueba solo con nombre y primer apellido."+opts([{l:"Cancelar",v:"Menú"}]);
+/* ---------- chat principal ---------- */
+const MENU=[{ic:"🔍",l:"Buscar un equipo"},{ic:"👤",l:"Buscar un jugador"},{ic:"🧭",l:"Ayúdame a encontrar un equipo"},{ic:"🏆",l:"Ver clasificaciones"}];
+const welcomeMain=()=>`¡Hola! ¿Qué quieres hacer?${opts(MENU)}<div class="small" style="margin-top:8px">También puedes escribir directamente, por ejemplo «cadete Alcorcón».</div>`;
+const more=()=>`<div class="small" style="margin-top:10px">¿Algo más?</div>${opts([{l:"Volver al menú",v:"Menú"},{l:"Buscar otro equipo",v:"Buscar un equipo"}])}`;
+const HELP_MAIN="No he encontrado nada con eso. Prueba con el nombre del club o del municipio («Alcorcón», «Carabanchel»), añade la categoría («cadete Getafe») o deja que te ayude paso a paso.";
+function startFlow(type){state.flow={type,step:0,data:{}}}
+function listTeams(res,text){
+  if(!res.length)return null;
+  const top=res.slice(0,8);
+  return `${res.length===1?"Este es el equipo:":`He encontrado ${res.length} equipos${res.length>8?" (te enseño 8; añade la categoría o el municipio para afinar)":""}:`}${teamCards(top)}`;
+}
+function answerMain(text){
+  const q=norm(text);const cat=catInText(q);
+  if(/(clasific|tabla)/.test(q)){
+    if(!cat)return "¿De qué categoría?"+opts(CAT_ORDER.map(c=>({l:`${CATN[c]} (${yrs(c)})`,v:"Clasificación "+CATN[c].toLowerCase()})));
+    return pickCompetition(cat);
   }
-  if(f&&f.type==="wizard") return wizardAnswer(text);
-
-  const r=answerMain(text);
-  return r===null?null:r;
+  let res=searchTeams(text);
+  if(!res.length){const p=findPlace(text);if(p){const near=nearestTeams(p.ll,{cat,fem:femInText(q)||null,limit:8});if(near.length)return `Equipos${cat?" "+CATN[cat]:""} con campo más cerca de <b>${esc(cap(p.name))}</b>:`+teamCards(near,p.ll)}}
+  return listTeams(res,text);
+}
+function pickCompetition(cat){
+  const comps={};for(const[gid,g] of Object.entries(IDX.grupos)){if(g[0]!==cat)continue;(comps[g[4]]=comps[g[4]]||{name:bonito(g[1]),groups:[]}).groups.push(gid)}
+  const list=Object.entries(comps).sort((a,b)=>a[1].name.localeCompare(b[1].name));
+  state.flow={type:"clas",step:0,data:{cat,comps}};
+  return `¿Qué competición de ${CATN[cat]}?`+opts(list.map(([id,c])=>({l:`${c.name} (${c.groups.length} ${c.groups.length>1?"grupos":"grupo"})`,v:"comp:"+id})));
+}
+async function handleMain(text){
+  const q=norm(text);
+  if(/^(menu|inicio|empezar|hola|cancelar|salir|volver al menu)$/.test(q)){state.flow=null;return welcomeMain()}
+  if(/^buscar (un )?equipo$/.test(q)){startFlow("team");return "¿Cómo se llama el club o en qué municipio o barrio juega? Si sabes la categoría, añádela (por ejemplo «cadete Alcorcón»)."}
+  if(/^buscar (un |a un )?jugador$/.test(q)){if(!state.verified){state.flow=null;return verifyMsg()}startFlow("player");return "Escribe el <b>nombre y apellidos</b> del jugador."}
+  if(/(ayudame a encontrar|encontrar (un |su |mi )?equipo|no se (en )?que equipo)/.test(q)){startFlow("wizard");return wizardAsk()}
+  if(/^(ver )?clasificacion(es)?$/.test(q)){state.flow=null;return "¿De qué categoría?"+opts(CAT_ORDER.map(c=>({l:`${CATN[c]} (${yrs(c)})`,v:"Clasificación "+CATN[c].toLowerCase()})))}
+  const f=state.flow;
+  if(f&&f.type==="clas"){
+    if(text.startsWith("comp:")){const c=f.data.comps[text.slice(5)];if(!c)return null;
+      if(c.groups.length===1){state.flow=null;return await groupTable(c.groups[0])}
+      return `${esc(c.name)}: ¿qué grupo?`+opts(c.groups.map(g=>({l:grupo(g).grupo,v:"grupo:"+g})))}
+    if(text.startsWith("grupo:")){state.flow=null;return await groupTable(text.slice(6))}
+    state.flow=null;
+  }
+  if(f&&f.type==="team"){state.flow=null;const r=answerMain(text);return r?r+more():HELP_MAIN+opts(["Ayúdame a encontrar un equipo","Buscar un equipo"])}
+  if(f&&f.type==="player"){const r=await playerSearch(text);if(r){state.flow=null;return r+more()}return "No he encontrado a nadie con ese nombre entre los goleadores. Revisa cómo se escribe o prueba con nombre y primer apellido."+opts([{l:"Cancelar",v:"Menú"}])}
+  if(f&&f.type==="wizard")return wizardAnswer(text);
+  if(/^busca (a )?/.test(q)&&state.verified){const r=await playerSearch(text.replace(/^\s*busca\s+(a\s+)?/i,""));if(r)return r+more()}
+  return answerMain(text);
+}
+async function groupTable(gid){
+  const d=await loadGroup(gid);
+  const ts=d.table.map(r=>TEAM.get(r.id)).filter(Boolean);
+  return `<b>${esc(grupoNombre(gid))}</b>${tableHTML(d)}<div class="small" style="margin-top:8px">Para seguir a un equipo, búscalo por su nombre.</div>${more()}`;
 }
 function verifyMsg(){return `La búsqueda de jugadores solo está disponible para <b>cuentas verificadas</b> (familias, entrenadores o club), porque son menores.
   <div style="margin-top:10px"><button class="btn" data-act="verify">Simular cuenta verificada</button></div>
   <div class="small" style="margin-top:6px">Mientras tanto, puedo ayudarte a encontrar su equipo con el año de nacimiento y la zona.</div>${opts(["Ayúdame a encontrar un equipo"])}`}
-
-// Asistente: año de nacimiento → zona → club (opcional) → equipos
+let GOLEADORES=null;
+async function playerSearch(text){
+  if(!GOLEADORES){try{GOLEADORES=(await getJSON("goleadores.json")).map(r=>({n:nombreJ(r[0]),nn:norm(r[0]),t:r[1],g:r[2]}))}catch(e){return "No he podido cargar los datos de jugadores ahora mismo."}}
+  const w=norm(text).split(" ").filter(x=>x.length>1);if(!w.length)return null;
+  const res=GOLEADORES.filter(p=>w.every(x=>(" "+p.nn).includes(" "+x))).slice(0,8);
+  if(!res.length)return null;
+  return `${res.length===1?"He encontrado a este jugador:":`He encontrado ${res.length} jugadores:`}<div class="plist">${res.map(p=>{const t=TEAM.get(p.t);return t?`<div class="prow">${crest(t,34)}<div class="grow"><b>${esc(p.n)}</b><div class="small">${esc(t.name)} · ${p.g} gol${p.g>1?"es":""}</div></div><button class="btn ${state.follows.includes(t.id)?"ghost":""}" data-open="${t.id}">${state.follows.includes(t.id)?"Abrir":"Seguir"}</button></div>`:""}).join("")}</div><div class="small" style="margin-top:6px">Solo aparecen jugadores con goles registrados por la federación.</div>`;
+}
+/* asistente: año → zona → club */
 function wizardAsk(){
   const f=state.flow,d=f.data;
-  if(f.step===0) return `Vamos a encontrarlo en tres preguntas.<br><b>1/3 · ¿En qué año nació el jugador?</b> También me vale su edad.${opts([...CATS.slice().reverse().map(c=>({l:`${yrs(c.id)} · ${c.name}`,v:"Nació en "+CAT_YEARS[c.id][0]})),{l:"Otro año",v:"Otro año"}])}`;
-  if(f.step===1) return `<b>2/3 · ¿Dónde vive o dónde le gustaría jugar?</b> Escribe un municipio o barrio de Madrid.${opts(["Getafe","Leganés","Alcalá de Henares","Las Rozas","Vallecas","Me da igual"])}`;
-  if(f.step===2){
-    const near=CLUBS.map(c=>({c,d:clubKm(c,d.place&&d.place.ll)})).sort((a,b)=>(a.d??0)-(b.d??0)).slice(0,4);
-    return `<b>3/3 · ¿Sabes el nombre del club?</b>${opts([...near.map(x=>({l:x.c.name+(x.d!=null?` (${Math.round(x.d)} km)`:""),v:x.c.name})),{l:"No lo sé",v:"No lo sé"}])}`;
-  }
+  if(f.step===0)return `Vamos a encontrarlo en tres preguntas.<br><b>1/3 · ¿En qué año nació el jugador?</b> También me vale su edad.${opts([...CAT_ORDER.map(c=>({l:`${yrs(c)} · ${CATN[c]}`,v:"Nació en "+CAT_YEARS[c][0]})),{l:"Otro año",v:"Otro año"}])}`;
+  if(f.step===0.5)return `<b>¿Qué tipo de equipo?</b>${opts([{l:"Masculino o mixto",v:"Masculino"},{l:"Femenino",v:"Femenino"},{l:"Cualquiera",v:"Cualquiera"}])}`;
+  if(f.step===1)return `<b>2/3 · ¿Dónde vive o dónde juega?</b> Escribe un municipio o barrio (por ejemplo «Alcorcón» o «Carabanchel»).${opts(["Me da igual"])}`;
+  if(f.step===2){const near=nearestClubs(d.place&&d.place.ll,d.cat,5,d.fem);
+    return `<b>3/3 · ¿Sabes el nombre del club?</b> Puedes escribirlo o elegir uno cercano.${opts([...near.map(x=>({l:x.club+(x.d!=null?` (${Math.round(x.d)} km)`:""),v:"club:"+x.key})),{l:"No lo sé",v:"No lo sé"}])}`}
 }
 function wizardAnswer(text){
   const f=state.flow,d=f.data,q=norm(text);
   if(f.step===0){
-    if(q==="otro ano") return `Escribe el año de nacimiento, por ejemplo «2012». Ahora mismo la app cubre Infantil (${yrs("inf")}), Cadete (${yrs("cad")}) y Juvenil (${yrs("juv")}).`;
-    let y=(q.match(/\b(19|20)\d{2}\b/)||[])[0];
-    const age=!y&&(q.match(/\b(\d{1,2})\b/)||[])[1];
-    if(age){y=SEASON-(+age);d.fromAge=+age}
-    if(!y) return "No lo he entendido. Escribe el año de nacimiento (por ejemplo «2012») o la edad (por ejemplo «13 años»).";
+    if(q==="otro ano")return `Escribe el año de nacimiento, por ejemplo «2012». La app cubre Infantil (${yrs("inf")}), Cadete (${yrs("cad")}) y Juvenil (${yrs("juv")}).`;
+    let y=(q.match(/\b(19|20)\d{2}\b/)||[])[0];const age=!y&&(q.match(/\b(\d{1,2})\b/)||[])[1];
+    if(age){y=SEASON-(+age);d.fromAge=true}
+    if(!y)return "No lo he entendido. Escribe el año de nacimiento (por ejemplo «2012») o la edad (por ejemplo «13 años»).";
     y=+y;const r=catFromYear(y);
-    if(r.other){state.flow=null;return `Nacido en ${y} juega en <b>${r.other}</b>. De momento la app solo cubre Infantil, Cadete y Juvenil; pronto añadiremos más categorías.${more()}`}
-    if(r.none){return `Con ${y} no encaja en fútbol base. Revisa el año: Infantil ${yrs("inf")}, Cadete ${yrs("cad")}, Juvenil ${yrs("juv")}.`}
-    d.cat=r.cat;d.year=y;f.step=1;
-    return `Nacido en ${y}${d.fromAge?" (calculado por la edad)":""} → <b>${d.cat.name}</b> esta temporada.<br><br>`+wizardAsk();
+    if(r.other){state.flow=null;return `Nacido en ${y} juega en <b>${r.other}</b>. De momento la app cubre Infantil, Cadete y Juvenil.${more()}`}
+    if(r.none)return `Con ${y} no encaja en fútbol base. Infantil ${yrs("inf")}, Cadete ${yrs("cad")}, Juvenil ${yrs("juv")}.`;
+    d.cat=r.cat;d.year=y;f.step=0.5;
+    return `Nacido en ${y}${d.fromAge?" (calculado por la edad)":""} → <b>${CATN[d.cat]}</b> esta temporada.<br><br>`+wizardAsk();
   }
+  if(f.step===0.5){d.fem=/femen|chica|nina/.test(q)?true:/mascul|mixto|chico|nino/.test(q)?false:null;f.step=1;return wizardAsk()}
   if(f.step===1){
-    if(/(me da igual|da igual|cualquier|toda madrid|no se)/.test(q)){d.place=null}
-    else{
-      const cl=findClubInText(q);const p=findPlace(text)||(cl?{name:CLUB_PLACE[cl.id],ll:PLACES[CLUB_PLACE[cl.id]]}:null);
-      if(!p) return "No conozco ese sitio. Prueba con el nombre del municipio o distrito (por ejemplo «Carabanchel», «Móstoles») o pulsa «Me da igual»."+opts(["Me da igual"]);
-      d.place=p;
-    }
-    f.step=2;return (d.place?`Zona: <b>${cap(d.place.name)}</b>.<br><br>`:"")+wizardAsk();
+    if(/(me da igual|da igual|cualquier|no se)/.test(q))d.place=null;
+    else{const p=findPlace(text);
+      if(!p){const byName=searchTeams(text,{cat:d.cat});if(byName.length){state.flow=null;return `He encontrado estos equipos ${CATN[d.cat]}:`+teamCards(byName.slice(0,8))+more()}
+        return "No conozco ese sitio. Prueba con el municipio o distrito (por ejemplo «Carabanchel», «Móstoles») o pulsa «Me da igual»."+opts(["Me da igual"])}
+      d.place=p}
+    f.step=2;return (d.place?`Zona: <b>${esc(cap(d.place.name))}</b>.<br><br>`:"")+wizardAsk();
   }
   if(f.step===2){
-    const cl=/no (lo )?se|ni idea|ninguno/.test(q)?null:findClubInText(q);
-    let teams=TEAMS.filter(t=>t.cat.id===d.cat.id);
-    const ll=d.place&&d.place.ll;
-    state.flow=null;
-    if(cl){
-      const t=teams.find(t=>t.club.id===cl.id);
-      return `Este es su equipo: <b>${esc(d.cat.name)}</b> de ${esc(cl.name)}.${teamCards([t],ll)}<div class="small" style="margin-top:6px">Pulsa «Seguir» para tener su ficha con resultados, próximo partido y clasificación.</div>${more()}`;
-    }
-    teams=teams.map(t=>({t,d:clubKm(t.club,ll)})).sort((a,b)=>(a.d??0)-(b.d??0)||a.t.club.name.localeCompare(b.t.club.name)).map(x=>x.t);
-    const top=teams.slice(0,ll?4:8);
-    return `${ll?`Equipos <b>${esc(d.cat.name)}</b> más cercanos a ${esc(cap(d.place.name))}:`:`Equipos <b>${esc(d.cat.name)}</b> de la Comunidad de Madrid:`}${teamCards(top,ll)}${ll&&teams.length>top.length?opts([{l:"Ver todos",v:"Equipos "+d.cat.name.toLowerCase()}]):""}${more()}`;
+    const ll=d.place&&d.place.ll;state.flow=null;
+    let club=null;
+    if(text.startsWith("club:"))club=text.slice(5);
+    else if(!/no (lo )?se|ni idea|ninguno/.test(q)){const r=searchTeams(text,{cat:d.cat,fem:d.fem});if(r.length)club=r[0].clubKey}
+    if(club){const ts=TEAMS.filter(t=>t.clubKey===club&&t.cat===d.cat&&(d.fem==null||t.fem===d.fem)).sort((a,b)=>a.name.localeCompare(b.name));
+      return `${ts.length===1?"Este es su equipo:":`El club tiene ${ts.length} equipos ${CATN[d.cat]}. Elige el suyo:`}${teamCards(ts,ll)}<div class="small" style="margin-top:6px">Pulsa «Seguir» para tener su ficha con resultados, próximo partido y clasificación.</div>${more()}`}
+    const ts=ll?nearestTeams(ll,{cat:d.cat,fem:d.fem,limit:6}):[];
+    if(!ts.length)return `Hay ${TEAMS.filter(t=>t.cat===d.cat).length} equipos ${CATN[d.cat]}. Escribe el nombre del club o el municipio para encontrarlo.`+opts(["Buscar un equipo"]);
+    return `Equipos <b>${CATN[d.cat]}</b> con campo más cerca de ${esc(cap(d.place.name))}:${teamCards(ts,ll)}${more()}`;
   }
 }
 
-/* ============================================================
-   IA (Llama en Cloudflare Workers AI, el mismo worker de «Dónde lo Echan»)
-   Las preguntas que el motor local no entiende se mandan al modelo junto con
-   los datos de la ficha en texto. Solo funciona dentro de la app Android
-   (el worker solo acepta su origen); en otros sitios se muestra la ayuda.
-   ============================================================ */
-const IA_URL="https://dondeloechan-ia.alexample.workers.dev/cantera-ia";
+/* ---------- IA ---------- */
 const iaDisponible=()=>location.host==="appassets.androidplatform.net";
 function contextoEquipo(t){
-  const s=standings(t.cat.id);
-  const L=[`FICHA: ${t.name} (${t.club.town}). Competición: ${t.cat.group}. Campo local: ${t.club.field}, ${t.club.addr}.`,`Hoy es ${fdate(TODAY)} de ${TODAY.getFullYear()}.`,"","CLASIFICACIÓN (pos. equipo PJ G E P GF GC Pts):"];
-  s.forEach((r,i)=>L.push(`${i+1}. ${r.t.club.name} ${r.pj} ${r.g} ${r.e} ${r.p} ${r.gf} ${r.gc} ${r.pts}`));
+  const d=teamGroup(t);const L=[`FICHA: ${t.name} (${CATN[t.cat]}${t.fem?" femenino":""}). Competición: ${grupoNombre(d.id)}.`,t.campo?`Campo habitual: ${t.campo.name}, ${t.campo.addr}, ${t.campo.loc}.`:"",`Hoy es ${fdate(TODAY)} de ${TODAY.getFullYear()}.`,"","CLASIFICACIÓN (pos equipo PJ G E P GF GC Pts):"];
+  d.table.forEach(r=>L.push(`${r.pos}. ${r.name} ${r.pj} ${r.g} ${r.e} ${r.p} ${r.gf} ${r.gc} ${r.pts}`));
   L.push("","PARTIDOS DEL EQUIPO:");
-  teamMatches(t.id).forEach(m=>{const h=teamById(m.home),a=teamById(m.away);
-    L.push(`J${m.jornada} ${fdate(m.date)} ${m.time} · ${h.club.name} ${m.played?m.hg+"-"+m.ag:"vs"} ${a.club.name} · ${h.club.field} (${h.club.addr})`+(m.played&&m.scorers.length?" · goles: "+m.scorers.map(x=>{const p=PLAYERS.find(y=>y.id===x.p);return p.name.split(" ").slice(0,2).join(" ")+" "+x.min+"'"+(x.team===t.id?"":" (rival)")}).join(", "):""))});
-  L.push("","GOLEADORES DEL EQUIPO:");
-  PLAYERS.filter(p=>p.team===t.id&&p.goals).sort((a,b)=>b.goals-a.goals).forEach(p=>L.push(`${p.name.split(" ").slice(0,2).join(" ")} (dorsal ${p.dorsal}, ${p.pos}): ${p.goals}`));
+  teamMatches(t).forEach(m=>{const c=CAMPOS[m.campo];L.push(`J${m.j} ${m.date?fdate(m.date):"fecha por confirmar"} ${m.time} · ${m.homeN} ${m.played?m.hg+"-"+m.ag:"vs"} ${m.awayN}${c?` · ${c.name} (${c.addr}, ${c.loc})`:m.campoN?" · "+m.campoN:""}`)});
+  const gol=(d.gol||[]).filter(g=>g[1]===t.id);if(gol.length){L.push("","GOLEADORES DEL EQUIPO:");gol.forEach(g=>L.push(`${nombreJ(g[0])}: ${g[2]}`))}
   return L.join("\n");
 }
-function contextoGeneral(){
-  const L=[`Hoy es ${fdate(TODAY)} de ${TODAY.getFullYear()}. Datos de fútbol base de la Comunidad de Madrid (no incluye datos de jugadores).`];
-  CATS.forEach(c=>{L.push("",`${c.group} — clasificación:`);standings(c.id).forEach((r,i)=>L.push(`${i+1}. ${r.t.name} (${r.t.club.town}) ${r.pts} pts, ${r.pj} PJ, DG ${r.gf-r.gc}`));
-    const prox=MATCHES.filter(m=>m.cat===c.id&&!m.played);const j=prox.length?prox[0].jornada:null;
-    if(j){L.push(`Próxima jornada (${j}):`);prox.filter(m=>m.jornada===j).forEach(m=>L.push(`${fdate(m.date)} ${m.time} · ${teamById(m.home).club.name} vs ${teamById(m.away).club.name} · ${teamById(m.home).club.field}`))}});
-  return L.join("\n");
-}
+function contextoGeneral(){return `Hoy es ${fdate(TODAY)} de ${TODAY.getFullYear()}. La app tiene ${TEAMS.length} equipos de fútbol 11 Infantil, Cadete y Juvenil de la Comunidad de Madrid (datos de la RFFM). En este chat se buscan equipos por club, municipio o categoría; las fichas de cada equipo dan resultados, calendario y clasificación. Categorías por año de nacimiento esta temporada: Infantil ${yrs("inf")}, Cadete ${yrs("cad")}, Juvenil ${yrs("juv")}, Alevín ${OTHER_YEARS[0].y.join("–")}.`}
 const fmtIA=t=>esc(t).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/^- /gm,"• ").replace(/\n/g,"<br>");
 async function preguntarIA(key,text,contexto){
-  if(!iaDisponible()) return null;
-  const hist=state.iah[key]||(state.iah[key]=[]);
-  const ctl=new AbortController();const tm=setTimeout(()=>ctl.abort(),25000);
-  try{
-    const r=await fetch(IA_URL,{method:"POST",headers:{"Content-Type":"application/json"},signal:ctl.signal,body:JSON.stringify({pregunta:text,historial:hist.slice(-6),contexto})});
-    const d=await r.json();
-    if(!r.ok||!d.respuesta) return `<span class="small">${esc(d.error||"La IA no ha podido responder ahora mismo.")}</span>`;
+  if(!iaDisponible())return null;
+  const hist=state.iah[key]||(state.iah[key]=[]);const ctl=new AbortController();const tm=setTimeout(()=>ctl.abort(),25000);
+  try{const r=await fetch(IA_URL,{method:"POST",headers:{"Content-Type":"application/json"},signal:ctl.signal,body:JSON.stringify({pregunta:text,historial:hist.slice(-6),contexto})});
+    const d=await r.json();if(!r.ok||!d.respuesta)return `<span class="small">${esc(d.error||"La IA no ha podido responder ahora mismo.")}</span>`;
     hist.push({rol:"usuario",texto:text},{rol:"asistente",texto:d.respuesta});
-    return fmtIA(d.respuesta)+`<div class="small" style="margin-top:6px">IA · puede equivocarse</div>`;
-  }catch(e){return `<span class="small">${navigator.onLine===false?"Sin conexión: el asistente necesita internet.":"La IA está tardando demasiado. Inténtalo otra vez."}</span>`}
+    return fmtIA(d.respuesta)+`<div class="small" style="margin-top:6px">IA · puede equivocarse</div>`}
+  catch(e){return `<span class="small">${navigator.onLine===false?"Sin conexión: el asistente necesita internet.":"La IA está tardando demasiado. Inténtalo otra vez."}</span>`}
   finally{clearTimeout(tm)}
 }
 
-/* ============================================================
-   VISTAS
-   ============================================================ */
-function render(){
-  const app=$("#app");
-  if(state.view==="home") return renderHome(app);
-  if(state.view==="team") return renderChat(app,teamById(state.team));
-  if(state.view==="main") return renderChat(app,null);
+/* ---------- vistas ---------- */
+function render(){const app=$("#app");app.onclick=null;
+  if(!IDX)return renderLoading(app);
+  if(state.view==="home")return renderHome(app);
+  if(state.view==="team")return renderTeam(app,TEAM.get(state.team));
+  if(state.view==="main")return renderChat(app,null);
+}
+function renderLoading(app,err){
+  app.innerHTML=`<header class="top"><h1>CANTERA MADRID</h1><div class="sub">Fútbol base · Comunidad de Madrid</div></header>
+  <main><div class="empty" style="padding-top:60px">${err?`No he podido descargar los datos.<br><span class="small">${esc(err)}</span><br><br><button class="btn" id="retry">Reintentar</button>`:`<span class="typing"><i></i><i></i><i></i></span><br><br>Cargando equipos de la RFFM…`}</div></main>`;
+  if(err)$("#retry").onclick=()=>{renderLoading(app);boot()};
+}
+function homeRow(t){
+  const d=GD[t.grupos[0]];let side="",meta=esc(CATN[t.cat])+(t.fem?" fem.":"");
+  if(d){const me=d.table.find(r=>r.id===t.id);const lm=lastMatch(t),nm=nextMatch(t);
+    side=me?`<b>${me.pos}º</b>${me.pts} pts`:"";
+    meta+=` · ${lm?`<span class="badge ${outcome(lm,t.id)}">${lm.hg}-${lm.ag}</span>`:""}${nm&&nm.date?"próx. "+fdate(nm.date).split(" ").slice(0,2).join(" "):""}`}
+  return `<button class="team" data-team="${t.id}">${crest(t)}<div class="info"><div class="nm">${esc(t.name)}</div><div class="meta">${meta}</div></div><div class="side">${side}</div></button>`;
 }
 function renderHome(app){
-  const followed=state.follows.map(teamById).filter(Boolean);
-  app.innerHTML=`<header class="top"><div class="toprow"><div class="grow"><h1>CANTERA MADRID</h1><div class="sub">Fútbol base · temporada 2026/27</div></div>
+  const followed=state.follows.map(id=>TEAM.get(id)).filter(Boolean);
+  const act=IDX.act?new Date(IDX.act):null;
+  app.innerHTML=`<header class="top"><div class="toprow"><div class="grow"><h1>CANTERA MADRID</h1><div class="sub">Fútbol base · temporada ${esc(IDX.temporada||"")}</div></div>
     <button class="iconbtn" id="gear" aria-label="Ajustes">${icons.gear}</button></div></header>
   <main>
-    <button class="maincta" id="openMain"><div class="ic">${icons.chat}</div><div><b>Chat principal</b><span>Busca jugadores, equipos y clasificaciones</span></div></button>
+    <button class="maincta" id="openMain"><div class="ic">${icons.chat}</div><div><b>Chat principal</b><span>Busca equipos, jugadores y clasificaciones</span></div></button>
     <div class="section-t">Mis equipos</div>
-    ${followed.length?followed.map(t=>{const s=standings(t.cat.id);const pos=s.findIndex(r=>r.t.id===t.id)+1;const lm=lastMatch(t.id);const nm=nextMatch(t.id);
-      return `<button class="team" data-team="${t.id}">${crest(t)}<div class="info"><div class="nm">${esc(t.club.name)}</div><div class="meta">${esc(t.cat.name)} A · ${lm?`<span class="badge ${outcome(lm,t.id)}">${lm.hg}-${lm.ag}</span>`:""}${nm?"próx. "+fdate(nm.date).split(" ").slice(0,2).join(" "):""}</div></div><div class="side"><b>${pos}º</b>${s[pos-1].pts} pts</div></button>`}).join("")
-      :`<div class="empty">Aún no sigues ningún equipo.</div>`}
+    <div id="mine">${followed.length?followed.map(homeRow).join(""):`<div class="empty">Aún no sigues ningún equipo.<br>Búscalo por su nombre o deja que te ayude.</div>`}</div>
     <button class="addbtn" id="addTeam">+ Seguir un equipo</button>
-    <div class="demo-note"><b>Prototipo con datos inventados.</b> Clubes, campos, jugadores y resultados son ficticios. En la versión real, los datos vendrán de la RFFM. Las preguntas que no entiende el buscador las responde la IA (Llama en Cloudflare) cuando hay conexión.</div>
+    <div class="demo-note">Datos de la <b>Real Federación de Fútbol de Madrid</b> (rffm.es): ${TEAMS.length} equipos de fútbol 11 Infantil, Cadete y Juvenil.${act?` Actualizado ${fdate(act)} a las ${String(act.getHours()).padStart(2,"0")}:${String(act.getMinutes()).padStart(2,"0")}.`:""} App no oficial.</div>
   </main>`;
   $("#gear").onclick=openSettings;
   $("#openMain").onclick=()=>{state.view="main";render()};
-  $("#addTeam").onclick=openAdd;
+  $("#addTeam").onclick=()=>{state.view="main";state.chats._main=null;render();setTimeout(()=>window.__ask&&window.__ask("Buscar un equipo"),50)};
   app.querySelectorAll("[data-team]").forEach(b=>b.onclick=()=>{state.view="team";state.team=b.dataset.team;render()});
+  // carga los grupos de los equipos seguidos y repinta
+  Promise.all(followed.map(t=>loadGroup(t.grupos[0]).catch(()=>null))).then(()=>{if(state.view==="home"&&$("#mine")&&followed.length)$("#mine").innerHTML=followed.map(homeRow).join("")});
+}
+async function renderTeam(app,t){
+  if(!t){state.view="home";return render()}
+  if(!GD[t.grupos[0]]){app.innerHTML=`<header class="top"><div class="toprow"><button class="iconbtn" id="back">${icons.back}</button><div class="grow"><h1 style="font-size:22px">${esc(t.name)}</h1></div></div></header><main><div class="empty"><span class="typing"><i></i><i></i><i></i></span></div></main>`;
+    $("#back").onclick=()=>{state.view="home";render()};
+    try{await loadGroup(t.grupos[0])}catch(e){$("main").innerHTML=`<div class="empty">No he podido cargar los datos del equipo.<br><br><button class="btn" id="rt">Reintentar</button></div>`;$("#rt").onclick=()=>render();return}
+    if(state.view!=="team"||state.team!==t.id)return;
+  }else loadGroup(t.grupos[0],true).catch(()=>{}); // refresco en segundo plano
+  renderChat(app,t);
 }
 function renderChat(app,t){
   const key=t?t.id:"_main";
-  if(!state.chats[key]) state.chats[key]=[{r:"b",h:t?`Hola, soy el asistente del <b>${esc(t.name)}</b>. Pregúntame lo que quieras sobre el equipo.`:``+welcomeMain()}];
-  const chips=t?["¿Cómo quedó el último partido?","¿Cuándo y dónde es el próximo?","Clasificación","Goleadores","Racha","Plantilla"]
-               :["Menú","Buscar un equipo","Buscar un jugador","Ayúdame a encontrar un equipo","Ver clasificaciones"];
+  if(!state.chats[key])state.chats[key]=[{r:"b",h:t?`Hola, soy el asistente del <b>${esc(t.name)}</b> (${esc(CATN[t.cat])}). Pregúntame lo que quieras sobre el equipo.`:welcomeMain()}];
+  const chips=t?["¿Cómo quedó el último partido?","¿Cuándo y dónde es el próximo?","Clasificación","Goleadores","Racha"]:["Menú","Buscar un equipo","Buscar un jugador","Ayúdame a encontrar un equipo","Ver clasificaciones"];
   app.innerHTML=`<header class="top"><div class="toprow"><button class="iconbtn" id="back" aria-label="Volver">${icons.back}</button>
-    ${t?crest(t,40):""}<div class="grow"><h1 style="font-size:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(t.club.name):"Chat principal"}</h1><div class="sub">${t?esc(t.cat.group):"Jugadores y equipos de Madrid"}</div></div>
-    ${t?`<button class="iconbtn" id="unf" aria-label="Dejar de seguir">${icons.trash}</button>`:""}</div></header>
+    ${t?crest(t,40):""}<div class="grow"><h1 style="font-size:21px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(t.name):"Chat principal"}</h1><div class="sub" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(grupoNombre(t.grupos[0])):"Equipos y jugadores de Madrid"}</div></div>
+    ${t&&state.follows.includes(t.id)?`<button class="iconbtn" id="unf" aria-label="Dejar de seguir">${icons.trash}</button>`:""}</div></header>
   <main id="scroll"><div class="chat" id="chat"></div></main>
   <div class="composer"><div class="chips">${chips.map(c=>`<button class="chip" data-ask="${esc(c)}">${esc(c)}</button>`).join("")}</div>
   <form class="inp" id="f"><input id="q" placeholder="${t?"Pregunta sobre el equipo…":"Escribe o elige una opción…"}" autocomplete="off" enterkeyhint="send"><button aria-label="Enviar">${icons.send}</button></form></div>`;
   const chat=$("#chat");
-  const draw=()=>{chat.innerHTML=state.chats[key].map(m=>`<div class="msg ${m.r}${m.h&&m.h.includes("<table")||m.h&&(m.h.includes("plist")||m.h.includes("class=\"opts"))?" wide":""}">${m.h}</div>`).join("");$("#scroll").scrollTop=1e9};
+  const wide=h=>h&&(h.includes("<table")||h.includes("plist")||h.includes('class="opts'));
+  const draw=()=>{chat.innerHTML=state.chats[key].map(m=>`<div class="msg ${m.r}${wide(m.h)?" wide":""}">${m.h}</div>`).join("");$("#scroll").scrollTop=1e9};
   draw();
   const ask=text=>{
     if(!text.trim())return;
-    state.chats[key].push({r:"u",h:esc(text)});
-    state.chats[key].push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span>'});draw();
-    setTimeout(async()=>{
-      let h=t?answerTeam(t,text):handleMain(text);
-      if(h===null) h=(await preguntarIA(key,text,t?contextoEquipo(t):contextoGeneral()))||(t?HELP_TEAM:HELP_MAIN+opts(MENU));
-      state.chats[key].pop();state.chats[key].push({r:"b",h});draw();
-    },350);
+    const shown=text.startsWith("comp:")||text.startsWith("grupo:")||text.startsWith("club:")?(document.querySelector(`[data-ask="${CSS.escape(text)}"]`)||{}).textContent||text:text;
+    state.chats[key].push({r:"u",h:esc(shown)});state.chats[key].push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span>'});draw();
+    setTimeout(async()=>{let h;
+      try{h=t?answerTeam(t,text):await handleMain(text);
+        if(h==null)h=(await preguntarIA(key,text,t?contextoEquipo(t):contextoGeneral()))||(t?HELP_TEAM:HELP_MAIN+opts(MENU))}
+      catch(e){h="Ha fallado algo al consultar los datos. Inténtalo otra vez."}
+      state.chats[key].pop();state.chats[key].push({r:"b",h});if(state.view===(t?"team":"main"))draw()},250);
   };
+  window.__ask=ask;
   $("#f").onsubmit=e=>{e.preventDefault();const v=$("#q").value;$("#q").value="";ask(v)};
   app.onclick=e=>{
     const a=e.target.closest("[data-ask]");if(a){ask(a.dataset.ask);return}
-    const o=e.target.closest("[data-open]");if(o){const id=o.dataset.open;if(!state.follows.includes(id)){state.follows.push(id);store.set("follows",state.follows)}state.view="team";state.team=id;app.onclick=null;render();return}
-    const v=e.target.closest("[data-act=verify]");if(v){state.verified=true;store.set("verified",true);if(!t)startFlow("player");state.chats[key].push({r:"b",h:t?"Listo, cuenta verificada (simulación).":"Listo, cuenta verificada (simulación). Escribe el <b>nombre y apellidos</b> del jugador."});draw()}
+    const o=e.target.closest("[data-open]");if(o){follow(o.dataset.open);state.view="team";state.team=o.dataset.open;render();return}
+    const v=e.target.closest("[data-act=verify]");if(v){state.verified=true;store.set("verified",true);if(!t)startFlow("player");state.chats[key].push({r:"b",h:"Listo, cuenta verificada (simulación). Escribe el <b>nombre y apellidos</b> del jugador."});draw()}
   };
-  $("#back").onclick=()=>{state.view="home";app.onclick=null;render()};
-  if(t) $("#unf").onclick=()=>openConfirmUnfollow(t);
+  $("#back").onclick=()=>{state.view="home";render()};
+  if(t&&$("#unf"))$("#unf").onclick=()=>openConfirmUnfollow(t);
 }
-/* hojas inferiores */
 function openSheet(html,bind){$("#sheet").innerHTML=html;$("#sheetBg").style.display="block";requestAnimationFrame(()=>$("#sheet").classList.add("open"));bind&&bind()}
 function closeSheet(){$("#sheet").classList.remove("open");$("#sheetBg").style.display="none"}
 $("#sheetBg").onclick=closeSheet;
-function openAdd(){
-  openSheet(`<h3>Seguir un equipo</h3><input class="search" id="ts" placeholder="Club, municipio o categoría"><div class="plist" id="tl"></div>`,()=>{
-    const draw=()=>{const q=norm($("#ts").value);const list=TEAMS.filter(t=>!q||norm(t.name+" "+t.club.town+" "+t.cat.group).includes(q));
-      $("#tl").innerHTML=list.map(t=>{const f=state.follows.includes(t.id);return `<div class="prow">${crest(t,34)}<div class="grow"><b>${esc(t.name)}</b><div class="small">${esc(t.club.town)} · ${esc(t.cat.group)}</div></div><button class="btn ${f?"ghost":""}" data-add="${t.id}">${f?"Siguiendo":"Seguir"}</button></div>`}).join("")||'<div class="empty">Sin resultados</div>';
-      $("#tl").querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>{const id=b.dataset.add;if(!state.follows.includes(id)){state.follows.push(id);store.set("follows",state.follows)}draw();render()})};
-    $("#ts").oninput=draw;draw();
-  });
-}
 function openConfirmUnfollow(t){
-  openSheet(`<h3>¿Dejar de seguir?</h3><p>${esc(t.name)} desaparecerá de tus equipos y se borrará su conversación.</p><div style="display:flex;gap:10px"><button class="btn ghost" id="no" style="flex:1;padding:12px">Cancelar</button><button class="btn" id="yes" style="flex:1;padding:12px;background:var(--loss)">Dejar de seguir</button></div>`,()=>{
-    $("#no").onclick=closeSheet;
-    $("#yes").onclick=()=>{state.follows=state.follows.filter(x=>x!==t.id);store.set("follows",state.follows);delete state.chats[t.id];closeSheet();state.view="home";$("#app").onclick=null;render()};
-  });
+  openSheet(`<h3>¿Dejar de seguir?</h3><p>${esc(t.name)} desaparecerá de tus equipos.</p><div style="display:flex;gap:10px"><button class="btn ghost" id="no" style="flex:1;padding:12px">Cancelar</button><button class="btn" id="yes" style="flex:1;padding:12px;background:var(--loss)">Dejar de seguir</button></div>`,()=>{
+    $("#no").onclick=closeSheet;$("#yes").onclick=()=>{state.follows=state.follows.filter(x=>x!==t.id);store.set("follows",state.follows);delete state.chats[t.id];closeSheet();state.view="home";render()}});
 }
 function openSettings(){
   openSheet(`<h3>Ajustes</h3>
-   <div class="tog"><div class="grow"><b>Cuenta verificada</b><div class="small">Permite buscar jugadores por nombre. En la app real lo valida el club o la familia.</div></div><button class="sw ${state.verified?"on":""}" id="vsw" aria-label="Cuenta verificada"></button></div>
-   <div class="tog"><div class="grow"><b>Fuente de datos</b><div class="small">Demo local · en producción: RFFM → Cloudflare D1, actualizado cada hora</div></div></div>
-   <div class="tog"><div class="grow"><b>Modelo</b><div class="small">Respuestas rápidas en el móvil; el resto, Llama 3.3 70B en Cloudflare Workers AI</div></div></div>`,()=>{
+   <div class="tog"><div class="grow"><b>Cuenta verificada</b><div class="small">Permite buscar jugadores por nombre. En la versión final lo validará el club o la familia.</div></div><button class="sw ${state.verified?"on":""}" id="vsw" aria-label="Cuenta verificada"></button></div>
+   <div class="tog"><div class="grow"><b>Datos</b><div class="small">Real Federación de Fútbol de Madrid (rffm.es), ${esc(IDX.temporada)}. Se actualizan varias veces al día. App no oficial.</div></div><button class="btn ghost" id="upd">Actualizar</button></div>
+   <div class="tog"><div class="grow"><b>Asistente</b><div class="small">Respuestas rápidas en el móvil; el resto, Llama 3.3 en Cloudflare Workers AI.</div></div></div>`,()=>{
     $("#vsw").onclick=()=>{state.verified=!state.verified;store.set("verified",state.verified);$("#vsw").classList.toggle("on",state.verified)};
+    $("#upd").onclick=async()=>{$("#upd").textContent="…";await boot(true);closeSheet()};
   });
 }
-/* Botón atrás de Android: cierra la hoja abierta o vuelve al inicio. Devuelve true si lo ha gestionado. */
 window.atras=()=>{
   if($("#sheet").classList.contains("open")){closeSheet();return true}
-  if(state.view!=="home"){state.view="home";$("#app").onclick=null;render();return true}
+  if(state.view!=="home"){state.view="home";render();return true}
   return false;
 };
-render();
+async function boot(fresh){
+  const cached=store.get("indice",null);
+  if(cached&&!fresh){buildIndex(cached);addLocalities();render()}
+  else if(!IDX)render();
+  try{
+    const ix=await getJSON("indice.json",{fresh:true});
+    if(!cached||ix.act!==cached.act||fresh){store.set("indice",ix);buildIndex(ix);addLocalities();Object.keys(GD).forEach(k=>delete GD[k]);if(state.view==="home")render()}
+  }catch(e){if(!IDX)renderLoading($("#app"),e.message)}
+}
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&IDX)boot()});
+boot();
+
 </script>
 </body>
 </html>

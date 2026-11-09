@@ -105,7 +105,8 @@ def limpiar_nombre(n):
 
 def club_de(nombre):
     # "A.D. ALCORCON 'B'" -> "A.D. ALCORCON"
-    return re.sub(r"""\s*['"]\s*[A-Z0-9]{1,3}\s*['"]\s*$""", "", str(nombre or "")).strip()
+    n = re.sub(r"""\s*['"]\s*[A-Z0-9]{1,3}\s*['"]\s*$""", "", str(nombre or "")).strip()
+    return re.sub(r"\s+[A-Z]{1,2}$", "", n).strip()
 
 
 def fecha_iso(f):
