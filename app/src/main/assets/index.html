@@ -638,7 +638,7 @@ function leerActa(m){
   const g=grupo(m.gid);const q=g?`temporada=${g.temp}&competicion=${g.compId}&grupo=${m.gid}`:"";
   return new Promise(res=>{const cb="a"+Date.now()+Math.random().toString(36).slice(2,6);
     const to=setTimeout(()=>{delete ESPERA_ACTA[cb];res(null)},25000);
-    ESPERA_ACTA[cb]=d=>{clearTimeout(to);if(d){d={game:d.game||d,pp:d};ACTAS[m.acta]=d}res(d)};
+    ESPERA_ACTA[cb]=d=>{clearTimeout(to);if(d){d={game:d.game||d};ACTAS[m.acta]=d}res(d)};
     try{AndroidApp.acta(String(m.acta),q,cb)}catch(e){clearTimeout(to);res(null)}});
 }
 const siNo=v=>v===true||v===1||v==="1"||v==="S"||v==="s"||v==="true";
@@ -665,28 +665,16 @@ function eventosActa(g){
   }
   return ev.sort((a,b)=>(a.min??999)-(b.min??999));
 }
-// Volcado de TODA la información del acta (todas las claves, también las anidadas).
-// Solo se ocultan datos de contacto/identidad (DNI, teléfonos, correos, domicilios) y el envoltorio de la web.
-const PRIVADO=/(dni|nif|nie|pasaporte|telefono|tlf|movil|email|e_mail|mail|fax|password|token|domicilio|cp_|codigo_postal|cuenta|iban)/i;
-const ENVOLTORIO=new Set(["_nextI18Next","__N_SSG","__N_SSP","menu","menus","footer","header","layout","seo","noticias","banners","sponsors","patrocinadores","navigation","nav"]);
-function legibleValor(k,v){if(v===true)return "Sí";if(v===false)return "No";const t=String(v).trim();if(/(nombre|entrenador|arbitro|delegado|tecnico|jugador)/i.test(k)&&/,/.test(t))return completo(t);return t}
-function volcado(v,k,prof){
-  if(prof>6)return "";
-  if(Array.isArray(v)){if(!v.length)return `<span style="opacity:.6">—</span>`;
-    if(v.every(x=>x==null||typeof x!=="object"))return esc(v.map(x=>legibleValor(k,x)).join(", "));
-    return v.map((x,i)=>`<div class="vd-it">${typeof x==="object"&&x?volcadoObj(x,prof+1):esc(legibleValor(k,x))}</div>`).join("")}
-  if(v&&typeof v==="object")return volcadoObj(v,prof+1);
-  return esc(legibleValor(k,v))||`<span style="opacity:.6">—</span>`;
+function resumenTexto(m,g){
+  const ev=eventosActa(g);let gl=0,gv=0;
+  const l=[`${m.homeN} ${m.hg}-${m.ag} ${m.awayN}`,`Jornada ${m.j}${m.date?" · "+fdate(m.date):""}`,""];
+  for(const e of ev){if(e.tipo==="gol"){e.lado==="L"?gl++:gv++}l.push(`${e.min!=null?e.min+"'":"-"} ${e.ic} ${e.txt} (${e.lado==="L"?m.homeN:m.awayN})${e.tipo==="gol"?` ${gl}-${gv}`:""}`)}
+  for(const[n,suf] of [[m.homeN,"local"],[m.awayN,"visitante"]]){const js=g["jugadores_equipo_"+suf]||[];if(!js.length)continue;
+    l.push("",n+":");l.push("Titulares: "+js.filter(x=>siNo(x.titular)).map(x=>`${x.dorsal??""} ${corto(x.nombre_jugador)}`.trim()).join(", "));
+    const sup=js.filter(x=>!siNo(x.titular));if(sup.length)l.push("Suplentes: "+sup.map(x=>`${x.dorsal??""} ${corto(x.nombre_jugador)}`.trim()).join(", "))}
+  return l.join("\n");
 }
-function volcadoObj(o,prof){
-  return Object.entries(o).filter(([k])=>!PRIVADO.test(k)&&!(prof<=1&&ENVOLTORIO.has(k))).map(([k,v])=>{
-    const comp=v&&typeof v==="object"&&(Array.isArray(v)?v.some(x=>x&&typeof x==="object"):Object.keys(v).length>0);
-    if(comp){const n=Array.isArray(v)?` (${v.length})`:"";return `<details class="vd"><summary>${esc(ETQ(k))}${n}</summary>${volcado(v,k,prof)}</details>`}
-    return `<div class="vd-row"><span class="vd-k">${esc(ETQ(k))}</span><span class="vd-v">${volcado(v,k,prof)}</span></div>`}).join("");
-}
-function textoPlano(o,ind=""){if(o==null)return "";if(typeof o!=="object")return String(o);
-  return Object.entries(o).filter(([k])=>!PRIVADO.test(k)&&!ENVOLTORIO.has(k)).map(([k,v])=>v&&typeof v==="object"?`${ind}${ETQ(k)}:\n${Array.isArray(v)?v.map(x=>typeof x==="object"&&x?textoPlano(x,ind+"    ")+"\n"+ind+"    —":ind+"    "+x).join("\n"):textoPlano(v,ind+"  ")}`:`${ind}${ETQ(k)}: ${legibleValor(k,v)}`).join("\n")}
-function cronoHTML(m,g,pp){
+function cronoHTML(m,g){
   const ev=eventosActa(g);let gl=0,gv=0;
   const filas=ev.map(e=>{if(e.tipo==="gol"){e.lado==="L"?gl++:gv++}
     const marc=e.tipo==="gol"?`<span class="cr-sc">${gl}–${gv}</span>`:"";
@@ -696,31 +684,12 @@ function cronoHTML(m,g,pp){
     const li=x=>`<div class="small">${x.dorsal!=null&&x.dorsal!==""?`<b>${esc(x.dorsal)}</b> `:""}${esc(corto(x.nombre_jugador))}${x.posicion_jugador_abreviatura?` <span style="opacity:.6">${esc(x.posicion_jugador_abreviatura)}</span>`:""}${siNo(x.capitan)?" (C)":""}${siNo(x.portero)?" 🧤":""}</div>`;
     return js.length?`${tit.map(li).join("")}${sup.length?`<div class="small" style="margin-top:4px;opacity:.75">Suplentes</div>${sup.map(li).join("")}`:""}`:`<div class="small">Sin alineación publicada.</div>`};
   const hayCambios=ev.some(e=>e.tipo==="cambio");
-  const usados=new Set(["goles_equipo_local","goles_equipo_visitante","tarjetas_equipo_local","tarjetas_equipo_visitante","jugadores_equipo_local","jugadores_equipo_visitante","entrenador_local","entrenador2_local","otros_tecnicos_local","entrenador_visitante","entrenador2_visitante","otros_tecnicos_visitante","arbitros_partido","delegadocampo","goles_local","goles_visitante"]);
-  Object.keys(g).filter(k=>/(sustitu|cambio)/i.test(k)).forEach(k=>usados.add(k));
-  // Árbitros
-  const arb=(g.arbitros_partido||[]).map(a=>`<div class="small">${esc(completo(a.nombre_arbitro||a.nombre))}${a.tipo_arbitro?` <span style="opacity:.7">· ${esc(String(a.tipo_arbitro).toLowerCase().replace(/^./,c=>c.toUpperCase()))}</span>`:""}</div>`).join("");
-  // Cuerpo técnico
-  const tecnicos=suf=>{const l=[];if(g["entrenador_"+suf])l.push(["Entrenador",g["entrenador_"+suf]]);if(g["entrenador2_"+suf])l.push(["2º entrenador",g["entrenador2_"+suf]]);
-    for(const x of g["otros_tecnicos_"+suf]||[])l.push([x.cargo||x.tipo||x.tipo_tecnico||"Técnico",x.nombre||x.nombre_tecnico]);
-    return l.length?l.map(([r,n])=>`<div class="small"><span style="opacity:.7">${esc(String(r).toLowerCase().replace(/^./,c=>c.toUpperCase()))}:</span> ${esc(completo(n))}</div>`).join(""):`<div class="small" style="opacity:.7">Sin datos</div>`};
-  // Resto de datos del acta que no se han usado arriba
-  const extra=Object.entries(g).filter(([k,v])=>!usados.has(k)&&!OCULTAR.test(k)&&v!=null&&v!==""&&!(Array.isArray(v)&&!v.length)&&!(typeof v==="object"&&!Array.isArray(v))).map(([k,v])=>{
-    if(Array.isArray(v))return `<div style="margin-top:6px"><b class="small">${esc(ETQ(k))}</b>${v.map(x=>`<div class="small">${esc(valorLegible(x))}</div>`).join("")}</div>`;
-    return `<div class="small"><span style="opacity:.7">${esc(ETQ(k))}:</span> ${esc(valorLegible(v))}</div>`}).join("");
   return `<b>Cronología</b> · J${m.j}${m.date?" · "+fdate(m.date):""}
    <div class="cr-head"><div>${esc(m.homeN)}</div><div class="cr-res">${m.hg} – ${m.ag}</div><div>${esc(m.awayN)}</div></div>
    ${ev.length?`<div class="cr">${filas}</div>`:`<div class="small" style="margin:8px 0">El acta no recoge goles ni tarjetas.</div>`}
    ${hayCambios?"":`<div class="small" style="opacity:.75">El acta de este partido no incluye los cambios.</div>`}
    <details class="cr-al"><summary>Alineaciones</summary><div class="cr-cols"><div><b class="small">${esc(m.homeN)}</b>${alin("local")}</div><div><b class="small">${esc(m.awayN)}</b>${alin("visitante")}</div></div></details>
-   <details class="cr-al"><summary>Cuerpo técnico</summary><div class="cr-cols"><div><b class="small">${esc(m.homeN)}</b>${tecnicos("local")}</div><div><b class="small">${esc(m.awayN)}</b>${tecnicos("visitante")}</div></div>${g.delegadocampo?`<div class="small" style="margin-top:6px"><span style="opacity:.7">Delegado de campo:</span> ${esc(completo(typeof g.delegadocampo==="object"?(g.delegadocampo.nombre||""):g.delegadocampo))}</div>`:""}</details>
-   ${arb?`<details class="cr-al"><summary>Árbitros</summary>${arb}</details>`:""}
-   ${extra?`<details class="cr-al"><summary>Otros datos del acta</summary>${extra}</details>`:""}
-   <details class="cr-al todo"><summary>📋 Toda la información del acta</summary>
-     <div class="small" style="opacity:.75;margin:4px 0 6px">Todos los datos que publica la RFFM para este partido. Toca cada apartado para desplegarlo.</div>
-     ${volcadoObj(pp||g,0)}
-     <div style="margin-top:8px"><button class="btn ghost" data-copiar="${esc(m.acta)}">Copiar todo el acta</button></div></details>
-   <div style="margin-top:8px">${linkRFFM(urlActaRFFM(m),"Acta completa en la RFFM")}</div>`;
+   <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button class="btn ghost" data-copiar="${esc(m.acta)}">Copiar resumen</button>${linkRFFM(urlActaRFFM(m),"Acta en la RFFM")}</div>`;
 }
 function buscarPartido(acta){for(const d of Object.values(GD)){const m=(d.matches||[]).find(x=>x.acta===acta);if(m)return m}return null}
 
@@ -1130,8 +1099,8 @@ function renderChat(app,t){
     const a=e.target.closest("[data-ask]");if(a){ask(a.dataset.ask);return}
     const cr=e.target.closest("[data-crono]");if(cr){const m=buscarPartido(cr.dataset.crono);if(!m)return;
       state.chats[key].push({r:"u",h:"⏱️ Cronología del partido"});state.chats[key].push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span>'});draw();
-      leerActa(m).then(a=>{state.chats[key].pop();state.chats[key].push({r:"b",h:a?cronoHTML(m,a.game,a.pp):`No he podido leer el acta ahora mismo. Puedes verla en la web de la federación:<div>${linkRFFM(urlActaRFFM(m),"Acta en la RFFM")}</div>`});if(state.view===(t?"team":"main"))draw()});return}
-    const cp=e.target.closest("[data-copiar]");if(cp){const a=ACTAS[cp.dataset.copiar];if(!a)return;const txt=textoPlano(a.pp||a.game);
+      leerActa(m).then(a=>{state.chats[key].pop();state.chats[key].push({r:"b",h:a?cronoHTML(m,a.game):`No he podido leer el acta ahora mismo. Puedes verla en la web de la federación:<div>${linkRFFM(urlActaRFFM(m),"Acta en la RFFM")}</div>`});if(state.view===(t?"team":"main"))draw()});return}
+    const cp=e.target.closest("[data-copiar]");if(cp){const a=ACTAS[cp.dataset.copiar];const mm=buscarPartido(cp.dataset.copiar);if(!a||!mm)return;const txt=resumenTexto(mm,a.game);
       (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>toast("Acta copiada"),()=>{const ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");toast("Acta copiada")}catch(_){toast("No se ha podido copiar")}ta.remove()});return}
     const mh=e.target.closest("[data-mh]");if(mh){const box=mh.closest(".meteo");const det=box.querySelector(".mt-det");det.textContent=JSON.parse(det.dataset.dets)[+mh.dataset.mh];box.querySelectorAll(".mt-band").forEach(b=>b.setAttribute("x",(+mh.dataset.mh)*50+1));return}
     const vr=e.target.closest("[data-ver]");if(vr){const id=vr.dataset.ver;if(id===state.team&&state.view==="team")return;state.pila.push({view:state.view,team:state.team});state.resumen=id;state.view="team";state.team=id;render();return}

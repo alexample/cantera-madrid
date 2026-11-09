@@ -151,11 +151,18 @@ public class MainActivity extends Activity {
                     Matcher m = Pattern.compile("<script id=\"__NEXT_DATA__\"[^>]*>(.*?)</script>", Pattern.DOTALL).matcher(html);
                     if (m.find()) {
                         JSONObject pp = new JSONObject(m.group(1)).getJSONObject("props").getJSONObject("pageProps");
-                        // Toda la página de datos del acta (pageProps); si fuera enorme, solo "game"
-                        String todo = pp.toString();
+                        // Solo lo deportivo: goles, tarjetas, cambios y alineaciones
                         JSONObject game = pp.optJSONObject("game");
-                        if (todo.length() < 900000) res = todo;
-                        else if (game != null) res = new JSONObject().put("game", game).toString();
+                        if (game != null) {
+                            JSONObject dep = new JSONObject();
+                            java.util.Iterator<String> it = game.keys();
+                            while (it.hasNext()) {
+                                String k = it.next();
+                                if (k.matches("(goles|tarjetas|jugadores)_equipo_(local|visitante)|goles_(local|visitante)|.*(sustitu|cambio).*"))
+                                    dep.put(k, game.get(k));
+                            }
+                            res = dep.toString();
+                        }
                     }
                 } catch (Exception ignored) { }
                 final String r = res;
