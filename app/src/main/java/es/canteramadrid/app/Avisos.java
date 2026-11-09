@@ -130,6 +130,16 @@ public class Avisos extends Worker {
             if (eq == null) continue;
             String id = eq.optString("id"), gid = eq.optString("g"), nombre = eq.optString("n");
             if (id.isEmpty() || gid.isEmpty()) continue;
+            // Etiqueta del usuario («Adrián», «Mi hijo»): se antepone en los avisos
+            String etiqueta = eq.optString("e", "").trim();
+            if (!etiqueta.isEmpty()) nombre = etiqueta + " · " + nombre;
+            // Ajustes propios del equipo (si los tiene); si no, los generales
+            JSONObject av = eq.optJSONObject("av");
+            boolean eResultado = av != null ? av.optBoolean("resultado", avResultado) : avResultado;
+            boolean eAsignado = av != null ? av.optBoolean("asignado", avAsignado) : avAsignado;
+            boolean ePrevio = av != null ? av.optBoolean("previo", avPrevio) : avPrevio;
+            int eHoras = av != null ? av.optInt("horas", horas) : horas;
+            if (eHoras < 1 || eHoras > 12) eHoras = horas;
             JSONObject grupo = cacheGrupos.optJSONObject(gid);
             if (grupo == null) {
                 try { grupo = new JSONObject(descargar(DATOS + "g/" + gid + ".json?t=" + (ahora / 60000))); }
@@ -155,9 +165,9 @@ public class Avisos extends Worker {
                 long inicio = inicio(m.optString(1), m.optString(2));
 
                 if (!primeraVez && antes != null && !antes.equals(firma)) {
-                    if (jugado && antes.startsWith("P") && avResultado && inicio > ahora - 4L * 86400000L) {
+                    if (jugado && antes.startsWith("P") && eResultado && inicio > ahora - 4L * 86400000L) {
                         notificarResultado(c, id, nombre, m);
-                    } else if (!jugado && avAsignado && inicio > ahora && !m.optString(1).isEmpty()) {
+                    } else if (!jugado && eAsignado && inicio > ahora && !m.optString(1).isEmpty()) {
                         String[] a = antes.split("\\|", -1);
                         boolean antesSinFecha = a.length < 3 || a[1].isEmpty() || a[2].isEmpty();
                         notificarAsignado(c, id, nombre, m, campos, antesSinFecha);
@@ -169,8 +179,8 @@ public class Avisos extends Worker {
                     proximo = m; proximoInicio = inicio;
                 }
                 // Aviso previo para todos los partidos de los próximos 8 días
-                if (!jugado && avPrevio && inicio != Long.MIN_VALUE) {
-                    long cuando = inicio - horas * 3600000L;
+                if (!jugado && ePrevio && inicio != Long.MIN_VALUE) {
+                    long cuando = inicio - eHoras * 3600000L;
                     if (cuando > ahora && inicio - ahora < 8L * 86400000L) {
                         String aid = clave;
                         programarPrevio(c, aid, cuando, inicio, id, nombre, m, campos);

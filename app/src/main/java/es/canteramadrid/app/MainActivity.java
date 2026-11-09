@@ -130,6 +130,13 @@ public class MainActivity extends Activity {
         public String leerAjustes() {
             return getSharedPreferences(Avisos.PREFS, Context.MODE_PRIVATE).getString("ajustes", "{}");
         }
+        /** Color de fondo detrás de las barras del sistema (según el tema de la app). */
+        @JavascriptInterface
+        public void colorBarras(String hex) {
+            runOnUiThread(() -> {
+                try { ((android.view.View) web.getParent()).setBackgroundColor(Color.parseColor(hex)); } catch (Exception ignored) { }
+            });
+        }
         /** Pide permiso de notificaciones (Android 13+). */
         @JavascriptInterface
         public void pedirPermiso() {

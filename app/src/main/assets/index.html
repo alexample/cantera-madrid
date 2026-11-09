@@ -94,6 +94,55 @@ a.map{display:inline-flex;align-items:center;gap:6px;margin-top:6px;color:var(--
 .sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
 .sw.on{background:var(--win)}.sw.on::after{left:23px}
 .hidden{display:none!important}
+.tag{display:inline-block;background:var(--accent);color:#fff;font-weight:700;font-size:11px;letter-spacing:.3px;padding:2px 8px;border-radius:999px;margin:0 0 3px;font-family:Inter,sans-serif}
+.lbl{display:block;font-weight:600;margin:6px 0 6px}
+.themes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 4px}
+.theme{border:2px solid var(--line);border-radius:14px;padding:8px;text-align:left;background:var(--bg)}
+.theme.on{border-color:var(--pitch2)}
+.theme .pv{height:64px;border-radius:9px;margin-bottom:6px;position:relative;overflow:hidden}
+.theme b{font-size:13px}
+/* ===== Tema «Estadio»: noche de partido, focos y verde lima ===== */
+html[data-theme="estadio"]{--bg:#070b16;--card:#101a2e;--ink:#eef3ff;--muted:#8e9bbd;--line:#1e2a45;--pitch:#0c1630;--pitch2:#b8f53d;--chalk:#14223e;--accent:#ff5a36;--win:#22c55e;--draw:#64748b;--loss:#ef4444;--bubble:#14223e;--radius:20px}
+html[data-theme="estadio"] body{background:radial-gradient(900px 420px at 50% -180px,rgba(184,245,61,.13),transparent 60%),radial-gradient(700px 380px at 110% 0,rgba(61,123,255,.16),transparent 60%),#070b16;background-attachment:fixed}
+html[data-theme="estadio"] header.top{background:radial-gradient(260px 120px at 8% -20px,rgba(255,255,255,.18),transparent 70%),radial-gradient(260px 120px at 92% -20px,rgba(255,255,255,.18),transparent 70%),linear-gradient(165deg,#15275a 0%,#0a1328 75%);border-bottom:1px solid rgba(184,245,61,.28);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+html[data-theme="estadio"] .top h1{letter-spacing:2px;text-shadow:0 0 18px rgba(184,245,61,.35)}
+html[data-theme="estadio"] .top h1.tn{letter-spacing:.3px}
+html[data-theme="estadio"] .top .sub{color:#b8f53d;opacity:.9}
+html[data-theme="estadio"] .iconbtn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08)}
+html[data-theme="estadio"] .maincta{border:1.5px solid transparent;background:linear-gradient(#101a2e,#101a2e) padding-box,linear-gradient(135deg,#b8f53d,#3d7bff) border-box;box-shadow:0 8px 24px rgba(61,123,255,.15)}
+html[data-theme="estadio"] .maincta .ic{background:linear-gradient(135deg,#b8f53d,#5ee6a8);color:#08101f;box-shadow:0 0 18px rgba(184,245,61,.45)}
+html[data-theme="estadio"] .team{background:linear-gradient(180deg,#111c33,#0d162a);border-color:#1e2a45;transition:transform .12s}
+html[data-theme="estadio"] .team:active{transform:scale(.985)}
+html[data-theme="estadio"] .team .side b{color:#b8f53d;font-size:24px}
+html[data-theme="estadio"] .crest{border:none;box-shadow:0 0 0 2px #070b16,0 0 0 3.5px rgba(184,245,61,.55)}
+html[data-theme="estadio"] .section-t{color:#6f7da3;letter-spacing:2px}
+html[data-theme="estadio"] .addbtn{border-color:#2a3757;color:#b8f53d}
+html[data-theme="estadio"] .demo-note{background:#0d1629;border:1px solid #1e2a45}
+html[data-theme="estadio"] .msg.u{background:linear-gradient(135deg,#b8f53d,#7be35a);color:#08101f;font-weight:500}
+html[data-theme="estadio"] .msg.b{background:#101a2e;border-color:#1e2a45}
+html[data-theme="estadio"] .btn{background:#b8f53d;color:#08101f}
+html[data-theme="estadio"] .btn.ghost{background:rgba(184,245,61,.12);color:#b8f53d}
+html[data-theme="estadio"] .chip{background:rgba(255,255,255,.04);color:#d4f59a;border-color:#24304d}
+html[data-theme="estadio"] .opt{background:rgba(184,245,61,.06);color:#d6f79a;border-color:rgba(184,245,61,.22)}
+html[data-theme="estadio"] .score .r{background:linear-gradient(135deg,#1b2b52,#0e1731);color:#b8f53d;box-shadow:0 0 0 1px rgba(184,245,61,.25),0 6px 18px rgba(0,0,0,.3)}
+html[data-theme="estadio"] table.st td{border-top-color:#1b263f}
+html[data-theme="estadio"] table.st tr.me td{background:rgba(184,245,61,.12);color:#d8ff8a}
+html[data-theme="estadio"] .next{border-left-color:#b8f53d}
+html[data-theme="estadio"] .next .when{color:#fff}
+html[data-theme="estadio"] a.map{color:#b8f53d}
+html[data-theme="estadio"] .prow{border-color:#1e2a45;background:#0e172b}
+html[data-theme="estadio"] .dor{background:#b8f53d;color:#08101f}
+html[data-theme="estadio"] .composer{background:rgba(7,11,22,.92);border-top-color:#1e2a45;backdrop-filter:blur(10px)}
+html[data-theme="estadio"] form.inp input{background:#0f182b;border-color:#24304d;color:#eef3ff}
+html[data-theme="estadio"] form.inp input:focus{border-color:#b8f53d}
+html[data-theme="estadio"] form.inp button{background:linear-gradient(135deg,#b8f53d,#5ee6a8);color:#08101f}
+html[data-theme="estadio"] .sheet{background:#0f182b;border-top:1px solid #24304d}
+html[data-theme="estadio"] .sheet input.search{background:#0a1222;border-color:#24304d;color:#eef3ff}
+html[data-theme="estadio"] .sw{background:#24304d}
+html[data-theme="estadio"] .sw.on{background:#b8f53d}
+html[data-theme="estadio"] .sw.on::after{background:#08101f}
+html[data-theme="estadio"] .tag{background:linear-gradient(135deg,#ff5a36,#ff9a3d)}
+
 .opts{display:flex;flex-direction:column;gap:8px;margin-top:10px}
 .opt{display:flex;align-items:center;gap:10px;text-align:left;padding:11px 14px;border-radius:12px;background:var(--chalk);border:1px solid var(--line);font-weight:600;color:var(--pitch2)}
 @media (prefers-color-scheme: dark){.opt{color:#8ce0b0}}
@@ -187,10 +236,15 @@ const fin=s=>/\.$/.test(s)?"":".";
 const rivalOf=(m,id)=>m.home===id?{id:m.away,n:m.awayN}:{id:m.home,n:m.homeN};
 
 /* ---------- estado ---------- */
-const state={follows:store.get("follows",[]).filter(Boolean),verified:store.get("verified",false),chats:{},iah:{},flow:null,view:"home",team:null};
+const state={etq:store.get("etiquetas",{}),avEq:store.get("avEq",{}),tema:store.get("tema","clasico"),follows:store.get("follows",[]).filter(Boolean),verified:store.get("verified",false),chats:{},iah:{},flow:null,view:"home",team:null};
 const ANDROID=typeof window.AndroidApp!=="undefined";
 // Pasa a Android los equipos seguidos (para los avisos en segundo plano)
-function syncAndroid(){if(!ANDROID||!IDX)return;try{AndroidApp.guardarEquipos(JSON.stringify(state.follows.map(id=>TEAM.get(id)).filter(Boolean).map(t=>({id:t.id,g:t.grupos[0],n:t.name}))))}catch(e){}}
+function syncAndroid(){if(!ANDROID||!IDX)return;try{AndroidApp.guardarEquipos(JSON.stringify(state.follows.map(id=>TEAM.get(id)).filter(Boolean).map(t=>({id:t.id,g:t.grupos[0],n:t.name,e:state.etq[t.id]||"",av:state.avEq[t.id]||null}))))}catch(e){}}
+const etiqueta=t=>state.etq[t.id]||"";
+const tagHTML=t=>etiqueta(t)?`<span class="tag">⭐ ${esc(etiqueta(t))}</span><br>`:"";
+/* Tema */
+const TEMAS={clasico:{n:"Clásico",barra:"#0F5132"},estadio:{n:"Estadio",barra:"#0A1328"}};
+function aplicarTema(){const k=TEMAS[state.tema]?state.tema:"clasico";document.documentElement.dataset.theme=k;if(ANDROID)try{AndroidApp.colorBarras(TEMAS[k].barra)}catch(e){}}
 function follow(id){if(!state.follows.includes(id)){state.follows.push(id);store.set("follows",state.follows);syncAndroid();if(ANDROID&&state.follows.length===1)try{AndroidApp.pedirPermiso()}catch(e){}}}
 function unfollow(id){state.follows=state.follows.filter(x=>x!==id);store.set("follows",state.follows);syncAndroid()}
 
@@ -202,6 +256,7 @@ const icons={
   send:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
   chat:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
   pin:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+  bell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 1112 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 003.4 0"/></svg>',
   trash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>'
 };
 function mapLink(c,label){if(!c)return"";const q=c.ll?c.ll.join(","):encodeURIComponent(c.name+", "+c.addr+", "+c.loc);return `<a class="map" href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" rel="noopener">${icons.pin} ${label||"Abrir en mapas"}</a>`}
@@ -423,7 +478,9 @@ function answerTeam(t,text){
 /* ---------- preguntas sobre un equipo desde el chat principal ---------- */
 const INT_EQUIPO=["proximo","ultimo","clasif","puntos","goleadores","racha","estad","calendario","resultados","proxCasa","proxFuera","jornada"];
 const RELLENO=new Set(["el","la","los","las","de","del","al","a","que","como","cuando","donde","juega","jugo","jugara","va","van","ha","han","esta","este","partido","equipo","mi","su","hijo","hija","nos","les","le","se","y","en","por","con","contra","para","hoy","manana","sabado","domingo","semana","finde","las","horas","es","son","fue","sobre","tal","quien","cual","cuantos","cuantas","lleva","llevan","dime","quiero","saber","ver","me","del","partidos","hora","campo","proximo","ultimo","resultado","clasificacion","goleadores","racha","puntos"]);
+function equipoPorEtiqueta(text){const q=" "+norm(text)+" ";for(const[id,e] of Object.entries(state.etq)){const n=norm(e);if(n.length>1&&q.includes(" "+n+" ")&&TEAM.get(id))return TEAM.get(id)}return null}
 function equiposEnTexto(text){
+  const pe=equipoPorEtiqueta(text);if(pe)return[pe];
   const q=norm(text);const cat=catInText(q);
   const toks=q.split(" ");
   // letra del equipo: «cadete b», «carabanchel c» (la «a» solo si va al final o tras la categoría)
@@ -522,6 +579,7 @@ async function handleMain(text){
   if(f&&f.type==="team"){state.flow=null;const r=await answerMain(text);return r?r+more():HELP_MAIN+opts(["Ayúdame a encontrar un equipo","Buscar un equipo"])}
   if(f&&f.type==="player"){const r=await playerSearch(text);if(r){state.flow=null;return r+more()}return "No he encontrado a nadie con ese nombre entre los goleadores. Revisa cómo se escribe o prueba con nombre y primer apellido."+opts([{l:"Cancelar",v:"Menú"}])}
   if(f&&f.type==="wizard")return wizardAnswer(text);
+  {const pe=equipoPorEtiqueta(text);if(pe&&norm(text)===norm(etiqueta(pe)))return `El equipo de <b>${esc(etiqueta(pe))}</b>:`+teamCards([pe]);}
   {const it=intencion(text);
     if(it.id==="saludo")return welcomeMain();
     if(it.id==="gracias")return "¡De nada! Aquí estoy si necesitas algo más.";
@@ -651,7 +709,7 @@ function homeRow(t){
   if(d){const me=d.table.find(r=>r.id===t.id);const lm=lastMatch(t),nm=nextMatch(t);
     side=me?`<b>${me.pos}º</b>${me.pts} pts`:"";
     meta+=` · ${lm?`<span class="badge ${outcome(lm,t.id)}">${lm.hg}-${lm.ag}</span>`:""}${nm&&nm.date?"próx. "+fdate(nm.date).split(" ").slice(0,2).join(" "):""}`}
-  return `<button class="team" data-team="${t.id}">${crest(t)}<div class="info"><div class="nm">${esc(t.name)}</div><div class="meta">${meta}</div></div><div class="side">${side}</div></button>`;
+  return `<button class="team" data-team="${t.id}">${crest(t)}<div class="info">${tagHTML(t)}<div class="nm">${esc(t.name)}</div><div class="meta">${meta}</div></div><div class="side">${side}</div></button>`;
 }
 function renderHome(app){
   const followed=state.follows.map(id=>TEAM.get(id)).filter(Boolean);
@@ -684,11 +742,11 @@ async function renderTeam(app,t){
 }
 function renderChat(app,t){
   const key=t?t.id:"_main";
-  if(!state.chats[key])state.chats[key]=[{r:"b",h:t?`Hola, soy el asistente del <b>${esc(t.name)}</b> (${esc(CATN[t.cat])}). Pregúntame lo que quieras sobre el equipo.`:welcomeMain()}];
+  if(!state.chats[key])state.chats[key]=[{r:"b",h:t?`Hola, soy el asistente del <b>${esc(t.name)}</b> (${esc(CATN[t.cat])})${etiqueta(t)?`, el equipo de <b>${esc(etiqueta(t))}</b>`:""}. Pregúntame lo que quieras sobre el equipo.${state.follows.includes(t.id)&&!etiqueta(t)?`<div class="small" style="margin-top:6px">Toca 🔔 arriba para ponerle una etiqueta («Adrián», «Mi hijo») y elegir sus avisos.</div>`:""}`:welcomeMain()}];
   const chips=t?["¿Cómo quedó el último partido?","¿Cuándo y dónde es el próximo?","Clasificación","Goleadores","Racha"]:["Menú","Buscar un equipo","Buscar un jugador","Ayúdame a encontrar un equipo","Ver clasificaciones"];
   app.innerHTML=`<header class="top"><div class="toprow"><button class="iconbtn" id="back" aria-label="Volver">${icons.back}</button>
-    ${t?crest(t,40):""}<div class="grow"><h1 style="font-size:21px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(t.name):"Chat principal"}</h1><div class="sub" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(grupoNombre(t.grupos[0])):"Equipos y jugadores de Madrid"}</div></div>
-    ${t&&state.follows.includes(t.id)?`<button class="iconbtn" id="unf" aria-label="Dejar de seguir">${icons.trash}</button>`:""}</div></header>
+    ${t?crest(t,40):""}<div class="grow">${t&&etiqueta(t)?`<span class="tag">⭐ ${esc(etiqueta(t))}</span>`:""}<h1 class="tn" style="font-size:21px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(t.name):"Chat principal"}</h1><div class="sub" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(grupoNombre(t.grupos[0])):"Equipos y jugadores de Madrid"}</div></div>
+    ${t?(state.follows.includes(t.id)?`<button class="iconbtn" id="tset" aria-label="Ajustes del equipo">${icons.bell}</button>`:`<button class="btn" id="tfol" style="flex:none">Seguir</button>`):""}</div></header>
   <main id="scroll"><div class="chat" id="chat"></div></main>
   <div class="composer"><div class="chips">${chips.map(c=>`<button class="chip" data-ask="${esc(c)}">${esc(c)}</button>`).join("")}</div>
   <form class="inp" id="f"><input id="q" placeholder="${t?"Pregunta sobre el equipo…":"Escribe o elige una opción…"}" autocomplete="off" enterkeyhint="send"><button aria-label="Enviar">${icons.send}</button></form></div>`;
@@ -716,14 +774,43 @@ function renderChat(app,t){
     const v=e.target.closest("[data-act=verify]");if(v){state.verified=true;store.set("verified",true);if(!t)startFlow("player");state.chats[key].push({r:"b",h:"Listo, cuenta verificada (simulación). Escribe el <b>nombre y apellidos</b> del jugador."});draw()}
   };
   $("#back").onclick=()=>{state.view="home";render()};
-  if(t&&$("#unf"))$("#unf").onclick=()=>openConfirmUnfollow(t);
+  if(t&&$("#tset"))$("#tset").onclick=()=>openTeamSettings(t);
+  if(t&&$("#tfol"))$("#tfol").onclick=()=>{follow(t.id);render();setTimeout(()=>openTeamSettings(t),150)};
 }
 function openSheet(html,bind){$("#sheet").innerHTML=html;$("#sheetBg").style.display="block";requestAnimationFrame(()=>$("#sheet").classList.add("open"));bind&&bind()}
 function closeSheet(){$("#sheet").classList.remove("open");$("#sheetBg").style.display="none"}
 $("#sheetBg").onclick=closeSheet;
+function openTeamSettings(t){
+  const propio=!!state.avEq[t.id];const av=Object.assign({},propio?state.avEq[t.id]:leerAvisos());
+  const sw=(k,tt,d)=>`<div class="tog"><div class="grow"><b>${tt}</b><div class="small">${d}</div></div><button class="sw ${av[k]?"on":""}" data-tsw="${k}" aria-label="${tt}"></button></div>`;
+  openSheet(`<h3>${esc(t.name)}</h3>
+   <span class="lbl">Etiqueta</span>
+   <input class="search" id="etq" maxlength="24" placeholder="Ej.: Adrián, Mi hijo, Sobrino…" value="${esc(etiqueta(t))}">
+   <div class="chips" style="padding:0 0 6px">${["Mi hijo","Mi hija","Sobrino","Nieto","Mi equipo"].map(x=>`<button class="chip" data-etq="${x}">${x}</button>`).join("")}</div>
+   <div class="section-t">Avisos de este equipo</div>
+   <div class="tog"><div class="grow"><b>Usar los ajustes generales</b><div class="small">Desactívalo para elegir avisos solo para este equipo.</div></div><button class="sw ${propio?"":"on"}" id="gen" aria-label="Usar ajustes generales"></button></div>
+   <div id="propios" class="${propio?"":"hidden"}">
+    ${sw("resultado","Resultados","Cuando se publique el resultado.")}
+    ${sw("asignado","Partido asignado","Cuando se fije o cambie fecha, hora o campo.")}
+    ${sw("previo","Antes del partido","Con el campo y cómo llegar.")}
+    <div class="tog"><div class="grow"><b>¿Cuánto antes?</b></div><div class="chips" style="padding:0">${[1,2,3,4,6].map(h=>`<button class="chip" data-th="${h}" style="${av.horas===h?"background:var(--pitch2);color:var(--bg)":""}">${h} h</button>`).join("")}</div></div>
+   </div>
+   <div style="display:flex;gap:10px;margin-top:16px"><button class="btn ghost" id="unf2" style="flex:1;padding:12px;color:var(--loss)">Dejar de seguir</button><button class="btn" id="ok" style="flex:1;padding:12px">Listo</button></div>`,()=>{
+    let usarGen=!propio;
+    const guardar=()=>{const e=$("#etq").value.trim();if(e)state.etq[t.id]=e;else delete state.etq[t.id];store.set("etiquetas",state.etq);
+      if(usarGen)delete state.avEq[t.id];else state.avEq[t.id]={resultado:!!av.resultado,asignado:!!av.asignado,previo:!!av.previo,horas:av.horas||3};store.set("avEq",state.avEq);syncAndroid()};
+    document.querySelectorAll("[data-etq]").forEach(b=>b.onclick=()=>{$("#etq").value=b.dataset.etq;guardar()});
+    $("#etq").onchange=guardar;
+    $("#gen").onclick=()=>{usarGen=!usarGen;$("#gen").classList.toggle("on",usarGen);$("#propios").classList.toggle("hidden",usarGen);guardar()};
+    document.querySelectorAll("[data-tsw]").forEach(b=>b.onclick=()=>{const k=b.dataset.tsw;av[k]=!av[k];b.classList.toggle("on",av[k]);guardar()});
+    document.querySelectorAll("[data-th]").forEach(b=>b.onclick=()=>{av.horas=+b.dataset.th;document.querySelectorAll("[data-th]").forEach(x=>x.style.cssText=+x.dataset.th===av.horas?"background:var(--pitch2);color:var(--bg)":"");guardar()});
+    $("#ok").onclick=()=>{guardar();closeSheet();delete state.chats[t.id];render()};
+    $("#unf2").onclick=()=>{guardar();openConfirmUnfollow(t)};
+  });
+}
 function openConfirmUnfollow(t){
   openSheet(`<h3>¿Dejar de seguir?</h3><p>${esc(t.name)} desaparecerá de tus equipos.</p><div style="display:flex;gap:10px"><button class="btn ghost" id="no" style="flex:1;padding:12px">Cancelar</button><button class="btn" id="yes" style="flex:1;padding:12px;background:var(--loss)">Dejar de seguir</button></div>`,()=>{
-    $("#no").onclick=closeSheet;$("#yes").onclick=()=>{unfollow(t.id);delete state.chats[t.id];closeSheet();state.view="home";render()}});
+    $("#no").onclick=closeSheet;$("#yes").onclick=()=>{delete state.etq[t.id];delete state.avEq[t.id];store.set("etiquetas",state.etq);store.set("avEq",state.avEq);unfollow(t.id);delete state.chats[t.id];closeSheet();state.view="home";render()}});
 }
 function leerAvisos(){let a={};if(ANDROID)try{a=JSON.parse(AndroidApp.leerAjustes()||"{}")}catch(e){}return Object.assign({resultado:true,asignado:true,previo:true,horas:3},a)}
 function openSettings(){
@@ -737,6 +824,11 @@ function openSettings(){
    ${sw("asignado","Partido asignado","Cuando se fija o cambia la fecha, la hora o el campo.")}
    ${sw("previo","Antes del partido","Con el campo y cómo llegar.")}
    <div class="tog"><div class="grow"><b>¿Cuánto antes?</b></div><div class="chips" style="padding:0">${[1,2,3,4,6].map(h=>`<button class="chip" data-h="${h}" style="${av.horas===h?"background:var(--pitch2);color:#fff":""}">${h} h</button>`).join("")}</div></div>
+   <div class="section-t">Apariencia</div>
+   <div class="themes">
+    <button class="theme ${state.tema==="clasico"?"on":""}" data-tema="clasico"><div class="pv" style="background:repeating-linear-gradient(90deg,#0f5132 0 16px,#14603d 16px 32px)"><div style="position:absolute;left:8px;right:8px;bottom:8px;height:18px;border-radius:6px;background:#f3f1ea"></div></div><b>Clásico</b><div class="small">Verde césped, claro</div></button>
+    <button class="theme ${state.tema==="estadio"?"on":""}" data-tema="estadio"><div class="pv" style="background:radial-gradient(60px 30px at 15% 0,rgba(255,255,255,.35),transparent),radial-gradient(60px 30px at 85% 0,rgba(255,255,255,.35),transparent),linear-gradient(165deg,#15275a,#070b16)"><div style="position:absolute;left:8px;right:8px;bottom:8px;height:18px;border-radius:6px;background:linear-gradient(135deg,#b8f53d,#5ee6a8)"></div></div><b>Estadio</b><div class="small">Noche de partido</div></button>
+   </div>
    <div class="section-t">Cuenta</div>
    <div class="tog"><div class="grow"><b>Cuenta verificada</b><div class="small">Permite buscar jugadores por nombre. En la versión final lo validará el club o la familia.</div></div><button class="sw ${state.verified?"on":""}" id="vsw" aria-label="Cuenta verificada"></button></div>
    <div class="tog"><div class="grow"><b>Datos</b><div class="small">Real Federación de Fútbol de Madrid (rffm.es), ${esc(IDX.temporada)}. Se actualizan varias veces al día. App no oficial.</div></div><button class="btn ghost" id="upd">Actualizar</button></div>`,()=>{
@@ -744,6 +836,7 @@ function openSettings(){
     document.querySelectorAll("[data-sw]").forEach(b=>b.onclick=()=>{const k=b.dataset.sw;av[k]=!av[k];b.classList.toggle("on",av[k]);guardar()});
     document.querySelectorAll("[data-h]").forEach(b=>b.onclick=()=>{av.horas=+b.dataset.h;document.querySelectorAll("[data-h]").forEach(x=>x.style.cssText=+x.dataset.h===av.horas?"background:var(--pitch2);color:#fff":"");guardar()});
     if($("#permiso"))$("#permiso").onclick=()=>{try{AndroidApp.pedirPermiso();AndroidApp.abrirAjustesNotificaciones()}catch(e){}};
+    document.querySelectorAll("[data-tema]").forEach(b=>b.onclick=()=>{state.tema=b.dataset.tema;store.set("tema",state.tema);aplicarTema();document.querySelectorAll("[data-tema]").forEach(x=>x.classList.toggle("on",x.dataset.tema===state.tema))});
     $("#vsw").onclick=()=>{state.verified=!state.verified;store.set("verified",state.verified);$("#vsw").classList.toggle("on",state.verified)};
     $("#upd").onclick=async()=>{$("#upd").textContent="…";await boot(true);closeSheet()};
   });
@@ -755,6 +848,7 @@ window.atras=()=>{
 };
 window.abrirEquipo=id=>{if(!IDX||!TEAM.get(id)){window.__pendiente=id;return}closeSheet();state.view="team";state.team=id;render()};
 function abrirPendiente(){const h=(location.hash.match(/^#e-(.+)$/)||[])[1];const id=window.__pendiente||h;if(id&&TEAM.get(id)){window.__pendiente=null;try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}state.view="team";state.team=id;render()}}
+aplicarTema();
 async function boot(fresh){
   const cached=store.get("indice",null);
   if(cached&&!fresh){buildIndex(cached);addLocalities();render();syncAndroid();abrirPendiente()}
