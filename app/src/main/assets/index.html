@@ -94,6 +94,8 @@ a.map{display:inline-flex;align-items:center;gap:6px;margin-top:6px;color:var(--
 .sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
 .sw.on{background:var(--win)}.sw.on::after{left:23px}
 .hidden{display:none!important}
+.tl{color:inherit;font-weight:inherit;text-decoration:underline;text-decoration-style:dotted;text-decoration-color:var(--pitch2);text-underline-offset:3px;cursor:pointer}
+.tl:active{opacity:.6}
 .team{cursor:pointer;user-select:none;-webkit-user-select:none}
 .drag{width:22px;align-self:stretch;display:grid;place-items:center;color:var(--muted);touch-action:none;cursor:grab;margin-left:-6px;flex:none}
 .drag svg{width:16px;height:16px}
@@ -242,11 +244,12 @@ const teamMatches=t=>{const d=teamGroup(t);return d?d.matches.filter(m=>m.home==
 const lastMatch=t=>teamMatches(t).filter(m=>m.played).sort((a,b)=>(a.date||0)-(b.date||0)||a.j-b.j).pop();
 const nextMatch=t=>{const ms=teamMatches(t).filter(m=>!m.played);return ms.find(m=>m.date&&m.date>=TODAY)||ms.find(m=>!m.date)};
 function outcome(m,id){const my=m.home===id?m.hg:m.ag,ot=m.home===id?m.ag:m.hg;return my>ot?"W":my<ot?"L":"D"}
+const L=(id,name)=>TEAM.get(id)?`<a class="tl" data-ver="${esc(id)}">${esc(name)}</a>`:esc(name);
 const fin=s=>/\.$/.test(s)?"":".";
 const rivalOf=(m,id)=>m.home===id?{id:m.away,n:m.awayN}:{id:m.home,n:m.homeN};
 
 /* ---------- estado ---------- */
-const state={etq:store.get("etiquetas",{}),avEq:store.get("avEq",{}),tema:store.get("tema","clasico"),follows:store.get("follows",[]).filter(Boolean),verified:store.get("verified",false),chats:{},iah:{},flow:null,view:"home",team:null};
+const state={pila:[],etq:store.get("etiquetas",{}),avEq:store.get("avEq",{}),tema:store.get("tema","clasico"),follows:store.get("follows",[]).filter(Boolean),verified:store.get("verified",false),chats:{},iah:{},flow:null,view:"home",team:null};
 const ANDROID=typeof window.AndroidApp!=="undefined";
 // Pasa a Android los equipos seguidos (para los avisos en segundo plano)
 function syncAndroid(){if(!ANDROID||!IDX)return;try{AndroidApp.guardarEquipos(JSON.stringify(state.follows.map(id=>TEAM.get(id)).filter(Boolean).map(t=>({id:t.id,g:t.grupos[0],n:t.name,e:state.etq[t.id]||"",av:state.avEq[t.id]||null}))))}catch(e){}}
@@ -287,26 +290,26 @@ const nombreJ=n=>{const m=String(n).match(/^(.*?),\s*(.+)$/);return m?m[2]+" "+m
 /* ---------- respuestas de la ficha ---------- */
 function scoreCard(m){
   const c=CAMPOS[m.campo];
-  return `<div class="score"><div class="t">${esc(m.homeN)}</div><div class="r">${m.hg} – ${m.ag}</div><div class="t">${esc(m.awayN)}</div></div>
+  return `<div class="score"><div class="t">${L(m.home,m.homeN)}</div><div class="r">${m.hg} – ${m.ag}</div><div class="t">${L(m.away,m.awayN)}</div></div>
   <div class="small" style="text-align:center">Jornada ${m.j??"?"}${m.date?" · "+fdate(m.date):""}${c||m.campoN?" · "+esc(c?c.name:m.campoN):""}</div>`;
 }
 function ansLast(t){
   const m=lastMatch(t);if(!m)return "Todavía no tiene resultados esta temporada.";
   const o=outcome(m,t.id);const verb={W:"ganó",D:"empató",L:"perdió"}[o];const r=m.date&&rel(m.date);
-  return `${verb[0].toUpperCase()+verb.slice(1)} ${o==="D"?"con":o==="W"?"a":"contra"} <b>${esc(rivalOf(m,t.id).n)}</b>${r?" "+r:""} (${m.home===t.id?"en casa":"fuera"}).${scoreCard(m)}`;
+  return `${verb[0].toUpperCase()+verb.slice(1)} ${o==="D"?"con":o==="W"?"a":"contra"} <b>${L(rivalOf(m,t.id).id,rivalOf(m,t.id).n)}</b>${r?" "+r:""} (${m.home===t.id?"en casa":"fuera"}).${scoreCard(m)}`;
 }
 function ansNext(t){
   const m=nextMatch(t);if(!m)return "No quedan partidos en el calendario de este grupo.";
   const home=m.home===t.id;const r=m.date&&rel(m.date);const c=CAMPOS[m.campo];
   const cuando=m.date?`${r?r[0].toUpperCase()+r.slice(1)+" "+m.date.getDate()+" "+MESES[m.date.getMonth()]:fdate(m.date)}${m.time?" · "+m.time:""}`:"Fecha por confirmar";
-  return `Próximo partido: <b>${home?"en casa":"fuera"}</b> contra <b>${esc(rivalOf(m,t.id).n)}</b>${fin(rivalOf(m,t.id).n)}
+  return `Próximo partido: <b>${home?"en casa":"fuera"}</b> contra <b>${L(rivalOf(m,t.id).id,rivalOf(m,t.id).n)}</b>${fin(rivalOf(m,t.id).n)}
   <div class="next"><div class="when">${cuando}</div>
   ${c?`<div>${esc(c.name)}</div><div class="small">${esc([c.addr,c.loc].filter(Boolean).join(", "))}</div>${mapLink(c)}`:m.campoN?`<div>${esc(m.campoN)}</div>`:`<div class="small">Campo por confirmar</div>`}</div>
   <div class="small">Jornada ${m.j??"?"} · ${esc(grupoNombre(t.grupos[0]))}</div>`;
 }
 function tableHTML(d,hl){
   return `<table class="st"><tr><th>#</th><th style="text-align:left">Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>DG</th><th>Pts</th></tr>
-  ${d.table.map(r=>`<tr class="${r.id===hl?"me":""}"${TEAM.get(r.id)&&r.id!==hl?` data-open="${r.id}" style="cursor:pointer"`:""}><td>${r.pos??""}</td><td class="n">${esc(r.name)}</td><td>${r.pj}</td><td>${r.g}</td><td>${r.e}</td><td>${r.p}</td><td>${r.gf-r.gc>0?"+":""}${r.gf-r.gc}</td><td class="p">${r.pts}</td></tr>`).join("")}</table>`;
+  ${d.table.map(r=>`<tr class="${r.id===hl?"me":""}"${TEAM.get(r.id)&&r.id!==hl?` data-ver="${r.id}" style="cursor:pointer"`:""}><td>${r.pos??""}</td><td class="n">${TEAM.get(r.id)&&r.id!==hl?`<span class="tl">${esc(r.name)}</span>`:esc(r.name)}</td><td>${r.pj}</td><td>${r.g}</td><td>${r.e}</td><td>${r.p}</td><td>${r.gf-r.gc>0?"+":""}${r.gf-r.gc}</td><td class="p">${r.pts}</td></tr>`).join("")}</table>`;
 }
 function ansTable(t){
   const d=teamGroup(t);const me=d.table.find(r=>r.id===t.id);
@@ -324,16 +327,16 @@ function ansForm(t){
   if(!ms.length)return "Todavía no hay partidos jugados.";
   const pts=ms.reduce((s,m)=>s+{W:3,D:1,L:0}[outcome(m,t.id)],0);
   return `Últimos ${ms.length} partidos (${pts} de ${ms.length*3} puntos):<div style="margin:8px 0">${ms.map(m=>`<span class="badge ${outcome(m,t.id)}">${{W:"G",D:"E",L:"P"}[outcome(m,t.id)]}</span>`).join("")}</div>
-  ${ms.slice().reverse().map(m=>`<div class="small">J${m.j} · ${esc(m.homeN)} ${m.hg}–${m.ag} ${esc(m.awayN)}</div>`).join("")}`;
+  ${ms.slice().reverse().map(m=>`<div class="small">J${m.j} · ${L(m.home,m.homeN)} ${m.hg}–${m.ag} ${L(m.away,m.awayN)}</div>`).join("")}`;
 }
 function ansJornada(t,n){
   const d=teamGroup(t);const ms=d.matches.filter(m=>m.j===n);
   if(!ms.length)return `No encuentro la jornada ${n} en este grupo.`;
-  return `Jornada ${n} · ${esc(grupoNombre(d.id))}<div style="margin-top:6px">${ms.map(m=>{if(!m.home||!m.away)return `<div class="small" style="padding:4px 0">Descansa: ${esc(m.home?m.homeN:m.awayN)}</div>`;const me=m.home===t.id||m.away===t.id;return `<div class="small" style="padding:4px 0;${me?"font-weight:700;color:var(--ink)":""}">${esc(m.homeN)} ${m.played?`<b>${m.hg}–${m.ag}</b>`:(m.time||"")} ${esc(m.awayN)}${!m.played&&m.date?" · "+fdate(m.date):""}</div>`}).join("")}</div>`;
+  return `Jornada ${n} · ${esc(grupoNombre(d.id))}<div style="margin-top:6px">${ms.map(m=>{if(!m.home||!m.away)return `<div class="small" style="padding:4px 0">Descansa: ${esc(m.home?m.homeN:m.awayN)}</div>`;const me=m.home===t.id||m.away===t.id;return `<div class="small" style="padding:4px 0;${me?"font-weight:700;color:var(--ink)":""}">${L(m.home,m.homeN)} ${m.played?`<b>${m.hg}–${m.ag}</b>`:(m.time||"")} ${L(m.away,m.awayN)}${!m.played&&m.date?" · "+fdate(m.date):""}</div>`}).join("")}</div>`;
 }
 function ansVs(t,rid){
   const ms=teamMatches(t).filter(m=>m.home===rid||m.away===rid);const rn=TEAM.get(rid)?TEAM.get(rid).name:rivalOf(ms[0],t.id).n;
-  return `Contra ${esc(rn)} esta temporada:<div style="margin-top:6px">${ms.map(m=>`<div style="padding:4px 0">${m.played?`<span class="badge ${outcome(m,t.id)}">${{W:"G",D:"E",L:"P"}[outcome(m,t.id)]}</span>`:"🗓 "} J${m.j} · ${esc(m.homeN)} ${m.played?`<b>${m.hg}–${m.ag}</b>`:(m.time||"")} ${esc(m.awayN)} <span class="small">${m.date?fdate(m.date):"fecha por confirmar"}</span></div>`).join("")}</div>`;
+  return `Contra ${L(rid,rn)} esta temporada:<div style="margin-top:6px">${ms.map(m=>`<div style="padding:4px 0">${m.played?`<span class="badge ${outcome(m,t.id)}">${{W:"G",D:"E",L:"P"}[outcome(m,t.id)]}</span>`:"🗓 "} J${m.j} · ${L(m.home,m.homeN)} ${m.played?`<b>${m.hg}–${m.ag}</b>`:(m.time||"")} ${L(m.away,m.awayN)} <span class="small">${m.date?fdate(m.date):"fecha por confirmar"}</span></div>`).join("")}</div>`;
 }
 function findRival(t,q){
   const d=teamGroup(t);const rivals=d.table.filter(r=>r.id!==t.id);
@@ -448,17 +451,17 @@ function ansEstad(t){
 }
 function ansCalendario(t){
   const ms=teamMatches(t).filter(m=>!m.played);if(!ms.length)return "No quedan partidos en el calendario de este grupo.";
-  return `Quedan <b>${ms.length} partidos</b>:<div style="margin-top:6px">${ms.map(m=>`<div class="small" style="padding:3px 0">J${m.j} · ${m.date?fdate(m.date):"fecha por confirmar"}${m.time?" "+m.time:""} · ${m.home===t.id?"🏠 vs "+esc(m.awayN):"✈️ en "+esc(m.homeN)}</div>`).join("")}</div>`;
+  return `Quedan <b>${ms.length} partidos</b>:<div style="margin-top:6px">${ms.map(m=>`<div class="small" style="padding:3px 0">J${m.j} · ${m.date?fdate(m.date):"fecha por confirmar"}${m.time?" "+m.time:""} · ${m.home===t.id?"🏠 vs "+L(m.away,m.awayN):"✈️ en "+L(m.home,m.homeN)}</div>`).join("")}</div>`;
 }
 function ansResultados(t){
   const ms=teamMatches(t).filter(m=>m.played);if(!ms.length)return "Todavía no hay partidos jugados.";
-  return `Resultados de la temporada:<div style="margin-top:6px">${ms.map(m=>`<div style="padding:3px 0"><span class="badge ${outcome(m,t.id)}">${{W:"G",D:"E",L:"P"}[outcome(m,t.id)]}</span> <span class="small">J${m.j} · ${esc(m.homeN)} <b>${m.hg}–${m.ag}</b> ${esc(m.awayN)}</span></div>`).join("")}</div>`;
+  return `Resultados de la temporada:<div style="margin-top:6px">${ms.map(m=>`<div style="padding:3px 0"><span class="badge ${outcome(m,t.id)}">${{W:"G",D:"E",L:"P"}[outcome(m,t.id)]}</span> <span class="small">J${m.j} · ${L(m.home,m.homeN)} <b>${m.hg}–${m.ag}</b> ${L(m.away,m.awayN)}</span></div>`).join("")}</div>`;
 }
 function ansProxDonde(t,donde){
   const m=teamMatches(t).find(m=>!m.played&&m.date&&m.date>=TODAY&&(donde==="casa"?m.home===t.id:m.away===t.id));
   if(!m)return `No hay más partidos ${donde==="casa"?"en casa":"fuera"} con fecha en el calendario.`;
   const c=CAMPOS[m.campo];
-  return `Próximo partido ${donde==="casa"?"en casa":"fuera"}: <b>${fdate(m.date)}${m.time?" · "+m.time:""}</b> contra <b>${esc(rivalOf(m,t.id).n)}</b>.${c?`<div class="small">${esc(c.name)}, ${esc(c.loc)}</div>${mapLink(c)}`:""}`;
+  return `Próximo partido ${donde==="casa"?"en casa":"fuera"}: <b>${fdate(m.date)}${m.time?" · "+m.time:""}</b> contra <b>${L(rivalOf(m,t.id).id,rivalOf(m,t.id).n)}</b>.${c?`<div class="small">${esc(c.name)}, ${esc(c.loc)}</div>${mapLink(c)}`:""}`;
 }
 const urlEquipoRFFM=t=>`https://www.rffm.es/fichaequipo/${encodeURIComponent(t.id)}`;
 const urlGrupoRFFM=gid=>{const g=grupo(gid);return g?`https://www.rffm.es/competicion/clasificaciones?temporada=${g.temp}&competicion=${g.compId}&grupo=${gid}&tipojuego=${g.tj}`:"https://www.rffm.es"};
@@ -755,6 +758,7 @@ function activarArrastre(cont){
   };
 }
 function renderHome(app){
+  state.pila=[];
   const followed=state.follows.map(id=>TEAM.get(id)).filter(Boolean);
   const act=IDX.act?new Date(IDX.act):null;
   app.innerHTML=`<header class="top"><div class="toprow"><div class="grow"><h1>CANTERA MADRID</h1><div class="sub">Fútbol base · temporada ${esc(IDX.temporada||"")}</div></div>
@@ -787,7 +791,7 @@ function renderHome(app){
 async function renderTeam(app,t){
   if(!t){state.view="home";return render()}
   if(!GD[t.grupos[0]]){app.innerHTML=`<header class="top"><div class="toprow"><button class="iconbtn" id="back">${icons.back}</button><div class="grow"><h1 style="font-size:22px">${esc(t.name)}</h1></div></div></header><main><div class="empty"><span class="typing"><i></i><i></i><i></i></span></div></main>`;
-    $("#back").onclick=()=>{state.view="home";render()};
+    $("#back").onclick=volver;
     try{await loadGroup(t.grupos[0])}catch(e){$("main").innerHTML=`<div class="empty">No he podido cargar los datos del equipo.<br><br><button class="btn" id="rt">Reintentar</button></div>`;$("#rt").onclick=()=>render();return}
     if(state.view!=="team"||state.team!==t.id)return;
   }else loadGroup(t.grupos[0],true).catch(()=>{}); // refresco en segundo plano
@@ -805,7 +809,9 @@ function renderChat(app,t){
   <form class="inp" id="f"><input id="q" placeholder="${t?"Pregunta sobre el equipo…":"Escribe o elige una opción…"}" autocomplete="off" enterkeyhint="send"><button aria-label="Enviar">${icons.send}</button></form></div>`;
   const chat=$("#chat");
   const wide=h=>h&&(h.includes("<table")||h.includes("plist")||h.includes('class="opts'));
-  const draw=()=>{chat.innerHTML=state.chats[key].map(m=>`<div class="msg ${m.r}${wide(m.h)?" wide":""}">${m.h}</div>`).join("");$("#scroll").scrollTop=1e9};
+  const draw=()=>{chat.innerHTML=state.chats[key].map(m=>`<div class="msg ${m.r}${wide(m.h)?" wide":""}">${m.h}</div>`).join("");
+    if(t)chat.querySelectorAll(`a[data-ver="${CSS.escape(t.id)}"]`).forEach(a=>{a.removeAttribute("data-ver");a.classList.remove("tl")}); // el propio equipo no es enlace
+    $("#scroll").scrollTop=1e9};
   draw();
   const ask=text=>{
     if(!text.trim())return;
@@ -823,10 +829,11 @@ function renderChat(app,t){
   $("#f").onsubmit=e=>{e.preventDefault();const v=$("#q").value;$("#q").value="";ask(v)};
   app.onclick=e=>{
     const a=e.target.closest("[data-ask]");if(a){ask(a.dataset.ask);return}
+    const vr=e.target.closest("[data-ver]");if(vr){const id=vr.dataset.ver;if(id===state.team&&state.view==="team")return;state.pila.push({view:state.view,team:state.team});state.view="team";state.team=id;render();return}
     const o=e.target.closest("[data-open]");if(o){follow(o.dataset.open);state.view="team";state.team=o.dataset.open;render();return}
     const v=e.target.closest("[data-act=verify]");if(v){state.verified=true;store.set("verified",true);if(!t)startFlow("player");state.chats[key].push({r:"b",h:"Listo, cuenta verificada (simulación). Escribe el <b>nombre y apellidos</b> del jugador."});draw()}
   };
-  $("#back").onclick=()=>{state.view="home";render()};
+  $("#back").onclick=volver;
   if(t&&$("#tset"))$("#tset").onclick=()=>openTeamSettings(t);
   if(t&&$("#tfol"))$("#tfol").onclick=()=>{follow(t.id);render();setTimeout(()=>openTeamSettings(t),150)};
 }
@@ -903,9 +910,10 @@ function openSettings(){
     $("#upd").onclick=async()=>{$("#upd").textContent="…";await boot(true);closeSheet()};
   });
 }
+function volver(){const p=state.pila.pop();if(p){state.view=p.view;state.team=p.team}else state.view="home";render()}
 window.atras=()=>{
   if($("#sheet").classList.contains("open")){closeSheet();return true}
-  if(state.view!=="home"){state.view="home";render();return true}
+  if(state.view!=="home"){volver();return true}
   return false;
 };
 window.abrirEquipo=id=>{if(!IDX||!TEAM.get(id)){window.__pendiente=id;return}closeSheet();state.view="team";state.team=id;render()};
