@@ -23,7 +23,7 @@ Cada cambio en `app/` hace que GitHub Actions compile una APK firmada y la publi
 
 ## Datos
 
-- `robot/rffm.py` (workflow «Robot de datos RFFM») descarga calendario, resultados, clasificaciones, goleadores y campos con coordenadas. Se ejecuta cada hora los fines de semana y tres veces al día entre semana.
+- `robot/rffm.py` (workflow «Robot de datos RFFM») descarga calendario, resultados, clasificaciones, goleadores y campos con coordenadas. Lo lanza el worker de Cloudflare `dondeloechan-ia` (repository_dispatch): completo cada 2 h el fin de semana y 3 veces al día entre semana, y una pasada rápida de resultados cada 20 min el fin de semana. El secreto `GH_TOKEN` del worker debe tener permiso «Contents: Read and write» sobre este repositorio.
 - Solo usa rutas permitidas por el robots.txt de la RFFM (`/api/*`, `/competicion/*`, `/campo/*`).
 - Los datos se guardan en `data/`: `indice.json`, `g/<grupo>.json`, `goleadores.json` y `estado.json`. La app los descarga de GitHub al abrirse y los guarda para usarlos sin conexión.
 

@@ -2,19 +2,27 @@ name: Robot de datos RFFM
 
 # Descarga calendario, resultados, clasificaciones y campos de la RFFM y los guarda en data/.
 # La app lee esos archivos de GitHub al abrirse.
+#
+# Lo lanza el worker de Cloudflare (dondeloechan-ia) con repository_dispatch, porque los
+# horarios de GitHub se retrasan mucho:
+#   - completo: fines de semana cada 2 h (8–22 h); entre semana a las 7, 15 y 21 h (hora de Madrid)
+#   - rapido:   fines de semana cada 20 min (10–23 h), solo grupos con resultados pendientes
+# El horario de GitHub queda solo como red de seguridad, una vez al día.
 on:
+  repository_dispatch:
+    types: [robot]
   schedule:
-    # Fines de semana: completo cada 2 horas y rápido (solo grupos con partidos hoy) cada 20 minutos
-    - cron: "20 8-20/2 * * 6,0"
-    - cron: "0,40 8-21 * * 6,0"
-    # Entre semana: tres veces al día
-    - cron: "20 6,14,20 * * 1-5"
+    - cron: "20 4 * * *"
   push:
     branches: [main]
     paths:
       - "robot/**"
       - ".github/workflows/robot.yml"
   workflow_dispatch:
+    inputs:
+      modo:
+        description: "completo o rapido"
+        default: "completo"
 
 permissions:
   contents: write
@@ -33,13 +41,11 @@ jobs:
         with:
           python-version: "3.12"
       - name: Descargar datos de la RFFM
+        env:
+          MODO: ${{ github.event.client_payload.modo || github.event.inputs.modo || 'completo' }}
         run: |
-          # Los minutos :00 y :40 de fin de semana son pasadas rápidas (solo grupos que juegan hoy)
-          if [ "${{ github.event.schedule }}" = "0,40 8-21 * * 6,0" ]; then
-            python robot/rffm.py --rapido
-          else
-            python robot/rffm.py
-          fi
+          echo "Modo: $MODO"
+          if [ "$MODO" = "rapido" ]; then python robot/rffm.py --rapido; else python robot/rffm.py; fi
       - name: Guardar cambios
         if: always()
         run: |
