@@ -94,6 +94,25 @@ a.map{display:inline-flex;align-items:center;gap:6px;margin-top:6px;color:var(--
 .sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
 .sw.on{background:var(--win)}.sw.on::after{left:23px}
 .hidden{display:none!important}
+.meteo{margin-top:10px;padding:10px 12px;border-radius:12px;background:var(--chalk);border:1px solid var(--line)}
+.mt-head{display:flex;gap:10px;align-items:center;margin-bottom:6px}.mt-ic{font-size:28px;line-height:1}
+.mt-icons{display:grid;grid-template-columns:repeat(6,1fr);text-align:center;font-size:17px;margin-bottom:2px}
+.mt-icons span{opacity:.75}.mt-icons span.on{opacity:1}
+.meteo svg text{font-family:Inter,sans-serif}
+.mt-t{font-size:9.5px;fill:var(--muted)}
+.mt-x{font-size:10px;fill:var(--muted)}.mt-x.on{fill:var(--ink);font-weight:700}
+.mt-val{font-size:11px;font-weight:700;fill:var(--ink)}
+.mt-band{fill:var(--card);opacity:.9}
+.mt-line{fill:none;stroke:#e8590c;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.mt-dot{fill:#e8590c;stroke:var(--chalk);stroke-width:2}.mt-dot.on{fill:#c2410c}
+.mt-bar{fill:#74a9e8}.mt-bar.on{fill:#2563eb}
+.mt-base{stroke:var(--line);stroke-width:1}
+.mt-det{margin-top:2px;color:var(--ink)}
+html[data-theme="estadio"] .meteo{background:#0d1629;border-color:#1e2a45}
+html[data-theme="estadio"] .mt-band{fill:#16223d}
+html[data-theme="estadio"] .mt-line{stroke:#e2702f}html[data-theme="estadio"] .mt-dot{fill:#e2702f;stroke:#0d1629}html[data-theme="estadio"] .mt-dot.on{fill:#e2702f}
+html[data-theme="estadio"] .mt-bar{fill:#2f5a99}html[data-theme="estadio"] .mt-bar.on{fill:#4a86e8}
+@media (prefers-color-scheme: dark){html:not([data-theme="estadio"]) .mt-bar{fill:#2f5a99}html:not([data-theme="estadio"]) .mt-bar.on{fill:#4a86e8}html:not([data-theme="estadio"]) .mt-line{stroke:#e2702f}html:not([data-theme="estadio"]) .mt-dot{fill:#e2702f}}
 .sug{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 6px}
 .sug .chip{font-size:13.5px;padding:8px 13px}
 .tl{color:inherit;font-weight:inherit;text-decoration:underline;text-decoration-style:dotted;text-decoration-color:var(--pitch2);text-underline-offset:3px;cursor:pointer}
@@ -308,7 +327,7 @@ function ansNext(t){
   return `Próximo partido: <b>${home?"en casa":"fuera"}</b> contra <b>${L(rivalOf(m,t.id).id,rivalOf(m,t.id).n)}</b>${fin(rivalOf(m,t.id).n)}
   <div class="next"><div class="when">${cuando}</div>
   ${c?`<div>${esc(c.name)}</div><div class="small">${esc([c.addr,c.loc].filter(Boolean).join(", "))}</div>${mapLink(c)}`:m.campoN?`<div>${esc(m.campoN)}</div>`:`<div class="small">Campo por confirmar</div>`}</div>
-  <div class="small">Jornada ${m.j??"?"} · ${esc(grupoNombre(t.grupos[0]))}</div>`;
+  <div class="small">Jornada ${m.j??"?"} · ${esc(grupoNombre(t.grupos[0]))}</div>${meteoPH(m)}`;
 }
 function tableHTML(d,hl){
   return `<table class="st"><tr><th>#</th><th style="text-align:left">Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>DG</th><th>Pts</th></tr>
@@ -405,7 +424,7 @@ function nearestClubs(ll,cat,limit=5,fem=null){
    1) se normaliza el texto y se corrigen faltas contra un vocabulario de palabras clave
    2) se busca la intención por reglas, de la más concreta a la más general
    3) se responde con los datos del grupo                                            */
-const KW="proximo proxima siguiente cuando hora horario donde campo direccion llegar llego ubicacion mapa juega jugamos juegan jugais juego toca rival contra quien quedo quedamos quedaron resultado resultados gano ganamos ganaron perdio perdimos perdieron empato empatamos marcador ultimo ultima clasificacion tabla posicion puesto lider primero colista ascenso descenso puntos goleador goleadores pichichi marco marcaron goles gol racha forma estadisticas balance calendario partidos quedan jornada plantilla jugadores convocatoria alineacion arbitro equipacion entrenador casa fuera visitante local semana sabado domingo manana hoy finde pasado victorias derrotas empates encajado metido diferencia ayuda hola gracias".split(" ");
+const KW="tiempo llover lluvia llueve frio calor temperatura prevision viento clima proximo proxima siguiente cuando hora horario donde campo direccion llegar llego ubicacion mapa juega jugamos juegan jugais juego toca rival contra quien quedo quedamos quedaron resultado resultados gano ganamos ganaron perdio perdimos perdieron empato empatamos marcador ultimo ultima clasificacion tabla posicion puesto lider primero colista ascenso descenso puntos goleador goleadores pichichi marco marcaron goles gol racha forma estadisticas balance calendario partidos quedan jornada plantilla jugadores convocatoria alineacion arbitro equipacion entrenador casa fuera visitante local semana sabado domingo manana hoy finde pasado victorias derrotas empates encajado metido diferencia ayuda hola gracias".split(" ");
 // Palabras corrientes que no se deben "corregir" y abreviaturas típicas de móvil
 const PROTEGIDAS=new Set("cuantos cuantas cuanto bajamos subimos ganados perdidos empatados partido partidos ultimos ultimas puedo preguntar llevamos llevan lleva tal que como esta estan estamos vamos van tenemos hemos habeis donde cuando quien quienes sabes sabe dime hace hacen nuestro nuestra equipo liga grupo semana dias campo campos hijo hija mismo todo todos".split(" "));
 const ABREV={q:"que",k:"que",ke:"que",dnd:"donde",dnde:"donde",dond:"donde",ora:"hora",hra:"hora",hr:"hora",xq:"porque",pq:"porque",tb:"tambien",mñn:"manana",mnn:"manana",kdamos:"quedamos",kedamos:"quedamos",keda:"queda",kien:"quien",qien:"quien",cuado:"cuando",cnd:"cuando",cdo:"cuando",prox:"proximo",clasi:"clasificacion",clasif:"clasificacion",resul:"resultado",finde:"finde",jor:"jornada"};
@@ -417,6 +436,7 @@ const INTENCIONES=[
   ["saludo",R(/^(hola|buenas|buenos dias|buenas tardes|hey|ey)\b/),true],
   ["gracias",R(/^(gracias|muchas gracias|ok|vale|genial|perfecto|guay)\b/),true],
   ["ayuda",R(/(que (te )?puedo preguntar|que sabes|ayuda|como funciona|que haces)/)],
+  ["tiempo",R(/(tiempo|llover|llovera|lluvia|llueve|frio|calor|temperatura|meteo|prevision|viento|nieve|clima|abrigo|chubasquero|paraguas|sol\b)/)],
   ["resumen",R(/^(resumen|todo|info|informacion|ficha|datos|como va el equipo|como esta el equipo)$/)],
   ["jornada",R(/\b(jornada|j)\s*\d+\b/)],
   ["noDato",R(/(jugadores|ficha de|fichas|hay que (ir|llegar|estar)|a que hora (hay que|tenemos que|quedamos para)|arbitro|arbitra|equipacion|camiseta|entrenador|mister|convocatoria|convocados|alineacion|titular|plantilla|lesion|entradas|precio|hora de llegada|hay que estar|quedada|bus|autobus)/)],
@@ -476,7 +496,7 @@ function ansResumen(t){
   const ms=teamMatches(t).filter(m=>m.played);const forma=ms.slice(-5);
   let h=`<b>Resumen de ${esc(t.name)}</b>`;
   h+=`<div class="section-t" style="margin-top:10px">Último resultado</div>`+(lm?scoreCard(lm):`<div class="small">Sin partidos jugados.</div>`);
-  if(nm){const c=CAMPOS[nm.campo];h+=`<div class="section-t">Próximo partido</div><div>${nm.date?fdate(nm.date):"Fecha por confirmar"}${nm.time?" · <b>"+nm.time+"</b>":""} · ${nm.home===t.id?"en casa contra":"fuera, en"} <b>${L(rivalOf(nm,t.id).id,rivalOf(nm,t.id).n)}</b></div>${c?`<div class="small">${esc(c.name)}, ${esc(c.loc)}</div>`:""}`}
+  if(nm){const c=CAMPOS[nm.campo];h+=`<div class="section-t">Próximo partido</div><div>${nm.date?fdate(nm.date):"Fecha por confirmar"}${nm.time?" · <b>"+nm.time+"</b>":""} · ${nm.home===t.id?"en casa contra":"fuera, en"} <b>${L(rivalOf(nm,t.id).id,rivalOf(nm,t.id).n)}</b></div>${c?`<div class="small">${esc(c.name)}, ${esc(c.loc)}</div>`:""}${meteoPH(nm)}`}
   if(me)h+=`<div class="section-t">Clasificación</div><div><b>${me.pos}º</b> de ${d.table.length} con <b>${me.pts} puntos</b>${me.pos>1?` · a ${d.table[0].pts-me.pts} del líder`:" · líder"}</div>`+tableHTML(d,t.id);
   if(ms.length){let g=0,e=0,p=0,gf=0,gc=0;ms.forEach(m=>{const a=m.home===t.id?m.hg:m.ag,b=m.home===t.id?m.ag:m.hg;gf+=a;gc+=b;a>b?g++:a<b?p++:e++});
     h+=`<div class="section-t">Estadísticas</div><div>${ms.length} jugados: <b>${g}</b>G <b>${e}</b>E <b>${p}</b>P · Goles ${gf}–${gc} (${gf-gc>0?"+":""}${gf-gc})</div>`;
@@ -485,15 +505,79 @@ function ansResumen(t){
   if(gol.length)h+=`<div class="section-t">Goleadores</div><div class="small">${gol.map(x=>`${esc(nombreJ(x[0]))} (${x[2]})`).join(" · ")}</div>`;
   return h;
 }
+
+/* ---------- previsión meteorológica (Open-Meteo, sin clave) ----------
+   Se muestra en el próximo partido si hay coordenadas del campo y faltan ≤ 15 días.
+   Dos gráficas pequeñas con el mismo eje de horas (nunca dos escalas en una):
+   temperatura (línea) y probabilidad de lluvia (barras).                       */
+const METEO={};
+const WMO=c=>c===0?["☀️","Despejado"]:c<=2?["🌤️","Poco nuboso"]:c===3?["☁️","Nublado"]:c<=48?["🌫️","Niebla"]:c<=57?["🌦️","Llovizna"]:c<=67?["🌧️","Lluvia"]:c<=77?["🌨️","Nieve"]:c<=82?["🌦️","Chubascos"]:c<=86?["🌨️","Chubascos de nieve"]:["⛈️","Tormenta"];
+function meteoPH(m){
+  const c=CAMPOS[m.campo];if(!c||!c.ll||!m.date||!m.time)return "";
+  const dias=(m.date-TODAY)/864e5;if(dias<0)return "";
+  if(dias>15)return `<div class="small" style="margin-top:8px">🌦️ La previsión del tiempo aparecerá 15 días antes del partido.</div>`;
+  const iso=`${m.date.getFullYear()}-${String(m.date.getMonth()+1).padStart(2,"0")}-${String(m.date.getDate()).padStart(2,"0")}`;
+  return `<div class="meteo" data-m="${c.ll[0]}|${c.ll[1]}|${iso}|${m.time}"><div class="small">🌦️ Cargando la previsión del tiempo…</div></div>`;
+}
+async function datosMeteo(lat,lon,iso){
+  const k=`${lat},${lon},${iso}`;if(METEO[k]&&Date.now()-METEO[k].t<30*60e3)return METEO[k].d;
+  const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,precipitation_probability,precipitation,weather_code,wind_speed_10m&timezone=Europe%2FMadrid&start_date=${iso}&end_date=${iso}`;
+  const r=await fetch(url);if(!r.ok)throw new Error("HTTP "+r.status);const d=await r.json();METEO[k]={t:Date.now(),d};return d;
+}
+function meteoHTML(d,hora){
+  const H=+hora.split(":")[0];const h=d.hourly;const ini=Math.max(0,Math.min(18,H-2));const idx=[...Array(6).keys()].map(i=>ini+i);
+  const T=idx.map(i=>h.temperature_2m[i]),P=idx.map(i=>h.precipitation_probability[i]??0),C=idx.map(i=>h.weather_code[i]),V=idx.map(i=>h.wind_speed_10m[i]),MM=idx.map(i=>h.precipitation[i]??0);
+  const k=H-ini;const [ic,txt]=WMO(C[k]);
+  const W=300,col=W/6,pad=6;
+  // temperatura: escala propia con margen
+  const tmin=Math.floor(Math.min(...T))-1,tmax=Math.ceil(Math.max(...T))+1;const yT=v=>8+(1-(v-tmin)/(tmax-tmin||1))*44;
+  const pts=T.map((v,i)=>[i*col+col/2,yT(v)]);
+  const linea=pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ");
+  // lluvia: 0–100 %
+  const yP=v=>110-v*0.44;
+  const svg=`<svg viewBox="0 0 ${W} 136" width="100%" role="img" aria-label="Previsión por horas: temperatura y probabilidad de lluvia">
+   <rect x="${k*col+1}" y="0" width="${col-2}" height="114" rx="6" class="mt-band"/>
+   <text x="4" y="10" class="mt-t">Temperatura (°C)</text>
+   <path d="${linea}" class="mt-line"/>
+   ${pts.map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="${i===k?5:3.5}" class="mt-dot${i===k?" on":""}"/>`).join("")}
+   <text x="${pts[k][0]}" y="${pts[k][1]-9}" text-anchor="middle" class="mt-val">${Math.round(T[k])}°</text>
+   <text x="4" y="70" class="mt-t">Probabilidad de lluvia (%)</text>
+   <line x1="0" x2="${W}" y1="110" y2="110" class="mt-base"/>
+   ${P.map((v,i)=>{const hgt=Math.max(1.5,v*0.44);return `<path d="M${i*col+pad} 110 V${(110-hgt+4).toFixed(1)} q0 -4 4 -4 H${(i+1)*col-pad-4} q4 0 4 4 V110 Z" class="mt-bar${i===k?" on":""}"/>`}).join("")}
+   <text x="${k*col+col/2}" y="${yP(P[k])-5}" text-anchor="middle" class="mt-val">${P[k]}%</text>
+   ${idx.map((x,i)=>`<text x="${i*col+col/2}" y="128" text-anchor="middle" class="mt-x${i===k?" on":""}">${String(x).padStart(2,"0")}h</text>`).join("")}
+   ${idx.map((x,i)=>`<rect x="${i*col}" y="0" width="${col}" height="136" fill="transparent" data-mh="${i}" style="cursor:pointer"/>`).join("")}
+  </svg>`;
+  const det=i=>`${String(idx[i]).padStart(2,"0")}:00 · ${WMO(C[i])[0]} ${WMO(C[i])[1]} · ${Math.round(T[i])}° · lluvia ${P[i]}% (${MM[i]} mm) · viento ${Math.round(V[i])} km/h`;
+  return `<div class="mt-head"><span class="mt-ic">${ic}</span><div><b>${txt} · ${Math.round(T[k])}°</b><div class="small">A la hora del partido: lluvia ${P[k]}% · viento ${Math.round(V[k])} km/h</div></div></div>
+   <div class="mt-icons">${C.map((c,i)=>`<span class="${i===k?"on":""}">${WMO(c)[0]}</span>`).join("")}</div>${svg}
+   <div class="small mt-det" data-dets='${esc(JSON.stringify(idx.map((_,i)=>det(i))))}'>${det(k)}</div>
+   <div class="small" style="opacity:.7">Toca una hora para ver el detalle · Open-Meteo</div>`;
+}
+async function rellenarMeteo(root){
+  for(const el of root.querySelectorAll(".meteo:not([data-ok])")){
+    const[lat,lon,iso,hora]=el.dataset.m.split("|");el.dataset.ok="1";
+    try{el.innerHTML=meteoHTML(await datosMeteo(lat,lon,iso),hora)}
+    catch(e){el.innerHTML=`<div class="small">🌦️ No se ha podido cargar la previsión del tiempo.</div>`}
+  }
+}
+function ansTiempo(t){
+  const m=nextMatch(t);if(!m)return "No hay próximo partido en el calendario.";
+  const c=CAMPOS[m.campo];const ph=meteoPH(m);
+  if(!ph)return `Para el próximo partido aún no hay ${!m.date||!m.time?"fecha u hora":"ubicación exacta del campo"}, así que no puedo darte la previsión.`;
+  return `Previsión para el partido del <b>${fdate(m.date)} a las ${m.time}</b>${c?` en ${esc(c.name)}`:""}:`+ph;
+}
+
 const NO_DATO="La federación no publica ese dato (plantillas, alineaciones, árbitros, equipaciones u horarios de llegada). Esa información la da el club o el entrenador.";
 const HELP_TEAM="Puedo contarte el último resultado, el próximo partido con hora y campo, la clasificación y los puntos, los goleadores, la racha, las estadísticas, los partidos que quedan, una jornada («jornada 3») o cómo os fue contra un rival («contra Alcorcón»).";
-const CHIPS_TEAM=["Resumen","¿Cómo quedó el último partido?","¿Cuándo y dónde es el próximo?","Clasificación","Goleadores","Racha","Plantilla"];
+const CHIPS_TEAM=["Resumen","¿Cómo quedó el último partido?","¿Cuándo y dónde es el próximo?","¿Qué tiempo hará?","Clasificación","Goleadores","Racha","Plantilla"];
 function responderEquipo(t,id,q,text){
   switch(id){
     case "saludo":return `¡Hola! ${HELP_TEAM}`;
     case "gracias":return "¡A ti! Si necesitas algo más del equipo, pregúntame.";
     case "ayuda":return HELP_TEAM;
     case "resumen":return ansResumen(t);
+    case "tiempo":return ansTiempo(t);
     case "jornada":return ansJornada(t,+(q.match(/(\d+)/)[1]));
     case "noDato":return /(plantilla|jugador|convoca|alineacion|titular)/.test(q)?`La plantilla y las fichas de los jugadores están en la web oficial de la federación:<div>${linkRFFM(urlEquipoRFFM(t),"Ver plantilla en la RFFM")}</div><div class="small" style="margin-top:6px">Se abre en el navegador. Las convocatorias y alineaciones de cada partido las da el club.</div>`:NO_DATO;
     case "proxCasa":return ansProxDonde(t,"casa");
@@ -521,7 +605,7 @@ function answerTeam(t,text){
 }
 
 /* ---------- preguntas sobre un equipo desde el chat principal ---------- */
-const INT_EQUIPO=["resumen","proximo","ultimo","clasif","puntos","goleadores","racha","estad","calendario","resultados","proxCasa","proxFuera","jornada"];
+const INT_EQUIPO=["tiempo","resumen","proximo","ultimo","clasif","puntos","goleadores","racha","estad","calendario","resultados","proxCasa","proxFuera","jornada"];
 const RELLENO=new Set(["el","la","los","las","de","del","al","a","que","como","cuando","donde","juega","jugo","jugara","va","van","ha","han","esta","este","partido","equipo","mi","su","hijo","hija","nos","les","le","se","y","en","por","con","contra","para","hoy","manana","sabado","domingo","semana","finde","las","horas","es","son","fue","sobre","tal","quien","cual","cuantos","cuantas","lleva","llevan","dime","quiero","saber","ver","me","del","partidos","hora","campo","proximo","ultimo","resultado","clasificacion","goleadores","racha","puntos"]);
 function equipoPorEtiqueta(text){const q=" "+norm(text)+" ";for(const[id,e] of Object.entries(state.etq)){const n=norm(e);if(n.length>1&&q.includes(" "+n+" ")&&TEAM.get(id))return TEAM.get(id)}return null}
 function equiposEnTexto(text){
@@ -836,7 +920,7 @@ function renderChat(app,t){
     return `<div class="sug">${lista.map(c=>`<button class="chip" data-ask="${esc(c)}">${esc(c)}</button>`).join("")}</div>`};
   const draw=()=>{chat.innerHTML=state.chats[key].map(m=>`<div class="msg ${m.r}${wide(m.h)?" wide":""}">${m.h}</div>`).join("")+sugerencias();
     if(t)chat.querySelectorAll(`a[data-ver="${CSS.escape(t.id)}"]`).forEach(a=>{a.removeAttribute("data-ver");a.classList.remove("tl")}); // el propio equipo no es enlace
-    $("#scroll").scrollTop=1e9};
+    $("#scroll").scrollTop=1e9;rellenarMeteo(chat)};
   draw();if(state.chats[key].length===1)$("#scroll").scrollTop=0; // el resumen se lee desde arriba
   const ask=text=>{
     if(!text.trim())return;
@@ -854,6 +938,7 @@ function renderChat(app,t){
   $("#f").onsubmit=e=>{e.preventDefault();const v=$("#q").value;$("#q").value="";ask(v)};
   app.onclick=e=>{
     const a=e.target.closest("[data-ask]");if(a){ask(a.dataset.ask);return}
+    const mh=e.target.closest("[data-mh]");if(mh){const box=mh.closest(".meteo");const det=box.querySelector(".mt-det");det.textContent=JSON.parse(det.dataset.dets)[+mh.dataset.mh];box.querySelectorAll(".mt-band").forEach(b=>b.setAttribute("x",(+mh.dataset.mh)*50+1));return}
     const vr=e.target.closest("[data-ver]");if(vr){const id=vr.dataset.ver;if(id===state.team&&state.view==="team")return;state.pila.push({view:state.view,team:state.team});state.resumen=id;state.view="team";state.team=id;render();return}
     const o=e.target.closest("[data-open]");if(o){follow(o.dataset.open);state.view="team";state.team=o.dataset.open;render();return}
     const v=e.target.closest("[data-act=verify]");if(v){state.verified=true;store.set("verified",true);if(!t)startFlow("player");state.chats[key].push({r:"b",h:"Listo, cuenta verificada (simulación). Escribe el <b>nombre y apellidos</b> del jugador."});draw()}
