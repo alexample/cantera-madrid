@@ -152,8 +152,18 @@ html[data-theme="estadio"] .mt-bar{fill:#2f5a99}html[data-theme="estadio"] .mt-b
 @media (prefers-color-scheme: dark){html:not([data-theme="estadio"]) .mt-bar{fill:#2f5a99}html:not([data-theme="estadio"]) .mt-bar.on{fill:#4a86e8}html:not([data-theme="estadio"]) .mt-line{stroke:#e2702f}html:not([data-theme="estadio"]) .mt-dot{fill:#e2702f}}
 .sug{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 6px}
 .sug .chip{font-size:13.5px;padding:8px 13px}
-.tl{color:inherit;font-weight:inherit;text-decoration:underline;text-decoration-style:dotted;text-decoration-color:var(--pitch2);text-underline-offset:3px;cursor:pointer}
-.tl:active{opacity:.6}
+.tl{display:inline-block;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;vertical-align:middle;background:var(--chalk);border:1px solid var(--line);border-radius:999px;padding:2px 9px 2px 3px;color:var(--ink);font-weight:600;text-decoration:none;cursor:pointer;-webkit-box-decoration-break:clone;box-decoration-break:clone;line-height:1.9;white-space:normal;transition:background .12s,transform .12s}
+.tl:active{background:var(--pitch2);color:#fff;transform:scale(.97)}
+.tl-c{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;color:#fff;font-size:8.5px;font-weight:800;margin-right:5px;vertical-align:1px;font-family:Inter,sans-serif;letter-spacing:-.2px}
+.tl-ch{margin-left:4px;font-weight:800;color:var(--pitch2)}
+.mc-eq .tl,.score .tl,.cr-head .tl{white-space:normal;display:flex;flex-direction:column;align-items:center;gap:3px;border-radius:12px;padding:6px 6px 5px;font-size:12.5px;line-height:1.2;text-align:center}
+.mc-eq .tl .tl-c,.score .tl .tl-c,.cr-head .tl .tl-c{width:26px;height:26px;font-size:9.5px;margin:0}
+.mc-eq .tl .tl-ch,.score .tl .tl-ch,.cr-head .tl .tl-ch{margin:0;font-size:11px;line-height:1}
+.mc-eq .tl .tl-ch::before,.score .tl .tl-ch::before{content:"Ver ficha ";font-weight:600;font-size:10.5px}
+tr.tap td{cursor:pointer}tr.tap:active td{background:var(--chalk)}
+tr.tap td.p::after{content:" ›";font-weight:800;color:var(--pitch2)}
+html[data-theme="estadio"] .tl{background:rgba(184,245,61,.08);border-color:rgba(184,245,61,.28);color:#eef3ff}
+html[data-theme="estadio"] .tl:active{background:#b8f53d;color:#08101f}
 .team{cursor:pointer;user-select:none;-webkit-user-select:none}
 .drag{width:22px;align-self:stretch;display:grid;place-items:center;color:var(--muted);touch-action:none;cursor:grab;margin-left:-6px;flex:none}
 .drag svg{width:16px;height:16px}
@@ -302,7 +312,7 @@ const teamMatches=t=>{const d=teamGroup(t);return d?d.matches.filter(m=>m.home==
 const lastMatch=t=>teamMatches(t).filter(m=>m.played).sort((a,b)=>(a.date||0)-(b.date||0)||a.j-b.j).pop();
 const nextMatch=t=>{const ms=teamMatches(t).filter(m=>!m.played);return ms.find(m=>m.date&&m.date>=TODAY)||ms.find(m=>!m.date)};
 function outcome(m,id){const my=m.home===id?m.hg:m.ag,ot=m.home===id?m.ag:m.hg;return my>ot?"W":my<ot?"L":"D"}
-const L=(id,name)=>TEAM.get(id)?`<a class="tl" data-ver="${esc(id)}">${esc(name)}</a>`:esc(name);
+const L=(id,name)=>{const t=TEAM.get(id);return t?`<a class="tl" data-ver="${esc(id)}" role="button"><span class="tl-c" style="background:${t.color}">${esc(t.sig)}</span>${esc(name)}<span class="tl-ch">›</span></a>`:esc(name)};
 const fin=s=>/\.$/.test(s)?"":".";
 const rivalOf=(m,id)=>m.home===id?{id:m.away,n:m.awayN}:{id:m.home,n:m.homeN};
 
@@ -368,7 +378,7 @@ function ansNext(t){
 }
 function tableHTML(d,hl){
   return `<table class="st"><tr><th>#</th><th style="text-align:left">Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>DG</th><th>Pts</th></tr>
-  ${d.table.map(r=>`<tr class="${r.id===hl?"me":""}"${TEAM.get(r.id)&&r.id!==hl?` data-ver="${r.id}" style="cursor:pointer"`:""}><td>${r.pos??""}</td><td class="n">${TEAM.get(r.id)&&r.id!==hl?`<span class="tl">${esc(r.name)}</span>`:esc(r.name)}</td><td>${r.pj}</td><td>${r.g}</td><td>${r.e}</td><td>${r.p}</td><td>${r.gf-r.gc>0?"+":""}${r.gf-r.gc}</td><td class="p">${r.pts}</td></tr>`).join("")}</table>`;
+  ${d.table.map(r=>{const tap=TEAM.get(r.id)&&r.id!==hl;return `<tr class="${r.id===hl?"me":tap?"tap":""}"${tap?` data-ver="${r.id}"`:""}><td>${r.pos??""}</td><td class="n">${TEAM.get(r.id)&&r.id!==hl?`<span class="tl-row">${esc(r.name)}</span>`:esc(r.name)}</td><td>${r.pj}</td><td>${r.g}</td><td>${r.e}</td><td>${r.p}</td><td>${r.gf-r.gc>0?"+":""}${r.gf-r.gc}</td><td class="p">${r.pts}</td></tr>`}).join("")}</table>`;
 }
 function ansTable(t){
   const d=teamGroup(t);const me=d.table.find(r=>r.id===t.id);
@@ -1021,7 +1031,7 @@ async function renderTeam(app,t){
 function renderChat(app,t){
   const key=t?t.id:"_main";
   if(t&&state.resumen===t.id){state.resumen=null;if(!state.chats[key]||state.chats[key].length<=1)state.chats[key]=[{r:"b",h:ansResumen(t)+`<div class="small" style="margin-top:10px">Pregúntame lo que quieras de este equipo o toca otro rival. ${linkRFFM(urlEquipoRFFM(t),"Ficha en la RFFM")}</div>`}]}
-  if(!state.chats[key])state.chats[key]=[{r:"b",h:t?`Arriba tienes sus partidos: desliza para ver los anteriores y los próximos. Pregúntame lo que quieras sobre el <b>${esc(t.name)}</b>${etiqueta(t)?`, el equipo de <b>${esc(etiqueta(t))}</b>`:""}.<div style="margin-top:4px">${linkRFFM(urlEquipoRFFM(t),"Ficha oficial y plantilla en la RFFM")}</div>${state.follows.includes(t.id)&&!etiqueta(t)?`<div class="small" style="margin-top:6px">Toca 🔔 arriba para ponerle una etiqueta («Adrián», «Mi hijo») y elegir sus avisos.</div>`:""}`:welcomeMain()}];
+  if(!state.chats[key])state.chats[key]=[{r:"b",h:t?`Arriba tienes sus partidos: desliza para ver los anteriores y los próximos. Toca cualquier equipo con <span class="tl" style="pointer-events:none"><span class="tl-c" style="background:var(--muted)">›</span>flecha<span class="tl-ch">›</span></span> para ver su ficha. Pregúntame lo que quieras sobre el <b>${esc(t.name)}</b>${etiqueta(t)?`, el equipo de <b>${esc(etiqueta(t))}</b>`:""}.<div style="margin-top:4px">${linkRFFM(urlEquipoRFFM(t),"Ficha oficial y plantilla en la RFFM")}</div>${state.follows.includes(t.id)&&!etiqueta(t)?`<div class="small" style="margin-top:6px">Toca 🔔 arriba para ponerle una etiqueta («Adrián», «Mi hijo») y elegir sus avisos.</div>`:""}`:welcomeMain()}];
   const chips=t?CHIPS_TEAM:["Menú","Buscar un equipo","Buscar un jugador","Ayúdame a encontrar un equipo","Ver clasificaciones"];
   app.innerHTML=`<header class="top"><div class="toprow"><button class="iconbtn" id="back" aria-label="Volver">${icons.back}</button>
     ${t?crest(t,40):""}<div class="grow">${t&&etiqueta(t)?`<span class="tag">⭐ ${esc(etiqueta(t))}</span>`:""}<h1 class="tn" style="font-size:21px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(t.name):"Chat principal"}</h1><div class="sub" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(grupoNombre(t.grupos[0])):"Equipos y jugadores de Madrid"}</div></div>
@@ -1037,7 +1047,7 @@ function renderChat(app,t){
     const lista=chips.filter(c=>esc(c)!==pregUlt);
     return `<div class="sug">${lista.map(c=>`<button class="chip" data-ask="${esc(c)}">${esc(c)}</button>`).join("")}</div>`};
   const draw=()=>{chat.innerHTML=state.chats[key].map(m=>`<div class="msg ${m.r}${wide(m.h)?" wide":""}">${m.h}</div>`).join("")+sugerencias();
-    if(t)chat.querySelectorAll(`a[data-ver="${CSS.escape(t.id)}"]`).forEach(a=>{a.removeAttribute("data-ver");a.classList.remove("tl")}); // el propio equipo no es enlace
+    if(t)chat.querySelectorAll(`a[data-ver="${CSS.escape(t.id)}"]`).forEach(a=>{a.replaceWith(Object.assign(document.createElement("b"),{textContent:[...a.childNodes].filter(x=>x.nodeType===3).map(x=>x.textContent).join("")}))}); // el propio equipo no es botón
     $("#scroll").scrollTop=1e9;rellenarMeteo(chat)};
   draw();if(state.chats[key].length===1)$("#scroll").scrollTop=0; // el resumen se lee desde arriba
   if(t)colocarCarrusel(t);
