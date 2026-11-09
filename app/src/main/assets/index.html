@@ -302,7 +302,7 @@ function searchTeams(text,{cat,fem}={}){
   let res=TEAMS.filter(t=>(!cat||t.cat===cat)&&(fem==null||t.fem===fem));
   if(words.length){
     res=res.map(t=>{let s=0,hit=0;for(const w of words){let k=0;if(t.sName.includes(" "+w+" "))k=3;else if(t.sName.includes(w))k=2;else if(t.sPlace.includes(" "+w+" "))k=1.5;else if(t.sPlace.includes(w))k=1;if(k)hit++;s+=k}return{t,s,hit}})
-      .filter(x=>x.hit===words.length).sort((a,b)=>b.s-a.s||a.t.name.localeCompare(b.t.name)).map(x=>x.t);
+      .filter(x=>x.hit===words.length).sort((a,b)=>b.s-a.s||(a.t.club.length-b.t.club.length)||a.t.name.localeCompare(b.t.name)).map(x=>x.t);
   }else if(!cat)res=[];
   return res;
 }
@@ -320,10 +320,26 @@ const welcomeMain=()=>`¡Hola! ¿Qué quieres hacer?${opts(MENU)}<div class="sma
 const more=()=>`<div class="small" style="margin-top:10px">¿Algo más?</div>${opts([{l:"Volver al menú",v:"Menú"},{l:"Buscar otro equipo",v:"Buscar un equipo"}])}`;
 const HELP_MAIN="No he encontrado nada con eso. Prueba con el nombre del club o del municipio («Alcorcón», «Carabanchel»), añade la categoría («cadete Getafe») o deja que te ayude paso a paso.";
 function startFlow(type){state.flow={type,step:0,data:{}}}
+const sufijo=t=>(t.raw.match(/\s([A-Z]{1,2})$/)||[])[1]||"";
+const ordenEquipos=(a,b)=>(a.fem-b.fem)||CAT_ORDER.indexOf(a.cat)-CAT_ORDER.indexOf(b.cat)||sufijo(a).localeCompare(sufijo(b))||a.name.localeCompare(b.name);
+function clubTeams(key,cat,fem){
+  const ts=TEAMS.filter(t=>t.clubKey===key&&(!cat||t.cat===cat)&&(fem==null||t.fem===fem)).sort(ordenEquipos);
+  if(!ts.length)return null;
+  const nombre=ts[0].club;const catTxt=cat?" "+CATN[cat]:"";
+  return `<b>${esc(nombre)}</b>: ${ts.length} equipo${ts.length>1?"s":""}${catTxt}${fem?" femeninos":""}.${teamCards(ts)}`;
+}
 function listTeams(res,text){
   if(!res.length)return null;
-  const top=res.slice(0,8);
-  return `${res.length===1?"Este es el equipo:":`He encontrado ${res.length} equipos${res.length>8?" (te enseño 8; añade la categoría o el municipio para afinar)":""}:`}${teamCards(top)}`;
+  const q=norm(text);const cat=catInText(q);const fem=femInText(q)||null;
+  // Agrupar por club, manteniendo el orden de relevancia
+  const clubs=[];const byKey={};
+  for(const t of res){if(!byKey[t.clubKey]){byKey[t.clubKey]={key:t.clubKey,name:t.club,teams:[],sample:t};clubs.push(byKey[t.clubKey])}byKey[t.clubKey].teams.push(t)}
+  if(clubs.length===1)return clubTeams(clubs[0].key,cat,fem);
+  if(res.length<=6)return `He encontrado ${res.length} equipos:`+teamCards(res.slice().sort(ordenEquipos));
+  const top=clubs.slice(0,12);
+  return `He encontrado ${res.length} equipos de ${clubs.length} clubes${cat?" ("+CATN[cat]+")":""}. Elige el club para ver todos sus equipos:
+  <div class="plist">${top.map(c=>{const cats=[...new Set(c.teams.map(t=>CATN[t.cat]))].join(", ");const nf=c.teams.filter(t=>t.fem).length;
+    return `<div class="prow">${crest(c.sample,34)}<div class="grow"><b>${esc(c.name)}</b><div class="small">${c.teams.length} equipo${c.teams.length>1?"s":""} · ${esc(cats)}${nf?` · ${nf} femenino${nf>1?"s":""}`:""}${c.sample.town?" · "+esc(c.sample.town):""}</div></div><button class="btn" data-ask="${esc("clubteams:"+c.key+":"+(cat||"")+":"+(fem?"1":""))}">Ver</button></div>`}).join("")}</div>${clubs.length>12?`<div class="small" style="margin-top:6px">Y ${clubs.length-12} clubes más: escribe un nombre más concreto.</div>`:""}`;
 }
 function answerMain(text){
   const q=norm(text);const cat=catInText(q);
@@ -348,6 +364,7 @@ async function handleMain(text){
   if(/^buscar (un |a un )?jugador$/.test(q)){if(!state.verified){state.flow=null;return verifyMsg()}startFlow("player");return "Escribe el <b>nombre y apellidos</b> del jugador."}
   if(/(ayudame a encontrar|encontrar (un |su |mi )?equipo|no se (en )?que equipo)/.test(q)){startFlow("wizard");return wizardAsk()}
   if(/^(ver )?clasificacion(es)?$/.test(q)){state.flow=null;return "¿De qué categoría?"+opts(CAT_ORDER.map(c=>({l:`${CATN[c]} (${yrs(c)})`,v:"Clasificación "+CATN[c].toLowerCase()})))}
+  if(text.startsWith("clubteams:")){const[,key,cat,fem]=text.split(":");state.flow=null;return (clubTeams(key,cat||null,fem?true:null)||"No encuentro ese club.")+more()}
   const f=state.flow;
   if(f&&f.type==="clas"){
     if(text.startsWith("comp:")){const c=f.data.comps[text.slice(5)];if(!c)return null;
@@ -414,7 +431,7 @@ function wizardAnswer(text){
     let club=null;
     if(text.startsWith("club:"))club=text.slice(5);
     else if(!/no (lo )?se|ni idea|ninguno/.test(q)){const r=searchTeams(text,{cat:d.cat,fem:d.fem});if(r.length)club=r[0].clubKey}
-    if(club){const ts=TEAMS.filter(t=>t.clubKey===club&&t.cat===d.cat&&(d.fem==null||t.fem===d.fem)).sort((a,b)=>a.name.localeCompare(b.name));
+    if(club){const ts=TEAMS.filter(t=>t.clubKey===club&&t.cat===d.cat&&(d.fem==null||t.fem===d.fem)).sort(ordenEquipos);
       return `${ts.length===1?"Este es su equipo:":`El club tiene ${ts.length} equipos ${CATN[d.cat]}. Elige el suyo:`}${teamCards(ts,ll)}<div class="small" style="margin-top:6px">Pulsa «Seguir» para tener su ficha con resultados, próximo partido y clasificación.</div>${more()}`}
     const ts=ll?nearestTeams(ll,{cat:d.cat,fem:d.fem,limit:6}):[];
     if(!ts.length)return `Hay ${TEAMS.filter(t=>t.cat===d.cat).length} equipos ${CATN[d.cat]}. Escribe el nombre del club o el municipio para encontrarlo.`+opts(["Buscar un equipo"]);
@@ -508,7 +525,7 @@ function renderChat(app,t){
   draw();
   const ask=text=>{
     if(!text.trim())return;
-    const shown=text.startsWith("comp:")||text.startsWith("grupo:")||text.startsWith("club:")?(document.querySelector(`[data-ask="${CSS.escape(text)}"]`)||{}).textContent||text:text;
+    const shown=text.startsWith("clubteams:")?"Ver equipos de "+((TEAMS.find(t=>t.clubKey===text.split(":")[1])||{}).club||"club"):text.startsWith("comp:")||text.startsWith("grupo:")||text.startsWith("club:")?(document.querySelector(`[data-ask="${CSS.escape(text)}"]`)||{}).textContent||text:text;
     state.chats[key].push({r:"u",h:esc(shown)});state.chats[key].push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span>'});draw();
     setTimeout(async()=>{let h;
       try{h=t?answerTeam(t,text):await handleMain(text);
