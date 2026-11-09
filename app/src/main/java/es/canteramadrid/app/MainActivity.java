@@ -26,6 +26,13 @@ import androidx.webkit.WebViewAssetLoader;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Una sola pantalla: la app (assets/index.html) dentro de un WebView.
  * Se sirve desde https://appassets.androidplatform.net/assets/, que es el origen
@@ -130,6 +137,29 @@ public class MainActivity extends Activity {
         public String leerAjustes() {
             return getSharedPreferences(Avisos.PREFS, Context.MODE_PRIVATE).getString("ajustes", "{}");
         }
+        /**
+         * Lee UN acta de la RFFM cuando el usuario pulsa «Cronología» (como si la abriera en el navegador).
+         * Solo acepta /acta-partido/<número>. Devuelve a la página el JSON "game" o null.
+         */
+        @JavascriptInterface
+        public void acta(String codacta, String query, String cb) {
+            if (codacta == null || !codacta.matches("\\d{1,12}") || query == null || !query.matches("[0-9a-z=&]{0,120}")) return;
+            new Thread(() -> {
+                String res = null;
+                try {
+                    String html = leer("https://www.rffm.es/acta-partido/" + codacta + (query.isEmpty() ? "" : "?" + query));
+                    Matcher m = Pattern.compile("<script id=\"__NEXT_DATA__\"[^>]*>(.*?)</script>", Pattern.DOTALL).matcher(html);
+                    if (m.find()) {
+                        JSONObject pp = new JSONObject(m.group(1)).getJSONObject("props").getJSONObject("pageProps");
+                        JSONObject game = pp.optJSONObject("game");
+                        if (game != null) res = game.toString();
+                    }
+                } catch (Exception ignored) { }
+                final String r = res;
+                runOnUiThread(() -> web.evaluateJavascript("window.__acta && window.__acta(" + JSONObject.quote(cb) + ","
+                        + (r == null ? "null" : JSONObject.quote(r)) + ")", null));
+            }).start();
+        }
         /** Color de fondo detrás de las barras del sistema (según el tema de la app). */
         @JavascriptInterface
         public void colorBarras(String hex) {
@@ -158,6 +188,23 @@ public class MainActivity extends Activity {
                     startActivity(i);
                 } catch (Exception ignored) { }
             });
+        }
+    }
+
+    private String leer(String url) throws Exception {
+        HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
+        con.setConnectTimeout(15000);
+        con.setReadTimeout(20000);
+        con.setRequestProperty("User-Agent", WebSettings.getDefaultUserAgent(this));
+        con.setRequestProperty("Accept-Language", "es-ES,es;q=0.9");
+        try (InputStream in = con.getInputStream()) {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            byte[] buf = new byte[16384];
+            int n;
+            while ((n = in.read(buf)) > 0) out.write(buf, 0, n);
+            return out.toString("UTF-8");
+        } finally {
+            con.disconnect();
         }
     }
 

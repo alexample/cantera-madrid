@@ -94,6 +94,16 @@ a.map{display:inline-flex;align-items:center;gap:6px;margin-top:6px;color:var(--
 .sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
 .sw.on{background:var(--win)}.sw.on::after{left:23px}
 .hidden{display:none!important}
+.cr-head{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;text-align:center;font-weight:600;font-size:13px;margin:10px 0 6px}
+.cr-res{font-family:"Barlow Condensed",system-ui,sans-serif;font-size:26px;font-weight:700;padding:0 10px;border-radius:8px;background:var(--chalk)}
+.cr{position:relative;margin:6px 0}
+.cr::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--line);transform:translateX(-1px)}
+.cr-row{display:grid;grid-template-columns:1fr 44px 1fr;align-items:center;min-height:32px;position:relative}
+.cr-l{text-align:right;padding-right:8px;font-size:13px}.cr-r{text-align:left;padding-left:8px;font-size:13px}
+.cr-m{justify-self:center;z-index:1;background:var(--card);border:1.5px solid var(--line);border-radius:999px;font-size:11px;font-weight:700;padding:2px 7px;min-width:34px;text-align:center}
+.cr-ic{font-size:14px}.cr-sc{font-size:11px;font-weight:700;color:var(--muted);margin:0 2px;white-space:nowrap}
+.cr-al{margin-top:8px}.cr-al summary{cursor:pointer;font-weight:600;color:var(--pitch2)}
+.cr-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
 .meteo{margin-top:10px;padding:10px 12px;border-radius:12px;background:var(--chalk);border:1px solid var(--line)}
 .mt-head{display:flex;gap:10px;align-items:center;margin-bottom:6px}.mt-ic{font-size:28px;line-height:1}
 .mt-icons{display:grid;grid-template-columns:repeat(6,1fr);text-align:center;font-size:17px;margin-bottom:2px}
@@ -313,7 +323,7 @@ function scoreCard(m){
   const c=CAMPOS[m.campo];
   return `<div class="score"><div class="t">${L(m.home,m.homeN)}</div><div class="r">${m.hg} – ${m.ag}</div><div class="t">${L(m.away,m.awayN)}</div></div>
   <div class="small" style="text-align:center">Jornada ${m.j??"?"}${m.date?" · "+fdate(m.date):""}${c||m.campoN?" · "+esc(c?c.name:m.campoN):""}</div>
-  ${m.acta?`<div style="text-align:center;margin-top:8px"><a class="btn ghost" style="display:inline-block;text-decoration:none" href="${urlActaRFFM(m)}" target="_blank" rel="noopener">📄 Acta del partido (RFFM)</a></div>`:""}`;
+  ${m.acta?`<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:8px">${ANDROID?`<button class="btn" data-crono="${esc(m.acta)}">⏱️ Cronología</button>`:""}<a class="btn ghost" style="display:inline-block;text-decoration:none" href="${urlActaRFFM(m)}" target="_blank" rel="noopener">📄 Acta (RFFM)</a></div>`:""}`;
 }
 function ansLast(t){
   const m=lastMatch(t);if(!m)return "Todavía no tiene resultados esta temporada.";
@@ -567,6 +577,54 @@ function ansTiempo(t){
   if(!ph)return `Para el próximo partido aún no hay ${!m.date||!m.time?"fecha u hora":"ubicación exacta del campo"}, así que no puedo darte la previsión.`;
   return `Previsión para el partido del <b>${fdate(m.date)} a las ${m.time}</b>${c?` en ${esc(c.name)}`:""}:`+ph;
 }
+
+
+/* ---------- cronología del partido (lee el acta SOLO cuando el usuario lo pide) ---------- */
+const ACTAS={};const ESPERA_ACTA={};
+window.__acta=(cb,json)=>{const f=ESPERA_ACTA[cb];if(f){delete ESPERA_ACTA[cb];f(json?JSON.parse(json):null)}};
+function leerActa(m){
+  if(ACTAS[m.acta])return Promise.resolve(ACTAS[m.acta]);
+  const g=grupo(m.gid);const q=g?`temporada=${g.temp}&competicion=${g.compId}&grupo=${m.gid}`:"";
+  return new Promise(res=>{const cb="a"+Date.now()+Math.random().toString(36).slice(2,6);
+    const to=setTimeout(()=>{delete ESPERA_ACTA[cb];res(null)},25000);
+    ESPERA_ACTA[cb]=d=>{clearTimeout(to);if(d)ACTAS[m.acta]=d;res(d)};
+    try{AndroidApp.acta(String(m.acta),q,cb)}catch(e){clearTimeout(to);res(null)}});
+}
+const siNo=v=>v===true||v===1||v==="1"||v==="S"||v==="s"||v==="true";
+// «APELLIDO1 APELLIDO2, NOMBRE» -> «Nombre Apellido1»
+function corto(n){const m=String(n||"").match(/^(.*?),\s*(.+)$/);const nom=m?m[2]:"",ap=m?m[1]:String(n||"");const w=s=>s.toLowerCase().replace(/(^|\s)\p{L}/gu,c=>c.toUpperCase());return (nom?w(nom.split(" ")[0])+" ":"")+w(ap.split(" ")[0])}
+const minuto=x=>{const v=parseInt(x?.minuto??x?.min??"",10);return isNaN(v)?null:v};
+function eventosActa(g){
+  const ev=[];
+  for(const[lado,suf] of [["L","local"],["V","visitante"]]){
+    for(const x of g["goles_equipo_"+suf]||[])ev.push({lado,min:minuto(x),ic:"⚽",txt:corto(x.nombre_jugador),tipo:"gol"});
+    for(const x of g["tarjetas_equipo_"+suf]||[]){const c=String(x.codigo_tipo_amonestacion||"");const doble=c==="102"||siNo(x.segunda_amarilla);
+      ev.push({lado,min:minuto(x),ic:doble?"🟨🟥":c==="101"?"🟥":"🟨",txt:corto(x.nombre_jugador),tipo:"tarjeta"})}
+    // Cambios: la RFFM no siempre los publica; si vienen, se muestran
+    for(const k of Object.keys(g).filter(k=>/(sustitu|cambio)/i.test(k)&&k.toLowerCase().includes(suf))){
+      for(const x of Array.isArray(g[k])?g[k]:[]){const ent=x.nombre_jugador_entra||x.jugador_entra||x.entra||x.nombre_entra,sal=x.nombre_jugador_sale||x.jugador_sale||x.sale||x.nombre_sale;
+        if(ent||sal)ev.push({lado,min:minuto(x),ic:"🔁",txt:(ent?"Entra "+corto(ent):"")+(ent&&sal?" · ":"")+(sal?"sale "+corto(sal):""),tipo:"cambio"})}}
+  }
+  return ev.sort((a,b)=>(a.min??999)-(b.min??999));
+}
+function cronoHTML(m,g){
+  const ev=eventosActa(g);let gl=0,gv=0;
+  const filas=ev.map(e=>{if(e.tipo==="gol"){e.lado==="L"?gl++:gv++}
+    const marc=e.tipo==="gol"?`<span class="cr-sc">${gl}–${gv}</span>`:"";
+    const celda=`<span class="cr-ic">${e.ic}</span> ${esc(e.txt)} ${marc}`;
+    return `<div class="cr-row"><div class="cr-l">${e.lado==="L"?celda:""}</div><div class="cr-m">${e.min!=null?e.min+"'":"–"}</div><div class="cr-r">${e.lado==="V"?celda:""}</div></div>`}).join("");
+  const alin=suf=>{const js=(g["jugadores_equipo_"+suf]||[]);const tit=js.filter(x=>siNo(x.titular)),sup=js.filter(x=>!siNo(x.titular));
+    const li=x=>`<div class="small">${x.dorsal!=null&&x.dorsal!==""?`<b>${esc(x.dorsal)}</b> `:""}${esc(corto(x.nombre_jugador))}${siNo(x.capitan)?" (C)":""}${siNo(x.portero)?" 🧤":""}</div>`;
+    return js.length?`${tit.map(li).join("")}${sup.length?`<div class="small" style="margin-top:4px;opacity:.75">Suplentes</div>${sup.map(li).join("")}`:""}`:`<div class="small">Sin alineación publicada.</div>`};
+  const hayCambios=ev.some(e=>e.tipo==="cambio");
+  return `<b>Cronología</b> · J${m.j}${m.date?" · "+fdate(m.date):""}
+   <div class="cr-head"><div>${esc(m.homeN)}</div><div class="cr-res">${m.hg} – ${m.ag}</div><div>${esc(m.awayN)}</div></div>
+   ${ev.length?`<div class="cr">${filas}</div>`:`<div class="small" style="margin:8px 0">El acta no recoge goles ni tarjetas.</div>`}
+   ${hayCambios?"":`<div class="small" style="opacity:.75">El acta de este partido no incluye los cambios.</div>`}
+   <details class="cr-al"><summary>Alineaciones</summary><div class="cr-cols"><div><b class="small">${esc(m.homeN)}</b>${alin("local")}</div><div><b class="small">${esc(m.awayN)}</b>${alin("visitante")}</div></div></details>
+   <div style="margin-top:8px">${linkRFFM(urlActaRFFM(m),"Acta completa en la RFFM")}</div>`;
+}
+function buscarPartido(acta){for(const d of Object.values(GD)){const m=(d.matches||[]).find(x=>x.acta===acta);if(m)return m}return null}
 
 const NO_DATO="La federación no publica ese dato (plantillas, alineaciones, árbitros, equipaciones u horarios de llegada). Esa información la da el club o el entrenador.";
 const HELP_TEAM="Puedo contarte el último resultado, el próximo partido con hora y campo, la clasificación y los puntos, los goleadores, la racha, las estadísticas, los partidos que quedan, una jornada («jornada 3») o cómo os fue contra un rival («contra Alcorcón»).";
@@ -938,6 +996,9 @@ function renderChat(app,t){
   $("#f").onsubmit=e=>{e.preventDefault();const v=$("#q").value;$("#q").value="";ask(v)};
   app.onclick=e=>{
     const a=e.target.closest("[data-ask]");if(a){ask(a.dataset.ask);return}
+    const cr=e.target.closest("[data-crono]");if(cr){const m=buscarPartido(cr.dataset.crono);if(!m)return;
+      state.chats[key].push({r:"u",h:"⏱️ Cronología del partido"});state.chats[key].push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span>'});draw();
+      leerActa(m).then(g=>{state.chats[key].pop();state.chats[key].push({r:"b",h:g?cronoHTML(m,g):`No he podido leer el acta ahora mismo. Puedes verla en la web de la federación:<div>${linkRFFM(urlActaRFFM(m),"Acta en la RFFM")}</div>`});if(state.view===(t?"team":"main"))draw()});return}
     const mh=e.target.closest("[data-mh]");if(mh){const box=mh.closest(".meteo");const det=box.querySelector(".mt-det");det.textContent=JSON.parse(det.dataset.dets)[+mh.dataset.mh];box.querySelectorAll(".mt-band").forEach(b=>b.setAttribute("x",(+mh.dataset.mh)*50+1));return}
     const vr=e.target.closest("[data-ver]");if(vr){const id=vr.dataset.ver;if(id===state.team&&state.view==="team")return;state.pila.push({view:state.view,team:state.team});state.resumen=id;state.view="team";state.team=id;render();return}
     const o=e.target.closest("[data-open]");if(o){follow(o.dataset.open);state.view="team";state.team=o.dataset.open;render();return}
