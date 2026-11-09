@@ -95,6 +95,10 @@ a.map{display:inline-flex;align-items:center;gap:6px;margin-top:6px;color:var(--
 .sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
 .sw.on{background:var(--win)}.sw.on::after{left:23px}
 .hidden{display:none!important}
+.opts{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.opt{display:flex;align-items:center;gap:10px;text-align:left;padding:11px 14px;border-radius:12px;background:var(--chalk);border:1px solid var(--line);font-weight:600;color:var(--pitch2)}
+@media (prefers-color-scheme: dark){.opt{color:#8ce0b0}}
+.opt span{font-size:18px}
 </style>
 </head>
 <body>
@@ -193,6 +197,7 @@ const state={
   verified:store.get("verified",false),
   chats:{}, // historial por ficha (solo en memoria)
   iah:{},   // historial que se manda a la IA
+  flow:null, // asistente guiado en curso (chat principal)
   view:"home", team:null
 };
 
@@ -322,9 +327,7 @@ function answerMain(text){
   }
   const wantsPlayer=/(jugador|busca|donde juega|quien es)/.test(q)||(players.length&&!club);
   if(wantsPlayer&&players.length){
-    if(!state.verified) return `He encontrado coincidencias, pero la búsqueda de jugadores solo está disponible para <b>cuentas verificadas</b> (familias, entrenadores o club). Son menores y su información está protegida.
-      <div style="margin-top:10px"><button class="btn" data-act="verify">Simular cuenta verificada</button></div>
-      <div class="small" style="margin-top:6px">En la app real, la verificación la hace el club o la familia con un código.</div>`;
+    if(!state.verified) return verifyMsg();
     const list=players.slice(0,6);
     return `${partial?"No hay coincidencia exacta. Quizá buscas a alguno de estos:":players.length===1?"He encontrado a este jugador:":`He encontrado ${players.length} coincidencias${players.length>6?" (te muestro 6)":""}:`}
     <div class="plist">${list.map(p=>{const t=teamById(p.team);const f=state.follows.includes(t.id);return `<div class="prow">${crest(t,34)}<div class="grow"><b>${esc(p.name)}</b><div class="small">${esc(t.name)} · dorsal ${p.dorsal} · ${p.pos}${p.goals?` · ${p.goals} gol${p.goals>1?"es":""}`:""}</div></div><button class="btn ${f?"ghost":""}" data-open="${t.id}">${f?"Abrir":"Seguir"}</button></div>`}).join("")}</div>`;
@@ -337,6 +340,122 @@ function answerMain(text){
 }
 const HELP_MAIN="No he encontrado nada con eso. Prueba con el nombre y apellido de un jugador («busca a Hugo Jiménez»), un club o municipio («equipos de Getafe») o «clasificación cadete».";
 
+
+/* ============================================================
+   CHAT PRINCIPAL GUIADO
+   Menú de inicio + asistentes paso a paso. El texto libre sigue funcionando.
+   ============================================================ */
+const SEASON=2026; // temporada 2026/27
+// Años de nacimiento por categoría (temporada que empieza en SEASON)
+const CAT_YEARS={juv:[SEASON-18,SEASON-16],cad:[SEASON-15,SEASON-14],inf:[SEASON-13,SEASON-12]};
+const OTHER_YEARS=[{name:"Alevín",y:[SEASON-11,SEASON-10]},{name:"Benjamín",y:[SEASON-9,SEASON-8]},{name:"Prebenjamín",y:[SEASON-7,SEASON-6]}];
+function catFromYear(y){
+  for(const c of CATS){const [a,b]=CAT_YEARS[c.id];if(y>=a&&y<=b)return{cat:c}}
+  for(const o of OTHER_YEARS){if(y>=o.y[0]&&y<=o.y[1])return{other:o.name}}
+  return{none:true};
+}
+const yrs=id=>CAT_YEARS[id][0]===CAT_YEARS[id][1]?""+CAT_YEARS[id][0]:CAT_YEARS[id][0]+"–"+CAT_YEARS[id][1];
+// Municipios y distritos con coordenadas aproximadas, para ordenar por cercanía
+const PLACES={"madrid":[40.4168,-3.7038],"vallecas":[40.384,-3.658],"puente de vallecas":[40.391,-3.668],"villa de vallecas":[40.373,-3.62],"entrevias":[40.381,-3.67],"alcala de henares":[40.482,-3.364],"alcala":[40.482,-3.364],"colmenar viejo":[40.659,-3.765],"colmenar":[40.659,-3.765],"las rozas":[40.492,-3.873],"rozas":[40.492,-3.873],"getafe":[40.305,-3.733],"tres cantos":[40.601,-3.708],"leganes":[40.328,-3.764],"mostoles":[40.322,-3.865],"fuenlabrada":[40.284,-3.794],"alcorcon":[40.345,-3.824],"parla":[40.237,-3.775],"alcobendas":[40.547,-3.642],"san sebastian de los reyes":[40.547,-3.626],"sanse":[40.547,-3.626],"torrejon de ardoz":[40.456,-3.48],"torrejon":[40.456,-3.48],"coslada":[40.426,-3.561],"rivas":[40.326,-3.518],"rivas-vaciamadrid":[40.326,-3.518],"majadahonda":[40.473,-3.872],"pozuelo":[40.435,-3.814],"pozuelo de alarcon":[40.435,-3.814],"boadilla":[40.405,-3.877],"boadilla del monte":[40.405,-3.877],"collado villalba":[40.634,-4.005],"villalba":[40.634,-4.005],"pinto":[40.241,-3.7],"valdemoro":[40.191,-3.674],"aranjuez":[40.033,-3.603],"arganda":[40.3,-3.438],"arganda del rey":[40.3,-3.438],"san fernando de henares":[40.425,-3.535],"villaviciosa de odon":[40.357,-3.9],"navalcarnero":[40.289,-4.013],"torrelodones":[40.577,-3.928],"galapagar":[40.578,-4.002],"algete":[40.597,-3.497],"mejorada del campo":[40.395,-3.488],"ciempozuelos":[40.159,-3.621],"humanes":[40.25,-3.828],"moralzarzal":[40.675,-3.97],"carabanchel":[40.383,-3.735],"latina":[40.403,-3.741],"hortaleza":[40.473,-3.641],"fuencarral":[40.493,-3.705],"moratalaz":[40.407,-3.645],"villaverde":[40.346,-3.7],"usera":[40.385,-3.706],"tetuan":[40.46,-3.698],"chamartin":[40.459,-3.677],"ciudad lineal":[40.443,-3.651],"san blas":[40.43,-3.611],"barajas":[40.473,-3.58],"vicalvaro":[40.4,-3.6],"arganzuela":[40.398,-3.697],"retiro":[40.411,-3.676],"salamanca":[40.427,-3.678],"chamberi":[40.434,-3.704],"centro":[40.415,-3.707],"moncloa":[40.435,-3.719],"aluche":[40.389,-3.76],"sanchinarro":[40.494,-3.66]};
+const CLUB_PLACE={sno:"colmenar viejo",hen:"alcala de henares",roz:"las rozas",gsu:"getafe",tcu:"tres cantos",lgn:"leganes",vcb:"vallecas",mos:"mostoles"};
+function findPlace(q){
+  q=norm(q);if(PLACES[q])return{name:q,ll:PLACES[q]};
+  const keys=Object.keys(PLACES).sort((a,b)=>b.length-a.length);
+  const k=keys.find(k=>(" "+q+" ").includes(" "+k+" "))||keys.find(k=>k.startsWith(q)&&q.length>=4);
+  return k?{name:k,ll:PLACES[k]}:null;
+}
+function km(a,b){const R=6371,t=x=>x*Math.PI/180,dl=t(b[0]-a[0]),dn=t(b[1]-a[1]);const h=Math.sin(dl/2)**2+Math.cos(t(a[0]))*Math.cos(t(b[0]))*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(h))}
+const clubKm=(club,ll)=>ll?km(ll,PLACES[CLUB_PLACE[club.id]]):null;
+const cap=s=>s.replace(/\b\p{L}/gu,c=>c.toUpperCase()).replace(/\b(De|Del|La|Las|Los|El)\b/g,w=>w.toLowerCase());
+
+const opts=(list)=>`<div class="opts">${list.map(o=>`<button class="opt" data-ask="${esc(o.v||o.l||o)}">${o.ic?`<span>${o.ic}</span>`:""}${esc(o.l||o)}</button>`).join("")}</div>`;
+const MENU=[{ic:"🔍",l:"Buscar un equipo"},{ic:"👤",l:"Buscar un jugador"},{ic:"🧭",l:"Ayúdame a encontrar un equipo"},{ic:"🏆",l:"Ver clasificaciones"}];
+const welcomeMain=()=>`¡Hola! ¿Qué quieres hacer?${opts(MENU)}<div class="small" style="margin-top:8px">También puedes escribir directamente, por ejemplo «cadete de Getafe».</div>`;
+const more=()=>`<div class="small" style="margin-top:10px">¿Algo más?</div>${opts([{l:"Volver al menú",v:"Menú"},{l:"Buscar otro equipo",v:"Buscar un equipo"}])}`;
+
+function teamCards(teams,ll){
+  return `<div class="plist">${teams.map(t=>{const s=standings(t.cat.id);const pos=s.findIndex(r=>r.t.id===t.id)+1;const f=state.follows.includes(t.id);const d=clubKm(t.club,ll);
+    return `<div class="prow">${crest(t,34)}<div class="grow"><b>${esc(t.name)}</b><div class="small">${esc(t.club.town)}${d!=null?` · a ${d<1?"menos de 1":Math.round(d)} km`:""} · ${pos}º en ${esc(t.cat.group.split(" · ")[0])}</div></div><button class="btn ${f?"ghost":""}" data-open="${t.id}">${f?"Abrir":"Seguir"}</button></div>`}).join("")}</div>`;
+}
+function startFlow(type){state.flow={type,step:0,data:{}};}
+
+function handleMain(text){
+  const q=norm(text);
+  // Comandos globales
+  if(/^(menu|inicio|empezar|hola|cancelar|salir|volver al menu)$/.test(q)){state.flow=null;return welcomeMain()}
+  if(/buscar (un )?equipo/.test(q)&&q.split(" ").length<=4){startFlow("team");return "¿Cómo se llama el club o en qué municipio o barrio juega?"+opts(CLUBS.slice(0,4).map(c=>c.town.split(" (")[0]))}
+  if(/buscar (un |a un )?jugador/.test(q)&&q.split(" ").length<=4){
+    if(!state.verified){state.flow=null;return verifyMsg()}
+    startFlow("player");return "Escribe el <b>nombre y apellidos</b> del jugador (con el nombre y un apellido suele bastar)."}
+  if(/(ayudame a encontrar|encontrar (un |su |mi )?equipo|no se (en )?que equipo|que equipo le toca)/.test(q)){startFlow("wizard");return wizardAsk()}
+  if(/^(ver )?clasificacion(es)?$/.test(q)){state.flow=null;return "¿De qué categoría?"+opts(CATS.map(c=>({l:`${c.name} (${yrs(c.id)})`,v:"Clasificación "+c.name.toLowerCase()})))}
+
+  const f=state.flow;
+  if(f&&f.type==="team"){state.flow=null;let r=answerMain(text);
+    const pl=!r&&findPlace(text);
+    if(pl){const near=CLUBS.map(c=>({c,d:clubKm(c,pl.ll)})).sort((a,b)=>a.d-b.d).slice(0,2);
+      r=`No hay equipos registrados en ${esc(cap(pl.name))}. Los clubes más cercanos son estos:`+teamCards(TEAMS.filter(t=>near.some(x=>x.c.id===t.club.id)).sort((a,b)=>clubKm(a.club,pl.ll)-clubKm(b.club,pl.ll)),pl.ll)}return (r||"No he encontrado ningún equipo con eso. Prueba con otro nombre o municipio, o deja que te ayude a encontrarlo."+opts(["Ayúdame a encontrar un equipo","Buscar un equipo"]))+(r?more():"")}
+  if(f&&f.type==="player"){
+    const r=answerMain("busca "+text);
+    if(r&&r.includes("data-open")){state.flow=null;return r+more()}
+    return "No he encontrado a nadie con ese nombre. Revisa cómo se escribe o prueba solo con nombre y primer apellido."+opts([{l:"Cancelar",v:"Menú"}]);
+  }
+  if(f&&f.type==="wizard") return wizardAnswer(text);
+
+  const r=answerMain(text);
+  return r===null?null:r;
+}
+function verifyMsg(){return `La búsqueda de jugadores solo está disponible para <b>cuentas verificadas</b> (familias, entrenadores o club), porque son menores.
+  <div style="margin-top:10px"><button class="btn" data-act="verify">Simular cuenta verificada</button></div>
+  <div class="small" style="margin-top:6px">Mientras tanto, puedo ayudarte a encontrar su equipo con el año de nacimiento y la zona.</div>${opts(["Ayúdame a encontrar un equipo"])}`}
+
+// Asistente: año de nacimiento → zona → club (opcional) → equipos
+function wizardAsk(){
+  const f=state.flow,d=f.data;
+  if(f.step===0) return `Vamos a encontrarlo en tres preguntas.<br><b>1/3 · ¿En qué año nació el jugador?</b> También me vale su edad.${opts([...CATS.slice().reverse().map(c=>({l:`${yrs(c.id)} · ${c.name}`,v:"Nació en "+CAT_YEARS[c.id][0]})),{l:"Otro año",v:"Otro año"}])}`;
+  if(f.step===1) return `<b>2/3 · ¿Dónde vive o dónde le gustaría jugar?</b> Escribe un municipio o barrio de Madrid.${opts(["Getafe","Leganés","Alcalá de Henares","Las Rozas","Vallecas","Me da igual"])}`;
+  if(f.step===2){
+    const near=CLUBS.map(c=>({c,d:clubKm(c,d.place&&d.place.ll)})).sort((a,b)=>(a.d??0)-(b.d??0)).slice(0,4);
+    return `<b>3/3 · ¿Sabes el nombre del club?</b>${opts([...near.map(x=>({l:x.c.name+(x.d!=null?` (${Math.round(x.d)} km)`:""),v:x.c.name})),{l:"No lo sé",v:"No lo sé"}])}`;
+  }
+}
+function wizardAnswer(text){
+  const f=state.flow,d=f.data,q=norm(text);
+  if(f.step===0){
+    if(q==="otro ano") return `Escribe el año de nacimiento, por ejemplo «2012». Ahora mismo la app cubre Infantil (${yrs("inf")}), Cadete (${yrs("cad")}) y Juvenil (${yrs("juv")}).`;
+    let y=(q.match(/\b(19|20)\d{2}\b/)||[])[0];
+    const age=!y&&(q.match(/\b(\d{1,2})\b/)||[])[1];
+    if(age){y=SEASON-(+age);d.fromAge=+age}
+    if(!y) return "No lo he entendido. Escribe el año de nacimiento (por ejemplo «2012») o la edad (por ejemplo «13 años»).";
+    y=+y;const r=catFromYear(y);
+    if(r.other){state.flow=null;return `Nacido en ${y} juega en <b>${r.other}</b>. De momento la app solo cubre Infantil, Cadete y Juvenil; pronto añadiremos más categorías.${more()}`}
+    if(r.none){return `Con ${y} no encaja en fútbol base. Revisa el año: Infantil ${yrs("inf")}, Cadete ${yrs("cad")}, Juvenil ${yrs("juv")}.`}
+    d.cat=r.cat;d.year=y;f.step=1;
+    return `Nacido en ${y}${d.fromAge?" (calculado por la edad)":""} → <b>${d.cat.name}</b> esta temporada.<br><br>`+wizardAsk();
+  }
+  if(f.step===1){
+    if(/(me da igual|da igual|cualquier|toda madrid|no se)/.test(q)){d.place=null}
+    else{
+      const cl=findClubInText(q);const p=findPlace(text)||(cl?{name:CLUB_PLACE[cl.id],ll:PLACES[CLUB_PLACE[cl.id]]}:null);
+      if(!p) return "No conozco ese sitio. Prueba con el nombre del municipio o distrito (por ejemplo «Carabanchel», «Móstoles») o pulsa «Me da igual»."+opts(["Me da igual"]);
+      d.place=p;
+    }
+    f.step=2;return (d.place?`Zona: <b>${cap(d.place.name)}</b>.<br><br>`:"")+wizardAsk();
+  }
+  if(f.step===2){
+    const cl=/no (lo )?se|ni idea|ninguno/.test(q)?null:findClubInText(q);
+    let teams=TEAMS.filter(t=>t.cat.id===d.cat.id);
+    const ll=d.place&&d.place.ll;
+    state.flow=null;
+    if(cl){
+      const t=teams.find(t=>t.club.id===cl.id);
+      return `Este es su equipo: <b>${esc(d.cat.name)}</b> de ${esc(cl.name)}.${teamCards([t],ll)}<div class="small" style="margin-top:6px">Pulsa «Seguir» para tener su ficha con resultados, próximo partido y clasificación.</div>${more()}`;
+    }
+    teams=teams.map(t=>({t,d:clubKm(t.club,ll)})).sort((a,b)=>(a.d??0)-(b.d??0)||a.t.club.name.localeCompare(b.t.club.name)).map(x=>x.t);
+    const top=teams.slice(0,ll?4:8);
+    return `${ll?`Equipos <b>${esc(d.cat.name)}</b> más cercanos a ${esc(cap(d.place.name))}:`:`Equipos <b>${esc(d.cat.name)}</b> de la Comunidad de Madrid:`}${teamCards(top,ll)}${ll&&teams.length>top.length?opts([{l:"Ver todos",v:"Equipos "+d.cat.name.toLowerCase()}]):""}${more()}`;
+  }
+}
 
 /* ============================================================
    IA (Llama en Cloudflare Workers AI, el mismo worker de «Dónde lo Echan»)
@@ -408,25 +527,25 @@ function renderHome(app){
 }
 function renderChat(app,t){
   const key=t?t.id:"_main";
-  if(!state.chats[key]) state.chats[key]=[{r:"b",h:t?`Hola, soy el asistente del <b>${esc(t.name)}</b>. Pregúntame lo que quieras sobre el equipo.`:`Busca un <b>jugador</b> por nombre y apellidos, un <b>club</b> o municipio, o pide la <b>clasificación</b> de una categoría.`}];
+  if(!state.chats[key]) state.chats[key]=[{r:"b",h:t?`Hola, soy el asistente del <b>${esc(t.name)}</b>. Pregúntame lo que quieras sobre el equipo.`:``+welcomeMain()}];
   const chips=t?["¿Cómo quedó el último partido?","¿Cuándo y dónde es el próximo?","Clasificación","Goleadores","Racha","Plantilla"]
-               :["Busca a Hugo Jiménez","Equipos de Getafe","Clasificación cadete","Juvenil de Leganés"];
+               :["Menú","Buscar un equipo","Buscar un jugador","Ayúdame a encontrar un equipo","Ver clasificaciones"];
   app.innerHTML=`<header class="top"><div class="toprow"><button class="iconbtn" id="back" aria-label="Volver">${icons.back}</button>
     ${t?crest(t,40):""}<div class="grow"><h1 style="font-size:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(t.club.name):"Chat principal"}</h1><div class="sub">${t?esc(t.cat.group):"Jugadores y equipos de Madrid"}</div></div>
     ${t?`<button class="iconbtn" id="unf" aria-label="Dejar de seguir">${icons.trash}</button>`:""}</div></header>
   <main id="scroll"><div class="chat" id="chat"></div></main>
   <div class="composer"><div class="chips">${chips.map(c=>`<button class="chip" data-ask="${esc(c)}">${esc(c)}</button>`).join("")}</div>
-  <form class="inp" id="f"><input id="q" placeholder="${t?"Pregunta sobre el equipo…":"Nombre, club o categoría…"}" autocomplete="off" enterkeyhint="send"><button aria-label="Enviar">${icons.send}</button></form></div>`;
+  <form class="inp" id="f"><input id="q" placeholder="${t?"Pregunta sobre el equipo…":"Escribe o elige una opción…"}" autocomplete="off" enterkeyhint="send"><button aria-label="Enviar">${icons.send}</button></form></div>`;
   const chat=$("#chat");
-  const draw=()=>{chat.innerHTML=state.chats[key].map(m=>`<div class="msg ${m.r}${m.h&&m.h.includes("<table")||m.h&&m.h.includes("plist")?" wide":""}">${m.h}</div>`).join("");$("#scroll").scrollTop=1e9};
+  const draw=()=>{chat.innerHTML=state.chats[key].map(m=>`<div class="msg ${m.r}${m.h&&m.h.includes("<table")||m.h&&(m.h.includes("plist")||m.h.includes("class=\"opts"))?" wide":""}">${m.h}</div>`).join("");$("#scroll").scrollTop=1e9};
   draw();
   const ask=text=>{
     if(!text.trim())return;
     state.chats[key].push({r:"u",h:esc(text)});
     state.chats[key].push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span>'});draw();
     setTimeout(async()=>{
-      let h=t?answerTeam(t,text):answerMain(text);
-      if(h===null) h=(await preguntarIA(key,text,t?contextoEquipo(t):contextoGeneral()))||(t?HELP_TEAM:HELP_MAIN);
+      let h=t?answerTeam(t,text):handleMain(text);
+      if(h===null) h=(await preguntarIA(key,text,t?contextoEquipo(t):contextoGeneral()))||(t?HELP_TEAM:HELP_MAIN+opts(MENU));
       state.chats[key].pop();state.chats[key].push({r:"b",h});draw();
     },350);
   };
@@ -434,7 +553,7 @@ function renderChat(app,t){
   app.onclick=e=>{
     const a=e.target.closest("[data-ask]");if(a){ask(a.dataset.ask);return}
     const o=e.target.closest("[data-open]");if(o){const id=o.dataset.open;if(!state.follows.includes(id)){state.follows.push(id);store.set("follows",state.follows)}state.view="team";state.team=id;app.onclick=null;render();return}
-    const v=e.target.closest("[data-act=verify]");if(v){state.verified=true;store.set("verified",true);state.chats[key].push({r:"b",h:"Listo, cuenta verificada (simulación). Repite la búsqueda."});draw()}
+    const v=e.target.closest("[data-act=verify]");if(v){state.verified=true;store.set("verified",true);if(!t)startFlow("player");state.chats[key].push({r:"b",h:t?"Listo, cuenta verificada (simulación).":"Listo, cuenta verificada (simulación). Escribe el <b>nombre y apellidos</b> del jugador."});draw()}
   };
   $("#back").onclick=()=>{state.view="home";app.onclick=null;render()};
   if(t) $("#unf").onclick=()=>openConfirmUnfollow(t);
