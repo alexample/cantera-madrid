@@ -132,6 +132,7 @@ def transformar_grupo(meta, calendar, standings, scorers):
                 str(p.get("codigo_equipo_local") or ""), limpiar_nombre(p.get("equipo_local")),
                 str(p.get("codigo_equipo_visitante") or ""), limpiar_nombre(p.get("equipo_visitante")),
                 gl, gv, str(p.get("codigo_campo") or ""), (p.get("campo") or "").strip(),
+                str(p.get("codacta") or ""),  # código del acta (para enlazar a la web de la RFFM)
             ])
     clas = []
     for e in (standings or {}).get("clasificacion", []) or []:

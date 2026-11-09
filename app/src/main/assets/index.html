@@ -231,7 +231,7 @@ async function loadGroup(gid,fresh){
   return GD[gid];
 }
 function prep(d){
-  d.matches=(d.part||[]).map(p=>({j:p[0],date:p[1]?new Date(p[1]+"T00:00:00"):null,time:p[2]||"",home:p[3],homeN:bonito(p[4]),away:p[5],awayN:bonito(p[6]),hg:p[7],ag:p[8],campo:p[9],campoN:p[10],played:p[7]!=null&&p[8]!=null}));
+  d.matches=(d.part||[]).map(p=>({j:p[0],date:p[1]?new Date(p[1]+"T00:00:00"):null,time:p[2]||"",home:p[3],homeN:bonito(p[4]),away:p[5],awayN:bonito(p[6]),hg:p[7],ag:p[8],campo:p[9],campoN:p[10],acta:p[11]||"",gid:d.id,played:p[7]!=null&&p[8]!=null}));
   d.matches.sort((a,b)=>(a.j||0)-(b.j||0)||((a.date||0)-(b.date||0)));
   if(d.clas&&d.clas.length)d.table=d.clas.map(r=>({pos:r[0],id:r[1],name:bonito(r[2]),pj:r[3]||0,g:r[4]||0,e:r[5]||0,p:r[6]||0,gf:r[7]||0,gc:r[8]||0,pts:r[9]||0}));
   else{const tab={};const add=(id,n)=>tab[id]||(tab[id]={id,name:n,pj:0,g:0,e:0,p:0,gf:0,gc:0,pts:0});
@@ -291,7 +291,8 @@ const nombreJ=n=>{const m=String(n).match(/^(.*?),\s*(.+)$/);return m?m[2]+" "+m
 function scoreCard(m){
   const c=CAMPOS[m.campo];
   return `<div class="score"><div class="t">${L(m.home,m.homeN)}</div><div class="r">${m.hg} – ${m.ag}</div><div class="t">${L(m.away,m.awayN)}</div></div>
-  <div class="small" style="text-align:center">Jornada ${m.j??"?"}${m.date?" · "+fdate(m.date):""}${c||m.campoN?" · "+esc(c?c.name:m.campoN):""}</div>`;
+  <div class="small" style="text-align:center">Jornada ${m.j??"?"}${m.date?" · "+fdate(m.date):""}${c||m.campoN?" · "+esc(c?c.name:m.campoN):""}</div>
+  ${m.acta?`<div style="text-align:center;margin-top:8px"><a class="btn ghost" style="display:inline-block;text-decoration:none" href="${urlActaRFFM(m)}" target="_blank" rel="noopener">📄 Acta del partido (RFFM)</a></div>`:""}`;
 }
 function ansLast(t){
   const m=lastMatch(t);if(!m)return "Todavía no tiene resultados esta temporada.";
@@ -456,7 +457,7 @@ function ansCalendario(t){
 }
 function ansResultados(t){
   const ms=teamMatches(t).filter(m=>m.played);if(!ms.length)return "Todavía no hay partidos jugados.";
-  return `Resultados de la temporada:<div style="margin-top:6px">${ms.map(m=>`<div style="padding:3px 0"><span class="badge ${outcome(m,t.id)}">${{W:"G",D:"E",L:"P"}[outcome(m,t.id)]}</span> <span class="small">J${m.j} · ${L(m.home,m.homeN)} <b>${m.hg}–${m.ag}</b> ${L(m.away,m.awayN)}</span></div>`).join("")}</div>`;
+  return `Resultados de la temporada:<div style="margin-top:6px">${ms.map(m=>`<div style="padding:3px 0"><span class="badge ${outcome(m,t.id)}">${{W:"G",D:"E",L:"P"}[outcome(m,t.id)]}</span> <span class="small">J${m.j} · ${L(m.home,m.homeN)} <b>${m.hg}–${m.ag}</b> ${L(m.away,m.awayN)}</span>${m.acta?` <a class="small" href="${urlActaRFFM(m)}" target="_blank" rel="noopener" style="text-decoration:none">📄</a>`:""}</div>`).join("")}</div>`;
 }
 function ansProxDonde(t,donde){
   const m=teamMatches(t).find(m=>!m.played&&m.date&&m.date>=TODAY&&(donde==="casa"?m.home===t.id:m.away===t.id));
@@ -466,6 +467,7 @@ function ansProxDonde(t,donde){
 }
 const urlEquipoRFFM=t=>`https://www.rffm.es/fichaequipo/${encodeURIComponent(t.id)}`;
 const urlGrupoRFFM=gid=>{const g=grupo(gid);return g?`https://www.rffm.es/competicion/clasificaciones?temporada=${g.temp}&competicion=${g.compId}&grupo=${gid}&tipojuego=${g.tj}`:"https://www.rffm.es"};
+const urlActaRFFM=m=>{const g=grupo(m.gid);return `https://www.rffm.es/acta-partido/${encodeURIComponent(m.acta)}`+(g?`?temporada=${g.temp}&competicion=${g.compId}&grupo=${m.gid}`:"")};
 const linkRFFM=(url,txt)=>`<a class="map" href="${url}" target="_blank" rel="noopener">↗ ${txt}</a>`;
 function ansResumen(t){
   const d=teamGroup(t);const me=d.table.find(r=>r.id===t.id);const lm=lastMatch(t),nm=nextMatch(t);
