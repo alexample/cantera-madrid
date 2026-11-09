@@ -151,8 +151,11 @@ public class MainActivity extends Activity {
                     Matcher m = Pattern.compile("<script id=\"__NEXT_DATA__\"[^>]*>(.*?)</script>", Pattern.DOTALL).matcher(html);
                     if (m.find()) {
                         JSONObject pp = new JSONObject(m.group(1)).getJSONObject("props").getJSONObject("pageProps");
+                        // Toda la página de datos del acta (pageProps); si fuera enorme, solo "game"
+                        String todo = pp.toString();
                         JSONObject game = pp.optJSONObject("game");
-                        if (game != null) res = game.toString();
+                        if (todo.length() < 900000) res = todo;
+                        else if (game != null) res = new JSONObject().put("game", game).toString();
                     }
                 } catch (Exception ignored) { }
                 final String r = res;
