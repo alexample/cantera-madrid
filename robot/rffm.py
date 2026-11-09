@@ -37,7 +37,7 @@ BASE = "https://www.rffm.es"
 UA = "Mozilla/5.0 (compatible; CanteraMadridBot/1.0; +https://github.com/alexample/cantera-madrid)"
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
 CATEGORIAS = [("JUVENIL", "juv", "Juvenil"), ("CADETE", "cad", "Cadete"), ("INFANTIL", "inf", "Infantil")]
-EXCLUIR = ("SALA", "PLAYA", "F-7", "F7", "FUTBOL 7", "FUTBOL-7")
+EXCLUIR = ("SALA", "PLAYA")
 
 _lock = threading.Lock()
 _ultimo = [0.0]
@@ -185,7 +185,8 @@ def main():
     t0 = time.time()
     temporada, etiqueta = temporada_actual(api("/api/seasons"))
     tipos = api("/api/game-types")
-    f11 = [t for t in tipos if "11" in str(t.get("nombre"))] or tipos[:1]
+    # Fútbol 11 y fútbol 7 (hay ligas femeninas Infantil/Cadete/Juvenil de F7)
+    f11 = [t for t in tipos if re.search(r"\b(11|7)\b", str(t.get("nombre")).replace("-", " "))] or tipos[:1]
     print("Temporada", etiqueta, temporada, "· tipos", [t.get("nombre") for t in f11], flush=True)
 
     grupos = []

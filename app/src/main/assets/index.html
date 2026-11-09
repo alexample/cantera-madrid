@@ -232,7 +232,7 @@ function ansNext(t){
 }
 function tableHTML(d,hl){
   return `<table class="st"><tr><th>#</th><th style="text-align:left">Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>DG</th><th>Pts</th></tr>
-  ${d.table.map(r=>`<tr class="${r.id===hl?"me":""}"><td>${r.pos??""}</td><td class="n">${esc(r.name)}</td><td>${r.pj}</td><td>${r.g}</td><td>${r.e}</td><td>${r.p}</td><td>${r.gf-r.gc>0?"+":""}${r.gf-r.gc}</td><td class="p">${r.pts}</td></tr>`).join("")}</table>`;
+  ${d.table.map(r=>`<tr class="${r.id===hl?"me":""}"${TEAM.get(r.id)&&r.id!==hl?` data-open="${r.id}" style="cursor:pointer"`:""}><td>${r.pos??""}</td><td class="n">${esc(r.name)}</td><td>${r.pj}</td><td>${r.g}</td><td>${r.e}</td><td>${r.p}</td><td>${r.gf-r.gc>0?"+":""}${r.gf-r.gc}</td><td class="p">${r.pts}</td></tr>`).join("")}</table>`;
 }
 function ansTable(t){
   const d=teamGroup(t);const me=d.table.find(r=>r.id===t.id);
@@ -367,6 +367,16 @@ function answerMain(text){
     if(!cat)return "¿De qué categoría?"+opts(CAT_ORDER.map(c=>({l:`${CATN[c]} (${yrs(c)})`,v:"Clasificación "+CATN[c].toLowerCase()})));
     return pickCompetition(cat);
   }
+  // Búsqueda por competición: «superliga cadete», «preferente juvenil», «división de honor»…
+  if(/(superliga|division de honor|preferente|autonomica|nacional|primera|segunda|liga)/.test(q)&&!/ (de|del) /.test(" "+q.replace(/division de honor/,"")+" ")){
+    const ws=q.split(" ").filter(w=>w.length>2&&!["liga","futbol","grupo"].includes(w));
+    const comps={};for(const[gid,g] of Object.entries(IDX.grupos)){const n=norm(g[1]);if((!cat||g[0]===cat)&&ws.every(w=>n.includes(w)||norm(CATN[g[0]]).includes(w)))(comps[g[4]]=comps[g[4]]||{name:bonito(g[1]),cat:g[0],groups:[]}).groups.push(gid)}
+    const list=Object.entries(comps);
+    if(list.length===1&&list[0][1].groups.length===1)return groupTable(list[0][1].groups[0]);
+    if(list.length){state.flow={type:"clas",step:0,data:{comps}};
+      if(list.length===1){const c=list[0][1];return `${esc(c.name)}: ¿qué grupo?`+opts(c.groups.map(g=>({l:grupo(g).grupo,v:"grupo:"+g})))}
+      return "¿Qué competición?"+opts(list.sort((a,b)=>a[1].name.localeCompare(b[1].name)).map(([id,c])=>({l:`${c.name} (${c.groups.length} ${c.groups.length>1?"grupos":"grupo"})`,v:"comp:"+id})))}
+  }
   let res=searchTeams(text);
   if(!res.length){const p=findPlace(text);if(p){const near=nearestTeams(p.ll,{cat,fem:femInText(q)||null,limit:8});if(near.length)return `Equipos${cat?" "+CATN[cat]:""} con campo más cerca de <b>${esc(cap(p.name))}</b>:`+teamCards(near,p.ll)}}
   const r=listTeams(res,text);
@@ -394,16 +404,16 @@ async function handleMain(text){
     if(text.startsWith("grupo:")){state.flow=null;return await groupTable(text.slice(6))}
     state.flow=null;
   }
-  if(f&&f.type==="team"){state.flow=null;const r=answerMain(text);return r?r+more():HELP_MAIN+opts(["Ayúdame a encontrar un equipo","Buscar un equipo"])}
+  if(f&&f.type==="team"){state.flow=null;const r=await answerMain(text);return r?r+more():HELP_MAIN+opts(["Ayúdame a encontrar un equipo","Buscar un equipo"])}
   if(f&&f.type==="player"){const r=await playerSearch(text);if(r){state.flow=null;return r+more()}return "No he encontrado a nadie con ese nombre entre los goleadores. Revisa cómo se escribe o prueba con nombre y primer apellido."+opts([{l:"Cancelar",v:"Menú"}])}
   if(f&&f.type==="wizard")return wizardAnswer(text);
   if(/^busca (a )?/.test(q)&&state.verified){const r=await playerSearch(text.replace(/^\s*busca\s+(a\s+)?/i,""));if(r)return r+more()}
-  return answerMain(text);
+  return await answerMain(text);
 }
 async function groupTable(gid){
   const d=await loadGroup(gid);
   const ts=d.table.map(r=>TEAM.get(r.id)).filter(Boolean);
-  return `<b>${esc(grupoNombre(gid))}</b>${tableHTML(d)}<div class="small" style="margin-top:8px">Para seguir a un equipo, búscalo por su nombre.</div>${more()}`;
+  return `<b>${esc(grupoNombre(gid))}</b>${tableHTML(d)}<div class="small" style="margin-top:8px">Toca un equipo para abrir su ficha.</div>${more()}`;
 }
 function verifyMsg(){return `La búsqueda de jugadores solo está disponible para <b>cuentas verificadas</b> (familias, entrenadores o club), porque son menores.
   <div style="margin-top:10px"><button class="btn" data-act="verify">Simular cuenta verificada</button></div>
