@@ -127,7 +127,7 @@ function rel(d){const diff=Math.round((d-TODAY)/864e5);if(diff===0)return"hoy";i
 const store={get(k,d){try{const v=localStorage.getItem("cm_"+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem("cm_"+k,JSON.stringify(v))}catch(e){}}};
 const SIGLAS=new Set(["a","d","c","f","u","s","e","r","sad","cd","ad","cf","ud","sd","ef","cde","adc","club","de","del","la","el","los","las","futbol","escuela","deportivo","deportiva","agrupacion","asociacion","sociedad","atletico","union","racing","real","rcd","cdf","ac","ce","cp","fc","ss","sporting","y","san"]);
 // "A.D. ALCORCON A" -> "A.D. Alcorcón A" (respeta siglas)
-function bonito(n){return String(n||"").toLowerCase().split(" ").map(w=>/\./.test(w)||/^[a-z]$/.test(w)||/^(sad|cd|ad|cf|ud|sd|cde|rcd|ef)$/.test(w)?w.toUpperCase():w.charAt(0).toUpperCase()+w.slice(1)).join(" ").replace(/\b(De|Del|La|Las|Los|El|Y)\b/g,x=>x.toLowerCase()).replace(/^./,c=>c.toUpperCase())}
+function bonito(n){return String(n||"").toLowerCase().split(" ").map(w=>/\./.test(w)||/^[a-z]$/.test(w)||/^(sad|cd|ad|cf|ud|sd|cde|rcd|ef|ii|iii|iv|vi)$/.test(w)?w.toUpperCase():w.charAt(0).toUpperCase()+w.slice(1)).join(" ").replace(/\b(De|Del|La|Las|Los|El|Y)\b/g,x=>x.toLowerCase()).replace(/^./,c=>c.toUpperCase())}
 function siglas(club){const w=norm(club).split(" ").filter(x=>x.length>1&&!SIGLAS.has(x));const s=(w[0]||norm(club).replace(/ /g,"")).slice(0,3).toUpperCase();return s}
 function colorDe(s){let h=0;for(const c of String(s))h=(h*31+c.charCodeAt(0))>>>0;return `hsl(${h%360} 55% 38%)`}
 const cap=s=>String(s).replace(/(^|\s)\p{L}/gu,c=>c.toUpperCase()).replace(/\b(De|Del|La|Las|Los|El)\b/g,w=>w.toLowerCase());
@@ -296,12 +296,28 @@ function findPlace(text){
   return k?{name:k,ll:PLACES[k]}:null;
 }
 const STOP=new Set(["busca","buscar","equipo","equipos","el","la","los","las","de","del","en","un","una","mi","hijo","hija","que","juega","donde","esta","quiero","ver","club","futbol","a","al","y","infantil","cadete","juvenil","femenino","femenina","masculino"]);
+// Distancia de edición (con transposición) acotada: para tolerar faltas de ortografía
+function dist(a,b,max){if(Math.abs(a.length-b.length)>max)return max+1;const d=[];for(let i=0;i<=a.length;i++){d[i]=[i];for(let j=1;j<=b.length;j++)d[i][j]=i?0:j}
+  for(let i=1;i<=a.length;i++){let best=1e9;for(let j=1;j<=b.length;j++){const c=a[i-1]===b[j-1]?0:1;d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+c);if(i>1&&j>1&&a[i-1]===b[j-2]&&a[i-2]===b[j-1])d[i][j]=Math.min(d[i][j],d[i-2][j-2]+1);best=Math.min(best,d[i][j])}if(best>max)return max+1}return d[a.length][b.length]}
+let VOCAB=null;
+function vocab(){if(VOCAB)return VOCAB;const v=new Set();for(const t of TEAMS)for(const w of t.search.split(" "))if(w.length>=3)v.add(w);for(const k of Object.keys(PLACES))for(const w of k.split(" "))if(w.length>=3)v.add(w);return VOCAB=[...v]}
+// Para cada palabra: ella misma si existe; si no, las palabras parecidas del vocabulario
+function expandir(w){
+  const V=vocab();if(w.length<4||V.some(x=>x.includes(w)))return{alts:[w],fixed:null};
+  const max=w.length>=7?2:1;let best=max+1,alts=[];
+  for(const x of V){if(x.length<3)continue;const d=dist(w,x,max);if(d<best){best=d;alts=[x]}else if(d===best&&d<=max)alts.push(x)}
+  return best<=max?{alts,fixed:alts[0]}:{alts:[w],fixed:null};
+}
+let ULTIMA_CORRECCION=null;
 function searchTeams(text,{cat,fem}={}){
   const q=norm(text);cat=cat||catInText(q);fem=fem??(femInText(q)||null);
   const words=q.split(" ").filter(w=>w.length>1&&!STOP.has(w));
+  ULTIMA_CORRECCION=null;
   let res=TEAMS.filter(t=>(!cat||t.cat===cat)&&(fem==null||t.fem===fem));
   if(words.length){
-    res=res.map(t=>{let s=0,hit=0;for(const w of words){let k=0;if(t.sName.includes(" "+w+" "))k=3;else if(t.sName.includes(w))k=2;else if(t.sPlace.includes(" "+w+" "))k=1.5;else if(t.sPlace.includes(w))k=1;if(k)hit++;s+=k}return{t,s,hit}})
+    const exp=words.map(expandir);const fixes=exp.filter(e=>e.fixed);
+    if(fixes.length)ULTIMA_CORRECCION=words.map((w,i)=>exp[i].fixed||w).join(" ");
+    res=res.map(t=>{let s=0,hit=0;for(const e of exp){let k=0;for(const w of e.alts){let kk=0;if(t.sName.includes(" "+w+" "))kk=3;else if(t.sName.includes(w))kk=2;else if(t.sPlace.includes(" "+w+" "))kk=1.5;else if(t.sPlace.includes(w))kk=1;k=Math.max(k,kk)}if(k)hit++;s+=k}return{t,s,hit}})
       .filter(x=>x.hit===words.length).sort((a,b)=>b.s-a.s||(a.t.club.length-b.t.club.length)||a.t.name.localeCompare(b.t.name)).map(x=>x.t);
   }else if(!cat)res=[];
   return res;
@@ -349,7 +365,8 @@ function answerMain(text){
   }
   let res=searchTeams(text);
   if(!res.length){const p=findPlace(text);if(p){const near=nearestTeams(p.ll,{cat,fem:femInText(q)||null,limit:8});if(near.length)return `Equipos${cat?" "+CATN[cat]:""} con campo más cerca de <b>${esc(cap(p.name))}</b>:`+teamCards(near,p.ll)}}
-  return listTeams(res,text);
+  const r=listTeams(res,text);
+  return r&&ULTIMA_CORRECCION?`<div class="small" style="margin-bottom:6px">Resultados para «${esc(ULTIMA_CORRECCION)}»</div>`+r:r;
 }
 function pickCompetition(cat){
   const comps={};for(const[gid,g] of Object.entries(IDX.grupos)){if(g[0]!==cat)continue;(comps[g[4]]=comps[g[4]]||{name:bonito(g[1]),groups:[]}).groups.push(gid)}
@@ -440,6 +457,7 @@ function wizardAnswer(text){
 }
 
 /* ---------- IA ---------- */
+const esPregunta=x=>/[?¿]/.test(x)||/^(que|como|cuando|donde|cual|cuales|quien|cuantos|cuantas|por que|puedo|hay|es|se puede)\b/.test(norm(x));
 const iaDisponible=()=>location.host==="appassets.androidplatform.net";
 function contextoEquipo(t){
   const d=teamGroup(t);const L=[`FICHA: ${t.name} (${CATN[t.cat]}${t.fem?" femenino":""}). Competición: ${grupoNombre(d.id)}.`,t.campo?`Campo habitual: ${t.campo.name}, ${t.campo.addr}, ${t.campo.loc}.`:"",`Hoy es ${fdate(TODAY)} de ${TODAY.getFullYear()}.`,"","CLASIFICACIÓN (pos equipo PJ G E P GF GC Pts):"];
@@ -529,7 +547,7 @@ function renderChat(app,t){
     state.chats[key].push({r:"u",h:esc(shown)});state.chats[key].push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span>'});draw();
     setTimeout(async()=>{let h;
       try{h=t?answerTeam(t,text):await handleMain(text);
-        if(h==null)h=(await preguntarIA(key,text,t?contextoEquipo(t):contextoGeneral()))||(t?HELP_TEAM:HELP_MAIN+opts(MENU))}
+        if(h==null)h=((t||esPregunta(text))&&await preguntarIA(key,text,t?contextoEquipo(t):contextoGeneral()))||(t?HELP_TEAM:HELP_MAIN+opts(MENU))}
       catch(e){h="Ha fallado algo al consultar los datos. Inténtalo otra vez."}
       state.chats[key].pop();state.chats[key].push({r:"b",h});if(state.view===(t?"team":"main"))draw()},250);
   };
