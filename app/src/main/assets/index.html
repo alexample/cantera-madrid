@@ -94,6 +94,9 @@ a.map{display:inline-flex;align-items:center;gap:6px;margin-top:6px;color:var(--
 .sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
 .sw.on{background:var(--win)}.sw.on::after{left:23px}
 .hidden{display:none!important}
+.crest,.tl-c{position:relative;overflow:hidden}
+.crest img,.tl-c img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff;padding:12%;border-radius:50%}
+.crest.ci{border-color:#fff}
 .carr-fijo{flex:none;border-bottom:1px solid var(--line);background:var(--bg);padding-top:10px;box-shadow:0 6px 12px -10px rgba(0,0,0,.35)}
 .carr-fijo .carr-wrap{margin:0 0 4px}
 .carr-fijo .mc{padding:10px 12px;gap:6px}
@@ -277,13 +280,13 @@ async function getJSON(name,{fresh=false}={}){
 function buildIndex(ix){
   IDX=ix;TEAMS=[];TEAM.clear();
   for(const [id,v] of Object.entries(ix.campos||{}))CAMPOS[id]={id,name:v[0],addr:v[1],loc:v[2],ll:v[3]!=null&&v[4]!=null?[v[3],v[4]]:null};
-  for(let [id,n,c,gs,campo] of ix.equipos){
+  for(let [id,n,c,gs,campo,esc] of ix.equipos){
     const grupos=gs.filter(g=>ix.grupos[g]);if(!grupos.length)continue;
     const g0=ix.grupos[grupos[0]];
     const cp=CAMPOS[campo]||null;
     c=String(c).replace(/\s+[A-Z]{1,2}$/,"");
     const t={id,raw:n,name:bonito(n),club:bonito(c),clubKey:norm(c),cat:g0[0],fem:!!g0[3],grupos,campo:cp,town:cp?cap(cp.loc.toLowerCase()):"",ll:cp?cp.ll:null};
-    t.sig=siglas(c);t.color=colorDe(norm(c));
+    t.sig=siglas(c);t.color=colorDe(norm(c));t.esc=esc||"";
     t.sName=" "+norm(n+" "+c)+" ";t.sPlace=" "+norm([cp&&cp.loc,cp&&cp.name].join(" "))+" ";t.search=t.sName+t.sPlace;
     TEAMS.push(t);TEAM.set(id,t);
   }
@@ -312,7 +315,7 @@ const teamMatches=t=>{const d=teamGroup(t);return d?d.matches.filter(m=>m.home==
 const lastMatch=t=>teamMatches(t).filter(m=>m.played).sort((a,b)=>(a.date||0)-(b.date||0)||a.j-b.j).pop();
 const nextMatch=t=>{const ms=teamMatches(t).filter(m=>!m.played);return ms.find(m=>m.date&&m.date>=TODAY)||ms.find(m=>!m.date)};
 function outcome(m,id){const my=m.home===id?m.hg:m.ag,ot=m.home===id?m.ag:m.hg;return my>ot?"W":my<ot?"L":"D"}
-const L=(id,name)=>{const t=TEAM.get(id);return t?`<a class="tl" data-ver="${esc(id)}" role="button"><span class="tl-c" style="background:${t.color}">${esc(t.sig)}</span>${esc(name)}<span class="tl-ch">›</span></a>`:esc(name)};
+const L=(id,name)=>{const t=TEAM.get(id);return t?`<a class="tl" data-ver="${esc(id)}" role="button"><span class="tl-c${t.esc?" ci":""}" style="background:${t.color}">${esc(t.sig)}${escudoImg(t)}</span>${esc(name)}<span class="tl-ch">›</span></a>`:esc(name)};
 const fin=s=>/\.$/.test(s)?"":".";
 const rivalOf=(m,id)=>m.home===id?{id:m.away,n:m.awayN}:{id:m.home,n:m.homeN};
 
@@ -337,7 +340,11 @@ function follow(id){if(!state.follows.includes(id)){state.follows.push(id);store
 function unfollow(id){state.follows=state.follows.filter(x=>x!==id);store.set("follows",state.follows);syncAndroid()}
 
 /* ---------- piezas visuales ---------- */
-const crest=(t,size)=>`<div class="crest" style="background:${t.color};${size?`width:${size}px;height:${size}px;font-size:${Math.round(size*.36)}px`:""}">${esc(t.sig)}</div>`;
+// Escudo del club (imagen de la RFFM); si no carga, quedan las iniciales debajo
+function escudoImg(t){if(!t||!t.esc)return "";const pth=t.esc.startsWith("http")?t.esc:(t.esc.startsWith("/")?t.esc:"/"+t.esc);
+  const a=t.esc.startsWith("http")?t.esc:"https://appweb.rffm.es"+pth,b=t.esc.startsWith("http")?"":"https://www.rffm.es"+pth;
+  return `<img src="${esc(a)}" data-alt="${esc(b)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.dataset.alt=''}else{this.remove()}">`}
+const crest=(t,size)=>`<div class="crest${t.esc?" ci":""}" style="background:${t.color};${size?`width:${size}px;height:${size}px;font-size:${Math.round(size*.36)}px`:""}">${esc(t.sig)}${escudoImg(t)}</div>`;
 const icons={
   back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>',
   gear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>',

@@ -123,9 +123,15 @@ def jornada_num(j):
 def transformar_grupo(meta, calendar, standings, scorers):
     """pageProps (calendar, standings, scorers) -> archivo compacto del grupo."""
     partidos = []
+    escudos = {}
     for ronda in (calendar or {}).get("rounds", []) or []:
         j = jornada_num(ronda.get("jornada"))
         for p in ronda.get("equipos", []) or []:
+            for lado in ("local", "visitante"):
+                e = (p.get("escudo_equipo_" + lado) or "").strip()
+                tid = str(p.get("codigo_equipo_" + lado) or "")
+                if e and tid:
+                    escudos[tid] = e
             gl, gv = entero(p.get("goles_casa")), entero(p.get("goles_visitante"))
             partidos.append([
                 j, fecha_iso(p.get("fecha")), (p.get("hora") or "").strip(),
@@ -147,7 +153,7 @@ def transformar_grupo(meta, calendar, standings, scorers):
         if g:
             gol.append([limpiar_nombre(e.get("jugador")).title(), str(e.get("codigo_equipo") or ""), g])
     gol.sort(key=lambda r: -r[2])
-    return {**meta, "clas": clas, "part": partidos, "gol": gol}
+    return {**meta, "clas": clas, "part": partidos, "gol": gol, "esc": escudos}
 
 
 # ---------------------------------------------------------------- recorrido
@@ -294,6 +300,9 @@ def main():
             e = equipos.setdefault(tid, {"id": tid, "n": nom, "c": club_de(nom), "g": []})
             if g["id"] not in e["g"]:
                 e["g"].append(g["id"])
+    escudos = {}
+    for g in hechos:
+        escudos.update(g.get("esc") or {})
     for tid, e in equipos.items():
         if casa[tid]:
             e["campo"] = casa[tid].most_common(1)[0][0]
@@ -309,7 +318,7 @@ def main():
     indice = {
         "temporada": etiqueta, "act": ahora,
         "grupos": {g["id"]: [g["cat"], g["competicion"], g["grupo"], g["fem"], g["comp"], g["tj"], g["temp"]] for g in hechos},
-        "equipos": [[e["id"], e["n"], e["c"], e["g"], e.get("campo", "")] for e in equipos.values()],
+        "equipos": [[e["id"], e["n"], e["c"], e["g"], e.get("campo", ""), escudos.get(e["id"], "")] for e in equipos.values()],
         "campos": {k: v for k, v in campos.items() if k in usados},
     }
     json.dump(indice, open(os.path.join(DATA, "indice.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
@@ -383,6 +392,8 @@ def rapido(a):
             except Exception as e:
                 errores.append(f"grupo {d['id']}: {e}")
                 continue
+            if not n.get("esc"):
+                n["esc"] = d.get("esc", {})
             if (n["part"], n["clas"], n["gol"]) != (d["part"], d["clas"], d["gol"]):
                 n["act"] = ahora
                 json.dump(n, open(os.path.join(DATA, "g", d["id"] + ".json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
