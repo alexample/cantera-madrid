@@ -94,6 +94,8 @@ a.map{display:inline-flex;align-items:center;gap:6px;margin-top:6px;color:var(--
 .sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
 .sw.on{background:var(--win)}.sw.on::after{left:23px}
 .hidden{display:none!important}
+.mt-alerta{background:#fff4e5;color:#8a4b00;border:1px solid #ffd8a8;border-radius:10px;padding:6px 10px;font-size:13px;font-weight:600;margin-bottom:8px}
+html[data-theme="estadio"] .mt-alerta{background:rgba(255,154,61,.12);color:#ffc078;border-color:rgba(255,154,61,.35)}
 .vd{margin:4px 0 4px 2px;border-left:2px solid var(--line);padding-left:8px}
 .vd summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--pitch2)}
 .vd-row{display:flex;gap:8px;font-size:12.5px;padding:2px 0;border-bottom:1px dashed var(--line)}
@@ -335,7 +337,7 @@ const etiqueta=t=>state.etq[t.id]||"";
 const silenciado=t=>!!(state.avEq[t.id]&&state.avEq[t.id].silencio);
 function toast(msg){const d=document.createElement("div");d.className="toast";d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),2200)}
 function silenciar(t,on){
-  if(on){const prev=state.avEq[t.id]&&!state.avEq[t.id].silencio?state.avEq[t.id]:null;state.avEq[t.id]={resultado:false,asignado:false,previo:false,horas:3,silencio:true,antes:prev}}
+  if(on){const prev=state.avEq[t.id]&&!state.avEq[t.id].silencio?state.avEq[t.id]:null;state.avEq[t.id]={resultado:false,asignado:false,previo:false,meteo:false,horas:3,silencio:true,antes:prev}}
   else{const a=state.avEq[t.id];if(a&&a.antes)state.avEq[t.id]=a.antes;else delete state.avEq[t.id]}
   store.set("avEq",state.avEq);syncAndroid();
 }
@@ -610,7 +612,8 @@ function meteoHTML(d,hora){
    ${idx.map((x,i)=>`<rect x="${i*col}" y="0" width="${col}" height="136" fill="transparent" data-mh="${i}" style="cursor:pointer"/>`).join("")}
   </svg>`;
   const det=i=>`${String(idx[i]).padStart(2,"0")}:00 · ${WMO(C[i])[0]} ${WMO(C[i])[1]} · ${Math.round(T[i])}° · lluvia ${P[i]}% (${MM[i]} mm) · viento ${Math.round(V[i])} km/h`;
-  return `<div class="mt-head"><span class="mt-ic">${ic}</span><div><b>${txt} · ${Math.round(T[k])}°</b><div class="small">A la hora del partido: lluvia ${P[k]}% · viento ${Math.round(V[k])} km/h</div></div></div>
+  const mal=[];if(C[k]>=95)mal.push("⛈️ tormenta");else if((C[k]>=71&&C[k]<=77)||C[k]===85||C[k]===86)mal.push("🌨️ nieve");else if(P[k]>=50||MM[k]>=0.5)mal.push("🌧️ lluvia");if(V[k]>=35)mal.push("💨 viento fuerte");
+  return `${mal.length?`<div class="mt-alerta">⚠️ Atención: ${mal.join(" y ")} a la hora del partido</div>`:""}<div class="mt-head"><span class="mt-ic">${ic}</span><div><b>${txt} · ${Math.round(T[k])}°</b><div class="small">A la hora del partido: lluvia ${P[k]}% · viento ${Math.round(V[k])} km/h</div></div></div>
    <div class="mt-icons">${C.map((c,i)=>`<span class="${i===k?"on":""}">${WMO(c)[0]}</span>`).join("")}</div>${svg}
    <div class="small mt-det" data-dets='${esc(JSON.stringify(idx.map((_,i)=>det(i))))}'>${det(k)}</div>
    <div class="small" style="opacity:.7">Toca una hora para ver el detalle · Open-Meteo</div>`;
@@ -1135,14 +1138,15 @@ function openTeamSettings(t){
     ${sw("resultado","Resultados","Cuando se publique el resultado.")}
     ${sw("asignado","Partido asignado","Cuando se fije o cambie fecha, hora o campo.")}
     ${sw("previo","Antes del partido","Con el campo y cómo llegar.")}
+    ${sw("meteo","Mal tiempo (24 h antes)","Lluvia, nieve, tormenta, viento o aviso oficial.")}
     <div class="tog"><div class="grow"><b>¿Cuánto antes?</b></div><div class="chips" style="padding:0">${[1,2,3,4,6].map(h=>`<button class="chip" data-th="${h}" style="${av.horas===h?"background:var(--pitch2);color:var(--bg)":""}">${h} h</button>`).join("")}</div></div>
    </div>
    </div>
    <div style="display:flex;gap:10px;margin-top:16px"><button class="btn ghost" id="unf2" style="flex:1;padding:12px;color:var(--loss)">Dejar de seguir</button><button class="btn" id="ok" style="flex:1;padding:12px">Listo</button></div>`,()=>{
     let usarGen=!propio;
     const guardar=()=>{const e=$("#etq").value.trim();if(e)state.etq[t.id]=e;else delete state.etq[t.id];store.set("etiquetas",state.etq);
-      const prop=usarGen?null:{resultado:!!av.resultado,asignado:!!av.asignado,previo:!!av.previo,horas:av.horas||3};
-      if(mute)state.avEq[t.id]={resultado:false,asignado:false,previo:false,horas:3,silencio:true,antes:prop};
+      const prop=usarGen?null:{resultado:!!av.resultado,asignado:!!av.asignado,previo:!!av.previo,meteo:av.meteo!==false,horas:av.horas||3};
+      if(mute)state.avEq[t.id]={resultado:false,asignado:false,previo:false,meteo:false,horas:3,silencio:true,antes:prop};
       else if(prop)state.avEq[t.id]=prop;else delete state.avEq[t.id];
       store.set("avEq",state.avEq);syncAndroid()};
     $("#activos").onclick=()=>{mute=!mute;$("#activos").classList.toggle("on",!mute);$("#detalleAv").classList.toggle("hidden",mute);guardar()};
@@ -1159,7 +1163,7 @@ function openConfirmUnfollow(t){
   openSheet(`<h3>¿Dejar de seguir?</h3><p>${esc(t.name)} desaparecerá de tus equipos.</p><div style="display:flex;gap:10px"><button class="btn ghost" id="no" style="flex:1;padding:12px">Cancelar</button><button class="btn" id="yes" style="flex:1;padding:12px;background:var(--loss)">Dejar de seguir</button></div>`,()=>{
     $("#no").onclick=closeSheet;$("#yes").onclick=()=>{delete state.etq[t.id];delete state.avEq[t.id];store.set("etiquetas",state.etq);store.set("avEq",state.avEq);unfollow(t.id);delete state.chats[t.id];closeSheet();state.view="home";render()}});
 }
-function leerAvisos(){let a={};if(ANDROID)try{a=JSON.parse(AndroidApp.leerAjustes()||"{}")}catch(e){}return Object.assign({resultado:true,asignado:true,previo:true,horas:3},a)}
+function leerAvisos(){let a={};if(ANDROID)try{a=JSON.parse(AndroidApp.leerAjustes()||"{}")}catch(e){}return Object.assign({resultado:true,asignado:true,previo:true,meteo:true,horas:3},a)}
 function openSettings(){
   const av=leerAvisos();const sw=(k,t,d)=>`<div class="tog"><div class="grow"><b>${t}</b><div class="small">${d}</div></div><button class="sw ${av[k]?"on":""}" data-sw="${k}" aria-label="${t}"></button></div>`;
   const permiso=ANDROID?(()=>{try{return AndroidApp.puedeNotificar()}catch(e){return true}})():true;
@@ -1170,6 +1174,7 @@ function openSettings(){
    ${sw("resultado","Resultados","Cuando la federación publica el resultado.")}
    ${sw("asignado","Partido asignado","Cuando se fija o cambia la fecha, la hora o el campo.")}
    ${sw("previo","Antes del partido","Con el campo y cómo llegar.")}
+   ${sw("meteo","Mal tiempo (24 h antes)","Si se prevé lluvia, nieve, tormenta, viento fuerte o hay aviso meteorológico oficial.")}
    <div class="tog"><div class="grow"><b>¿Cuánto antes?</b></div><div class="chips" style="padding:0">${[1,2,3,4,6].map(h=>`<button class="chip" data-h="${h}" style="${av.horas===h?"background:var(--pitch2);color:#fff":""}">${h} h</button>`).join("")}</div></div>
    <div class="section-t">Apariencia</div>
    <div class="themes">

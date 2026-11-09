@@ -59,6 +59,7 @@ public class Avisos extends Worker {
     static final String CANAL_RESULTADO = "resultados";
     static final String CANAL_ASIGNADO = "partido_asignado";
     static final String CANAL_PREVIO = "antes_del_partido";
+    static final String CANAL_METEO = "mal_tiempo";
     private static final String TRABAJO = "revisar-equipos";
     static final TimeZone MADRID = TimeZone.getTimeZone("Europe/Madrid");
 
@@ -92,6 +93,9 @@ public class Avisos extends Worker {
         nm.createNotificationChannel(r);
         nm.createNotificationChannel(a);
         nm.createNotificationChannel(p);
+        NotificationChannel mt = new NotificationChannel(CANAL_METEO, "Mal tiempo para el partido", NotificationManager.IMPORTANCE_DEFAULT);
+        mt.setDescription("Unas 24 h antes, si se prevé lluvia, nieve, tormenta, viento fuerte o hay aviso meteorológico.");
+        nm.createNotificationChannel(mt);
     }
 
     static boolean puedeNotificar(Context c) {
@@ -113,6 +117,7 @@ public class Avisos extends Worker {
         boolean avResultado = aj.optBoolean("resultado", true);
         boolean avAsignado = aj.optBoolean("asignado", true);
         boolean avPrevio = aj.optBoolean("previo", true);
+        boolean avMeteo = aj.optBoolean("meteo", true);
         int horas = aj.optInt("horas", 3);
         if (horas < 1 || horas > 12) horas = 3;
 
@@ -138,6 +143,7 @@ public class Avisos extends Worker {
             boolean eResultado = av != null ? av.optBoolean("resultado", avResultado) : avResultado;
             boolean eAsignado = av != null ? av.optBoolean("asignado", avAsignado) : avAsignado;
             boolean ePrevio = av != null ? av.optBoolean("previo", avPrevio) : avPrevio;
+            boolean eMeteo = av != null ? av.optBoolean("meteo", avMeteo) : avMeteo;
             int eHoras = av != null ? av.optInt("horas", horas) : horas;
             if (eHoras < 1 || eHoras > 12) eHoras = horas;
             JSONObject grupo = cacheGrupos.optJSONObject(gid);
@@ -177,6 +183,15 @@ public class Avisos extends Worker {
 
                 if (!jugado && inicio != Long.MIN_VALUE && inicio > ahora && inicio < proximoInicio) {
                     proximo = m; proximoInicio = inicio;
+                }
+                // Mal tiempo: entre 24 h y 2 h antes, una sola vez por partido
+                if (!jugado && eMeteo && inicio != Long.MIN_VALUE && inicio - ahora <= 24 * 3600000L && inicio - ahora > 2 * 3600000L
+                        && !p.getBoolean("met_" + clave, false)) {
+                    String motivo = malTiempo(campos, m, inicio);
+                    if (motivo != null) {
+                        notificarMeteo(c, id, nombre, m, campos, motivo);
+                        ed.putBoolean("met_" + clave, true);
+                    }
                 }
                 // Aviso previo para todos los partidos de los próximos 8 días
                 if (!jugado && ePrevio && inicio != Long.MIN_VALUE) {
@@ -260,6 +275,95 @@ public class Avisos extends Worker {
             mapa = new NotificationCompat.Action(0, "Cómo llegar", pm);
         }
         notificar(c, CANAL_PREVIO, n, titulo, texto, abrirEquipo(c, id, n), mapa);
+    }
+
+    // ---------------------------------------------------------------- mal tiempo
+    private JSONArray alertasCache = null;
+
+    /** Devuelve el motivo («Lluvia 70 %…», «Aviso amarillo por viento…») o null si el tiempo es bueno. */
+    private String malTiempo(JSONObject campos, JSONArray m, long inicio) {
+        JSONArray cp = campos.optJSONArray(m.optString(9));
+        if (cp == null || cp.isNull(3) || cp.isNull(4)) return null;
+        double lat = cp.optDouble(3), lon = cp.optDouble(4);
+        StringBuilder r = new StringBuilder();
+        try {
+            String url = "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon
+                    + "&hourly=precipitation_probability,precipitation,snowfall,weather_code,wind_speed_10m,wind_gusts_10m"
+                    + "&timezone=Europe%2FMadrid&start_date=" + m.optString(1) + "&end_date=" + m.optString(1);
+            JSONObject h = new JSONObject(descargar(url)).getJSONObject("hourly");
+            int H = Integer.parseInt(m.optString(2).split(":")[0]);
+            int prob = 0, cod = 0; double mm = 0, nieve = 0, viento = 0, racha = 0;
+            for (int k = H; k <= Math.min(23, H + 1); k++) {
+                prob = Math.max(prob, h.getJSONArray("precipitation_probability").optInt(k));
+                mm += h.getJSONArray("precipitation").optDouble(k, 0);
+                nieve += h.getJSONArray("snowfall").optDouble(k, 0);
+                cod = Math.max(cod, h.getJSONArray("weather_code").optInt(k));
+                viento = Math.max(viento, h.getJSONArray("wind_speed_10m").optDouble(k, 0));
+                racha = Math.max(racha, h.getJSONArray("wind_gusts_10m").optDouble(k, 0));
+            }
+            if (cod >= 95) r.append("⛈️ Tormenta");
+            else if (nieve > 0 || (cod >= 71 && cod <= 77) || cod == 85 || cod == 86) r.append("🌨️ Nieve");
+            else if (prob >= 50 || mm >= 0.5) r.append("🌧️ Lluvia ").append(prob).append(" %").append(mm >= 0.1 ? String.format(Locale.US, " (%.1f mm)", mm) : "");
+            if (racha >= 50 || viento >= 35) {
+                if (r.length() > 0) r.append(" · ");
+                r.append("💨 Viento ").append(Math.round(viento)).append(" km/h, rachas de ").append(Math.round(racha));
+            }
+        } catch (Exception ignored) { }
+        String alerta = alertaMadrid(inicio);
+        if (alerta != null) {
+            if (r.length() > 0) r.append("\n");
+            r.append(alerta);
+        }
+        return r.length() > 0 ? r.toString() : null;
+    }
+
+    /** Avisos oficiales (AEMET vía MeteoAlarm) para las zonas de Madrid que coinciden con la hora del partido. */
+    private String alertaMadrid(long inicio) {
+        try {
+            if (alertasCache == null)
+                alertasCache = new JSONObject(descargar("https://feeds.meteoalarm.org/api/v1/warnings/feeds-spain")).optJSONArray("warnings");
+            if (alertasCache == null) return null;
+            SimpleDateFormat iso = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.US);
+            String mejor = null; int nivel = 0;
+            for (int i = 0; i < alertasCache.length(); i++) {
+                JSONArray infos = alertasCache.optJSONObject(i).optJSONObject("alert").optJSONArray("info");
+                if (infos == null) continue;
+                JSONObject info = infos.optJSONObject(0);
+                for (int j = 0; j < infos.length(); j++) if (infos.optJSONObject(j).optString("language").startsWith("es")) info = infos.optJSONObject(j);
+                boolean madrid = false;
+                JSONArray areas = info.optJSONArray("area");
+                for (int a = 0; areas != null && a < areas.length(); a++) {
+                    String d = areas.optJSONObject(a).optString("areaDesc").toLowerCase(Locale.ROOT);
+                    if (d.contains("madrid") || d.contains("metropolitana y henares") || d.contains("sur, vegas y oeste")) madrid = true;
+                }
+                if (!madrid) continue;
+                long on = iso.parse(info.optString("onset", info.optString("effective"))).getTime();
+                long off = iso.parse(info.optString("expires")).getTime();
+                if (off < inicio - 3600000L || on > inicio + 2 * 3600000L) continue;
+                int n = 0; String color = "";
+                JSONArray par = info.optJSONArray("parameter");
+                for (int k = 0; par != null && k < par.length(); k++) {
+                    JSONObject x = par.optJSONObject(k);
+                    if ("awareness_level".equals(x.optString("valueName"))) {
+                        String v = x.optString("value").toLowerCase(Locale.ROOT);
+                        n = v.contains("red") ? 4 : v.contains("orange") ? 3 : v.contains("yellow") ? 2 : 1;
+                        color = n == 4 ? "rojo" : n == 3 ? "naranja" : n == 2 ? "amarillo" : "";
+                    }
+                }
+                if (n >= 2 && n > nivel) { nivel = n; mejor = "⚠️ Aviso " + color + ": " + info.optString("event", info.optString("headline")); }
+            }
+            return mejor;
+        } catch (Exception e) { return null; }
+    }
+
+    private static void notificarMeteo(Context c, String id, String nombre, JSONArray m, JSONObject campos, String motivo) {
+        boolean casa = id.equals(m.optString(3));
+        String rival = bonito(casa ? m.optString(6) : m.optString(4));
+        String titulo = "🌦️ Mal tiempo para el partido · " + nombre;
+        String texto = motivo + "\n" + fechaBonita(m.optString(1)) + " · " + m.optString(2) + " · " + (casa ? "en casa contra " : "fuera contra ") + rival
+                + (campoTexto(campos, m).isEmpty() ? "" : "\n📍 " + campoTexto(campos, m));
+        int n = ("met_" + id + m.optInt(0)).hashCode();
+        notificar(c, CANAL_METEO, n, titulo, texto, abrirEquipo(c, id, n), accionMapa(c, campos, m, n));
     }
 
     // ---------------------------------------------------------------- alarmas
