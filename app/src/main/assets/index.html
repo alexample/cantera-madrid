@@ -514,7 +514,8 @@ function renderHome(app){
   $("#gear").onclick=openSettings;
   $("#openMain").onclick=()=>{state.view="main";render()};
   $("#addTeam").onclick=()=>{state.view="main";state.chats._main=null;render();setTimeout(()=>window.__ask&&window.__ask("Buscar un equipo"),50)};
-  app.querySelectorAll("[data-team]").forEach(b=>b.onclick=()=>{state.view="team";state.team=b.dataset.team;render()});
+  // delegación: sigue funcionando aunque la lista se repinte al cargar resultados
+  $("#mine").onclick=e=>{const b=e.target.closest("[data-team]");if(b){state.view="team";state.team=b.dataset.team;render()}};
   // carga los grupos de los equipos seguidos y repinta
   Promise.all(followed.map(t=>loadGroup(t.grupos[0]).catch(()=>null))).then(()=>{if(state.view==="home"&&$("#mine")&&followed.length)$("#mine").innerHTML=followed.map(homeRow).join("")});
 }

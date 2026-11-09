@@ -4,8 +4,9 @@ name: Robot de datos RFFM
 # La app lee esos archivos de GitHub al abrirse.
 on:
   schedule:
-    # Fines de semana: cada hora de 10:20 a 22:20 (hora de Madrid, aprox.)
-    - cron: "20 9-21 * * 6,0"
+    # Fines de semana: completo cada 2 horas y rápido (solo grupos con partidos hoy) cada 20 minutos
+    - cron: "20 8-20/2 * * 6,0"
+    - cron: "0,40 8-21 * * 6,0"
     # Entre semana: tres veces al día
     - cron: "20 6,14,20 * * 1-5"
   push:
@@ -32,7 +33,13 @@ jobs:
         with:
           python-version: "3.12"
       - name: Descargar datos de la RFFM
-        run: python robot/rffm.py
+        run: |
+          # Los minutos :00 y :40 de fin de semana son pasadas rápidas (solo grupos que juegan hoy)
+          if [ "${{ github.event.schedule }}" = "0,40 8-21 * * 6,0" ]; then
+            python robot/rffm.py --rapido
+          else
+            python robot/rffm.py
+          fi
       - name: Guardar cambios
         if: always()
         run: |

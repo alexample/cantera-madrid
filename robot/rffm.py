@@ -176,7 +176,10 @@ def main():
     ap.add_argument("--solo-categoria")
     ap.add_argument("--max-grupos", type=int, default=0)
     ap.add_argument("--hebras", type=int, default=3)
+    ap.add_argument("--rapido", action="store_true", help="solo grupos con resultados pendientes de hoy o ayer")
     a = ap.parse_args()
+    if a.rapido:
+        return rapido(a)
 
     os.makedirs(os.path.join(DATA, "g"), exist_ok=True)
     t0 = time.time()
@@ -186,9 +189,18 @@ def main():
     print("Temporada", etiqueta, temporada, "· tipos", [t.get("nombre") for t in f11], flush=True)
 
     grupos = []
-    for t in f11:
+    todas = []
+    for t in tipos:
         tj = str(t["codigo_tipo_juego"])
-        for c in api("/api/competitions", {"temporada": temporada, "tipojuego": tj}) or []:
+        lista = api("/api/competitions", {"temporada": temporada, "tipojuego": tj}) or []
+        es_f11 = t in f11
+        for c in lista:
+            cat = categoria(c) if es_f11 else None
+            todas.append({"tipo": t.get("nombre"), "codigo": str(c.get("codigo")), "nombre": c.get("nombre"),
+                          "categoria": c.get("NombreCategoria"), "incluida": bool(cat)})
+        if not es_f11:
+            continue
+        for c in lista:
             cat = categoria(c)
             if not cat or (a.solo_categoria and cat[0] != a.solo_categoria[:3]):
                 continue
@@ -202,6 +214,7 @@ def main():
                 })
     if a.max_grupos:
         grupos = grupos[: a.max_grupos]
+    json.dump(todas, open(os.path.join(DATA, "competiciones.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=0)
     print(len(grupos), "grupos", flush=True)
 
     def leer(g):
@@ -311,6 +324,73 @@ def main():
         print(" -", e)
     if not hechos:
         sys.exit(1)
+
+
+def rapido(a):
+    """Actualiza solo los grupos con partidos hoy o ayer. Reutiliza el índice existente."""
+    t0 = time.time()
+    ruta_ix = os.path.join(DATA, "indice.json")
+    ix = json.load(open(ruta_ix, encoding="utf-8"))
+    ahora_m = dt.datetime.now(dt.timezone(dt.timedelta(hours=1))).replace(tzinfo=None)  # hora de Madrid (invierno)
+    hoy = ahora_m.date()
+
+    def pendiente(p):
+        # Partido sin resultado que ya debería haber terminado (empezó hace más de 75 min, hoy o ayer)
+        if p[7] is not None or not p[1]:
+            return False
+        try:
+            ini = dt.datetime.fromisoformat(p[1] + "T" + (p[2] or "00:00"))
+        except ValueError:
+            return False
+        return ini.date() >= hoy - dt.timedelta(days=1) and ini + dt.timedelta(minutes=75) <= ahora_m
+
+    elegidos = []
+    for gid, g in ix["grupos"].items():
+        ruta = os.path.join(DATA, "g", gid + ".json")
+        if not os.path.exists(ruta):
+            continue
+        d = json.load(open(ruta, encoding="utf-8"))
+        if any(pendiente(p) for p in d["part"]):
+            elegidos.append(d)
+    print(len(elegidos), "grupos con resultados pendientes", flush=True)
+    ahora = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
+
+    def leer(d):
+        q = {"temporada": d["temp"], "competicion": d["comp"], "grupo": d["id"], "tipojuego": d["tj"]}
+        cal = page_props("/competicion/calendario", {**q, "jornada": 1}).get("calendar")
+        clas = page_props("/competicion/clasificaciones", q).get("standings")
+        gol = None
+        if d.get("gol"):
+            try:
+                gol = page_props("/competicion/goleadores", q).get("scorers")
+            except Exception as e:
+                errores.append(f"goleadores {d['id']}: {e}")
+        meta = {k: d[k] for k in ("id", "comp", "tj", "temp", "cat", "competicion", "grupo", "fem")}
+        nuevo = transformar_grupo(meta, cal, clas, gol)
+        if not nuevo["part"]:
+            raise RuntimeError("calendario vacío")
+        return nuevo
+
+    cambios = 0
+    with cf.ThreadPoolExecutor(a.hebras) as ex:
+        futuros = {ex.submit(leer, d): d for d in elegidos}
+        for f in cf.as_completed(futuros):
+            d = futuros[f]
+            try:
+                n = f.result()
+            except Exception as e:
+                errores.append(f"grupo {d['id']}: {e}")
+                continue
+            if (n["part"], n["clas"], n["gol"]) != (d["part"], d["clas"], d["gol"]):
+                n["act"] = ahora
+                json.dump(n, open(os.path.join(DATA, "g", d["id"] + ".json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+                cambios += 1
+    if cambios:
+        ix["act"] = ahora
+        json.dump(ix, open(ruta_ix, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+    print(json.dumps({"grupos": len(elegidos), "cambios": cambios, "segundos": round(time.time() - t0), **stats}))
+    for e in errores[:20]:
+        print(" -", e)
 
 
 if __name__ == "__main__":
