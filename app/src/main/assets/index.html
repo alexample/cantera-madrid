@@ -94,6 +94,14 @@ a.map{display:inline-flex;align-items:center;gap:6px;margin-top:6px;color:var(--
 .sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
 .sw.on{background:var(--win)}.sw.on::after{left:23px}
 .hidden{display:none!important}
+.carr-fijo{flex:none;border-bottom:1px solid var(--line);background:var(--bg);padding-top:10px;box-shadow:0 6px 12px -10px rgba(0,0,0,.35)}
+.carr-fijo .carr-wrap{margin:0 0 4px}
+.carr-fijo .mc{padding:10px 12px;gap:6px}
+.carr-fijo .mc-res{font-size:30px}.carr-fijo .mc-hora{font-size:24px}
+.carr-fijo .carr-hint{font-size:11px;margin-top:0}
+.clr{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;flex:none;color:var(--muted)!important;border:1px solid var(--line)!important;background:transparent!important}
+.clr svg{width:19px;height:19px}
+html[data-theme="estadio"] .carr-fijo{background:#070b16;border-bottom-color:#1e2a45}
 .carr-wrap{margin:-4px -16px 12px}
 .carr{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 16px 6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .carr::-webkit-scrollbar{display:none}
@@ -1018,9 +1026,10 @@ function renderChat(app,t){
   app.innerHTML=`<header class="top"><div class="toprow"><button class="iconbtn" id="back" aria-label="Volver">${icons.back}</button>
     ${t?crest(t,40):""}<div class="grow">${t&&etiqueta(t)?`<span class="tag">⭐ ${esc(etiqueta(t))}</span>`:""}<h1 class="tn" style="font-size:21px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(t.name):"Chat principal"}</h1><div class="sub" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(grupoNombre(t.grupos[0])):"Equipos y jugadores de Madrid"}</div></div>
     ${t?(state.follows.includes(t.id)?`<button class="iconbtn" id="tset" aria-label="Ajustes del equipo">${silenciado(t)?icons.bellOff:icons.bell}</button>`:`<button class="btn" id="tfol" style="flex:none">Seguir</button>`):""}</div></header>
-  <main id="scroll">${t?carruselHTML(t):""}<div class="chat" id="chat"></div></main>
+  ${t?`<div class="carr-fijo">${carruselHTML(t)}</div>`:""}
+  <main id="scroll"><div class="chat" id="chat"></div></main>
   <div class="composer">
-  <form class="inp" id="f"><input id="q" placeholder="${t?"Pregunta sobre el equipo…":"Escribe o elige una opción…"}" autocomplete="off" enterkeyhint="send"><button aria-label="Enviar">${icons.send}</button></form></div>`;
+  <form class="inp" id="f"><button type="button" id="clr" class="clr" aria-label="Borrar el chat">${icons.trash}</button><input id="q" placeholder="${t?"Pregunta sobre el equipo…":"Escribe o elige una opción…"}" autocomplete="off" enterkeyhint="send"><button aria-label="Enviar">${icons.send}</button></form></div>`;
   const chat=$("#chat");
   const wide=h=>h&&(h.includes("<table")||h.includes("plist")||h.includes('class="opts'));
   const sugerencias=()=>{const ult=state.chats[key][state.chats[key].length-1];if(!ult||ult.r!=="b"||ult.h.includes("typing"))return "";
@@ -1057,6 +1066,10 @@ function renderChat(app,t){
     const v=e.target.closest("[data-act=verify]");if(v){state.verified=true;store.set("verified",true);if(!t)startFlow("player");state.chats[key].push({r:"b",h:"Listo, cuenta verificada (simulación). Escribe el <b>nombre y apellidos</b> del jugador."});draw()}
   };
   $("#back").onclick=volver;
+  $("#clr").onclick=()=>openSheet(`<h3>¿Borrar la conversación?</h3><p class="small">Se borran los mensajes de este chat. ${t?"El equipo sigue en tus equipos y sus avisos no cambian.":""}</p>
+    <div style="display:flex;gap:10px"><button class="btn ghost" id="no" style="flex:1;padding:12px">Cancelar</button><button class="btn" id="yes" style="flex:1;padding:12px;background:var(--loss);color:#fff">Borrar</button></div>`,()=>{
+    $("#no").onclick=closeSheet;
+    $("#yes").onclick=()=>{delete state.chats[key];state.iah[key]=[];if(!t)state.flow=null;closeSheet();render();toast("Chat borrado")}});
   if(t&&$("#tset"))$("#tset").onclick=()=>openTeamSettings(t);
   if(t&&$("#tfol"))$("#tfol").onclick=()=>{follow(t.id);render();setTimeout(()=>openTeamSettings(t),150)};
 }
