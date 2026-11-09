@@ -1,0 +1,45 @@
+name: Robot de datos RFFM
+
+# Descarga calendario, resultados, clasificaciones y campos de la RFFM y los guarda en data/.
+# La app lee esos archivos de GitHub al abrirse.
+on:
+  schedule:
+    # Fines de semana: cada hora de 10:20 a 22:20 (hora de Madrid, aprox.)
+    - cron: "20 9-21 * * 6,0"
+    # Entre semana: tres veces al día
+    - cron: "20 6,14,20 * * 1-5"
+  push:
+    branches: [main]
+    paths:
+      - "robot/**"
+      - ".github/workflows/robot.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: robot
+  cancel-in-progress: false
+
+jobs:
+  datos:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Descargar datos de la RFFM
+        run: python robot/rffm.py
+      - name: Guardar cambios
+        if: always()
+        run: |
+          git config user.name "Robot de datos"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          if git diff --cached --quiet; then echo "Sin cambios"; exit 0; fi
+          git commit -m "Datos RFFM $(date -u +'%Y-%m-%d %H:%M') (robot)"
+          git pull --rebase origin main
+          git push
