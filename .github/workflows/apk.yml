@@ -41,7 +41,15 @@ jobs:
           gradle-version: "8.11.1"
 
       - name: Compilar
-        run: gradle :app:assembleRelease --no-daemon
+        run: gradle :app:assembleRelease --no-daemon 2>&1 | tee build.log; exit ${PIPESTATUS[0]}
+
+      - name: Guardar registro del fallo
+        if: failure()
+        run: |
+          mkdir /tmp/log && cp build.log /tmp/log/ && cd /tmp/log
+          git init -q -b build-log && git add build.log
+          git -c user.name="Robot" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -qm "Registro de compilación fallida"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" build-log
 
       - name: Renombrar
         run: cp app/build/outputs/apk/release/app-release.apk CanteraMadrid.apk

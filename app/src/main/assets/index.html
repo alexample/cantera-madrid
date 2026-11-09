@@ -188,7 +188,11 @@ const rivalOf=(m,id)=>m.home===id?{id:m.away,n:m.awayN}:{id:m.home,n:m.homeN};
 
 /* ---------- estado ---------- */
 const state={follows:store.get("follows",[]).filter(Boolean),verified:store.get("verified",false),chats:{},iah:{},flow:null,view:"home",team:null};
-function follow(id){if(!state.follows.includes(id)){state.follows.push(id);store.set("follows",state.follows)}}
+const ANDROID=typeof window.AndroidApp!=="undefined";
+// Pasa a Android los equipos seguidos (para los avisos en segundo plano)
+function syncAndroid(){if(!ANDROID||!IDX)return;try{AndroidApp.guardarEquipos(JSON.stringify(state.follows.map(id=>TEAM.get(id)).filter(Boolean).map(t=>({id:t.id,g:t.grupos[0],n:t.name}))))}catch(e){}}
+function follow(id){if(!state.follows.includes(id)){state.follows.push(id);store.set("follows",state.follows);syncAndroid();if(ANDROID&&state.follows.length===1)try{AndroidApp.pedirPermiso()}catch(e){}}}
+function unfollow(id){state.follows=state.follows.filter(x=>x!==id);store.set("follows",state.follows);syncAndroid()}
 
 /* ---------- piezas visuales ---------- */
 const crest=(t,size)=>`<div class="crest" style="background:${t.color};${size?`width:${size}px;height:${size}px;font-size:${Math.round(size*.36)}px`:""}">${esc(t.sig)}</div>`;
@@ -567,13 +571,27 @@ function closeSheet(){$("#sheet").classList.remove("open");$("#sheetBg").style.d
 $("#sheetBg").onclick=closeSheet;
 function openConfirmUnfollow(t){
   openSheet(`<h3>¿Dejar de seguir?</h3><p>${esc(t.name)} desaparecerá de tus equipos.</p><div style="display:flex;gap:10px"><button class="btn ghost" id="no" style="flex:1;padding:12px">Cancelar</button><button class="btn" id="yes" style="flex:1;padding:12px;background:var(--loss)">Dejar de seguir</button></div>`,()=>{
-    $("#no").onclick=closeSheet;$("#yes").onclick=()=>{state.follows=state.follows.filter(x=>x!==t.id);store.set("follows",state.follows);delete state.chats[t.id];closeSheet();state.view="home";render()}});
+    $("#no").onclick=closeSheet;$("#yes").onclick=()=>{unfollow(t.id);delete state.chats[t.id];closeSheet();state.view="home";render()}});
 }
+function leerAvisos(){let a={};if(ANDROID)try{a=JSON.parse(AndroidApp.leerAjustes()||"{}")}catch(e){}return Object.assign({resultado:true,asignado:true,previo:true,horas:3},a)}
 function openSettings(){
+  const av=leerAvisos();const sw=(k,t,d)=>`<div class="tog"><div class="grow"><b>${t}</b><div class="small">${d}</div></div><button class="sw ${av[k]?"on":""}" data-sw="${k}" aria-label="${t}"></button></div>`;
+  const permiso=ANDROID?(()=>{try{return AndroidApp.puedeNotificar()}catch(e){return true}})():true;
   openSheet(`<h3>Ajustes</h3>
+   <div class="section-t" style="margin-top:4px">Avisos de mis equipos</div>
+   ${ANDROID?"":`<div class="small" style="margin-bottom:8px">Los avisos funcionan en la app de Android.</div>`}
+   ${permiso?"":`<div class="small" style="margin-bottom:8px;color:var(--loss)">Las notificaciones están desactivadas para esta app. <button class="btn ghost" id="permiso" style="margin-top:6px">Activarlas</button></div>`}
+   ${sw("resultado","Resultados","Cuando la federación publica el resultado.")}
+   ${sw("asignado","Partido asignado","Cuando se fija o cambia la fecha, la hora o el campo.")}
+   ${sw("previo","Antes del partido","Con el campo y cómo llegar.")}
+   <div class="tog"><div class="grow"><b>¿Cuánto antes?</b></div><div class="chips" style="padding:0">${[1,2,3,4,6].map(h=>`<button class="chip" data-h="${h}" style="${av.horas===h?"background:var(--pitch2);color:#fff":""}">${h} h</button>`).join("")}</div></div>
+   <div class="section-t">Cuenta</div>
    <div class="tog"><div class="grow"><b>Cuenta verificada</b><div class="small">Permite buscar jugadores por nombre. En la versión final lo validará el club o la familia.</div></div><button class="sw ${state.verified?"on":""}" id="vsw" aria-label="Cuenta verificada"></button></div>
-   <div class="tog"><div class="grow"><b>Datos</b><div class="small">Real Federación de Fútbol de Madrid (rffm.es), ${esc(IDX.temporada)}. Se actualizan varias veces al día. App no oficial.</div></div><button class="btn ghost" id="upd">Actualizar</button></div>
-   <div class="tog"><div class="grow"><b>Asistente</b><div class="small">Respuestas rápidas en el móvil; el resto, Llama 3.3 en Cloudflare Workers AI.</div></div></div>`,()=>{
+   <div class="tog"><div class="grow"><b>Datos</b><div class="small">Real Federación de Fútbol de Madrid (rffm.es), ${esc(IDX.temporada)}. Se actualizan varias veces al día. App no oficial.</div></div><button class="btn ghost" id="upd">Actualizar</button></div>`,()=>{
+    const guardar=()=>{if(ANDROID)try{AndroidApp.guardarAjustes(JSON.stringify(av))}catch(e){}};
+    document.querySelectorAll("[data-sw]").forEach(b=>b.onclick=()=>{const k=b.dataset.sw;av[k]=!av[k];b.classList.toggle("on",av[k]);guardar()});
+    document.querySelectorAll("[data-h]").forEach(b=>b.onclick=()=>{av.horas=+b.dataset.h;document.querySelectorAll("[data-h]").forEach(x=>x.style.cssText=+x.dataset.h===av.horas?"background:var(--pitch2);color:#fff":"");guardar()});
+    if($("#permiso"))$("#permiso").onclick=()=>{try{AndroidApp.pedirPermiso();AndroidApp.abrirAjustesNotificaciones()}catch(e){}};
     $("#vsw").onclick=()=>{state.verified=!state.verified;store.set("verified",state.verified);$("#vsw").classList.toggle("on",state.verified)};
     $("#upd").onclick=async()=>{$("#upd").textContent="…";await boot(true);closeSheet()};
   });
@@ -583,13 +601,15 @@ window.atras=()=>{
   if(state.view!=="home"){state.view="home";render();return true}
   return false;
 };
+window.abrirEquipo=id=>{if(!IDX||!TEAM.get(id)){window.__pendiente=id;return}closeSheet();state.view="team";state.team=id;render()};
+function abrirPendiente(){const h=(location.hash.match(/^#e-(.+)$/)||[])[1];const id=window.__pendiente||h;if(id&&TEAM.get(id)){window.__pendiente=null;try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}state.view="team";state.team=id;render()}}
 async function boot(fresh){
   const cached=store.get("indice",null);
-  if(cached&&!fresh){buildIndex(cached);addLocalities();render()}
+  if(cached&&!fresh){buildIndex(cached);addLocalities();render();syncAndroid();abrirPendiente()}
   else if(!IDX)render();
   try{
     const ix=await getJSON("indice.json",{fresh:true});
-    if(!cached||ix.act!==cached.act||fresh){store.set("indice",ix);buildIndex(ix);addLocalities();Object.keys(GD).forEach(k=>delete GD[k]);if(state.view==="home")render()}
+    if(!cached||ix.act!==cached.act||fresh){store.set("indice",ix);buildIndex(ix);VOCAB=null;addLocalities();Object.keys(GD).forEach(k=>delete GD[k]);if(state.view==="home")render();syncAndroid();abrirPendiente()}
   }catch(e){if(!IDX)renderLoading($("#app"),e.message)}
 }
 document.addEventListener("visibilitychange",()=>{if(!document.hidden&&IDX)boot()});

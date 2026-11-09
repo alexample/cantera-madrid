@@ -1,8 +1,13 @@
 package es.canteramadrid.app;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.webkit.JavascriptInterface;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,6 +23,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.webkit.WebViewAssetLoader;
+
+import org.json.JSONObject;
 
 /**
  * Una sola pantalla: la app (assets/index.html) dentro de un WebView.
@@ -85,8 +92,66 @@ public class MainActivity extends Activity {
             }
         });
 
+        web.addJavascriptInterface(new Puente(), "AndroidApp");
+        Avisos.crearCanales(this);
+        Avisos.programar(this);
+
+        String equipo = getIntent() != null ? getIntent().getStringExtra("equipo") : null;
         if (savedInstanceState != null) web.restoreState(savedInstanceState);
-        else web.loadUrl(START);
+        else web.loadUrl(equipo != null ? START + "#e-" + equipo : START);
+    }
+
+    /** Al tocar una notificación con la app abierta: ir a la ficha del equipo. */
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        String equipo = intent.getStringExtra("equipo");
+        if (equipo != null) web.evaluateJavascript("window.abrirEquipo && window.abrirEquipo(" + JSONObject.quote(equipo) + ")", null);
+    }
+
+    /** Lo que la página puede pedir a Android. */
+    private class Puente {
+        /** Equipos seguidos: [{"id","g","n"}]. Se revisan al momento para preparar los avisos. */
+        @JavascriptInterface
+        public void guardarEquipos(String json) {
+            android.content.SharedPreferences p = getSharedPreferences(Avisos.PREFS, Context.MODE_PRIVATE);
+            if (json.equals(p.getString("equipos", ""))) return;
+            p.edit().putString("equipos", json).apply();
+            Avisos.revisarYa(MainActivity.this);
+        }
+        /** Ajustes de avisos: {"resultado":bool,"asignado":bool,"previo":bool,"horas":int}. */
+        @JavascriptInterface
+        public void guardarAjustes(String json) {
+            getSharedPreferences(Avisos.PREFS, Context.MODE_PRIVATE).edit().putString("ajustes", json).apply();
+            Avisos.revisarYa(MainActivity.this);
+        }
+        @JavascriptInterface
+        public String leerAjustes() {
+            return getSharedPreferences(Avisos.PREFS, Context.MODE_PRIVATE).getString("ajustes", "{}");
+        }
+        /** Pide permiso de notificaciones (Android 13+). */
+        @JavascriptInterface
+        public void pedirPermiso() {
+            if (Build.VERSION.SDK_INT >= 33 && checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                runOnUiThread(() -> requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 7));
+            }
+        }
+        @JavascriptInterface
+        public boolean puedeNotificar() {
+            return Avisos.puedeNotificar(MainActivity.this);
+        }
+        /** Abre los ajustes de notificaciones de la app. */
+        @JavascriptInterface
+        public void abrirAjustesNotificaciones() {
+            runOnUiThread(() -> {
+                try {
+                    Intent i = new Intent(android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                            .putExtra(android.provider.Settings.EXTRA_APP_PACKAGE, getPackageName());
+                    startActivity(i);
+                } catch (Exception ignored) { }
+            });
+        }
     }
 
     @Override
@@ -105,6 +170,7 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         web.onResume();
+        Avisos.revisarYa(this);
     }
 
     @Override
