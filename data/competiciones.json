@@ -389,35 +389,35 @@
 "codigo": "26738374",
 "nombre": "JUVENIL F-7 FEMENINO",
 "categoria": "JUVENIL F-7 FEMENINO",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-7",
 "codigo": "26738265",
 "nombre": "CADETE F-7 FEMENINO",
 "categoria": "CADETE F-7 FEMENINO",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-7",
 "codigo": "26748601",
 "nombre": "DIVISION DE HONOR FEMENINO INFANTIL F7",
 "categoria": "DIVISION DE HONOR FEMENINO INFANTIL F7",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-7",
 "codigo": "26738258",
 "nombre": "PRIMERA DIVISION AUTONOMICA FEMENINO INFANTIL F-7",
 "categoria": "PRIMERA DIVISION AUTONOMICA FEMENINO INFANTIL F-7",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-7",
 "codigo": "26737899",
 "nombre": "PREFERENTE FEMENINO INFANTIL F-7",
 "categoria": "PREFERENTE FEMENINO INFANTIL F-7",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-7",
