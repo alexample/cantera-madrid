@@ -94,6 +94,25 @@ a.map{display:inline-flex;align-items:center;gap:6px;margin-top:6px;color:var(--
 .sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
 .sw.on{background:var(--win)}.sw.on::after{left:23px}
 .hidden{display:none!important}
+.carr-wrap{margin:-4px -16px 12px}
+.carr{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 16px 6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.carr::-webkit-scrollbar{display:none}
+.mc{flex:0 0 82%;scroll-snap-align:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.mc.fut{background:linear-gradient(180deg,var(--card),var(--chalk))}
+.mc.prox{border:2px solid var(--accent)}
+.mc-top{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--muted);font-weight:600}
+.mc-top .badge{margin:0;font-size:10.5px}
+.mc-eq{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;text-align:center;font-size:13px;line-height:1.25}
+.mc-res{font-family:"Barlow Condensed",system-ui,sans-serif;font-size:34px;font-weight:700;padding:0 12px;border-radius:10px;background:var(--chalk);white-space:nowrap}
+.mc-res span{opacity:.5;margin:0 3px}
+.mc-hora{font-family:"Barlow Condensed",system-ui,sans-serif;font-size:26px;font-weight:700;padding:2px 10px;border-radius:10px;border:1.5px dashed var(--line)}
+.mc-campo{font-size:12px;color:var(--muted);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mc-bot{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;min-height:32px}
+.mc-bot .btn{text-decoration:none;font-size:12.5px;padding:7px 11px}
+.carr-hint{text-align:center;opacity:.7;margin-top:2px}
+html[data-theme="estadio"] .mc{background:linear-gradient(180deg,#121d35,#0d162a);border-color:#1e2a45}
+html[data-theme="estadio"] .mc.prox{border-color:#b8f53d;box-shadow:0 0 18px rgba(184,245,61,.18)}
+html[data-theme="estadio"] .mc-res{background:linear-gradient(135deg,#1b2b52,#0e1731);color:#b8f53d}
 .cr-head{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;text-align:center;font-weight:600;font-size:13px;margin:10px 0 6px}
 .cr-res{font-family:"Barlow Condensed",system-ui,sans-serif;font-size:26px;font-weight:700;padding:0 10px;border-radius:8px;background:var(--chalk)}
 .cr{position:relative;margin:6px 0}
@@ -626,6 +645,38 @@ function cronoHTML(m,g){
 }
 function buscarPartido(acta){for(const d of Object.values(GD)){const m=(d.matches||[]).find(x=>x.acta===acta);if(m)return m}return null}
 
+
+/* ---------- carrusel de partidos de la ficha (deslizar: pasados ← → futuros) ---------- */
+const DIAS_C=["dom","lun","mar","mié","jue","vie","sáb"];
+function tarjetaPartido(t,m,esProx){
+  const home=m.home===t.id;const c=CAMPOS[m.campo];
+  const fecha=m.date?`${DIAS_C[m.date.getDay()]} ${m.date.getDate()} ${MESES[m.date.getMonth()]}`:"Fecha por confirmar";
+  const r=m.played?outcome(m,t.id):null;
+  const estado=m.played?`<span class="badge ${r}">${{W:"Victoria",D:"Empate",L:"Derrota"}[r]}</span>`:esProx?`<span class="badge" style="background:var(--accent)">Próximo</span>`:`<span class="badge D">Pendiente</span>`;
+  const centro=m.played?`<div class="mc-res">${m.hg}<span>–</span>${m.ag}</div>`:`<div class="mc-hora">${m.time||"--:--"}</div>`;
+  const nom=(id,n)=>id===t.id?`<b>${esc(n)}</b>`:L(id,n);
+  const bot=m.played
+    ?(m.acta?`${ANDROID?`<button class="btn" data-crono="${esc(m.acta)}">⏱️ Cronología</button>`:""}<a class="btn ghost" href="${urlActaRFFM(m)}" target="_blank" rel="noopener">📄 Acta</a>`:"")
+    :`${c?`<a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=${c.ll?c.ll.join(","):encodeURIComponent(c.name+", "+c.loc)}" target="_blank" rel="noopener">📍 Cómo llegar</a>`:""}${esProx?`<button class="btn ghost" data-ask="¿Qué tiempo hará?">🌦️ Tiempo</button>`:""}`;
+  return `<div class="mc${m.played?"":" fut"}${esProx?" prox":""}" data-j="${m.j}">
+    <div class="mc-top"><span>J${m.j??"?"} · ${fecha}</span>${estado}</div>
+    <div class="mc-eq"><div>${nom(m.home,m.homeN)}</div>${centro}<div>${nom(m.away,m.awayN)}</div></div>
+    <div class="mc-campo">${home?"🏠 En casa":"✈️ Fuera"}${c?` · ${esc(c.name)}`:m.campoN?` · ${esc(m.campoN)}`:""}</div>
+    <div class="mc-bot">${bot}</div></div>`;
+}
+function carruselHTML(t){
+  const ms=teamMatches(t).slice().sort((a,b)=>(a.date||new Date(9e15))-(b.date||new Date(9e15))||(a.j||0)-(b.j||0));
+  if(!ms.length)return "";
+  const prox=nextMatch(t);
+  return `<div class="carr-wrap"><div class="carr" id="carr">${ms.map(m=>tarjetaPartido(t,m,m===prox)).join("")}</div>
+    <div class="carr-hint small">← anteriores · desliza · próximos →</div></div>`;
+}
+function colocarCarrusel(t){
+  const el=$("#carr");if(!el)return;const ms=[...el.children];
+  const ult=lastMatch(t);let i=ult?ms.findIndex(c=>+c.dataset.j===ult.j):0;if(i<0)i=0;
+  el.scrollLeft=ms[i].offsetLeft-el.offsetLeft-12;
+}
+
 const NO_DATO="La federación no publica ese dato (plantillas, alineaciones, árbitros, equipaciones u horarios de llegada). Esa información la da el club o el entrenador.";
 const HELP_TEAM="Puedo contarte el último resultado, el próximo partido con hora y campo, la clasificación y los puntos, los goleadores, la racha, las estadísticas, los partidos que quedan, una jornada («jornada 3») o cómo os fue contra un rival («contra Alcorcón»).";
 const CHIPS_TEAM=["Resumen","¿Cómo quedó el último partido?","¿Cuándo y dónde es el próximo?","¿Qué tiempo hará?","Clasificación","Goleadores","Racha","Plantilla"];
@@ -962,12 +1013,12 @@ async function renderTeam(app,t){
 function renderChat(app,t){
   const key=t?t.id:"_main";
   if(t&&state.resumen===t.id){state.resumen=null;if(!state.chats[key]||state.chats[key].length<=1)state.chats[key]=[{r:"b",h:ansResumen(t)+`<div class="small" style="margin-top:10px">Pregúntame lo que quieras de este equipo o toca otro rival. ${linkRFFM(urlEquipoRFFM(t),"Ficha en la RFFM")}</div>`}]}
-  if(!state.chats[key])state.chats[key]=[{r:"b",h:t?`Hola, soy el asistente del <b>${esc(t.name)}</b> (${esc(CATN[t.cat])})${etiqueta(t)?`, el equipo de <b>${esc(etiqueta(t))}</b>`:""}. Pregúntame lo que quieras sobre el equipo.<div style="margin-top:4px">${linkRFFM(urlEquipoRFFM(t),"Ficha oficial y plantilla en la RFFM")}</div>${state.follows.includes(t.id)&&!etiqueta(t)?`<div class="small" style="margin-top:6px">Toca 🔔 arriba para ponerle una etiqueta («Adrián», «Mi hijo») y elegir sus avisos.</div>`:""}`:welcomeMain()}];
+  if(!state.chats[key])state.chats[key]=[{r:"b",h:t?`Arriba tienes sus partidos: desliza para ver los anteriores y los próximos. Pregúntame lo que quieras sobre el <b>${esc(t.name)}</b>${etiqueta(t)?`, el equipo de <b>${esc(etiqueta(t))}</b>`:""}.<div style="margin-top:4px">${linkRFFM(urlEquipoRFFM(t),"Ficha oficial y plantilla en la RFFM")}</div>${state.follows.includes(t.id)&&!etiqueta(t)?`<div class="small" style="margin-top:6px">Toca 🔔 arriba para ponerle una etiqueta («Adrián», «Mi hijo») y elegir sus avisos.</div>`:""}`:welcomeMain()}];
   const chips=t?CHIPS_TEAM:["Menú","Buscar un equipo","Buscar un jugador","Ayúdame a encontrar un equipo","Ver clasificaciones"];
   app.innerHTML=`<header class="top"><div class="toprow"><button class="iconbtn" id="back" aria-label="Volver">${icons.back}</button>
     ${t?crest(t,40):""}<div class="grow">${t&&etiqueta(t)?`<span class="tag">⭐ ${esc(etiqueta(t))}</span>`:""}<h1 class="tn" style="font-size:21px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(t.name):"Chat principal"}</h1><div class="sub" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(grupoNombre(t.grupos[0])):"Equipos y jugadores de Madrid"}</div></div>
     ${t?(state.follows.includes(t.id)?`<button class="iconbtn" id="tset" aria-label="Ajustes del equipo">${silenciado(t)?icons.bellOff:icons.bell}</button>`:`<button class="btn" id="tfol" style="flex:none">Seguir</button>`):""}</div></header>
-  <main id="scroll"><div class="chat" id="chat"></div></main>
+  <main id="scroll">${t?carruselHTML(t):""}<div class="chat" id="chat"></div></main>
   <div class="composer">
   <form class="inp" id="f"><input id="q" placeholder="${t?"Pregunta sobre el equipo…":"Escribe o elige una opción…"}" autocomplete="off" enterkeyhint="send"><button aria-label="Enviar">${icons.send}</button></form></div>`;
   const chat=$("#chat");
@@ -980,6 +1031,7 @@ function renderChat(app,t){
     if(t)chat.querySelectorAll(`a[data-ver="${CSS.escape(t.id)}"]`).forEach(a=>{a.removeAttribute("data-ver");a.classList.remove("tl")}); // el propio equipo no es enlace
     $("#scroll").scrollTop=1e9;rellenarMeteo(chat)};
   draw();if(state.chats[key].length===1)$("#scroll").scrollTop=0; // el resumen se lee desde arriba
+  if(t)colocarCarrusel(t);
   const ask=text=>{
     if(!text.trim())return;
     const shown=text.startsWith("ia:")?"🤖 Preguntar a la IA":text.startsWith("q:")||text.startsWith("qc:")?((document.querySelector(`[data-ask="${CSS.escape(text)}"]`)||{}).textContent||"Ese equipo"):text.startsWith("clubteams:")?"Ver equipos de "+((TEAMS.find(t=>t.clubKey===text.split(":")[1])||{}).club||"club"):text.startsWith("comp:")||text.startsWith("grupo:")||text.startsWith("club:")?(document.querySelector(`[data-ask="${CSS.escape(text)}"]`)||{}).textContent||text:text;
