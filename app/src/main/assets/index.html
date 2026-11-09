@@ -638,6 +638,13 @@ function leerActa(m){
 const siNo=v=>v===true||v===1||v==="1"||v==="S"||v==="s"||v==="true";
 // «APELLIDO1 APELLIDO2, NOMBRE» -> «Nombre Apellido1»
 function corto(n){const m=String(n||"").match(/^(.*?),\s*(.+)$/);const nom=m?m[2]:"",ap=m?m[1]:String(n||"");const w=s=>s.toLowerCase().replace(/(^|\s)\p{L}/gu,c=>c.toUpperCase());return (nom?w(nom.split(" ")[0])+" ":"")+w(ap.split(" ")[0])}
+function completo(n){const m=String(n||"").match(/^(.*?),\s*(.+)$/);const t=m?m[2]+" "+m[1]:String(n||"");return t.toLowerCase().replace(/(^|\s)\p{L}/gu,c=>c.toUpperCase()).trim()}
+const ETQ=k=>{const map={arbitros_partido:"Árbitros",delegadocampo:"Delegado de campo",otras_tarjetas:"Otras tarjetas",observaciones:"Observaciones",incidencias:"Incidencias"};if(map[k])return map[k];
+  return k.replace(/_/g," ").replace(/\b(equipo )?local\b/,"(local)").replace(/\b(equipo )?visitante\b/,"(visitante)").replace(/^./,c=>c.toUpperCase())};
+const OCULTAR=/(^cod|_cod|codigo|^id$|_id$|url|foto|escudo|dni|nif|licencia|telefono|email|mail|password|token|^sexo$|hash)/i;
+function valorLegible(v){if(v==null||v==="")return "";if(typeof v==="boolean")return v?"Sí":"No";if(typeof v==="object"&&!Array.isArray(v)){const nom=v.nombre||v.nombre_jugador||v.nombre_arbitro||v.nombre_tecnico;
+  const rest=Object.entries(v).filter(([k,x])=>!OCULTAR.test(k)&&x!==""&&x!=null&&typeof x!=="object"&&!/^nombre/.test(k)).map(([k,x])=>`${k==="minuto"?x+"'":ETQ(k)+": "+x}`);
+  return [nom?completo(nom):"",...rest].filter(Boolean).join(" · ")}return String(v).trim()}
 const minuto=x=>{const v=parseInt(x?.minuto??x?.min??"",10);return isNaN(v)?null:v};
 function eventosActa(g){
   const ev=[];
@@ -659,14 +666,29 @@ function cronoHTML(m,g){
     const celda=`<span class="cr-ic">${e.ic}</span> ${esc(e.txt)} ${marc}`;
     return `<div class="cr-row"><div class="cr-l">${e.lado==="L"?celda:""}</div><div class="cr-m">${e.min!=null?e.min+"'":"–"}</div><div class="cr-r">${e.lado==="V"?celda:""}</div></div>`}).join("");
   const alin=suf=>{const js=(g["jugadores_equipo_"+suf]||[]);const tit=js.filter(x=>siNo(x.titular)),sup=js.filter(x=>!siNo(x.titular));
-    const li=x=>`<div class="small">${x.dorsal!=null&&x.dorsal!==""?`<b>${esc(x.dorsal)}</b> `:""}${esc(corto(x.nombre_jugador))}${siNo(x.capitan)?" (C)":""}${siNo(x.portero)?" 🧤":""}</div>`;
+    const li=x=>`<div class="small">${x.dorsal!=null&&x.dorsal!==""?`<b>${esc(x.dorsal)}</b> `:""}${esc(corto(x.nombre_jugador))}${x.posicion_jugador_abreviatura?` <span style="opacity:.6">${esc(x.posicion_jugador_abreviatura)}</span>`:""}${siNo(x.capitan)?" (C)":""}${siNo(x.portero)?" 🧤":""}</div>`;
     return js.length?`${tit.map(li).join("")}${sup.length?`<div class="small" style="margin-top:4px;opacity:.75">Suplentes</div>${sup.map(li).join("")}`:""}`:`<div class="small">Sin alineación publicada.</div>`};
   const hayCambios=ev.some(e=>e.tipo==="cambio");
+  const usados=new Set(["goles_equipo_local","goles_equipo_visitante","tarjetas_equipo_local","tarjetas_equipo_visitante","jugadores_equipo_local","jugadores_equipo_visitante","entrenador_local","entrenador2_local","otros_tecnicos_local","entrenador_visitante","entrenador2_visitante","otros_tecnicos_visitante","arbitros_partido","delegadocampo","goles_local","goles_visitante"]);
+  Object.keys(g).filter(k=>/(sustitu|cambio)/i.test(k)).forEach(k=>usados.add(k));
+  // Árbitros
+  const arb=(g.arbitros_partido||[]).map(a=>`<div class="small">${esc(completo(a.nombre_arbitro||a.nombre))}${a.tipo_arbitro?` <span style="opacity:.7">· ${esc(String(a.tipo_arbitro).toLowerCase().replace(/^./,c=>c.toUpperCase()))}</span>`:""}</div>`).join("");
+  // Cuerpo técnico
+  const tecnicos=suf=>{const l=[];if(g["entrenador_"+suf])l.push(["Entrenador",g["entrenador_"+suf]]);if(g["entrenador2_"+suf])l.push(["2º entrenador",g["entrenador2_"+suf]]);
+    for(const x of g["otros_tecnicos_"+suf]||[])l.push([x.cargo||x.tipo||x.tipo_tecnico||"Técnico",x.nombre||x.nombre_tecnico]);
+    return l.length?l.map(([r,n])=>`<div class="small"><span style="opacity:.7">${esc(String(r).toLowerCase().replace(/^./,c=>c.toUpperCase()))}:</span> ${esc(completo(n))}</div>`).join(""):`<div class="small" style="opacity:.7">Sin datos</div>`};
+  // Resto de datos del acta que no se han usado arriba
+  const extra=Object.entries(g).filter(([k,v])=>!usados.has(k)&&!OCULTAR.test(k)&&v!=null&&v!==""&&!(Array.isArray(v)&&!v.length)&&!(typeof v==="object"&&!Array.isArray(v))).map(([k,v])=>{
+    if(Array.isArray(v))return `<div style="margin-top:6px"><b class="small">${esc(ETQ(k))}</b>${v.map(x=>`<div class="small">${esc(valorLegible(x))}</div>`).join("")}</div>`;
+    return `<div class="small"><span style="opacity:.7">${esc(ETQ(k))}:</span> ${esc(valorLegible(v))}</div>`}).join("");
   return `<b>Cronología</b> · J${m.j}${m.date?" · "+fdate(m.date):""}
    <div class="cr-head"><div>${esc(m.homeN)}</div><div class="cr-res">${m.hg} – ${m.ag}</div><div>${esc(m.awayN)}</div></div>
    ${ev.length?`<div class="cr">${filas}</div>`:`<div class="small" style="margin:8px 0">El acta no recoge goles ni tarjetas.</div>`}
    ${hayCambios?"":`<div class="small" style="opacity:.75">El acta de este partido no incluye los cambios.</div>`}
    <details class="cr-al"><summary>Alineaciones</summary><div class="cr-cols"><div><b class="small">${esc(m.homeN)}</b>${alin("local")}</div><div><b class="small">${esc(m.awayN)}</b>${alin("visitante")}</div></div></details>
+   <details class="cr-al"><summary>Cuerpo técnico</summary><div class="cr-cols"><div><b class="small">${esc(m.homeN)}</b>${tecnicos("local")}</div><div><b class="small">${esc(m.awayN)}</b>${tecnicos("visitante")}</div></div>${g.delegadocampo?`<div class="small" style="margin-top:6px"><span style="opacity:.7">Delegado de campo:</span> ${esc(completo(typeof g.delegadocampo==="object"?(g.delegadocampo.nombre||""):g.delegadocampo))}</div>`:""}</details>
+   ${arb?`<details class="cr-al"><summary>Árbitros</summary>${arb}</details>`:""}
+   ${extra?`<details class="cr-al"><summary>Otros datos del acta</summary>${extra}</details>`:""}
    <div style="margin-top:8px">${linkRFFM(urlActaRFFM(m),"Acta completa en la RFFM")}</div>`;
 }
 function buscarPartido(acta){for(const d of Object.values(GD)){const m=(d.matches||[]).find(x=>x.acta===acta);if(m)return m}return null}
