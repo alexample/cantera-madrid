@@ -94,6 +94,16 @@ a.map{display:inline-flex;align-items:center;gap:6px;margin-top:6px;color:var(--
 .sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
 .sw.on{background:var(--win)}.sw.on::after{left:23px}
 .hidden{display:none!important}
+.team{cursor:pointer;user-select:none;-webkit-user-select:none}
+.drag{width:22px;align-self:stretch;display:grid;place-items:center;color:var(--muted);touch-action:none;cursor:grab;margin-left:-6px;flex:none}
+.drag svg{width:16px;height:16px}
+.bellbtn{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;flex:none;color:var(--pitch2);background:var(--chalk)}
+.bellbtn svg{width:18px;height:18px}
+.bellbtn.off{color:var(--muted);background:transparent;border:1px dashed var(--line)}
+.team.dragging{z-index:5;position:relative;box-shadow:0 12px 30px rgba(0,0,0,.25);transform:scale(1.02)}
+.team.mute .nm{opacity:.85}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 24px);transform:translateX(-50%);background:#1d2b24;color:#fff;padding:10px 16px;border-radius:12px;font-size:14px;z-index:20;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:90%;text-align:center}
+html[data-theme="estadio"] .toast{background:#b8f53d;color:#08101f}
 .tag{display:inline-block;background:var(--accent);color:#fff;font-weight:700;font-size:11px;letter-spacing:.3px;padding:2px 8px;border-radius:999px;margin:0 0 3px;font-family:Inter,sans-serif}
 .lbl{display:block;font-weight:600;margin:6px 0 6px}
 .themes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 4px}
@@ -241,6 +251,13 @@ const ANDROID=typeof window.AndroidApp!=="undefined";
 // Pasa a Android los equipos seguidos (para los avisos en segundo plano)
 function syncAndroid(){if(!ANDROID||!IDX)return;try{AndroidApp.guardarEquipos(JSON.stringify(state.follows.map(id=>TEAM.get(id)).filter(Boolean).map(t=>({id:t.id,g:t.grupos[0],n:t.name,e:state.etq[t.id]||"",av:state.avEq[t.id]||null}))))}catch(e){}}
 const etiqueta=t=>state.etq[t.id]||"";
+const silenciado=t=>!!(state.avEq[t.id]&&state.avEq[t.id].silencio);
+function toast(msg){const d=document.createElement("div");d.className="toast";d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),2200)}
+function silenciar(t,on){
+  if(on){const prev=state.avEq[t.id]&&!state.avEq[t.id].silencio?state.avEq[t.id]:null;state.avEq[t.id]={resultado:false,asignado:false,previo:false,horas:3,silencio:true,antes:prev}}
+  else{const a=state.avEq[t.id];if(a&&a.antes)state.avEq[t.id]=a.antes;else delete state.avEq[t.id]}
+  store.set("avEq",state.avEq);syncAndroid();
+}
 const tagHTML=t=>etiqueta(t)?`<span class="tag">⭐ ${esc(etiqueta(t))}</span><br>`:"";
 /* Tema */
 const TEMAS={clasico:{n:"Clásico",barra:"#0F5132"},estadio:{n:"Estadio",barra:"#0A1328"}};
@@ -257,6 +274,8 @@ const icons={
   chat:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
   pin:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>',
   bell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 1112 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 003.4 0"/></svg>',
+  bellOff:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.7 3.6A6 6 0 0118 8c0 2.6.4 4.6.9 6M18 17H3s3-2 3-9c0-.7.1-1.3.3-1.9"/><path d="M10.3 21a1.9 1.9 0 003.4 0"/><path d="M3 3l18 18"/></svg>',
+  grip:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg>',
   trash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>'
 };
 function mapLink(c,label){if(!c)return"";const q=c.ll?c.ll.join(","):encodeURIComponent(c.name+", "+c.addr+", "+c.loc);return `<a class="map" href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" rel="noopener">${icons.pin} ${label||"Abrir en mapas"}</a>`}
@@ -712,7 +731,28 @@ function homeRow(t){
   if(d){const me=d.table.find(r=>r.id===t.id);const lm=lastMatch(t),nm=nextMatch(t);
     side=me?`<b>${me.pos}º</b>${me.pts} pts`:"";
     meta+=` · ${lm?`<span class="badge ${outcome(lm,t.id)}">${lm.hg}-${lm.ag}</span>`:""}${nm&&nm.date?"próx. "+fdate(nm.date).split(" ").slice(0,2).join(" "):""}`}
-  return `<button class="team" data-team="${t.id}">${crest(t)}<div class="info">${tagHTML(t)}<div class="nm">${esc(t.name)}</div><div class="meta">${meta}</div></div><div class="side">${side}</div></button>`;
+  const mute=silenciado(t);
+  return `<div class="team${mute?" mute":""}" data-team="${t.id}" role="button" tabindex="0"><div class="drag" data-drag aria-label="Arrastrar para ordenar">${icons.grip}</div>${crest(t)}<div class="info">${tagHTML(t)}<div class="nm">${esc(t.name)}</div><div class="meta">${meta}</div></div><div class="side">${side}</div><button class="bellbtn${mute?" off":""}" data-bell="${t.id}" aria-label="${mute?"Activar avisos":"Silenciar avisos"}">${mute?icons.bellOff:icons.bell}</button></div>`;
+}
+// Arrastrar la manija (⋮⋮) para cambiar el orden de «Mis equipos»
+function activarArrastre(cont){
+  cont.onpointerdown=e=>{
+    const h=e.target.closest("[data-drag]");if(!h)return;
+    const row=h.closest(".team");e.preventDefault();h.setPointerCapture(e.pointerId);
+    const filas=()=>[...cont.querySelectorAll(".team")];
+    const y0=e.clientY;let dy=0;row.classList.add("dragging");window.__arrastrando=true;
+    const alto=row.getBoundingClientRect().height+10;
+    let base=y0;
+    const mover2=ev=>{dy=ev.clientY-base;row.style.transform=`translateY(${dy}px) scale(1.02)`;
+      const fs=filas();const i=fs.indexOf(row);
+      if(dy>alto*0.6&&i<fs.length-1){fs[i+1].after(row);base+=alto;row.style.transform=`translateY(${ev.clientY-base}px) scale(1.02)`}
+      else if(dy<-alto*0.6&&i>0){fs[i-1].before(row);base-=alto;row.style.transform=`translateY(${ev.clientY-base}px) scale(1.02)`}};
+    const fin=()=>{h.removeEventListener("pointermove",mover2);h.removeEventListener("pointerup",fin);h.removeEventListener("pointercancel",fin);
+      row.classList.remove("dragging");row.style.transform="";
+      state.follows=filas().map(r=>r.dataset.team);store.set("follows",state.follows);syncAndroid();
+      setTimeout(()=>window.__arrastrando=false,50)};
+    h.addEventListener("pointermove",mover2);h.addEventListener("pointerup",fin);h.addEventListener("pointercancel",fin);
+  };
 }
 function renderHome(app){
   const followed=state.follows.map(id=>TEAM.get(id)).filter(Boolean);
@@ -723,6 +763,7 @@ function renderHome(app){
     <button class="maincta" id="openMain"><div class="ic">${icons.chat}</div><div><b>Chat principal</b><span>Busca equipos, jugadores y clasificaciones</span></div></button>
     <div class="section-t">Mis equipos</div>
     <div id="mine">${followed.length?followed.map(homeRow).join(""):`<div class="empty">Aún no sigues ningún equipo.<br>Búscalo por su nombre o deja que te ayude.</div>`}</div>
+    ${followed.length>1?`<div class="small" style="margin:-2px 2px 10px">Arrastra ⋮⋮ para ordenarlos · 🔔 para silenciar un equipo sin dejar de seguirlo.</div>`:followed.length===1?`<div class="small" style="margin:-2px 2px 10px">🔔 silencia sus avisos sin dejar de seguirlo; dentro de la ficha puedes personalizarlos.</div>`:""}
     <button class="addbtn" id="addTeam">+ Seguir un equipo</button>
     <div class="demo-note">Datos de la <b>Real Federación de Fútbol de Madrid</b> (rffm.es): ${TEAMS.length} equipos de fútbol 11 Infantil, Cadete y Juvenil.${act?` Actualizado ${fdate(act)} a las ${String(act.getHours()).padStart(2,"0")}:${String(act.getMinutes()).padStart(2,"0")}.`:""} App no oficial.</div>
   </main>`;
@@ -730,7 +771,16 @@ function renderHome(app){
   $("#openMain").onclick=()=>{state.view="main";render()};
   $("#addTeam").onclick=()=>{state.view="main";state.chats._main=null;render();setTimeout(()=>window.__ask&&window.__ask("Buscar un equipo"),50)};
   // delegación: sigue funcionando aunque la lista se repinte al cargar resultados
-  $("#mine").onclick=e=>{const b=e.target.closest("[data-team]");if(b){state.view="team";state.team=b.dataset.team;render()}};
+  $("#mine").onclick=e=>{
+    const bell=e.target.closest("[data-bell]");
+    if(bell){e.stopPropagation();const t=TEAM.get(bell.dataset.bell);const on=!silenciado(t);silenciar(t,on);
+      bell.classList.toggle("off",on);bell.innerHTML=on?icons.bellOff:icons.bell;bell.closest(".team").classList.toggle("mute",on);
+      toast(on?`Avisos silenciados: ${etiqueta(t)||t.name}`:`Avisos activados: ${etiqueta(t)||t.name}`);
+      if(!on&&ANDROID)try{AndroidApp.pedirPermiso()}catch(e){}
+      return}
+    if(e.target.closest("[data-drag]")||window.__arrastrando)return;
+    const b=e.target.closest("[data-team]");if(b){state.view="team";state.team=b.dataset.team;render()}};
+  activarArrastre($("#mine"));
   // carga los grupos de los equipos seguidos y repinta
   Promise.all(followed.map(t=>loadGroup(t.grupos[0]).catch(()=>null))).then(()=>{if(state.view==="home"&&$("#mine")&&followed.length)$("#mine").innerHTML=followed.map(homeRow).join("")});
 }
@@ -749,7 +799,7 @@ function renderChat(app,t){
   const chips=t?CHIPS_TEAM:["Menú","Buscar un equipo","Buscar un jugador","Ayúdame a encontrar un equipo","Ver clasificaciones"];
   app.innerHTML=`<header class="top"><div class="toprow"><button class="iconbtn" id="back" aria-label="Volver">${icons.back}</button>
     ${t?crest(t,40):""}<div class="grow">${t&&etiqueta(t)?`<span class="tag">⭐ ${esc(etiqueta(t))}</span>`:""}<h1 class="tn" style="font-size:21px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(t.name):"Chat principal"}</h1><div class="sub" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(grupoNombre(t.grupos[0])):"Equipos y jugadores de Madrid"}</div></div>
-    ${t?(state.follows.includes(t.id)?`<button class="iconbtn" id="tset" aria-label="Ajustes del equipo">${icons.bell}</button>`:`<button class="btn" id="tfol" style="flex:none">Seguir</button>`):""}</div></header>
+    ${t?(state.follows.includes(t.id)?`<button class="iconbtn" id="tset" aria-label="Ajustes del equipo">${silenciado(t)?icons.bellOff:icons.bell}</button>`:`<button class="btn" id="tfol" style="flex:none">Seguir</button>`):""}</div></header>
   <main id="scroll"><div class="chat" id="chat"></div></main>
   <div class="composer"><div class="chips">${chips.map(c=>`<button class="chip" data-ask="${esc(c)}">${esc(c)}</button>`).join("")}</div>
   <form class="inp" id="f"><input id="q" placeholder="${t?"Pregunta sobre el equipo…":"Escribe o elige una opción…"}" autocomplete="off" enterkeyhint="send"><button aria-label="Enviar">${icons.send}</button></form></div>`;
@@ -784,7 +834,8 @@ function openSheet(html,bind){$("#sheet").innerHTML=html;$("#sheetBg").style.dis
 function closeSheet(){$("#sheet").classList.remove("open");$("#sheetBg").style.display="none"}
 $("#sheetBg").onclick=closeSheet;
 function openTeamSettings(t){
-  const propio=!!state.avEq[t.id];const av=Object.assign({},propio?state.avEq[t.id]:leerAvisos());
+  const guardado=silenciado(t)?state.avEq[t.id].antes:state.avEq[t.id];
+  const propio=!!guardado;const av=Object.assign({},propio?guardado:leerAvisos());let mute=silenciado(t);
   const sw=(k,tt,d)=>`<div class="tog"><div class="grow"><b>${tt}</b><div class="small">${d}</div></div><button class="sw ${av[k]?"on":""}" data-tsw="${k}" aria-label="${tt}"></button></div>`;
   openSheet(`<h3>${esc(t.name)}</h3>
    <span class="lbl">Etiqueta</span>
@@ -792,6 +843,8 @@ function openTeamSettings(t){
    <div class="chips" style="padding:0 0 6px">${["Mi hijo","Mi hija","Sobrino","Nieto","Mi equipo"].map(x=>`<button class="chip" data-etq="${x}">${x}</button>`).join("")}</div>
    <div style="margin:4px 0 2px">${linkRFFM(urlEquipoRFFM(t),"Ficha oficial y plantilla en la RFFM")}</div>
    <div class="section-t">Avisos de este equipo</div>
+   <div class="tog"><div class="grow"><b>Recibir avisos de este equipo</b><div class="small">Desactívalo para seguirlo sin notificaciones.</div></div><button class="sw ${silenciado(t)?"":"on"}" id="activos" aria-label="Recibir avisos"></button></div>
+   <div id="detalleAv" class="${silenciado(t)?"hidden":""}">
    <div class="tog"><div class="grow"><b>Usar los ajustes generales</b><div class="small">Desactívalo para elegir avisos solo para este equipo.</div></div><button class="sw ${propio?"":"on"}" id="gen" aria-label="Usar ajustes generales"></button></div>
    <div id="propios" class="${propio?"":"hidden"}">
     ${sw("resultado","Resultados","Cuando se publique el resultado.")}
@@ -799,10 +852,15 @@ function openTeamSettings(t){
     ${sw("previo","Antes del partido","Con el campo y cómo llegar.")}
     <div class="tog"><div class="grow"><b>¿Cuánto antes?</b></div><div class="chips" style="padding:0">${[1,2,3,4,6].map(h=>`<button class="chip" data-th="${h}" style="${av.horas===h?"background:var(--pitch2);color:var(--bg)":""}">${h} h</button>`).join("")}</div></div>
    </div>
+   </div>
    <div style="display:flex;gap:10px;margin-top:16px"><button class="btn ghost" id="unf2" style="flex:1;padding:12px;color:var(--loss)">Dejar de seguir</button><button class="btn" id="ok" style="flex:1;padding:12px">Listo</button></div>`,()=>{
     let usarGen=!propio;
     const guardar=()=>{const e=$("#etq").value.trim();if(e)state.etq[t.id]=e;else delete state.etq[t.id];store.set("etiquetas",state.etq);
-      if(usarGen)delete state.avEq[t.id];else state.avEq[t.id]={resultado:!!av.resultado,asignado:!!av.asignado,previo:!!av.previo,horas:av.horas||3};store.set("avEq",state.avEq);syncAndroid()};
+      const prop=usarGen?null:{resultado:!!av.resultado,asignado:!!av.asignado,previo:!!av.previo,horas:av.horas||3};
+      if(mute)state.avEq[t.id]={resultado:false,asignado:false,previo:false,horas:3,silencio:true,antes:prop};
+      else if(prop)state.avEq[t.id]=prop;else delete state.avEq[t.id];
+      store.set("avEq",state.avEq);syncAndroid()};
+    $("#activos").onclick=()=>{mute=!mute;$("#activos").classList.toggle("on",!mute);$("#detalleAv").classList.toggle("hidden",mute);guardar()};
     document.querySelectorAll("[data-etq]").forEach(b=>b.onclick=()=>{$("#etq").value=b.dataset.etq;guardar()});
     $("#etq").onchange=guardar;
     $("#gen").onclick=()=>{usarGen=!usarGen;$("#gen").classList.toggle("on",usarGen);$("#propios").classList.toggle("hidden",usarGen);guardar()};
