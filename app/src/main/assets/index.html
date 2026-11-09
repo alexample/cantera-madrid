@@ -94,6 +94,8 @@ a.map{display:inline-flex;align-items:center;gap:6px;margin-top:6px;color:var(--
 .sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
 .sw.on{background:var(--win)}.sw.on::after{left:23px}
 .hidden{display:none!important}
+.sug{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 6px}
+.sug .chip{font-size:13.5px;padding:8px 13px}
 .tl{color:inherit;font-weight:inherit;text-decoration:underline;text-decoration-style:dotted;text-decoration-color:var(--pitch2);text-underline-offset:3px;cursor:pointer}
 .tl:active{opacity:.6}
 .team{cursor:pointer;user-select:none;-webkit-user-select:none}
@@ -824,11 +826,15 @@ function renderChat(app,t){
     ${t?crest(t,40):""}<div class="grow">${t&&etiqueta(t)?`<span class="tag">⭐ ${esc(etiqueta(t))}</span>`:""}<h1 class="tn" style="font-size:21px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(t.name):"Chat principal"}</h1><div class="sub" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(grupoNombre(t.grupos[0])):"Equipos y jugadores de Madrid"}</div></div>
     ${t?(state.follows.includes(t.id)?`<button class="iconbtn" id="tset" aria-label="Ajustes del equipo">${silenciado(t)?icons.bellOff:icons.bell}</button>`:`<button class="btn" id="tfol" style="flex:none">Seguir</button>`):""}</div></header>
   <main id="scroll"><div class="chat" id="chat"></div></main>
-  <div class="composer"><div class="chips">${chips.map(c=>`<button class="chip" data-ask="${esc(c)}">${esc(c)}</button>`).join("")}</div>
+  <div class="composer">
   <form class="inp" id="f"><input id="q" placeholder="${t?"Pregunta sobre el equipo…":"Escribe o elige una opción…"}" autocomplete="off" enterkeyhint="send"><button aria-label="Enviar">${icons.send}</button></form></div>`;
   const chat=$("#chat");
   const wide=h=>h&&(h.includes("<table")||h.includes("plist")||h.includes('class="opts'));
-  const draw=()=>{chat.innerHTML=state.chats[key].map(m=>`<div class="msg ${m.r}${wide(m.h)?" wide":""}">${m.h}</div>`).join("");
+  const sugerencias=()=>{const ult=state.chats[key][state.chats[key].length-1];if(!ult||ult.r!=="b"||ult.h.includes("typing"))return "";
+    const pregUlt=(state.chats[key].filter(m=>m.r==="u").pop()||{}).h||"";
+    const lista=chips.filter(c=>esc(c)!==pregUlt);
+    return `<div class="sug">${lista.map(c=>`<button class="chip" data-ask="${esc(c)}">${esc(c)}</button>`).join("")}</div>`};
+  const draw=()=>{chat.innerHTML=state.chats[key].map(m=>`<div class="msg ${m.r}${wide(m.h)?" wide":""}">${m.h}</div>`).join("")+sugerencias();
     if(t)chat.querySelectorAll(`a[data-ver="${CSS.escape(t.id)}"]`).forEach(a=>{a.removeAttribute("data-ver");a.classList.remove("tl")}); // el propio equipo no es enlace
     $("#scroll").scrollTop=1e9};
   draw();if(state.chats[key].length===1)$("#scroll").scrollTop=0; // el resumen se lee desde arriba
