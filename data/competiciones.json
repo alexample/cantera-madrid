@@ -1,0 +1,828 @@
+[
+{
+"tipo": "Futbol-11",
+"codigo": "26738289",
+"nombre": "COPA RFEF FASE AUTONÓMICA",
+"categoria": "TERCERA FEDERACION",
+"incluida": false
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26738226",
+"nombre": "TERCERA FEDERACIÓN RFEF",
+"categoria": "TERCERA FEDERACION",
+"incluida": false
+},
+{
+"tipo": "Futbol-11",
+"codigo": "28733581",
+"nombre": "COPA DE AFICIONADOS RFFM 2026/2027",
+"categoria": "PRIMERA DIVISION AUTONOMICA AFICIONADO",
+"incluida": false
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26737698",
+"nombre": "PRIMERA DIVISIÓN AUTONÓMICA AFICIONADO",
+"categoria": "PRIMERA DIVISION AUTONOMICA AFICIONADO",
+"incluida": false
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26737701",
+"nombre": "PREFERENTE AFICIONADO",
+"categoria": "PREFERENTE AFICIONADO",
+"incluida": false
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26737706",
+"nombre": "PRIMERA AFICIONADO",
+"categoria": "PRIMERA AFICIONADO",
+"incluida": false
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26738300",
+"nombre": "SEGUNDA AFICIONADO",
+"categoria": "SEGUNDA AFICIONADO",
+"incluida": false
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26738130",
+"nombre": "NACIONAL JUVENIL",
+"categoria": "LIGA NACIONAL JUVENIL",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26737715",
+"nombre": "PRIMERA DIVISIÓN AUTONÓMICA JUVENIL",
+"categoria": "PRIMERA DIVISION AUTONOMICA JUVENIL",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26737718",
+"nombre": "PREFERENTE JUVENIL",
+"categoria": "PREFERENTE JUVENIL",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26737724",
+"nombre": "PRIMERA JUVENIL",
+"categoria": "PRIMERA JUVENIL",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26738323",
+"nombre": "SEGUNDA JUVENIL",
+"categoria": "SEGUNDA JUVENIL",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26738047",
+"nombre": "SUPERLIGA CADETE",
+"categoria": "SUPERLIGA CADETE",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26738054",
+"nombre": "DIVISIÓN DE HONOR CADETE",
+"categoria": "DIVISION DE HONOR CADETE",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26737737",
+"nombre": "PRIMERA DIVISIÓN AUTONÓMICA CADETE",
+"categoria": "PRIMERA DIVISION AUTONOMICA CADETE",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26737742",
+"nombre": "PREFERENTE CADETE",
+"categoria": "PREFERENTE CADETE",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26737751",
+"nombre": "PRIMERA CADETE",
+"categoria": "PRIMERA CADETE",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26737768",
+"nombre": "SEGUNDA CADETE",
+"categoria": "SEGUNDA CADETE",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26738049",
+"nombre": "SUPERLIGA INFANTIL",
+"categoria": "SUPERLIGA INFANTIL",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26737811",
+"nombre": "DIVISIÓN DE HONOR INFANTIL",
+"categoria": "DIVISION DE HONOR INFANTIL",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26737814",
+"nombre": "PRIMERA DIVISIÓN AUTONÓMICA INFANTIL",
+"categoria": "PRIMERA DIVISION AUTONOMICA INFANTIL",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26737819",
+"nombre": "PREFERENTE INFANTIL",
+"categoria": "PREFERENTE INFANTIL",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26737828",
+"nombre": "PRIMERA INFANTIL",
+"categoria": "PRIMERA INFANTIL",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26738324",
+"nombre": "SEGUNDA INFANTIL ",
+"categoria": "SEGUNDA INFANTIL",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26738128",
+"nombre": "SUPERLIGA ALEVÍN",
+"categoria": "SUPERLIGA ALEVIN",
+"incluida": false
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26738051",
+"nombre": "DIVISIÓN DE HONOR ALEVÍN",
+"categoria": "DIVISION DE HONOR ALEVIN",
+"incluida": false
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26737845",
+"nombre": "PRIMERA DIVISIÓN AUTONÓMICA ALEVÍN",
+"categoria": "PRIMERA DIVISION AUTONOMICA ALEVIN",
+"incluida": false
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26737850",
+"nombre": "PREFERENTE ALEVÍN",
+"categoria": "PREFERENTE ALEVIN",
+"incluida": false
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26737859",
+"nombre": "PRIMERA ALEVIN",
+"categoria": "PRIMERA ALEVIN",
+"incluida": false
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26738269",
+"nombre": "VETERANOS MASCULINO F11 - MOVEMBER",
+"categoria": "VETERANOS F11",
+"incluida": false
+},
+{
+"tipo": "Futbol-11",
+"codigo": "27786100",
+"nombre": "TERCERA FEDERACIÓN DE FÚTBOL FEMENINO",
+"categoria": "TERCERA FEDERACION DE FÚTBOL FEMENINO",
+"incluida": false
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26738252",
+"nombre": "PRIMERA DIVISIÓN AUTONÓMICA FEMENINO",
+"categoria": "PRIMERA DIVISION AUTONÓMICA FEMENINO",
+"incluida": false
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26738262",
+"nombre": "PREFERENTE FÚTBOL FEMENINO",
+"categoria": "PREFERENTE FUTBOL FEMENINO",
+"incluida": false
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26737874",
+"nombre": "PRIMERA FÚTBOL FEMENINO",
+"categoria": "PRIMERA FUTBOL FEMENINO",
+"incluida": false
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26738254",
+"nombre": "PRIMERA DIVISIÓN AUTONÓMICA FEMENINO JUVENIL",
+"categoria": "PRIMERA DIVISION AUTONOMICA FEMENINO JUVENIL",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26737878",
+"nombre": "PREFERENTE FEMENINO JUVENIL",
+"categoria": "PREFERENTE FEMENINO JUVENIL",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26737881",
+"nombre": "PRIMERA FEMENINO JUVENIL",
+"categoria": "PRIMERA FEMENINO JUVENIL",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26738256",
+"nombre": "PRIMERA DIVISIÓN AUTONÓMICA FEMENINO CADETE",
+"categoria": "PRIMERA DIVISION AUTONOMICA FEMENINO CADETE",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26737887",
+"nombre": "PREFERENTE FEMENINO CADETE",
+"categoria": "PREFERENTE FEMENINO CADETE",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26737890",
+"nombre": "PRIMERA FEMENINO CADETE",
+"categoria": "PRIMERA FEMENINO CADETE",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26748876",
+"nombre": "INFANTIL FEMENINO F11",
+"categoria": "INFANTIL FEMENINO F11",
+"incluida": true
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26738236",
+"nombre": "CAMPEONATO UNIVERSITARIO FEMENINO F11",
+"categoria": "CAMPEONATO UNIVERSITARIO FEMENINO",
+"incluida": false
+},
+{
+"tipo": "Futbol-11",
+"codigo": "26738233",
+"nombre": "CAMPEONATO UNIVERSITARIO MASCULINO 1ª FASE F11",
+"categoria": "CAMPEONATO UNIVERSITARIO MASCULINO",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "26737923",
+"nombre": "DIVISION DE HONOR ALEVIN F-7",
+"categoria": "DIVISION DE HONOR ALEV-F7",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "26738066",
+"nombre": "PRIMERA DIVISION AUTONOMICA ALEVIN F-7",
+"categoria": "PRIMERA DIVISION AUTONOMICA ALEV.F-7",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "26738132",
+"nombre": "PREFERENTE ALEVIN F-7",
+"categoria": "PREFERENTE ALEVIN F-7",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "26738141",
+"nombre": "PRIMERA ALEVIN F-7",
+"categoria": "PRIMERA ALEVIN F-7",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "26738071",
+"nombre": "SEGUNDA ALEVIN F-7",
+"categoria": "SEGUNDA ALEVIN F-7",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "26738273",
+"nombre": "DIVISIÓN DE HONOR BENJAMÍN F-7",
+"categoria": "DIVISIÓN DE HONOR BENJAMÍN F7",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "26738158",
+"nombre": "PRIMERA DIVISION AUTONOMICA BENJAMÍN F-7",
+"categoria": "PRIMERA DIVISION AUTONOMICA BENJAMIN F7",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "26737926",
+"nombre": "PREFERENTE BENJAMÍN F-7",
+"categoria": "PREFERENTE BENJAMIN F7",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "26737943",
+"nombre": "PRIMERA BENJAMÍN F-7",
+"categoria": "PRIMERA BENJAMIN F7",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "26738167",
+"nombre": "PREBENJAMÍN F-7 DESARROLLO",
+"categoria": "PREBENJAMIN",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "26797573",
+"nombre": "PREBENJAMIN F7 INICIACION",
+"categoria": "PREBENJAMIN",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "26738230",
+"nombre": "PRIMERA FEMENINO SENIOR F-7",
+"categoria": "PRIMERA FEMENINO SENIOR F-7",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "26738374",
+"nombre": "JUVENIL F-7 FEMENINO",
+"categoria": "JUVENIL F-7 FEMENINO",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "26738265",
+"nombre": "CADETE F-7 FEMENINO",
+"categoria": "CADETE F-7 FEMENINO",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "26748601",
+"nombre": "DIVISION DE HONOR FEMENINO INFANTIL F7",
+"categoria": "DIVISION DE HONOR FEMENINO INFANTIL F7",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "26738258",
+"nombre": "PRIMERA DIVISION AUTONOMICA FEMENINO INFANTIL F-7",
+"categoria": "PRIMERA DIVISION AUTONOMICA FEMENINO INFANTIL F-7",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "26737899",
+"nombre": "PREFERENTE FEMENINO INFANTIL F-7",
+"categoria": "PREFERENTE FEMENINO INFANTIL F-7",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "26738260",
+"nombre": "PRIMERA DIVISION AUTONOMICA FEMENINO ALEVIN F-7",
+"categoria": "PRIMERA DIVISION AUTONOMICA FEMENINO ALEVIN F-7",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "26737919",
+"nombre": "PREFERENTE FEMENINO ALEVIN F-7",
+"categoria": "PREFERENTE FEMENINO ALEVIN F-7",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "26738057",
+"nombre": "PRIMERA FEMENINO ALEVIN F-7",
+"categoria": "PRIMERA FEMENINO ALEVIN F-7",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "26738213",
+"nombre": "PRIMERA BENJAMIN FEMENINO F-7",
+"categoria": "PRIMERA BENJAMIN FEMENINO F-7",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "26738376",
+"nombre": "FUTBOL ANDANDO F-7",
+"categoria": "FUTBOL ANDANDO F-7",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "27957934",
+"nombre": "FUTBOL INCLUSIVO",
+"categoria": "FUTBOL INCLUSIVO",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "28777685",
+"nombre": "FUTBOL INCLUSIVO JORNADA INICIAL",
+"categoria": "FUTBOL INCLUSIVO",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26738241",
+"nombre": "CAMPEONATO UNIVERSITARIO FEMENINO FS",
+"categoria": "Liga Universitaria Futbol Sala",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26738238",
+"nombre": "CAMPEONATO UNIVERSITARIO MASCULINO 1ª FASE FS",
+"categoria": "Liga Universitaria Futbol Sala",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26738296",
+"nombre": "TROFEO COMUNIDAD SENIOR MASCULINO FS",
+"categoria": "SEGUNDA DIVISIÓN B DE FÚTBOL SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26738221",
+"nombre": "TERCERA DIVISIÓN FS",
+"categoria": "TERCERA DIVISIÓN DE FÚTBOL SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "28403858",
+"nombre": "COPA SENIOR I - fase final- FS ",
+"categoria": "PRIMERA DIVISION AUTONOMICA AFICIONADO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "28403847",
+"nombre": "COPA SENIOR I - fase previa- FS ",
+"categoria": "PRIMERA DIVISION AUTONOMICA AFICIONADO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26738243",
+"nombre": "PRIMERA DIVISION AUTONOMICA AFICIONADO FS",
+"categoria": "PRIMERA DIVISION AUTONOMICA AFICIONADO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26738246",
+"nombre": "PREFERENTE AFICIONADO FS",
+"categoria": "PREFERENTE AFICIONADO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "28403930",
+"nombre": "COPA SENIOR II - fase final- FS ",
+"categoria": "PRIMERA AFICIONADO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "28403871",
+"nombre": "COPA SENIOR II - fase previa- FS ",
+"categoria": "PRIMERA AFICIONADO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "27776951",
+"nombre": "PRIMERA AFICIONADO FS ",
+"categoria": "PRIMERA AFICIONADO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26843411",
+"nombre": "TROFEO COMUNIDAD DIVISION HONOR JUVENIL FS ",
+"categoria": "DIVISIÓN DE HONOR JUVENIL DE FÚTBOL SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26749998",
+"nombre": "PRIMERA DIVISION AUTONOMICA JUVENIL FS",
+"categoria": "PRIMERA DIVISION AUTONOMICA JUVENIL SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26738220",
+"nombre": "PREFERENTE JUVENIL FS",
+"categoria": "PREFERENTE JUVENIL SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "28404058",
+"nombre": "COPA JUVENIL - fase final- FS ",
+"categoria": "PRIMERA JUVENIL SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "28404003",
+"nombre": "COPA JUVENIL - fase previa- FS ",
+"categoria": "PRIMERA JUVENIL SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26738228",
+"nombre": "PRIMERA JUVENIL FS",
+"categoria": "PRIMERA JUVENIL SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "28414015",
+"nombre": "COPA CADETE - fase previa- FS ",
+"categoria": "PRIMERA DIVISION AUTONOMICA CADETE SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26738292",
+"nombre": "PRIMERA DIVISION AUTONOMICA CADETE FS",
+"categoria": "PRIMERA DIVISION AUTONOMICA CADETE SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26750003",
+"nombre": "PREFERENTE CADETE FS ",
+"categoria": "PREFERENTE CADETE SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "28440556",
+"nombre": "COPA CADETE - fase final- FS ",
+"categoria": "PRIMERA CADETE SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26750007",
+"nombre": "PRIMERA CADETE FS ",
+"categoria": "PRIMERA CADETE SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26750011",
+"nombre": "PRIMERA DIVISION AUTONOMICA INFANTIL FS ",
+"categoria": "PRIMERA DIVISION AUTONOMICA INFANTIL SALA ",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26738249",
+"nombre": "PREFERENTE INFANTIL FS",
+"categoria": "PREFERENTE INFANTIL SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "28441161",
+"nombre": "COPA INFANTIL - fase final- FS ",
+"categoria": "PRIMERA INFANTIL SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "28415103",
+"nombre": "COPA INFANTIL - fase previa- FS ",
+"categoria": "PRIMERA INFANTIL SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26750015",
+"nombre": "PRIMERA INFANTIL FS ",
+"categoria": "PRIMERA INFANTIL SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26750017",
+"nombre": "ALEVIN 1ª fase FS ",
+"categoria": "ALEVIN SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "28448881",
+"nombre": "COPA ALEVIN - fase final- FS ",
+"categoria": "ALEVIN SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "28416516",
+"nombre": "COPA ALEVIN - fase previa- FS ",
+"categoria": "ALEVIN SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26750019",
+"nombre": "BENJAMIN 1ª Fase FS ",
+"categoria": "BENJAMIN SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "28418732",
+"nombre": "COPA BENJAMIN - fase final- FS ",
+"categoria": "BENJAMIN SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "28418643",
+"nombre": "COPA BENJAMIN - fase previa- FS ",
+"categoria": "BENJAMIN SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26738225",
+"nombre": "BENJAMIN INICIACION FS",
+"categoria": "BENJAMIN INICIACION SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26738294",
+"nombre": "TROFEO COMUNIDAD SENIOR FEMENINO FS ",
+"categoria": "SEGUNDA DIVISIÓN DE FÚTBOL FEMENINO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26738218",
+"nombre": "PRIMERA DIVISIÓN AUTONOMICA FEMENINO FS",
+"categoria": "PRIMERA DIVISION AUTONOMICA FEMENINO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "28420731",
+"nombre": "COPA SENIOR FEMENINO - Fase final- FS ",
+"categoria": "PREFERENTE FEMENINO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "28420672",
+"nombre": "COPA SENIOR FEMENINO - Fase previa- FS",
+"categoria": "PREFERENTE FEMENINO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26738229",
+"nombre": "PREFERENTE FEMENINO 1ª Fase FS",
+"categoria": "PREFERENTE FEMENINO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "28411135",
+"nombre": "COPA JUVENIL FEMENINO - Fase de grupos- FS ",
+"categoria": "JUVENIL FEMENINO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26750020",
+"nombre": "JUVENIL FEMENINO FS ",
+"categoria": "JUVENIL FEMENINO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26738222",
+"nombre": "CADETE FEMENINO FS",
+"categoria": "CADETE FEMENINO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "28403612",
+"nombre": "COPA CADETE FEMENINO - Fase final- FS ",
+"categoria": "CADETE FEMENINO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "28403619",
+"nombre": "COPA INFANTIL FEMENINO - Fase final- FS ",
+"categoria": "INFANTIL FEMENINO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "28403618",
+"nombre": "COPA INFANTIL FEMENINO - Fase previa- FS ",
+"categoria": "INFANTIL FEMENINO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26738223",
+"nombre": "INFANTIL FEMENINO 1ª Fase FS",
+"categoria": "INFANTIL FEMENINO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26750025",
+"nombre": "ALEVIN FEMENINO 1ª Fase FS ",
+"categoria": "ALEVIN FEMENINO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "28403631",
+"nombre": "COPA ALEVIN FEMENINO FS ",
+"categoria": "ALEVIN FEMENINO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "26738224",
+"nombre": "BENJAMIN FEMENINO FS",
+"categoria": "BENJAMIN FEMENINO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol Sala",
+"codigo": "28403654",
+"nombre": "COPA BENJAMIN FEMENINO - Fase de grupos- FS ",
+"categoria": "BENJAMIN FEMENINO SALA",
+"incluida": false
+},
+{
+"tipo": "Fútbol-5",
+"codigo": "26738029",
+"nombre": "DEBUTANTE",
+"categoria": "DEBUTANTE",
+"incluida": false
+}
+]
