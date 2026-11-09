@@ -414,6 +414,7 @@ const INTENCIONES=[
   ["saludo",R(/^(hola|buenas|buenos dias|buenas tardes|hey|ey)\b/),true],
   ["gracias",R(/^(gracias|muchas gracias|ok|vale|genial|perfecto|guay)\b/),true],
   ["ayuda",R(/(que (te )?puedo preguntar|que sabes|ayuda|como funciona|que haces)/)],
+  ["resumen",R(/^(resumen|todo|info|informacion|ficha|datos|como va el equipo|como esta el equipo)$/)],
   ["jornada",R(/\b(jornada|j)\s*\d+\b/)],
   ["noDato",R(/(jugadores|ficha de|fichas|hay que (ir|llegar|estar)|a que hora (hay que|tenemos que|quedamos para)|arbitro|arbitra|equipacion|camiseta|entrenador|mister|convocatoria|convocados|alineacion|titular|plantilla|lesion|entradas|precio|hora de llegada|hay que estar|quedada|bus|autobus)/)],
   ["proxCasa",R(/(proximo|siguiente|cuando)\b.*\b(en casa|como local)|\b(en casa|como local)\b.*(proximo|siguiente|cuando)/)],
@@ -466,14 +467,29 @@ function ansProxDonde(t,donde){
 const urlEquipoRFFM=t=>`https://www.rffm.es/fichaequipo/${encodeURIComponent(t.id)}`;
 const urlGrupoRFFM=gid=>{const g=grupo(gid);return g?`https://www.rffm.es/competicion/clasificaciones?temporada=${g.temp}&competicion=${g.compId}&grupo=${gid}&tipojuego=${g.tj}`:"https://www.rffm.es"};
 const linkRFFM=(url,txt)=>`<a class="map" href="${url}" target="_blank" rel="noopener">↗ ${txt}</a>`;
+function ansResumen(t){
+  const d=teamGroup(t);const me=d.table.find(r=>r.id===t.id);const lm=lastMatch(t),nm=nextMatch(t);
+  const ms=teamMatches(t).filter(m=>m.played);const forma=ms.slice(-5);
+  let h=`<b>Resumen de ${esc(t.name)}</b>`;
+  h+=`<div class="section-t" style="margin-top:10px">Último resultado</div>`+(lm?scoreCard(lm):`<div class="small">Sin partidos jugados.</div>`);
+  if(nm){const c=CAMPOS[nm.campo];h+=`<div class="section-t">Próximo partido</div><div>${nm.date?fdate(nm.date):"Fecha por confirmar"}${nm.time?" · <b>"+nm.time+"</b>":""} · ${nm.home===t.id?"en casa contra":"fuera, en"} <b>${L(rivalOf(nm,t.id).id,rivalOf(nm,t.id).n)}</b></div>${c?`<div class="small">${esc(c.name)}, ${esc(c.loc)}</div>`:""}`}
+  if(me)h+=`<div class="section-t">Clasificación</div><div><b>${me.pos}º</b> de ${d.table.length} con <b>${me.pts} puntos</b>${me.pos>1?` · a ${d.table[0].pts-me.pts} del líder`:" · líder"}</div>`+tableHTML(d,t.id);
+  if(ms.length){let g=0,e=0,p=0,gf=0,gc=0;ms.forEach(m=>{const a=m.home===t.id?m.hg:m.ag,b=m.home===t.id?m.ag:m.hg;gf+=a;gc+=b;a>b?g++:a<b?p++:e++});
+    h+=`<div class="section-t">Estadísticas</div><div>${ms.length} jugados: <b>${g}</b>G <b>${e}</b>E <b>${p}</b>P · Goles ${gf}–${gc} (${gf-gc>0?"+":""}${gf-gc})</div>`;
+    h+=`<div style="margin-top:6px">Racha: ${forma.map(m=>`<span class="badge ${outcome(m,t.id)}">${{W:"G",D:"E",L:"P"}[outcome(m,t.id)]}</span>`).join("")}</div>`}
+  const gol=(d.gol||[]).filter(x=>x[1]===t.id).slice(0,3);
+  if(gol.length)h+=`<div class="section-t">Goleadores</div><div class="small">${gol.map(x=>`${esc(nombreJ(x[0]))} (${x[2]})`).join(" · ")}</div>`;
+  return h;
+}
 const NO_DATO="La federación no publica ese dato (plantillas, alineaciones, árbitros, equipaciones u horarios de llegada). Esa información la da el club o el entrenador.";
 const HELP_TEAM="Puedo contarte el último resultado, el próximo partido con hora y campo, la clasificación y los puntos, los goleadores, la racha, las estadísticas, los partidos que quedan, una jornada («jornada 3») o cómo os fue contra un rival («contra Alcorcón»).";
-const CHIPS_TEAM=["¿Cómo quedó el último partido?","¿Cuándo y dónde es el próximo?","Clasificación","Goleadores","Racha","Plantilla"];
+const CHIPS_TEAM=["Resumen","¿Cómo quedó el último partido?","¿Cuándo y dónde es el próximo?","Clasificación","Goleadores","Racha","Plantilla"];
 function responderEquipo(t,id,q,text){
   switch(id){
     case "saludo":return `¡Hola! ${HELP_TEAM}`;
     case "gracias":return "¡A ti! Si necesitas algo más del equipo, pregúntame.";
     case "ayuda":return HELP_TEAM;
+    case "resumen":return ansResumen(t);
     case "jornada":return ansJornada(t,+(q.match(/(\d+)/)[1]));
     case "noDato":return /(plantilla|jugador|convoca|alineacion|titular)/.test(q)?`La plantilla y las fichas de los jugadores están en la web oficial de la federación:<div>${linkRFFM(urlEquipoRFFM(t),"Ver plantilla en la RFFM")}</div><div class="small" style="margin-top:6px">Se abre en el navegador. Las convocatorias y alineaciones de cada partido las da el club.</div>`:NO_DATO;
     case "proxCasa":return ansProxDonde(t,"casa");
@@ -501,7 +517,7 @@ function answerTeam(t,text){
 }
 
 /* ---------- preguntas sobre un equipo desde el chat principal ---------- */
-const INT_EQUIPO=["proximo","ultimo","clasif","puntos","goleadores","racha","estad","calendario","resultados","proxCasa","proxFuera","jornada"];
+const INT_EQUIPO=["resumen","proximo","ultimo","clasif","puntos","goleadores","racha","estad","calendario","resultados","proxCasa","proxFuera","jornada"];
 const RELLENO=new Set(["el","la","los","las","de","del","al","a","que","como","cuando","donde","juega","jugo","jugara","va","van","ha","han","esta","este","partido","equipo","mi","su","hijo","hija","nos","les","le","se","y","en","por","con","contra","para","hoy","manana","sabado","domingo","semana","finde","las","horas","es","son","fue","sobre","tal","quien","cual","cuantos","cuantas","lleva","llevan","dime","quiero","saber","ver","me","del","partidos","hora","campo","proximo","ultimo","resultado","clasificacion","goleadores","racha","puntos"]);
 function equipoPorEtiqueta(text){const q=" "+norm(text)+" ";for(const[id,e] of Object.entries(state.etq)){const n=norm(e);if(n.length>1&&q.includes(" "+n+" ")&&TEAM.get(id))return TEAM.get(id)}return null}
 function equiposEnTexto(text){
@@ -799,6 +815,7 @@ async function renderTeam(app,t){
 }
 function renderChat(app,t){
   const key=t?t.id:"_main";
+  if(t&&state.resumen===t.id){state.resumen=null;if(!state.chats[key]||state.chats[key].length<=1)state.chats[key]=[{r:"b",h:ansResumen(t)+`<div class="small" style="margin-top:10px">Pregúntame lo que quieras de este equipo o toca otro rival. ${linkRFFM(urlEquipoRFFM(t),"Ficha en la RFFM")}</div>`}]}
   if(!state.chats[key])state.chats[key]=[{r:"b",h:t?`Hola, soy el asistente del <b>${esc(t.name)}</b> (${esc(CATN[t.cat])})${etiqueta(t)?`, el equipo de <b>${esc(etiqueta(t))}</b>`:""}. Pregúntame lo que quieras sobre el equipo.<div style="margin-top:4px">${linkRFFM(urlEquipoRFFM(t),"Ficha oficial y plantilla en la RFFM")}</div>${state.follows.includes(t.id)&&!etiqueta(t)?`<div class="small" style="margin-top:6px">Toca 🔔 arriba para ponerle una etiqueta («Adrián», «Mi hijo») y elegir sus avisos.</div>`:""}`:welcomeMain()}];
   const chips=t?CHIPS_TEAM:["Menú","Buscar un equipo","Buscar un jugador","Ayúdame a encontrar un equipo","Ver clasificaciones"];
   app.innerHTML=`<header class="top"><div class="toprow"><button class="iconbtn" id="back" aria-label="Volver">${icons.back}</button>
@@ -812,7 +829,7 @@ function renderChat(app,t){
   const draw=()=>{chat.innerHTML=state.chats[key].map(m=>`<div class="msg ${m.r}${wide(m.h)?" wide":""}">${m.h}</div>`).join("");
     if(t)chat.querySelectorAll(`a[data-ver="${CSS.escape(t.id)}"]`).forEach(a=>{a.removeAttribute("data-ver");a.classList.remove("tl")}); // el propio equipo no es enlace
     $("#scroll").scrollTop=1e9};
-  draw();
+  draw();if(state.chats[key].length===1)$("#scroll").scrollTop=0; // el resumen se lee desde arriba
   const ask=text=>{
     if(!text.trim())return;
     const shown=text.startsWith("ia:")?"🤖 Preguntar a la IA":text.startsWith("q:")||text.startsWith("qc:")?((document.querySelector(`[data-ask="${CSS.escape(text)}"]`)||{}).textContent||"Ese equipo"):text.startsWith("clubteams:")?"Ver equipos de "+((TEAMS.find(t=>t.clubKey===text.split(":")[1])||{}).club||"club"):text.startsWith("comp:")||text.startsWith("grupo:")||text.startsWith("club:")?(document.querySelector(`[data-ask="${CSS.escape(text)}"]`)||{}).textContent||text:text;
@@ -829,7 +846,7 @@ function renderChat(app,t){
   $("#f").onsubmit=e=>{e.preventDefault();const v=$("#q").value;$("#q").value="";ask(v)};
   app.onclick=e=>{
     const a=e.target.closest("[data-ask]");if(a){ask(a.dataset.ask);return}
-    const vr=e.target.closest("[data-ver]");if(vr){const id=vr.dataset.ver;if(id===state.team&&state.view==="team")return;state.pila.push({view:state.view,team:state.team});state.view="team";state.team=id;render();return}
+    const vr=e.target.closest("[data-ver]");if(vr){const id=vr.dataset.ver;if(id===state.team&&state.view==="team")return;state.pila.push({view:state.view,team:state.team});state.resumen=id;state.view="team";state.team=id;render();return}
     const o=e.target.closest("[data-open]");if(o){follow(o.dataset.open);state.view="team";state.team=o.dataset.open;render();return}
     const v=e.target.closest("[data-act=verify]");if(v){state.verified=true;store.set("verified",true);if(!t)startFlow("player");state.chats[key].push({r:"b",h:"Listo, cuenta verificada (simulación). Escribe el <b>nombre y apellidos</b> del jugador."});draw()}
   };
