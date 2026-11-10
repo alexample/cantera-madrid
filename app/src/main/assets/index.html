@@ -94,6 +94,14 @@ a.map{display:inline-flex;align-items:center;gap:6px;margin-top:6px;color:var(--
 .sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
 .sw.on{background:var(--win)}.sw.on::after{left:23px}
 .hidden{display:none!important}
+.orden{display:flex;gap:6px;overflow-x:auto;align-items:center;padding:0 0 10px;scrollbar-width:none;margin-top:-2px}
+.orden::-webkit-scrollbar{display:none}
+.orden .small{flex:none;margin-right:2px}
+.orden .chip{padding:6px 11px;font-size:12.5px}
+.orden .chip.on{background:var(--pitch2);color:#fff;border-color:var(--pitch2)}
+html[data-theme="estadio"] .orden .chip.on{color:#08101f}
+.grp-t{font-family:"Barlow Condensed",system-ui,sans-serif;font-size:15px;font-weight:700;color:var(--pitch2);margin:12px 2px 6px;text-transform:uppercase;letter-spacing:.6px;border-bottom:1px solid var(--line);padding-bottom:3px}
+.no-drag .drag{display:none}
 .mt-alerta{background:#fff4e5;color:#8a4b00;border:1px solid #ffd8a8;border-radius:10px;padding:6px 10px;font-size:13px;font-weight:600;margin-bottom:8px}
 html[data-theme="estadio"] .mt-alerta{background:rgba(255,154,61,.12);color:#ffc078;border-color:rgba(255,154,61,.35)}
 .vd{margin:4px 0 4px 2px;border-left:2px solid var(--line);padding-left:8px}
@@ -329,7 +337,7 @@ const fin=s=>/\.$/.test(s)?"":".";
 const rivalOf=(m,id)=>m.home===id?{id:m.away,n:m.awayN}:{id:m.home,n:m.homeN};
 
 /* ---------- estado ---------- */
-const state={pila:[],etq:store.get("etiquetas",{}),avEq:store.get("avEq",{}),tema:store.get("tema","clasico"),follows:store.get("follows",[]).filter(Boolean),verified:store.get("verified",false),chats:{},iah:{},flow:null,view:"home",team:null};
+const state={orden:store.get("orden","manual"),pila:[],etq:store.get("etiquetas",{}),avEq:store.get("avEq",{}),tema:store.get("tema","clasico"),follows:store.get("follows",[]).filter(Boolean),verified:store.get("verified",false),chats:{},iah:{},flow:null,view:"home",team:null};
 const ANDROID=typeof window.AndroidApp!=="undefined";
 // Pasa a Android los equipos seguidos (para los avisos en segundo plano)
 function syncAndroid(){if(!ANDROID||!IDX)return;try{AndroidApp.guardarEquipos(JSON.stringify(state.follows.map(id=>TEAM.get(id)).filter(Boolean).map(t=>({id:t.id,g:t.grupos[0],n:t.name,e:state.etq[t.id]||"",av:state.avEq[t.id]||null}))))}catch(e){}}
@@ -997,13 +1005,49 @@ function homeRow(t){
   const d=GD[t.grupos[0]];let side="",meta=esc(CATN[t.cat])+(t.fem?" fem.":"");
   if(d){const me=d.table.find(r=>r.id===t.id);const lm=lastMatch(t),nm=nextMatch(t);
     side=me?`<b>${me.pos}º</b>${me.pts} pts`:"";
-    meta+=` · ${lm?`<span class="badge ${outcome(lm,t.id)}">${lm.hg}-${lm.ag}</span>`:""}${nm&&nm.date?"próx. "+fdate(nm.date).split(" ").slice(0,2).join(" "):""}`}
+    meta+=` · ${lm?`<span class="badge ${outcome(lm,t.id)}">${lm.hg}-${lm.ag}</span>`:""}${nm&&nm.date?" · próx. "+fdate(nm.date).split(" ").slice(0,2).join(" "):""}`}
   const mute=silenciado(t);
   return `<div class="team${mute?" mute":""}" data-team="${t.id}" role="button" tabindex="0"><div class="drag" data-drag aria-label="Arrastrar para ordenar">${icons.grip}</div>${crest(t)}<div class="info">${tagHTML(t)}<div class="nm">${esc(t.name)}</div><div class="meta">${meta}</div></div><div class="side">${side}</div><button class="bellbtn${mute?" off":""}" data-bell="${t.id}" aria-label="${mute?"Activar avisos":"Silenciar avisos"}">${mute?icons.bellOff:icons.bell}</button></div>`;
 }
 // Arrastrar la manija (⋮⋮) para cambiar el orden de «Mis equipos»
+
+/* ---------- ordenar «Mis equipos» ---------- */
+const ORDENES=[["manual","Mi orden"],["division","División"],["categoria","Categoría"],["proximo","Próximo partido"],["posicion","Posición"],["club","Club"],["etiqueta","Etiqueta"]];
+// Nivel de la competición (menor = más alto)
+function nivelDivision(nombre){const n=norm(nombre);
+  if(/division de honor|liga nacional|nacional/.test(n))return 1;if(/superliga/.test(n))return 2;if(/preferente/.test(n))return 3;
+  if(/primera (division )?autonomica|autonomica/.test(n))return 4;if(/primera/.test(n))return 5;if(/segunda/.test(n))return 6;if(/tercera/.test(n))return 7;if(/f ?7|futbol 7/.test(n))return 8;return 9}
+function ordenarEquipos(ts){
+  const o=state.orden||"manual";const L2=ts.slice();
+  const comp=t=>{const g=grupo(t.grupos[0]);return g?g.comp:""};
+  const pos=t=>{const d=GD[t.grupos[0]];const r=d&&d.table.find(x=>x.id===t.id);return r?r.pos:999};
+  const prox=t=>{if(!GD[t.grupos[0]])return 9e15;const m=nextMatch(t);if(!m||!m.date)return 9e15;const [h,mi]=(m.time||"00:00").split(":");return m.date.getTime()+(+h*60+ +mi)*60000};
+  const cat=t=>CAT_ORDER.indexOf(t.cat);
+  if(o==="division")L2.sort((a,b)=>nivelDivision(comp(a))-nivelDivision(comp(b))||comp(a).localeCompare(comp(b))||cat(a)-cat(b));
+  else if(o==="categoria")L2.sort((a,b)=>cat(a)-cat(b)||(a.fem-b.fem)||nivelDivision(comp(a))-nivelDivision(comp(b)));
+  else if(o==="proximo")L2.sort((a,b)=>prox(a)-prox(b));
+  else if(o==="posicion")L2.sort((a,b)=>pos(a)-pos(b)||a.name.localeCompare(b.name));
+  else if(o==="club")L2.sort((a,b)=>a.club.localeCompare(b.club)||cat(a)-cat(b)||sufijo(a).localeCompare(sufijo(b)));
+  else if(o==="etiqueta")L2.sort((a,b)=>(etiqueta(a)?0:1)-(etiqueta(b)?0:1)||etiqueta(a).localeCompare(etiqueta(b))||a.name.localeCompare(b.name));
+  return L2;
+}
+function grupoDe(t){const o=state.orden;const g=grupo(t.grupos[0]);
+  if(o==="division")return g?g.comp:"Sin competición";
+  if(o==="categoria")return CATN[t.cat]+(t.fem?" femenino":"");
+  if(o==="club")return t.club;
+  if(o==="etiqueta")return etiqueta(t)||"Sin etiqueta";
+  if(o==="proximo"){if(!GD[t.grupos[0]])return "";const m=nextMatch(t);if(!m||!m.date)return "Sin fecha";const d=Math.round((m.date-TODAY)/864e5);return d<=0?"Hoy":d===1?"Mañana":d<7?"Esta semana":d<14?"La semana que viene":"Más adelante"}
+  return ""}
+function listaMine(followed){
+  if(!followed.length)return `<div class="empty">Aún no sigues ningún equipo.<br>Búscalo por su nombre o deja que te ayude.</div>`;
+  const ts=ordenarEquipos(followed);let ult=null,h="";
+  for(const t of ts){const gname=grupoDe(t);if(gname&&gname!==ult){h+=`<div class="grp-t">${esc(gname)}</div>`;ult=gname}h+=homeRow(t)}
+  return h;
+}
+
 function activarArrastre(cont){
   cont.onpointerdown=e=>{
+    if(state.orden!=="manual")return;
     const h=e.target.closest("[data-drag]");if(!h)return;
     const row=h.closest(".team");e.preventDefault();h.setPointerCapture(e.pointerId);
     const filas=()=>[...cont.querySelectorAll(".team")];
@@ -1030,10 +1074,11 @@ function renderHome(app){
   <main>
     <button class="maincta" id="openMain"><div class="ic">${icons.chat}</div><div><b>Chat principal</b><span>Busca equipos, jugadores y clasificaciones</span></div></button>
     <div class="section-t">Mis equipos</div>
-    <div id="mine">${followed.length?followed.map(homeRow).join(""):`<div class="empty">Aún no sigues ningún equipo.<br>Búscalo por su nombre o deja que te ayude.</div>`}</div>
-    ${followed.length>1?`<div class="small" style="margin:-2px 2px 10px">Arrastra ⋮⋮ para ordenarlos · 🔔 para silenciar un equipo sin dejar de seguirlo.</div>`:followed.length===1?`<div class="small" style="margin:-2px 2px 10px">🔔 silencia sus avisos sin dejar de seguirlo; dentro de la ficha puedes personalizarlos.</div>`:""}
+    ${followed.length>1?`<div class="orden"><span class="small">Ordenar:</span>${ORDENES.map(([k,l])=>`<button class="chip${state.orden===k?" on":""}" data-orden="${k}">${l}</button>`).join("")}</div>`:""}
+    <div id="mine" class="${state.orden==="manual"?"":"no-drag"}">${listaMine(followed)}</div>
+    ${followed.length>1?`<div class="small" style="margin:-2px 2px 10px">${state.orden==="manual"?"Arrastra ⋮⋮ para ordenarlos · ":"Para moverlos a mano, elige «Mi orden» · "}🔔 para silenciar un equipo sin dejar de seguirlo.</div>`:followed.length===1?`<div class="small" style="margin:-2px 2px 10px">🔔 silencia sus avisos sin dejar de seguirlo; dentro de la ficha puedes personalizarlos.</div>`:""}
     <button class="addbtn" id="addTeam">+ Seguir un equipo</button>
-    <div class="demo-note">Datos de la <b>Real Federación de Fútbol de Madrid</b> (rffm.es): ${TEAMS.length} equipos de fútbol 11 Infantil, Cadete y Juvenil.${act?` Actualizado ${fdate(act)} a las ${String(act.getHours()).padStart(2,"0")}:${String(act.getMinutes()).padStart(2,"0")}.`:""} App no oficial.</div>
+    <div class="demo-note">Datos de la <b>Real Federación de Fútbol de Madrid</b> (rffm.es): ${TEAMS.length} equipos de fútbol base Infantil, Cadete y Juvenil.${act?` Actualizado ${fdate(act)} a las ${String(act.getHours()).padStart(2,"0")}:${String(act.getMinutes()).padStart(2,"0")}.`:""} App no oficial.</div>
   </main>`;
   $("#gear").onclick=openSettings;
   $("#openMain").onclick=()=>{state.view="main";render()};
@@ -1050,7 +1095,8 @@ function renderHome(app){
     const b=e.target.closest("[data-team]");if(b){state.view="team";state.team=b.dataset.team;render()}};
   activarArrastre($("#mine"));
   // carga los grupos de los equipos seguidos y repinta
-  Promise.all(followed.map(t=>loadGroup(t.grupos[0]).catch(()=>null))).then(()=>{if(state.view==="home"&&$("#mine")&&followed.length)$("#mine").innerHTML=followed.map(homeRow).join("")});
+  Promise.all(followed.map(t=>loadGroup(t.grupos[0]).catch(()=>null))).then(()=>{if(state.view==="home"&&$("#mine")&&followed.length)$("#mine").innerHTML=listaMine(followed)});
+  app.querySelectorAll("[data-orden]").forEach(b=>b.onclick=()=>{state.orden=b.dataset.orden;store.set("orden",state.orden);render()});
 }
 async function renderTeam(app,t){
   if(!t){state.view="home";return render()}
