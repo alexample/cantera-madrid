@@ -1,11 +1,11 @@
 {
- "act": "2026-11-09T16:46:39+00:00",
+ "act": "2026-11-10T12:48:50+00:00",
  "temporada": "2026-2027",
  "grupos": 247,
  "grupos_previstos": 247,
  "equipos": 3562,
  "campos": 422,
- "segundos": 521,
+ "segundos": 330,
  "peticiones": 777,
  "errores": []
 }
