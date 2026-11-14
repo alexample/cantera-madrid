@@ -12,11 +12,13 @@
 -3.762738
 ],
 "dist_rffm_direccion_km": 0.09,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.18,
 "navegacion": [
-40.340418,
--3.762508
+40.340309,
+-3.760398
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "3095922": {
@@ -28,11 +30,13 @@
 ],
 "dir_consultada": "AVDA. DE LA AURORA BOREAL 4|Madrid",
 "sin_geocodificar": true,
+"instalacion": "Club Deportivo Vicálvaro",
+"dist_instalacion_km": 0.0,
 "navegacion": [
-40.400241,
--3.610898
+40.400265,
+-3.610878
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1610": {
@@ -48,11 +52,13 @@
 -3.451333
 ],
 "dist_rffm_direccion_km": 0.17,
+"instalacion": "Ciudad Deportiva Príncipe Felipe",
+"dist_instalacion_km": 0.1,
 "navegacion": [
-40.307198,
--3.449361
+40.306738,
+-3.450432
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "12296292": {
@@ -68,13 +74,18 @@
 -3.742898
 ],
 "dist_rffm_direccion_km": 5.68,
-"aviso": "Coordenadas de la RFFM a 5.7 km de la dirección (sin confirmar)",
+"aviso": "Coordenadas de la RFFM a 5.7 km de la dirección: corregido",
+"entrada": {
+"barrier": "gate"
+},
+"instalacion": "Centro Deportivo Municipal Francisco Fernández Ochoa",
+"dist_instalacion_km": 0.26,
 "navegacion": [
-40.313722,
--3.741321
+40.365836,
+-3.740896
 ],
-"tipo": "rffm",
-"corregido": false
+"tipo": "entrada",
+"corregido": true
 },
 "205": {
 "nombre": "EL PARDO - MINGORRUBIO (HA)",
@@ -110,11 +121,25 @@
 -3.862788
 ],
 "dist_rffm_direccion_km": 0.14,
+"entrada": {
+"access": "customers",
+"addr:city": "Majadahonda",
+"addr:postcode": "28221",
+"addr:street": "Carretera de Pozuelo a Majadahonda",
+"door": "sliding",
+"entrance": "main",
+"level": "0",
+"mapillary": "500574112599252",
+"nohousenumber": "yes",
+"wheelchair": "yes"
+},
+"instalacion": "Atlético de Madrid Centro Deportivo Majadahonda",
+"dist_instalacion_km": 0.37,
 "navegacion": [
-40.461527,
--3.861633
+40.457793,
+-3.861405
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "6780438": {
@@ -130,11 +155,13 @@
 -3.891201
 ],
 "dist_rffm_direccion_km": 0.0,
+"instalacion": "Centro de patinaje",
+"dist_instalacion_km": 0.19,
 "navegacion": [
-40.489437,
--3.891217
+40.490497,
+-3.892966
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "410": {
@@ -150,11 +177,13 @@
 -3.746696
 ],
 "dist_rffm_direccion_km": 0.09,
+"instalacion": "Centro Deportivo Municipal Blanca Fernández Ochoa (La Mina)",
+"dist_instalacion_km": 0.09,
 "navegacion": [
-40.382241,
--3.746321
+40.381485,
+-3.746628
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "26415124": {
@@ -166,11 +195,17 @@
 ],
 "dir_consultada": "CARRETERA LEGANES-CARABANCHEL (M-421), km 1.100|Leganés",
 "sin_geocodificar": true,
+"entrada": {
+"access": "yes",
+"entrance": "main"
+},
+"instalacion": "Instalación Deportiva Butarque",
+"dist_instalacion_km": 0.24,
 "navegacion": [
-40.350103,
--3.755786
+40.350181,
+-3.755741
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "212": {
@@ -186,11 +221,18 @@
 -3.779051
 ],
 "dist_rffm_direccion_km": 0.06,
+"entrada": {
+"barrier": "gate",
+"bicycle": "no",
+"foot": "no"
+},
+"instalacion": "Campo de Fútbol Nuestra Señora del Buen Camino",
+"dist_instalacion_km": 0.07,
 "navegacion": [
-40.452637,
--3.779723
+40.453063,
+-3.781487
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "8791605": {
@@ -206,11 +248,13 @@
 -3.762738
 ],
 "dist_rffm_direccion_km": 0.08,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.338863,
--3.76279
+40.338429,
+-3.762389
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "553663": {
@@ -226,13 +270,15 @@
 -3.755152
 ],
 "dist_rffm_direccion_km": 19.14,
-"aviso": "Coordenadas de la RFFM a 19.1 km de la dirección (sin confirmar)",
+"aviso": "Coordenadas de la RFFM a 19.1 km de la dirección: corregido",
+"instalacion": "pitch",
+"dist_instalacion_km": 0.35,
 "navegacion": [
-40.455293,
--3.59453
+40.332164,
+-3.75195
 ],
-"tipo": "rffm",
-"corregido": false
+"tipo": "instalacion",
+"corregido": true
 },
 "1430": {
 "nombre": "GETAFE - JUAN DE LA CIERVA 2 (HA)",
@@ -247,11 +293,13 @@
 -3.711639
 ],
 "dist_rffm_direccion_km": 0.56,
+"instalacion": "Gimnasio",
+"dist_instalacion_km": 0.19,
 "navegacion": [
-40.317834,
--3.715231
+40.316645,
+-3.716892
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "16700078": {
@@ -267,11 +315,13 @@
 -3.697334
 ],
 "dist_rffm_direccion_km": 0.04,
+"instalacion": "Centro Deportivo Municipal Orcasur",
+"dist_instalacion_km": 0.03,
 "navegacion": [
-40.368105,
--3.697747
+40.368016,
+-3.697407
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1752": {
@@ -287,11 +337,13 @@
 -3.576454
 ],
 "dist_rffm_direccion_km": 0.15,
+"instalacion": "Campos de Fútbol Barrio del Puerto",
+"dist_instalacion_km": 0.17,
 "navegacion": [
-40.41733,
--3.57545
+40.416007,
+-3.576455
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1728": {
@@ -303,11 +355,13 @@
 ],
 "dir_consultada": "CALLE DE JOAN MIRÓ 22|Mejorada Del Campo",
 "sin_geocodificar": true,
+"instalacion": "Polideportivo Municipal La Dehesa",
+"dist_instalacion_km": 0.15,
 "navegacion": [
-40.393495,
--3.480555
+40.392355,
+-3.479614
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "7685149": {
@@ -323,11 +377,16 @@
 -3.712729
 ],
 "dist_rffm_direccion_km": 0.11,
+"entrada": {
+"barrier": "gate"
+},
+"instalacion": "Instalación Deportiva Vereda de Ganapanes",
+"dist_instalacion_km": 0.02,
 "navegacion": [
-40.470647,
--3.713545
+40.471366,
+-3.712965
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "803": {
@@ -343,11 +402,13 @@
 -3.655415
 ],
 "dist_rffm_direccion_km": 0.35,
+"instalacion": "Campo de Fútbol \"García de la Mata\"",
+"dist_instalacion_km": 0.04,
 "navegacion": [
-40.447059,
--3.658927
+40.447207,
+-3.659328
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1740": {
@@ -359,11 +420,13 @@
 ],
 "dir_consultada": "CTRA. VALDEÁGUILA S/N|Villalbilla",
 "sin_geocodificar": true,
+"instalacion": "Polideportivo Municipal",
+"dist_instalacion_km": 0.12,
 "navegacion": [
-40.437684,
--3.297102
+40.436764,
+-3.297933
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "15708076": {
@@ -379,13 +442,15 @@
 -3.821777
 ],
 "dist_rffm_direccion_km": 4.11,
-"aviso": "Coordenadas de la RFFM a 4.1 km de la dirección (sin confirmar)",
+"aviso": "Coordenadas de la RFFM a 4.1 km de la dirección: corregido",
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.27,
 "navegacion": [
-40.357003,
--3.855351
+40.328519,
+-3.823765
 ],
-"tipo": "rffm",
-"corregido": false
+"tipo": "instalacion",
+"corregido": true
 },
 "13397939": {
 "nombre": "FUENLABRADA-LA ALDEHUELA 3( HA)",
@@ -400,13 +465,15 @@
 -3.789733
 ],
 "dist_rffm_direccion_km": 5.02,
-"aviso": "Coordenadas de la RFFM a 5.0 km de la dirección (sin confirmar)",
+"aviso": "Coordenadas de la RFFM a 5.0 km de la dirección: corregido",
+"instalacion": "Parque Residencial Fuenlabrada II",
+"dist_instalacion_km": 0.35,
 "navegacion": [
-40.305344,
--3.839784
+40.284045,
+-3.787994
 ],
-"tipo": "rffm",
-"corregido": false
+"tipo": "instalacion",
+"corregido": true
 },
 "1609": {
 "nombre": "VALDILECHA (HA)",
@@ -437,11 +504,13 @@
 -3.985317
 ],
 "dist_rffm_direccion_km": 0.1,
+"instalacion": "Polideportivo Municipal Solosprados",
+"dist_instalacion_km": 0.25,
 "navegacion": [
-40.711312,
--3.984208
+40.712978,
+-3.982152
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1319": {
@@ -473,11 +542,13 @@
 -3.613007
 ],
 "dist_rffm_direccion_km": 0.14,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.42367,
--3.611926
+40.423185,
+-3.6123
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1307": {
@@ -493,11 +564,16 @@
 -4.097313
 ],
 "dist_rffm_direccion_km": 0.05,
+"entrada": {
+"barrier": "gate"
+},
+"instalacion": "Polideportivo Municipal de Villanueva de Perales",
+"dist_instalacion_km": 0.02,
 "navegacion": [
-40.347983,
--4.097392
+40.347667,
+-4.096834
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "318": {
@@ -509,11 +585,13 @@
 ],
 "dir_consultada": "CALLE DE ARROYO DE VALDECELADA 3|Madrid",
 "sin_geocodificar": true,
+"instalacion": "Centro Deportivo Municipal Antiguo Canódromo",
+"dist_instalacion_km": 0.27,
 "navegacion": [
-40.398577,
--3.733222
+40.396954,
+-3.735667
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1426": {
@@ -529,11 +607,16 @@
 -3.798088
 ],
 "dist_rffm_direccion_km": 0.04,
+"entrada": {
+"barrier": "gate"
+},
+"instalacion": "Campo de Fútbol El Arroyo",
+"dist_instalacion_km": 0.17,
 "navegacion": [
-40.276552,
--3.797696
+40.274755,
+-3.797751
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "2301": {
@@ -550,11 +633,13 @@
 ],
 "dist_rffm_direccion_km": 1.69,
 "aviso": "Coordenadas de la RFFM a 1.7 km de la dirección (sin confirmar)",
+"instalacion": "Campo de Fútbol Municipal Los Fresnos",
+"dist_instalacion_km": 0.29,
 "navegacion": [
-40.325875,
--4.203004
+40.327683,
+-4.205496
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1201": {
@@ -566,11 +651,13 @@
 ],
 "dir_consultada": "CALLE DEL CAMPO DE FÚTBOL S/N|Alpedrete",
 "sin_geocodificar": true,
+"instalacion": "Polideportivo Alpedrete",
+"dist_instalacion_km": 0.04,
 "navegacion": [
-40.654445,
--4.019161
+40.654201,
+-4.018759
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1202": {
@@ -586,11 +673,16 @@
 -4.011744
 ],
 "dist_rffm_direccion_km": 0.05,
+"entrada": {
+"barrier": "gate"
+},
+"instalacion": "Polideportivo Príncipe de Asturias",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.552629,
--4.012098
+40.552281,
+-4.013357
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1606": {
@@ -606,11 +698,13 @@
 -3.359223
 ],
 "dist_rffm_direccion_km": 0.07,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.03,
 "navegacion": [
-40.397406,
--3.359422
+40.397657,
+-3.359185
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1403": {
@@ -622,11 +716,16 @@
 ],
 "dir_consultada": "CTRA. DE GETAFE A LEGANÉS S/N|Getafe",
 "sin_geocodificar": true,
+"entrada": {
+"barrier": "gate"
+},
+"instalacion": "Polideportivo Giner de los Ríos",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.313871,
--3.739966
+40.313074,
+-3.739954
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1138": {
@@ -658,11 +757,19 @@
 -3.633565
 ],
 "dist_rffm_direccion_km": 0.07,
+"entrada": {
+"addr:housenumber": "4",
+"addr:street": "Calle del Tranvía de Arganda",
+"barrier": "gate",
+"entrance": "main"
+},
+"instalacion": "Centro Deportivo Municipal Palomeras",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.382405,
--3.634328
+40.382728,
+-3.633565
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "2610": {
@@ -678,13 +785,18 @@
 -3.542587
 ],
 "dist_rffm_direccion_km": 2.25,
-"aviso": "Coordenadas de la RFFM a 2.2 km de la dirección (sin confirmar)",
+"aviso": "Coordenadas de la RFFM a 2.2 km de la dirección: corregido",
+"entrada": {
+"entrance": "yes"
+},
+"instalacion": "pitch",
+"dist_instalacion_km": 0.2,
 "navegacion": [
-40.379486,
--3.533474
+40.357823,
+-3.54325
 ],
-"tipo": "rffm",
-"corregido": false
+"tipo": "entrada",
+"corregido": true
 },
 "1207": {
 "nombre": "POZUELO - VALLE DE LAS CAÑAS 1 (HA)",
@@ -695,11 +807,19 @@
 ],
 "dir_consultada": "AVDA. JUAN ANTONIO SAMARANCH TORELLÓ 8|Pozuelo De Alarcón",
 "sin_geocodificar": true,
+"entrada": {
+"addr:housenumber": "12",
+"addr:postcode": "28223",
+"addr:street": "Avenida Juan A Samaranch Torello",
+"entrance": "yes"
+},
+"instalacion": "Ciudad Deportiva del Valle de las Cañas",
+"dist_instalacion_km": 0.18,
 "navegacion": [
-40.420622,
--3.819818
+40.422295,
+-3.816523
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1750": {
@@ -715,11 +835,16 @@
 -3.52451
 ],
 "dist_rffm_direccion_km": 0.27,
+"entrada": {
+"entrance": "main"
+},
+"instalacion": "Pabellón polideportivo municipal",
+"dist_instalacion_km": 0.36,
 "navegacion": [
-40.43347,
--3.526094
+40.43114,
+-3.524064
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "304": {
@@ -735,11 +860,13 @@
 -3.779309
 ],
 "dist_rffm_direccion_km": 0.24,
+"instalacion": "Club Deporitivo Campamento",
+"dist_instalacion_km": 0.31,
 "navegacion": [
-40.39307,
--3.77885
+40.392863,
+-3.782513
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1715": {
@@ -771,11 +898,13 @@
 -3.627923
 ],
 "dist_rffm_direccion_km": 0.21,
+"instalacion": "Polideportivo Luis Aragonés",
+"dist_instalacion_km": 0.28,
 "navegacion": [
-40.463899,
--3.63009
+40.465484,
+-3.627538
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "14242537": {
@@ -787,11 +916,19 @@
 ],
 "dir_consultada": "AVDA.JUAN ANTONIO SAMARANACH TORELLÓ 8|Pozuelo De Alarcón",
 "sin_geocodificar": true,
+"entrada": {
+"addr:housenumber": "12",
+"addr:postcode": "28223",
+"addr:street": "Avenida Juan A Samaranch Torello",
+"entrance": "yes"
+},
+"instalacion": "Ciudad Deportiva del Valle de las Cañas",
+"dist_instalacion_km": 0.18,
 "navegacion": [
-40.420622,
--3.819818
+40.422295,
+-3.816523
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "466076": {
@@ -807,13 +944,15 @@
 -3.714097
 ],
 "dist_rffm_direccion_km": 3.65,
-"aviso": "Coordenadas de la RFFM a 3.7 km de la dirección (sin confirmar)",
+"aviso": "Coordenadas de la RFFM a 3.7 km de la dirección: corregido",
+"instalacion": "Centro Deportivo Municipal Orcasitas",
+"dist_instalacion_km": 0.24,
 "navegacion": [
-40.378863,
--3.756682
+40.375723,
+-3.715168
 ],
-"tipo": "rffm",
-"corregido": false
+"tipo": "instalacion",
+"corregido": true
 },
 "1116": {
 "nombre": "SOTO DEL REAL - MPAL. AMANCIO AMARO (HA)",
@@ -864,11 +1003,13 @@
 -3.245313
 ],
 "dist_rffm_direccion_km": 0.06,
+"instalacion": "Piscina Municipal",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.364471,
--3.246021
+40.364837,
+-3.246352
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1122": {
@@ -904,11 +1045,13 @@
 -3.645244
 ],
 "dist_rffm_direccion_km": 0.19,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.459514,
--3.643137
+40.459849,
+-3.642692
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "202": {
@@ -924,11 +1067,13 @@
 -3.725382
 ],
 "dist_rffm_direccion_km": 0.2,
+"instalacion": "Instalación Deportiva Mirador de la Reina",
+"dist_instalacion_km": 0.04,
 "navegacion": [
-40.487498,
--3.72695
+40.487381,
+-3.726539
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1324": {
@@ -944,11 +1089,13 @@
 -3.922567
 ],
 "dist_rffm_direccion_km": 0.87,
+"instalacion": "Ciudad Deportiva La Dehesa",
+"dist_instalacion_km": 0.09,
 "navegacion": [
-40.27315,
--3.913314
+40.272794,
+-3.912333
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "16747271": {
@@ -964,11 +1111,16 @@
 -3.841158
 ],
 "dist_rffm_direccion_km": 0.42,
+"entrada": {
+"entrance": "yes"
+},
+"instalacion": "Ciudad Deportiva Santo Domingo",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.337357,
--3.844003
+40.338495,
+-3.842689
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "15185976": {
@@ -1004,11 +1156,13 @@
 -3.618696
 ],
 "dist_rffm_direccion_km": 0.06,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.419733,
--3.619244
+40.419448,
+-3.61859
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1130": {
@@ -1040,11 +1194,13 @@
 ],
 "dir_consultada": "CALLE RONDA FISCAL 2|Alcalá De Henares",
 "sin_geocodificar": true,
+"instalacion": "Campo de fútbol Jorge Ángel González Vivas",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.47498,
--3.36462
+40.475619,
+-3.364306
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "303": {
@@ -1056,11 +1212,13 @@
 ],
 "dir_consultada": "CALLE CONCEJAL FRANCISCO JOSÉ JIMÉNEZ MARTÍN 11|Madrid",
 "sin_geocodificar": true,
+"instalacion": "Arjona",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.399692,
--3.748521
+40.399489,
+-3.749015
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "807": {
@@ -1076,11 +1234,13 @@
 -3.65915
 ],
 "dist_rffm_direccion_km": 0.04,
+"instalacion": "Spartac de Manoteras",
+"dist_instalacion_km": 0.1,
 "navegacion": [
-40.48125,
--3.659015
+40.480863,
+-3.66008
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2307": {
@@ -1092,11 +1252,13 @@
 ],
 "dir_consultada": "PLAZA DE LOS DEPORTES S/N|San Martín De Valdeiglesias",
 "sin_geocodificar": true,
+"instalacion": "Patronato Municipal de Deporte de San Martín de Valdeiglesias",
+"dist_instalacion_km": 0.19,
 "navegacion": [
-40.366003,
--4.399763
+40.366175,
+-4.401935
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2109": {
@@ -1108,11 +1270,13 @@
 ],
 "dir_consultada": "PLAZA CANTO BLANCO S/N|Rascafría",
 "sin_geocodificar": true,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.13,
 "navegacion": [
-40.906853,
--3.884574
+40.908025,
+-3.884935
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1124": {
@@ -1169,11 +1333,13 @@
 -3.521654
 ],
 "dist_rffm_direccion_km": 0.26,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.1,
 "navegacion": [
-40.501614,
--3.522101
+40.501391,
+-3.523304
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1210": {
@@ -1185,11 +1351,13 @@
 ],
 "dir_consultada": "CALLE DE LA GRANJA 18|Collado Villalba",
 "sin_geocodificar": true,
+"instalacion": "Polideportivo Dehesa Boyal",
+"dist_instalacion_km": 0.04,
 "navegacion": [
-40.639786,
--4.003571
+40.639981,
+-4.003132
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "12280603": {
@@ -1205,11 +1373,16 @@
 -3.810868
 ],
 "dist_rffm_direccion_km": 0.18,
+"entrada": {
+"entrance": "yes"
+},
+"instalacion": "Zona Deportiva El Naranjo",
+"dist_instalacion_km": 0.27,
 "navegacion": [
-40.301091,
--3.808866
+40.302235,
+-3.810102
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "309": {
@@ -1225,13 +1398,15 @@
 -3.699353
 ],
 "dist_rffm_direccion_km": 16.24,
-"aviso": "Coordenadas de la RFFM a 16.2 km de la dirección (sin confirmar)",
+"aviso": "Coordenadas de la RFFM a 16.2 km de la dirección: corregido",
+"instalacion": "pitch",
+"dist_instalacion_km": 0.33,
 "navegacion": [
-40.404837,
--3.731351
+40.258267,
+-3.697315
 ],
-"tipo": "rffm",
-"corregido": false
+"tipo": "instalacion",
+"corregido": true
 },
 "9562383": {
 "nombre": "S.S. REYES - R.A.C.E. (HA)",
@@ -1258,11 +1433,13 @@
 ],
 "dir_consultada": "AVENIDA DE LOS POBLADOS 106, ESQUINA CON VIA LUSITANA|Madrid",
 "sin_geocodificar": true,
+"instalacion": "Instalación Deportiva Municipal Básica Los Poblados",
+"dist_instalacion_km": 0.1,
 "navegacion": [
-40.373573,
--3.735171
+40.372872,
+-3.735942
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "681029": {
@@ -1278,11 +1455,13 @@
 -3.610768
 ],
 "dist_rffm_direccion_km": 0.15,
+"instalacion": "Ciudad Deportiva del Rayo Vallecano",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.376963,
--3.612401
+40.376529,
+-3.612689
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "334946": {
@@ -1298,11 +1477,13 @@
 -3.430172
 ],
 "dist_rffm_direccion_km": 0.12,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.292478,
--3.429
+40.292314,
+-3.427321
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2588592": {
@@ -1319,11 +1500,13 @@
 ],
 "dist_rffm_direccion_km": 4.92,
 "aviso": "Coordenadas de la RFFM a 4.9 km de la dirección (sin confirmar)",
+"instalacion": "stadium",
+"dist_instalacion_km": 0.18,
 "navegacion": [
-40.455472,
--3.982931
+40.454858,
+-3.984954
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "814": {
@@ -1335,11 +1518,13 @@
 ],
 "dir_consultada": "CALLE DEL VELACHO BAJO S/N|Madrid",
 "sin_geocodificar": true,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.07,
 "navegacion": [
-40.472381,
--3.657843
+40.47246,
+-3.658655
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1310": {
@@ -1351,11 +1536,13 @@
 ],
 "dir_consultada": "AVDA. POLVORANCA 60|Alcorcón",
 "sin_geocodificar": true,
+"instalacion": "Polideportivo Campos de la Huerta",
+"dist_instalacion_km": 0.18,
 "navegacion": [
-40.34223,
--3.820165
+40.342221,
+-3.818094
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1517": {
@@ -1371,11 +1558,13 @@
 -3.692934
 ],
 "dist_rffm_direccion_km": 0.03,
+"instalacion": "Polideportivo Municipal Patricia Chamorro",
+"dist_instalacion_km": 0.2,
 "navegacion": [
-40.242415,
--3.693313
+40.242825,
+-3.691038
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1506": {
@@ -1391,11 +1580,13 @@
 -3.662385
 ],
 "dist_rffm_direccion_km": 0.12,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.22,
 "navegacion": [
-40.191777,
--3.663828
+40.19236,
+-3.661336
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "12174145": {
@@ -1411,11 +1602,16 @@
 -3.82927
 ],
 "dist_rffm_direccion_km": 0.15,
+"entrada": {
+"entrance": "yes"
+},
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.299057,
--3.830172
+40.298892,
+-3.831512
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "668298": {
@@ -1431,11 +1627,13 @@
 -3.619409
 ],
 "dist_rffm_direccion_km": 0.05,
+"instalacion": "Ciudad Deportiva Las Olivas",
+"dist_instalacion_km": 0.04,
 "navegacion": [
-40.02577,
--3.619801
+40.026079,
+-3.620009
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "308321": {
@@ -1451,11 +1649,13 @@
 -3.888515
 ],
 "dist_rffm_direccion_km": 0.14,
+"instalacion": "Polideportivo Dehesa de Navalcarbón",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.506998,
--3.889595
+40.50702,
+-3.888325
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "404": {
@@ -1471,11 +1671,13 @@
 -3.721521
 ],
 "dist_rffm_direccion_km": 0.29,
+"instalacion": "Complejo de campos de fútbol Ernesto Cotorruelo",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.381582,
--3.723952
+40.380586,
+-3.723875
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2613": {
@@ -1491,11 +1693,13 @@
 -3.514645
 ],
 "dist_rffm_direccion_km": 0.06,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.22,
 "navegacion": [
-40.329768,
--3.513959
+40.331779,
+-3.513795
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1439": {
@@ -1511,11 +1715,13 @@
 -3.819807
 ],
 "dist_rffm_direccion_km": 0.14,
+"instalacion": "Pabellón Deportivo Campohermoso",
+"dist_instalacion_km": 0.04,
 "navegacion": [
-40.256842,
--3.819047
+40.256565,
+-3.819374
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "601": {
@@ -1532,11 +1738,13 @@
 ],
 "dist_rffm_direccion_km": 20.33,
 "aviso": "Coordenadas de la RFFM a 20.3 km de la dirección (sin confirmar)",
+"instalacion": "stadium",
+"dist_instalacion_km": 0.0,
 "navegacion": [
-40.377694,
--3.673897
+40.377681,
+-3.673876
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "12287188": {
@@ -1552,11 +1760,13 @@
 -3.883368
 ],
 "dist_rffm_direccion_km": 0.02,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.3,
 "navegacion": [
-40.325675,
--3.88309
+40.32644,
+-3.879652
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "430": {
@@ -1568,11 +1778,16 @@
 ],
 "dir_consultada": "CALLE DE HERMENEGILDO BIELSA S/N|Madrid",
 "sin_geocodificar": true,
+"entrada": {
+"barrier": "gate"
+},
+"instalacion": "Instalación Deportiva Municipal Básica La Chimenea",
+"dist_instalacion_km": 0.24,
 "navegacion": [
-40.389264,
--3.70171
+40.390988,
+-3.704127
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "2502": {
@@ -1588,11 +1803,13 @@
 -3.392537
 ],
 "dist_rffm_direccion_km": 0.1,
+"instalacion": "Polideportivo Municipal. Complejo Deportivo San Juan",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.115093,
--3.393485
+40.115211,
+-3.392968
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "19465125": {
@@ -1620,11 +1837,13 @@
 ],
 "dir_consultada": "CALLE CUESTA DE TEATINOS S/N|Alcalá De Henares",
 "sin_geocodificar": true,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.15,
 "navegacion": [
-40.494527,
--3.360296
+40.493682,
+-3.358942
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1721": {
@@ -1636,11 +1855,13 @@
 ],
 "dir_consultada": "CALLE DE COGOLLUDOS 2|Alcalá De Henares",
 "sin_geocodificar": true,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.04,
 "navegacion": [
-40.499567,
--3.333914
+40.499255,
+-3.334106
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "108": {
@@ -1652,11 +1873,16 @@
 ],
 "dir_consultada": "CALLE MIRAMELINDOS 5|Madrid",
 "sin_geocodificar": true,
+"entrada": {
+"barrier": "gate"
+},
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.469134,
--3.709419
+40.469568,
+-3.709212
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1451": {
@@ -1672,11 +1898,13 @@
 -3.652217
 ],
 "dist_rffm_direccion_km": 0.19,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.01,
 "navegacion": [
-40.325508,
--3.653967
+40.325581,
+-3.654039
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "16469021": {
@@ -1708,11 +1936,13 @@
 -4.029607
 ],
 "dist_rffm_direccion_km": 0.36,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.18,
 "navegacion": [
-40.632831,
--4.025933
+40.632789,
+-4.028029
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "903": {
@@ -1728,11 +1958,13 @@
 -3.718024
 ],
 "dist_rffm_direccion_km": 0.08,
+"instalacion": "Centro Deportivo Municipal Marqués de Samaranch",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.407624,
--3.717364
+40.407095,
+-3.717921
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "615": {
@@ -1749,11 +1981,13 @@
 ],
 "dist_rffm_direccion_km": 49.3,
 "aviso": "Coordenadas de la RFFM a 49.3 km de la dirección (sin confirmar)",
+"instalacion": "pitch",
+"dist_instalacion_km": 0.1,
 "navegacion": [
-40.411754,
--3.674149
+40.412627,
+-3.67413
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1435": {
@@ -1769,11 +2003,13 @@
 -3.764065
 ],
 "dist_rffm_direccion_km": 0.7,
+"instalacion": "Complejo Polideportivo Las Américas",
+"dist_instalacion_km": 0.1,
 "navegacion": [
-40.233525,
--3.760004
+40.234005,
+-3.760939
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "427": {
@@ -1789,11 +2025,13 @@
 -3.728306
 ],
 "dist_rffm_direccion_km": 0.05,
+"instalacion": "Instalación Deportiva Municipal Básica Via Lusitana",
+"dist_instalacion_km": 0.03,
 "navegacion": [
-40.377057,
--3.728841
+40.376944,
+-3.728583
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "816": {
@@ -1809,11 +2047,13 @@
 -3.648376
 ],
 "dist_rffm_direccion_km": 0.1,
+"instalacion": "Instalación Deportiva Municipal Canillas",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.468831,
--3.648731
+40.469393,
+-3.648612
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "14988038": {
@@ -1829,11 +2069,13 @@
 -3.895631
 ],
 "dist_rffm_direccion_km": 0.07,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.07,
 "navegacion": [
-40.410906,
--3.896471
+40.411422,
+-3.896837
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "604": {
@@ -1849,11 +2091,13 @@
 -3.617781
 ],
 "dist_rffm_direccion_km": 0.03,
+"instalacion": "Instalación deportiva Municipal Camino de la Suerte",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.37582,
--3.618059
+40.376176,
+-3.616892
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "12286992": {
@@ -1865,11 +2109,16 @@
 ],
 "dir_consultada": "CTRA. DE BOADILLA A POZUELO KM. 1,400|Boadilla Del Monte",
 "sin_geocodificar": true,
+"entrada": {
+"barrier": "gate"
+},
+"instalacion": "Complejo Deportivo Municipal Ángel Nieto",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.416903,
--3.861397
+40.417231,
+-3.860906
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "302": {
@@ -1885,11 +2134,17 @@
 -3.76759
 ],
 "dist_rffm_direccion_km": 0.55,
+"entrada": {
+"access": "permissive",
+"barrier": "gate"
+},
+"instalacion": "Polideportivo de Aluche",
+"dist_instalacion_km": 0.2,
 "navegacion": [
-40.38272,
--3.77364
+40.383054,
+-3.771692
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1725": {
@@ -1917,11 +2172,16 @@
 ],
 "dir_consultada": "CALLE MARIA MONTESORRI S/N|Getafe",
 "sin_geocodificar": true,
+"entrada": {
+"entrance": "yes"
+},
+"instalacion": "Coliseum",
+"dist_instalacion_km": 0.12,
 "navegacion": [
-40.324852,
--3.714132
+40.325619,
+-3.716013
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "2302719": {
@@ -1937,11 +2197,13 @@
 -3.610768
 ],
 "dist_rffm_direccion_km": 0.15,
+"instalacion": "Ciudad Deportiva del Rayo Vallecano",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.376963,
--3.612401
+40.376529,
+-3.612689
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1302": {
@@ -1953,11 +2215,13 @@
 ],
 "dir_consultada": "AVDA. POLVORANCA 60|Alcorcón",
 "sin_geocodificar": true,
+"instalacion": "Polideportivo Campos de la Huerta",
+"dist_instalacion_km": 0.18,
 "navegacion": [
-40.34223,
--3.820165
+40.342221,
+-3.818094
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "609": {
@@ -1973,11 +2237,16 @@
 -3.621945
 ],
 "dist_rffm_direccion_km": 1.13,
+"entrada": {
+"entrance": "yes"
+},
+"instalacion": "Centro Deportivo Municipal de Moratalaz",
+"dist_instalacion_km": 0.12,
 "navegacion": [
-40.398439,
--3.632365
+40.398867,
+-3.632442
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "122": {
@@ -1993,11 +2262,13 @@
 -3.722653
 ],
 "dist_rffm_direccion_km": 0.33,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.481824,
--3.726509
+40.483014,
+-3.726912
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1121": {
@@ -2033,11 +2304,13 @@
 -4.052339
 ],
 "dist_rffm_direccion_km": 0.05,
+"instalacion": "Campo del Pinar",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.427182,
--4.051792
+40.427696,
+-4.051203
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2607": {
@@ -2049,11 +2322,13 @@
 ],
 "dir_consultada": "CALLE PABLO LIMA PRO S/N|Rivas-Vaciamadrid",
 "sin_geocodificar": true,
+"instalacion": "Escuela Fútbol Rivas-Vaciamadrid",
+"dist_instalacion_km": 0.13,
 "navegacion": [
-40.360093,
--3.549253
+40.359188,
+-3.550253
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1432": {
@@ -2065,11 +2340,13 @@
 ],
 "dir_consultada": "AVDA. DE ECUADOR 11|Getafe",
 "sin_geocodificar": true,
+"instalacion": "Polideportivo El Bercial",
+"dist_instalacion_km": 0.12,
 "navegacion": [
-40.323747,
--3.739568
+40.324834,
+-3.739604
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1440": {
@@ -2085,11 +2362,13 @@
 -3.820839
 ],
 "dist_rffm_direccion_km": 0.45,
+"instalacion": "Complejo Deportivo Vicente Temprado",
+"dist_instalacion_km": 0.25,
 "navegacion": [
-40.245735,
--3.816162
+40.246145,
+-3.819023
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1204": {
@@ -2105,11 +2384,19 @@
 -3.95842
 ],
 "dist_rffm_direccion_km": 0.09,
+"entrada": {
+"addr:housenumber": "50",
+"addr:postcode": "28411",
+"addr:street": "Calle Cañada",
+"entrance": "yes"
+},
+"instalacion": "Ciudad Deportiva Navafria",
+"dist_instalacion_km": 0.07,
 "navegacion": [
-40.679787,
--3.957304
+40.679674,
+-3.95842
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1102": {
@@ -2181,11 +2468,13 @@
 -3.54736
 ],
 "dist_rffm_direccion_km": 0.02,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.422256,
--3.547582
+40.421293,
+-3.547765
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1126": {
@@ -2261,11 +2550,13 @@
 -3.750525
 ],
 "dist_rffm_direccion_km": 0.01,
+"instalacion": "C.D. Los Yébenes",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.393813,
--3.750517
+40.394144,
+-3.749315
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "13376989": {
@@ -2317,11 +2608,13 @@
 -3.74867
 ],
 "dist_rffm_direccion_km": 0.33,
+"instalacion": "Campo de Fútbol Gabriel Fernández",
+"dist_instalacion_km": 0.0,
 "navegacion": [
-40.396613,
--3.752245
+40.396627,
+-3.752236
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1412": {
@@ -2337,11 +2630,13 @@
 -3.744064
 ],
 "dist_rffm_direccion_km": 0.12,
+"instalacion": "Ciudad Deportiva Europa",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.331739,
--3.745423
+40.331528,
+-3.744159
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "608": {
@@ -2353,11 +2648,13 @@
 ],
 "dir_consultada": "CALLE DEL CAÑÓN DE RÍO LOBOS 6|Madrid",
 "sin_geocodificar": true,
+"instalacion": "Instalación Deportiva Municipal Lilí Álvarez",
+"dist_instalacion_km": 0.03,
 "navegacion": [
-40.406002,
--3.63016
+40.405951,
+-3.62983
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "305": {
@@ -2373,13 +2670,15 @@
 -3.58473
 ],
 "dist_rffm_direccion_km": 42.68,
-"aviso": "Coordenadas de la RFFM a 42.7 km de la dirección (sin confirmar)",
+"aviso": "Coordenadas de la RFFM a 42.7 km de la dirección: corregido",
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.09,
 "navegacion": [
-40.396904,
--3.74369
+40.032659,
+-3.585772
 ],
-"tipo": "rffm",
-"corregido": false
+"tipo": "instalacion",
+"corregido": true
 },
 "504": {
 "nombre": "CDM. ORCASITAS 1 (HA)",
@@ -2394,11 +2693,13 @@
 -3.713598
 ],
 "dist_rffm_direccion_km": 0.1,
+"instalacion": "Centro Deportivo Municipal Orcasitas",
+"dist_instalacion_km": 0.22,
 "navegacion": [
-40.375626,
--3.712616
+40.375723,
+-3.715168
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "12292303": {
@@ -2414,11 +2715,13 @@
 -3.610768
 ],
 "dist_rffm_direccion_km": 0.15,
+"instalacion": "Ciudad Deportiva del Rayo Vallecano",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.376963,
--3.612401
+40.376529,
+-3.612689
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "13187593": {
@@ -2434,11 +2737,13 @@
 -3.521654
 ],
 "dist_rffm_direccion_km": 0.26,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.1,
 "navegacion": [
-40.501614,
--3.522101
+40.501391,
+-3.523304
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1607": {
@@ -2454,11 +2759,13 @@
 -3.372532
 ],
 "dist_rffm_direccion_km": 0.03,
+"instalacion": "Campo de Fútbol Municipal",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.339879,
--3.372746
+40.339717,
+-3.372094
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "12178064": {
@@ -2474,11 +2781,13 @@
 -3.65341
 ],
 "dist_rffm_direccion_km": 0.63,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.490651,
--3.659851
+40.490167,
+-3.660108
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1406": {
@@ -2526,11 +2835,13 @@
 ],
 "dir_consultada": "AVDA. DE LOS ESTUDIANTES, 3|Villanueva Del Pardillo",
 "sin_geocodificar": true,
+"instalacion": "Campo de Fútbol Los Pinos",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.482844,
--3.97202
+40.48354,
+-3.973458
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "513": {
@@ -2546,11 +2857,13 @@
 -3.701862
 ],
 "dist_rffm_direccion_km": 0.07,
+"instalacion": "Instalación Deportiva Municipal Básica David González Rubio - Pradolongo",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.377067,
--3.701542
+40.377458,
+-3.701781
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "802174": {
@@ -2562,11 +2875,13 @@
 ],
 "dir_consultada": "CALLE PINAR DE SAN JOSE 72|Madrid",
 "sin_geocodificar": true,
+"instalacion": "AD Piqueñas / La Mutual",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.36088,
--3.768645
+40.361277,
+-3.768801
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "801": {
@@ -2582,11 +2897,13 @@
 -3.604114
 ],
 "dist_rffm_direccion_km": 0.47,
+"instalacion": "Instalación Deportiva Municipal El Capricho",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.454366,
--3.599631
+40.453719,
+-3.599971
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1113": {
@@ -2622,11 +2939,13 @@
 -3.8639
 ],
 "dist_rffm_direccion_km": 0.39,
+"instalacion": "Campo de Fútbol Municipal Las Hermitas",
+"dist_instalacion_km": 0.04,
 "navegacion": [
-40.728718,
--3.859705
+40.728475,
+-3.859328
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1491": {
@@ -2638,11 +2957,13 @@
 ],
 "dir_consultada": "CALLE COLOMBIA ESQ. CON AVDA. DE LA HISPANIDAD|Fuenlabrada",
 "sin_geocodificar": true,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.13,
 "navegacion": [
-40.292545,
--3.783149
+40.293165,
+-3.781914
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "128": {
@@ -2658,13 +2979,15 @@
 -3.72169
 ],
 "dist_rffm_direccion_km": 20.3,
-"aviso": "Coordenadas de la RFFM a 20.3 km de la dirección (sin confirmar)",
+"aviso": "Coordenadas de la RFFM a 20.3 km de la dirección: corregido",
+"instalacion": "Centro Deportivo Ignacio Pinedo",
+"dist_instalacion_km": 0.23,
 "navegacion": [
-40.494729,
--3.695032
+40.314885,
+-3.723357
 ],
-"tipo": "rffm",
-"corregido": false
+"tipo": "instalacion",
+"corregido": true
 },
 "8791578": {
 "nombre": "LEGANES - MERCACENTRO PVO. JULIAN MONTERO 2 (HA)",
@@ -2679,11 +3002,13 @@
 -3.755337
 ],
 "dist_rffm_direccion_km": 0.08,
+"instalacion": "Polideportivo Julián Montero",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.326183,
--3.756311
+40.325613,
+-3.756182
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "12287126": {
@@ -2699,11 +3024,13 @@
 -3.883368
 ],
 "dist_rffm_direccion_km": 0.02,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.3,
 "navegacion": [
-40.325675,
--3.88309
+40.32644,
+-3.879652
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2202": {
@@ -2719,11 +3046,13 @@
 -4.057174
 ],
 "dist_rffm_direccion_km": 1.4,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.733626,
--4.041299
+40.733169,
+-4.041741
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "16792697": {
@@ -2739,11 +3068,13 @@
 -3.985217
 ],
 "dist_rffm_direccion_km": 0.18,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.300615,
--3.983239
+40.301066,
+-3.98281
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1333": {
@@ -2759,11 +3090,13 @@
 -3.91733
 ],
 "dist_rffm_direccion_km": 0.0,
+"instalacion": "Campos de fútbol de Villaviosa de Odón",
+"dist_instalacion_km": 0.2,
 "navegacion": [
-40.362519,
--3.917312
+40.360798,
+-3.916748
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2408": {
@@ -2779,11 +3112,16 @@
 -4.12785
 ],
 "dist_rffm_direccion_km": 0.09,
+"entrada": {
+"barrier": "gate"
+},
+"instalacion": "Club Deportivo Villamantilla",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.344501,
--4.127729
+40.343808,
+-4.128054
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1416": {
@@ -2799,11 +3137,13 @@
 -3.876761
 ],
 "dist_rffm_direccion_km": 0.49,
+"instalacion": "Complejo Deportivo Presidente Adolfo Suárez",
+"dist_instalacion_km": 0.09,
 "navegacion": [
-40.203842,
--3.871123
+40.203132,
+-3.871669
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1234": {
@@ -2815,11 +3155,19 @@
 ],
 "dir_consultada": "AVDA. JUAN ANTONIO SAMARANCH TORELLÓ 8|Pozuelo De Alarcón",
 "sin_geocodificar": true,
+"entrada": {
+"addr:housenumber": "12",
+"addr:postcode": "28223",
+"addr:street": "Avenida Juan A Samaranch Torello",
+"entrance": "yes"
+},
+"instalacion": "Ciudad Deportiva del Valle de las Cañas",
+"dist_instalacion_km": 0.18,
 "navegacion": [
-40.420622,
--3.819818
+40.422295,
+-3.816523
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "11110216": {
@@ -2835,11 +3183,13 @@
 -3.662385
 ],
 "dist_rffm_direccion_km": 0.52,
+"instalacion": "Polideportivo Municipal de Valdemoro",
+"dist_instalacion_km": 0.29,
 "navegacion": [
-40.193381,
--3.656767
+40.191518,
+-3.659117
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "116": {
@@ -2855,11 +3205,20 @@
 -3.693494
 ],
 "dist_rffm_direccion_km": 0.03,
+"entrada": {
+"addr:city": "Madrid",
+"addr:housenumber": "13",
+"addr:postcode": "28029",
+"addr:street": "Avenida de Monforte de Lemos",
+"entrance": "main"
+},
+"instalacion": "Centro Deportivo Municipal Vicente del Bosque",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.478712,
--3.69334
+40.478951,
+-3.693494
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "515": {
@@ -2875,11 +3234,13 @@
 -3.718546
 ],
 "dist_rffm_direccion_km": 0.44,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.18,
 "navegacion": [
-40.368476,
--3.717463
+40.369126,
+-3.719425
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1321": {
@@ -2891,11 +3252,13 @@
 ],
 "dir_consultada": "CTRA. DE BOADILLA A POZUELO KM. 1,400|Boadilla Del Monte",
 "sin_geocodificar": true,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.416771,
--3.858569
+40.417259,
+-3.858745
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2601": {
@@ -2911,11 +3274,13 @@
 -3.284346
 ],
 "dist_rffm_direccion_km": 0.14,
+"instalacion": "Polideportivo Municipal Villarejo de Salvanés",
+"dist_instalacion_km": 0.09,
 "navegacion": [
-40.168881,
--3.285933
+40.169558,
+-3.286597
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1708": {
@@ -2931,11 +3296,13 @@
 -3.41367
 ],
 "dist_rffm_direccion_km": 0.53,
+"instalacion": "Complejo deportivo Cruz de Piedra",
+"dist_instalacion_km": 0.01,
 "navegacion": [
-40.391981,
--3.412905
+40.392033,
+-3.412847
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1215": {
@@ -2951,11 +3318,13 @@
 -3.906078
 ],
 "dist_rffm_direccion_km": 0.05,
+"instalacion": "Polideportivo Municipal Las Eras",
+"dist_instalacion_km": 0.1,
 "navegacion": [
-40.624135,
--3.906618
+40.624847,
+-3.905857
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1314": {
@@ -2971,11 +3340,16 @@
 -3.9874
 ],
 "dist_rffm_direccion_km": 0.19,
+"entrada": {
+"entrance": "main"
+},
+"instalacion": "Plaza de Toros La Chacona",
+"dist_instalacion_km": 0.22,
 "navegacion": [
-40.229554,
--3.987293
+40.22788,
+-3.988433
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "14963243": {
@@ -2991,11 +3365,13 @@
 -3.696321
 ],
 "dist_rffm_direccion_km": 0.15,
+"instalacion": "Pabellón Municipal Cubierto Parque Pinto",
+"dist_instalacion_km": 0.09,
 "navegacion": [
-40.237944,
--3.694854
+40.23874,
+-3.69493
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1323": {
@@ -3011,11 +3387,13 @@
 -3.883368
 ],
 "dist_rffm_direccion_km": 0.02,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.3,
 "navegacion": [
-40.325675,
--3.88309
+40.32644,
+-3.879652
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "857504": {
@@ -3031,11 +3409,13 @@
 -3.705374
 ],
 "dist_rffm_direccion_km": 0.02,
+"instalacion": "IDB Parque Arganzuela Escuela de Fútbol Madrid Río",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.397359,
--3.705583
+40.396174,
+-3.704897
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1716": {
@@ -3071,11 +3451,13 @@
 -3.651524
 ],
 "dist_rffm_direccion_km": 0.03,
+"instalacion": "Instalación Deportiva Municipal Básica San Lamberto",
+"dist_instalacion_km": 0.13,
 "navegacion": [
-40.420491,
--3.651595
+40.421458,
+-3.650749
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1605": {
@@ -3116,11 +3498,13 @@
 -3.354
 ],
 "dist_rffm_direccion_km": 0.63,
+"instalacion": "Ciudad Deportiva Municipal El Val",
+"dist_instalacion_km": 0.16,
 "navegacion": [
-40.483514,
--3.346672
+40.482365,
+-3.34775
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "201": {
@@ -3136,11 +3520,13 @@
 -3.767914
 ],
 "dist_rffm_direccion_km": 0.86,
+"instalacion": "Estadio Antonio Sanfiz",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.458308,
--3.777119
+40.457943,
+-3.777898
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "624": {
@@ -3152,11 +3538,13 @@
 ],
 "dir_consultada": "CALLE DE LADERA DE LOS ALMENDROS 2|Madrid",
 "sin_geocodificar": true,
+"instalacion": "Centro Deportivo Municipal Faustina Valladolid",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.404431,
--3.623205
+40.404738,
+-3.621992
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1495": {
@@ -3201,11 +3589,13 @@
 -3.717504
 ],
 "dist_rffm_direccion_km": 0.01,
+"instalacion": "Instalación Deportiva La Cabrera",
+"dist_instalacion_km": 0.13,
 "navegacion": [
-40.471949,
--3.717611
+40.471741,
+-3.719176
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "301404": {
@@ -3217,11 +3607,13 @@
 ],
 "dir_consultada": "CALLE DE LAS ÁGUEDAS S/N|Collado Villalba",
 "sin_geocodificar": true,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.25,
 "navegacion": [
-40.642793,
--4.000293
+40.642528,
+-4.003207
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1301": {
@@ -3233,11 +3625,13 @@
 ],
 "dir_consultada": "CALLE DE LA CANALEJA S/N|Alcorcón",
 "sin_geocodificar": true,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.35,
 "navegacion": [
-40.350469,
--3.825665
+40.347577,
+-3.827356
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1443": {
@@ -3253,11 +3647,13 @@
 -3.762738
 ],
 "dist_rffm_direccion_km": 0.08,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.338863,
--3.76279
+40.338429,
+-3.762389
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1502": {
@@ -3273,11 +3669,13 @@
 -3.684813
 ],
 "dist_rffm_direccion_km": 0.16,
+"instalacion": "Complejo Deportivo Abogados de Atocha",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.182015,
--3.686422
+40.182804,
+-3.685188
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2508": {
@@ -3293,11 +3691,13 @@
 -3.615815
 ],
 "dist_rffm_direccion_km": 0.33,
+"instalacion": "Campos de Fútbol El Pinar",
+"dist_instalacion_km": 0.16,
 "navegacion": [
-40.025252,
--3.612006
+40.024704,
+-3.613755
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1436": {
@@ -3313,11 +3713,16 @@
 -3.810868
 ],
 "dist_rffm_direccion_km": 0.18,
+"entrada": {
+"entrance": "yes"
+},
+"instalacion": "Zona Deportiva El Naranjo",
+"dist_instalacion_km": 0.27,
 "navegacion": [
-40.301091,
--3.808866
+40.302235,
+-3.810102
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "406": {
@@ -3333,11 +3738,13 @@
 -3.721521
 ],
 "dist_rffm_direccion_km": 0.29,
+"instalacion": "Complejo de campos de fútbol Ernesto Cotorruelo",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.381582,
--3.723952
+40.380586,
+-3.723875
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "117": {
@@ -3349,11 +3756,13 @@
 ],
 "dir_consultada": "PLAZA DUQUE DE PASTRANA 5|Madrid",
 "sin_geocodificar": true,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.12,
 "navegacion": [
-40.469085,
--3.677923
+40.468598,
+-3.67917
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1608": {
@@ -3369,11 +3778,17 @@
 -3.434767
 ],
 "dist_rffm_direccion_km": 0.18,
+"entrada": {
+"access": "customers",
+"barrier": "gate"
+},
+"instalacion": "Campo de Futbol de Morata de Tajuña",
+"dist_instalacion_km": 0.17,
 "navegacion": [
-40.235708,
--3.433833
+40.23754,
+-3.434927
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "611": {
@@ -3389,11 +3804,13 @@
 -3.656227
 ],
 "dist_rffm_direccion_km": 0.08,
+"instalacion": "Centro Deportivo Municipal Wilfred Agbonavbare",
+"dist_instalacion_km": 0.09,
 "navegacion": [
-40.371916,
--3.657161
+40.372223,
+-3.656214
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1433": {
@@ -3409,11 +3826,13 @@
 -3.764095
 ],
 "dist_rffm_direccion_km": 0.69,
+"instalacion": "Complejo Polideportivo Las Américas",
+"dist_instalacion_km": 0.1,
 "navegacion": [
-40.233525,
--3.760004
+40.234005,
+-3.760939
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1313": {
@@ -3429,11 +3848,16 @@
 -3.842233
 ],
 "dist_rffm_direccion_km": 0.25,
+"entrada": {
+"entrance": "yes"
+},
+"instalacion": "Ciudad Deportiva Santo Domingo",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.337357,
--3.844003
+40.338495,
+-3.842689
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "12287110": {
@@ -3449,11 +3873,13 @@
 -3.883368
 ],
 "dist_rffm_direccion_km": 0.02,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.3,
 "navegacion": [
-40.325675,
--3.88309
+40.32644,
+-3.879652
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1415": {
@@ -3485,11 +3911,20 @@
 -3.764095
 ],
 "dist_rffm_direccion_km": 0.49,
+"entrada": {
+"barrier": "gate",
+"bicycle": "no",
+"foot": "yes",
+"locked": "yes",
+"motor_vehicle": "no"
+},
+"instalacion": "Complejo Deportivo Javier Camuñas Gallego",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.232237,
--3.761837
+40.231665,
+-3.760491
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "2306310": {
@@ -3505,11 +3940,13 @@
 -4.129723
 ],
 "dist_rffm_direccion_km": 0.95,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.36,
 "navegacion": [
-40.468521,
--4.123289
+40.46853,
+-4.127506
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1442": {
@@ -3525,11 +3962,13 @@
 -3.821317
 ],
 "dist_rffm_direccion_km": 0.68,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.0,
 "navegacion": [
-40.280124,
--3.820701
+40.280108,
+-3.820706
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1221": {
@@ -3541,11 +3980,13 @@
 ],
 "dir_consultada": "CALLE PAJARES 22 - ENTRADA POR VIA DE SERVICIO DE M-502|Pozuelo De Alarcón",
 "sin_geocodificar": true,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.1,
 "navegacion": [
-40.426111,
--3.806097
+40.427021,
+-3.805824
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1427": {
@@ -3561,11 +4002,13 @@
 -3.831314
 ],
 "dist_rffm_direccion_km": 0.34,
+"instalacion": "Campo de Fútbol Loranca",
+"dist_instalacion_km": 0.09,
 "navegacion": [
-40.29623,
--3.830663
+40.29566,
+-3.831412
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "300178": {
@@ -3577,11 +4020,13 @@
 ],
 "dir_consultada": "ROTONDA PADRE SOLER 37|Alcalá De Henares",
 "sin_geocodificar": true,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.503016,
--3.373271
+40.502005,
+-3.37322
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1747": {
@@ -3597,11 +4042,13 @@
 -3.469983
 ],
 "dist_rffm_direccion_km": 0.38,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.02,
 "navegacion": [
-40.44275,
--3.47012
+40.442938,
+-3.470195
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1735": {
@@ -3613,11 +4060,13 @@
 ],
 "dir_consultada": "CALLE PASEO DE LOS AGUADORES, 5.|Alcalá De Henares",
 "sin_geocodificar": true,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.480667,
--3.358245
+40.480413,
+-3.357781
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "614": {
@@ -3633,11 +4082,16 @@
 -3.605668
 ],
 "dist_rffm_direccion_km": 0.49,
+"entrada": {
+"entrance": "yes"
+},
+"instalacion": "Centro Deportivo Municipal Cerro Almodóvar",
+"dist_instalacion_km": 0.13,
 "navegacion": [
-40.382523,
--3.602869
+40.382646,
+-3.602827
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "20852561": {
@@ -3653,11 +4107,13 @@
 -3.607465
 ],
 "dist_rffm_direccion_km": 0.85,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.065766,
--3.597543
+40.064603,
+-3.5981
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2306": {
@@ -3669,11 +4125,13 @@
 ],
 "dir_consultada": "AVDA. DEL ARQUITECTO GARCÍA BENITO S/N|Pelayos De La Presa",
 "sin_geocodificar": true,
+"instalacion": "Polideportivo Municipal",
+"dist_instalacion_km": 0.16,
 "navegacion": [
-40.363217,
--4.326391
+40.362727,
+-4.328222
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1419": {
@@ -3689,11 +4147,13 @@
 -3.838665
 ],
 "dist_rffm_direccion_km": 0.02,
+"instalacion": "Campo de Fútbol Municipal Federico Núñez",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.187646,
--3.838697
+40.187378,
+-3.83804
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2107": {
@@ -3725,11 +4185,18 @@
 ],
 "dir_consultada": "CALLE DE EMBAJADORES 340 (CAJA MÁGICA)|Madrid",
 "sin_geocodificar": true,
+"entrada": {
+"entrance": "service",
+"source": "PNOA",
+"source:date": "2009"
+},
+"instalacion": "Estadio Manolo Santana",
+"dist_instalacion_km": 0.0,
 "navegacion": [
-40.368832,
--3.684441
+40.369222,
+-3.685353
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1799": {
@@ -3754,11 +4221,13 @@
 -3.633647
 ],
 "dist_rffm_direccion_km": 0.06,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.07,
 "navegacion": [
-40.430426,
--3.634229
+40.430936,
+-3.634714
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2103": {
@@ -3806,11 +4275,13 @@
 -3.698576
 ],
 "dist_rffm_direccion_km": 0.04,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.12,
 "navegacion": [
-40.236288,
--3.699086
+40.235195,
+-3.699177
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2302": {
@@ -3822,11 +4293,13 @@
 ],
 "dir_consultada": "CTRA. DE ROZAS DE PUERTO REAL 24|Cadalso De Los Vidrios",
 "sin_geocodificar": true,
+"instalacion": "stadium",
+"dist_instalacion_km": 0.24,
 "navegacion": [
-40.301877,
--4.450366
+40.304021,
+-4.45071
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "103": {
@@ -3843,11 +4316,13 @@
 ],
 "dist_rffm_direccion_km": 19.96,
 "aviso": "Coordenadas de la RFFM a 20.0 km de la dirección (sin confirmar)",
+"instalacion": "pitch",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.446535,
--3.708331
+40.446051,
+-3.708286
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "309493": {
@@ -3883,11 +4358,25 @@
 -3.862788
 ],
 "dist_rffm_direccion_km": 0.14,
+"entrada": {
+"access": "customers",
+"addr:city": "Majadahonda",
+"addr:postcode": "28221",
+"addr:street": "Carretera de Pozuelo a Majadahonda",
+"door": "sliding",
+"entrance": "main",
+"level": "0",
+"mapillary": "500574112599252",
+"nohousenumber": "yes",
+"wheelchair": "yes"
+},
+"instalacion": "Atlético de Madrid Centro Deportivo Majadahonda",
+"dist_instalacion_km": 0.37,
 "navegacion": [
-40.461527,
--3.861633
+40.457793,
+-3.861405
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "16468916": {
@@ -3951,11 +4440,16 @@
 -4.009232
 ],
 "dist_rffm_direccion_km": 0.15,
+"entrada": {
+"barrier": "gate"
+},
+"instalacion": "Polideportivo Municipal de Galapagar",
+"dist_instalacion_km": 0.15,
 "navegacion": [
-40.582799,
--4.010576
+40.58014,
+-4.008896
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1114": {
@@ -4007,11 +4501,13 @@
 -3.641353
 ],
 "dist_rffm_direccion_km": 0.13,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.21,
 "navegacion": [
-40.471646,
--3.639829
+40.471844,
+-3.642253
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1402": {
@@ -4027,11 +4523,13 @@
 -3.742221
 ],
 "dist_rffm_direccion_km": 0.02,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.301752,
--3.742183
+40.302785,
+-3.743053
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "104": {
@@ -4063,11 +4561,20 @@
 -3.764095
 ],
 "dist_rffm_direccion_km": 0.3,
+"entrada": {
+"barrier": "gate",
+"bicycle": "yes",
+"foot": "no",
+"locked": "yes",
+"motor_vehicle": "yes"
+},
+"instalacion": "pitch",
+"dist_instalacion_km": 0.15,
 "navegacion": [
-40.229813,
--3.761338
+40.231171,
+-3.760666
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "805": {
@@ -4083,11 +4590,13 @@
 -3.637408
 ],
 "dist_rffm_direccion_km": 0.02,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.07,
 "navegacion": [
-40.452366,
--3.637626
+40.451757,
+-3.63779
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "621": {
@@ -4103,11 +4612,13 @@
 -3.65765
 ],
 "dist_rffm_direccion_km": 0.1,
+"instalacion": "Instalación Deportiva Básica Campo de fútbol de El Pozo",
+"dist_instalacion_km": 0.2,
 "navegacion": [
-40.371324,
--3.658124
+40.36957,
+-3.657727
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1110": {
@@ -4152,11 +4663,13 @@
 -3.735667
 ],
 "dist_rffm_direccion_km": 0.05,
+"instalacion": "Centro Deportivo Municipal Antiguo Canódromo",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.397452,
--3.735794
+40.396954,
+-3.735667
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "346757": {
@@ -4172,11 +4685,13 @@
 -3.676666
 ],
 "dist_rffm_direccion_km": 0.03,
+"instalacion": "Instalación Deportiva Básica David Díez de la Cruz",
+"dist_instalacion_km": 0.12,
 "navegacion": [
-40.351262,
--3.676473
+40.350389,
+-3.675724
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "121": {
@@ -4192,11 +4707,13 @@
 -3.702903
 ],
 "dist_rffm_direccion_km": 0.14,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.496165,
--3.702179
+40.496991,
+-3.703493
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1212": {
@@ -4212,11 +4729,16 @@
 -4.009232
 ],
 "dist_rffm_direccion_km": 0.15,
+"entrada": {
+"barrier": "gate"
+},
+"instalacion": "Polideportivo Municipal de Galapagar",
+"dist_instalacion_km": 0.15,
 "navegacion": [
-40.582799,
--4.010576
+40.58014,
+-4.008896
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1713": {
@@ -4232,11 +4754,13 @@
 -3.47259
 ],
 "dist_rffm_direccion_km": 0.04,
+"instalacion": "Campo de Fútbol Municipal Las Veredillas",
+"dist_instalacion_km": 0.04,
 "navegacion": [
-40.465706,
--3.472499
+40.465735,
+-3.47199
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2305": {
@@ -4248,11 +4772,13 @@
 ],
 "dir_consultada": "VÍA OLÍMPICA 7|Navas Del Rey",
 "sin_geocodificar": true,
+"instalacion": "Polideportivo Municipal de Navas del Rey",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.389892,
--4.248324
+40.388922,
+-4.247983
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1213": {
@@ -4268,11 +4794,13 @@
 -3.888824
 ],
 "dist_rffm_direccion_km": 0.3,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.554531,
--3.885975
+40.555188,
+-3.886243
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "12287187": {
@@ -4288,11 +4816,13 @@
 -3.883368
 ],
 "dist_rffm_direccion_km": 0.02,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.3,
 "navegacion": [
-40.325675,
--3.88309
+40.32644,
+-3.879652
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1444": {
@@ -4328,11 +4858,16 @@
 -3.607139
 ],
 "dist_rffm_direccion_km": 0.05,
+"entrada": {
+"barrier": "gate"
+},
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.34,
 "navegacion": [
-40.430021,
--3.607031
+40.431543,
+-3.604291
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1209": {
@@ -4369,11 +4904,13 @@
 ],
 "dist_rffm_direccion_km": 4.9,
 "aviso": "Coordenadas de la RFFM a 4.9 km de la dirección (sin confirmar)",
+"instalacion": "Polideportivo Municipal",
+"dist_instalacion_km": 0.02,
 "navegacion": [
-40.100457,
--3.489385
+40.100305,
+-3.489503
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1320": {
@@ -4389,11 +4926,13 @@
 -3.91733
 ],
 "dist_rffm_direccion_km": 0.0,
+"instalacion": "Campos de fútbol de Villaviosa de Odón",
+"dist_instalacion_km": 0.2,
 "navegacion": [
-40.362519,
--3.917312
+40.360798,
+-3.916748
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1230": {
@@ -4414,11 +4953,16 @@
 ],
 "dir_consultada": "CTRA. DE LEGANES S/N|Getafe",
 "sin_geocodificar": true,
+"entrada": {
+"barrier": "gate"
+},
+"instalacion": "Polideportivo Giner de los Ríos",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.313722,
--3.741321
+40.313074,
+-3.739954
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "3592915": {
@@ -4434,11 +4978,13 @@
 -3.38763
 ],
 "dist_rffm_direccion_km": 0.08,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.13,
 "navegacion": [
-40.508323,
--3.388398
+40.508391,
+-3.38683
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2203": {
@@ -4454,11 +5000,13 @@
 -4.038627
 ],
 "dist_rffm_direccion_km": 0.26,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.18,
 "navegacion": [
-40.692095,
--4.041582
+40.692109,
+-4.039472
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "111": {
@@ -4470,11 +5018,13 @@
 ],
 "dir_consultada": "CALLE DE PADRE DAMIÁN 18|Madrid",
 "sin_geocodificar": true,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.23,
 "navegacion": [
-40.455461,
--3.686491
+40.457329,
+-3.685252
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1206": {
@@ -4490,11 +5040,13 @@
 -3.812897
 ],
 "dist_rffm_direccion_km": 0.37,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.16,
 "navegacion": [
-40.445672,
--3.816329
+40.447032,
+-3.815835
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1": {
@@ -4506,11 +5058,13 @@
 ],
 "dir_consultada": "AVDA. DOCTOR GARCIA TAPIA 117|Madrid",
 "sin_geocodificar": true,
+"instalacion": "Campo de fútbol \"Dehesa de Moratalaz\"",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.411206,
--3.642062
+40.411483,
+-3.641415
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1208": {
@@ -4522,11 +5076,19 @@
 ],
 "dir_consultada": "PASEO JOAQUÍN RUÍZ GIMÉNEZ 24|Torrelodones",
 "sin_geocodificar": true,
+"entrada": {
+"addr:housenumber": "26 D",
+"addr:postcode": "28250",
+"addr:street": "Paseo de Joaquín Ruiz Jiménez",
+"barrier": "gate"
+},
+"instalacion": "Estadio Julián Ariza",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.57257,
--3.92347
+40.572254,
+-3.922653
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "316158": {
@@ -4542,11 +5104,13 @@
 -3.886832
 ],
 "dist_rffm_direccion_km": 0.24,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.21,
 "navegacion": [
-40.327137,
--3.886239
+40.328613,
+-3.887818
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1604": {
@@ -4562,11 +5126,13 @@
 -3.234446
 ],
 "dist_rffm_direccion_km": 0.05,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.336138,
--3.233946
+40.335674,
+-3.234133
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1732": {
@@ -4582,11 +5148,13 @@
 -3.392765
 ],
 "dist_rffm_direccion_km": 0.49,
+"instalacion": "Gimnasio",
+"dist_instalacion_km": 0.28,
 "navegacion": [
-40.47834,
--3.387384
+40.475858,
+-3.38817
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "4305754": {
@@ -4602,11 +5170,13 @@
 -3.78201
 ],
 "dist_rffm_direccion_km": 0.01,
+"instalacion": "Antanes",
+"dist_instalacion_km": 0.04,
 "navegacion": [
-40.31154,
--3.78215
+40.311574,
+-3.782569
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "4196765": {
@@ -4638,11 +5208,13 @@
 -4.017567
 ],
 "dist_rffm_direccion_km": 0.08,
+"instalacion": "Mariano González",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.284673,
--4.018331
+40.284325,
+-4.017567
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "626": {
@@ -4658,11 +5230,13 @@
 -3.639496
 ],
 "dist_rffm_direccion_km": 0.07,
+"instalacion": "Campo de fútbol Aragón",
+"dist_instalacion_km": 0.02,
 "navegacion": [
-40.392062,
--3.638656
+40.391996,
+-3.638421
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1505": {
@@ -4678,11 +5252,13 @@
 -3.577446
 ],
 "dist_rffm_direccion_km": 0.12,
+"instalacion": "Polideportivo Los Arenales",
+"dist_instalacion_km": 0.12,
 "navegacion": [
-40.137414,
--3.576425
+40.136671,
+-3.577436
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2611": {
@@ -4698,11 +5274,13 @@
 -3.340606
 ],
 "dist_rffm_direccion_km": 0.54,
+"instalacion": "Complejo Municipal Deportivo Alejandro García",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.129264,
--3.339076
+40.128826,
+-3.338312
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "680981": {
@@ -4738,11 +5316,13 @@
 -3.59209
 ],
 "dist_rffm_direccion_km": 0.21,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.16,
 "navegacion": [
-40.446105,
--3.59238
+40.447253,
+-3.591312
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "16222737": {
@@ -4778,11 +5358,13 @@
 -3.777601
 ],
 "dist_rffm_direccion_km": 0.15,
+"instalacion": "Polideportivo Municipal José Fernández Segovia",
+"dist_instalacion_km": 0.04,
 "navegacion": [
-40.183227,
--3.776508
+40.18323,
+-3.776038
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2207": {
@@ -4798,11 +5380,13 @@
 -4.240988
 ],
 "dist_rffm_direccion_km": 0.01,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.498232,
--4.241036
+40.497212,
+-4.240966
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1413": {
@@ -4818,11 +5402,16 @@
 -3.714191
 ],
 "dist_rffm_direccion_km": 0.01,
+"entrada": {
+"entrance": "yes"
+},
+"instalacion": "Coliseum",
+"dist_instalacion_km": 0.12,
 "navegacion": [
-40.324852,
--3.714132
+40.325619,
+-3.716013
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "3923632": {
@@ -4838,11 +5427,13 @@
 -3.706041
 ],
 "dist_rffm_direccion_km": 0.23,
+"instalacion": "Instalaciones Deportivas de Vallehermoso",
+"dist_instalacion_km": 0.13,
 "navegacion": [
-40.440687,
--3.708441
+40.441326,
+-3.709778
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "501": {
@@ -4858,11 +5449,13 @@
 -3.701037
 ],
 "dist_rffm_direccion_km": 0.08,
+"instalacion": "Club Villaverde Boetticher",
+"dist_instalacion_km": 0.12,
 "navegacion": [
-40.348715,
--3.700349
+40.347874,
+-3.699372
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "606": {
@@ -4878,11 +5471,17 @@
 -3.653041
 ],
 "dist_rffm_direccion_km": 0.38,
+"entrada": {
+"entrance": "yes",
+"wheelchair": "yes"
+},
+"instalacion": "Centro Deportivo Municipal La Elipa",
+"dist_instalacion_km": 0.2,
 "navegacion": [
-40.416033,
--3.656073
+40.414361,
+-3.655993
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1308": {
@@ -4898,11 +5497,13 @@
 -4.000258
 ],
 "dist_rffm_direccion_km": 0.12,
+"instalacion": "Estadio Municipal Los Arcos",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.406508,
--3.99918
+40.406604,
+-3.99985
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1736": {
@@ -4963,11 +5564,16 @@
 -3.52451
 ],
 "dist_rffm_direccion_km": 0.27,
+"entrada": {
+"entrance": "main"
+},
+"instalacion": "Pabellón polideportivo municipal",
+"dist_instalacion_km": 0.36,
 "navegacion": [
-40.43347,
--3.526094
+40.43114,
+-3.524064
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "701": {
@@ -4983,11 +5589,13 @@
 -3.630355
 ],
 "dist_rffm_direccion_km": 0.29,
+"instalacion": "Centro Polideportivo Municipal Almudena",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.418148,
--3.627593
+40.417996,
+-3.628217
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "506": {
@@ -5003,11 +5611,13 @@
 -3.690668
 ],
 "dist_rffm_direccion_km": 0.21,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.13,
 "navegacion": [
-40.34155,
--3.688185
+40.342038,
+-3.689564
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "610": {
@@ -5023,11 +5633,13 @@
 -3.616477
 ],
 "dist_rffm_direccion_km": 0.09,
+"instalacion": "Campo de Fútbol Municipal Virgen de la Torre",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.378361,
--3.617117
+40.377462,
+-3.615994
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1411": {
@@ -5043,11 +5655,20 @@
 -3.764095
 ],
 "dist_rffm_direccion_km": 0.3,
+"entrada": {
+"barrier": "gate",
+"bicycle": "yes",
+"foot": "no",
+"locked": "yes",
+"motor_vehicle": "yes"
+},
+"instalacion": "pitch",
+"dist_instalacion_km": 0.15,
 "navegacion": [
-40.229813,
--3.761338
+40.231171,
+-3.760666
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1712": {
@@ -5063,11 +5684,17 @@
 -3.490199
 ],
 "dist_rffm_direccion_km": 0.12,
+"entrada": {
+"barrier": "gate",
+"source": "survey"
+},
+"instalacion": "Complejo Deportivo Juan Antonio Samaranch",
+"dist_instalacion_km": 0.1,
 "navegacion": [
-40.461434,
--3.488768
+40.461479,
+-3.489135
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "720": {
@@ -5079,11 +5706,13 @@
 ],
 "dir_consultada": "CALLE VEREDA DEL PINAR 10|Madrid",
 "sin_geocodificar": true,
+"instalacion": "Instalación Deportiva Básica Parque de la Vicalvarada",
+"dist_instalacion_km": 0.15,
 "navegacion": [
-40.410082,
--3.607104
+40.411338,
+-3.60785
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2606": {
@@ -5115,11 +5744,13 @@
 ],
 "dir_consultada": "CALLE LA SOLEDAD 6|Villa Del Prado",
 "sin_geocodificar": true,
+"instalacion": "Polideportivo Alcalde Carlos González Redondo",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.273598,
--4.30478
+40.272931,
+-4.304988
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1222": {
@@ -5135,11 +5766,19 @@
 -3.814719
 ],
 "dist_rffm_direccion_km": 0.24,
+"entrada": {
+"addr:housenumber": "170",
+"addr:postcode": "28223",
+"addr:street": "Calle Islas Canarias",
+"entrance": "yes"
+},
+"instalacion": "Polideportivo Municipal El Pradillo",
+"dist_instalacion_km": 0.22,
 "navegacion": [
-40.442847,
--3.81366
+40.44243,
+-3.815516
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1312": {
@@ -5151,11 +5790,13 @@
 ],
 "dir_consultada": "CALLE CAÑADA REAL SEGOVIANA S/N|Villamanta",
 "sin_geocodificar": true,
+"instalacion": "Polideportivo Municipal La Chopera",
+"dist_instalacion_km": 0.16,
 "navegacion": [
-40.296724,
--4.10872
+40.296333,
+-4.110561
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1117": {
@@ -5207,11 +5848,13 @@
 -3.394971
 ],
 "dist_rffm_direccion_km": 0.68,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.483343,
--3.387871
+40.482913,
+-3.388009
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1603": {
@@ -5227,11 +5870,13 @@
 -3.476827
 ],
 "dist_rffm_direccion_km": 0.01,
+"instalacion": "Polideportivo Virgen del Carmen",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.312456,
--3.47681
+40.312861,
+-3.475973
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "13073299": {
@@ -5247,11 +5892,13 @@
 -3.538141
 ],
 "dist_rffm_direccion_km": 0.34,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.24,
 "navegacion": [
-40.378366,
--3.534468
+40.377319,
+-3.536882
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "560057": {
@@ -5267,11 +5914,13 @@
 -3.649409
 ],
 "dist_rffm_direccion_km": 0.46,
+"instalacion": "Instalación Deportiva Municipal Arroyo de la Media Legua",
+"dist_instalacion_km": 0.07,
 "navegacion": [
-40.422101,
--3.648098
+40.422466,
+-3.64873
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "12280618": {
@@ -5287,11 +5936,16 @@
 -3.810868
 ],
 "dist_rffm_direccion_km": 0.18,
+"entrada": {
+"entrance": "yes"
+},
+"instalacion": "Zona Deportiva El Naranjo",
+"dist_instalacion_km": 0.27,
 "navegacion": [
-40.301091,
--3.808866
+40.302235,
+-3.810102
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1225": {
@@ -5307,11 +5961,25 @@
 -3.862788
 ],
 "dist_rffm_direccion_km": 0.14,
+"entrada": {
+"access": "customers",
+"addr:city": "Majadahonda",
+"addr:postcode": "28221",
+"addr:street": "Carretera de Pozuelo a Majadahonda",
+"door": "sliding",
+"entrance": "main",
+"level": "0",
+"mapillary": "500574112599252",
+"nohousenumber": "yes",
+"wheelchair": "yes"
+},
+"instalacion": "Atlético de Madrid Centro Deportivo Majadahonda",
+"dist_instalacion_km": 0.37,
 "navegacion": [
-40.461527,
--3.861633
+40.457793,
+-3.861405
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "502": {
@@ -5327,11 +5995,13 @@
 -3.686188
 ],
 "dist_rffm_direccion_km": 0.25,
+"instalacion": "Instalación Deportiva Municipal Básica Victoria Hernández (El Espinillo II - centro deportivo)",
+"dist_instalacion_km": 0.03,
 "navegacion": [
-40.360689,
--3.686161
+40.360777,
+-3.685844
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "13212199": {
@@ -5347,11 +6017,13 @@
 -3.91733
 ],
 "dist_rffm_direccion_km": 0.0,
+"instalacion": "Campos de fútbol de Villaviosa de Odón",
+"dist_instalacion_km": 0.2,
 "navegacion": [
-40.362519,
--3.917312
+40.360798,
+-3.916748
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "14630139": {
@@ -5367,11 +6039,13 @@
 -3.712369
 ],
 "dist_rffm_direccion_km": 0.12,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.446962,
--3.713763
+40.447667,
+-3.713426
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "20521303": {
@@ -5387,11 +6061,13 @@
 -3.524751
 ],
 "dist_rffm_direccion_km": 0.5,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.37,
 "navegacion": [
-40.498071,
--3.523729
+40.501391,
+-3.523304
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "4532747": {
@@ -5407,11 +6083,13 @@
 -3.679083
 ],
 "dist_rffm_direccion_km": 0.02,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.22,
 "navegacion": [
-40.509069,
--3.6792
+40.50894,
+-3.676628
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "16802001": {
@@ -5427,11 +6105,13 @@
 -3.87161
 ],
 "dist_rffm_direccion_km": 0.14,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.24,
 "navegacion": [
-40.442542,
--3.872011
+40.440513,
+-3.871121
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1437": {
@@ -5447,11 +6127,13 @@
 -3.764065
 ],
 "dist_rffm_direccion_km": 0.7,
+"instalacion": "Complejo Polideportivo Las Américas",
+"dist_instalacion_km": 0.1,
 "navegacion": [
-40.233525,
--3.760004
+40.234005,
+-3.760939
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "17138323": {
@@ -5467,11 +6149,24 @@
 -3.844862
 ],
 "dist_rffm_direccion_km": 0.1,
+"entrada": {
+"access": "customers",
+"bicycle": "no",
+"door": "yes/manual",
+"entrance": "emergency",
+"foot": "yes",
+"horse": "no",
+"material": "metal",
+"motor_vehicle": "no",
+"wheelchair": "no"
+},
+"instalacion": "Centro Deportivo La Sacedilla",
+"dist_instalacion_km": 0.07,
 "navegacion": [
-40.477509,
--3.845966
+40.476601,
+-3.84624
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1316": {
@@ -5487,11 +6182,13 @@
 -3.91733
 ],
 "dist_rffm_direccion_km": 0.0,
+"instalacion": "Campos de fútbol de Villaviosa de Odón",
+"dist_instalacion_km": 0.2,
 "navegacion": [
-40.362519,
--3.917312
+40.360798,
+-3.916748
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "13195819": {
@@ -5507,11 +6204,16 @@
 -3.810868
 ],
 "dist_rffm_direccion_km": 0.18,
+"entrada": {
+"entrance": "yes"
+},
+"instalacion": "Zona Deportiva El Naranjo",
+"dist_instalacion_km": 0.27,
 "navegacion": [
-40.301091,
--3.808866
+40.302235,
+-3.810102
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "13372745": {
@@ -5527,11 +6229,13 @@
 -3.762738
 ],
 "dist_rffm_direccion_km": 0.02,
+"instalacion": "Centro deportivo La Cantera",
+"dist_instalacion_km": 0.18,
 "navegacion": [
-40.339514,
--3.762957
+40.338677,
+-3.761137
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "14963247": {
@@ -5547,11 +6251,13 @@
 -3.696321
 ],
 "dist_rffm_direccion_km": 0.15,
+"instalacion": "Pabellón Municipal Cubierto Parque Pinto",
+"dist_instalacion_km": 0.09,
 "navegacion": [
-40.237944,
--3.694854
+40.23874,
+-3.69493
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "16540235": {
@@ -5567,11 +6273,13 @@
 -3.762738
 ],
 "dist_rffm_direccion_km": 0.08,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.338901,
--3.762764
+40.338429,
+-3.762389
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "3361189": {
@@ -5587,11 +6295,13 @@
 -3.721521
 ],
 "dist_rffm_direccion_km": 0.29,
+"instalacion": "Complejo de campos de fútbol Ernesto Cotorruelo",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.381582,
--3.723952
+40.380586,
+-3.723875
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "11789343": {
@@ -5607,11 +6317,13 @@
 -3.747
 ],
 "dist_rffm_direccion_km": 0.43,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.26,
 "navegacion": [
-40.295245,
--3.744348
+40.293258,
+-3.742793
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "14970010": {
@@ -5627,11 +6339,13 @@
 -3.91733
 ],
 "dist_rffm_direccion_km": 0.0,
+"instalacion": "Campos de fútbol de Villaviosa de Odón",
+"dist_instalacion_km": 0.2,
 "navegacion": [
-40.362519,
--3.917312
+40.360798,
+-3.916748
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "14988040": {
@@ -5647,11 +6361,13 @@
 -3.895631
 ],
 "dist_rffm_direccion_km": 0.07,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.07,
 "navegacion": [
-40.410906,
--3.896471
+40.411422,
+-3.896837
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "13213186": {
@@ -5663,11 +6379,13 @@
 ],
 "dir_consultada": "CALLE DE LA GRANJA, 18|Collado Villalba",
 "sin_geocodificar": true,
+"instalacion": "Polideportivo Dehesa Boyal",
+"dist_instalacion_km": 0.04,
 "navegacion": [
-40.639786,
--4.003571
+40.639981,
+-4.003132
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "11406548": {
@@ -5704,11 +6422,13 @@
 ],
 "dist_rffm_direccion_km": 2.8,
 "aviso": "Coordenadas de la RFFM a 2.8 km de la dirección (sin confirmar)",
+"instalacion": "Polideportivo Coinsa",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.496289,
--3.411503
+40.495171,
+-3.412371
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "4532771": {
@@ -5724,11 +6444,13 @@
 -3.674975
 ],
 "dist_rffm_direccion_km": 0.04,
+"instalacion": "Polideportivo María de Villota",
+"dist_instalacion_km": 0.04,
 "navegacion": [
-40.34761,
--3.675199
+40.347296,
+-3.674908
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "8852174": {
@@ -5744,11 +6466,13 @@
 -3.728306
 ],
 "dist_rffm_direccion_km": 0.05,
+"instalacion": "Instalación Deportiva Municipal Básica Via Lusitana",
+"dist_instalacion_km": 0.03,
 "navegacion": [
-40.377057,
--3.728841
+40.376944,
+-3.728583
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "22271641": {
@@ -5824,13 +6548,15 @@
 -3.965782
 ],
 "dist_rffm_direccion_km": 3.0,
-"aviso": "Coordenadas de la RFFM a 3.0 km de la dirección (sin confirmar)",
+"aviso": "Coordenadas de la RFFM a 3.0 km de la dirección: corregido",
+"instalacion": "pitch",
+"dist_instalacion_km": 0.22,
 "navegacion": [
-40.465827,
--3.957556
+40.493275,
+-3.96775
 ],
-"tipo": "rffm",
-"corregido": false
+"tipo": "instalacion",
+"corregido": true
 },
 "13372982": {
 "nombre": "CDM EL PRADILLO",
@@ -5846,11 +6572,19 @@
 ],
 "dist_rffm_direccion_km": 34.69,
 "aviso": "Coordenadas de la RFFM a 34.7 km de la dirección (sin confirmar)",
+"entrada": {
+"door": "sliding",
+"entrance": "main",
+"level": "0",
+"wheelchair": "yes"
+},
+"instalacion": "Polideportivo Pradillo",
+"dist_instalacion_km": 0.02,
 "navegacion": [
-40.449371,
--3.67158
+40.449084,
+-3.671708
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1101152": {
@@ -5862,11 +6596,19 @@
 ],
 "dir_consultada": "CALLE DEL ALCALDE SÁIZ DE BARANDA 94|Madrid",
 "sin_geocodificar": true,
+"entrada": {
+"access": "yes",
+"barrier": "gate",
+"bicycle": "yes",
+"foot": "yes"
+},
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.01,
 "navegacion": [
-40.421093,
--3.661096
+40.421307,
+-3.661024
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "14963246": {
@@ -5882,11 +6624,13 @@
 -3.696321
 ],
 "dist_rffm_direccion_km": 0.15,
+"instalacion": "Pabellón Municipal Cubierto Parque Pinto",
+"dist_instalacion_km": 0.09,
 "navegacion": [
-40.237944,
--3.694854
+40.23874,
+-3.69493
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "13195552": {
@@ -5898,11 +6642,13 @@
 ],
 "dir_consultada": "CTRA. DE BOADILLA A POZUELO KM. 1,400|Boadilla Del Monte",
 "sin_geocodificar": true,
+"instalacion": "Complejo Deportivo Municipal Condesa de Chinchón",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.412434,
--3.897136
+40.411504,
+-3.896629
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "18613498": {
@@ -5918,11 +6664,13 @@
 -3.660936
 ],
 "dist_rffm_direccion_km": 0.39,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.437124,
--3.660831
+40.437633,
+-3.660566
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "899064": {
@@ -5934,11 +6682,13 @@
 ],
 "dir_consultada": "CALLE MONASTERIO DE EL PAULAR 138|Madrid",
 "sin_geocodificar": true,
+"instalacion": "Instalación Deportiva Municipal Básica Montecarmelo",
+"dist_instalacion_km": 0.04,
 "navegacion": [
-40.499623,
--3.700324
+40.49998,
+-3.700175
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "8802579": {
@@ -5994,11 +6744,13 @@
 -3.842233
 ],
 "dist_rffm_direccion_km": 0.17,
+"instalacion": "Estadio Municipal de Santo Domingo",
+"dist_instalacion_km": 0.18,
 "navegacion": [
-40.340481,
--3.841087
+40.338886,
+-3.840521
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "4532965": {
@@ -6014,11 +6766,13 @@
 -3.614794
 ],
 "dist_rffm_direccion_km": 0.04,
+"instalacion": "Centro deportivo Newman",
+"dist_instalacion_km": 0.09,
 "navegacion": [
-40.421188,
--3.615013
+40.421452,
+-3.614053
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "13372746": {
@@ -6034,11 +6788,13 @@
 -3.762738
 ],
 "dist_rffm_direccion_km": 0.02,
+"instalacion": "Centro deportivo La Cantera",
+"dist_instalacion_km": 0.18,
 "navegacion": [
-40.339514,
--3.762957
+40.338677,
+-3.761137
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "10225607": {
@@ -6054,11 +6810,13 @@
 -4.126736
 ],
 "dist_rffm_direccion_km": 0.06,
+"instalacion": "Polideportivo Muncipal El Zaburdón",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.602314,
--4.127149
+40.602884,
+-4.126496
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "13212606": {
@@ -6074,11 +6832,13 @@
 -3.91733
 ],
 "dist_rffm_direccion_km": 0.0,
+"instalacion": "Campos de fútbol de Villaviosa de Odón",
+"dist_instalacion_km": 0.2,
 "navegacion": [
-40.362519,
--3.917312
+40.360798,
+-3.916748
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1507": {
@@ -6090,11 +6850,13 @@
 ],
 "dir_consultada": "CAMINO DE VALDINOJOS 2|Ciempozuelos",
 "sin_geocodificar": true,
+"instalacion": "Ciudad Deportiva de Ciempozuelos",
+"dist_instalacion_km": 0.16,
 "navegacion": [
-40.150303,
--3.614634
+40.150612,
+-3.61649
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2204": {
@@ -6110,11 +6872,16 @@
 -4.122516
 ],
 "dist_rffm_direccion_km": 0.02,
+"entrada": {
+"entrance": "yes"
+},
+"instalacion": "Polideportivo Municipal Navaarmado Patricia García",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.581837,
--4.122518
+40.581031,
+-4.121723
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "301403": {
@@ -6130,11 +6897,13 @@
 -3.739595
 ],
 "dist_rffm_direccion_km": 0.04,
+"instalacion": "Polideportivo Municipal Gallur",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.398211,
--3.739143
+40.398772,
+-3.738044
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2304": {
@@ -6146,11 +6915,13 @@
 ],
 "dir_consultada": "AVDA. DEL POLIDEPORTIVO 15|Chapinería",
 "sin_geocodificar": true,
+"instalacion": "Polideportivo Municipal",
+"dist_instalacion_km": 0.03,
 "navegacion": [
-40.382221,
--4.206048
+40.382347,
+-4.20574
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "411": {
@@ -6166,11 +6937,16 @@
 -3.70632
 ],
 "dist_rffm_direccion_km": 0.06,
+"entrada": {
+"entrance": "main"
+},
+"instalacion": "Estadio Román Valero",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.389291,
--3.705869
+40.388513,
+-3.706313
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1407": {
@@ -6186,13 +6962,15 @@
 -3.789733
 ],
 "dist_rffm_direccion_km": 5.02,
-"aviso": "Coordenadas de la RFFM a 5.0 km de la dirección (sin confirmar)",
+"aviso": "Coordenadas de la RFFM a 5.0 km de la dirección: corregido",
+"instalacion": "Parque Residencial Fuenlabrada II",
+"dist_instalacion_km": 0.35,
 "navegacion": [
-40.305344,
--3.839784
+40.284045,
+-3.787994
 ],
-"tipo": "rffm",
-"corregido": false
+"tipo": "instalacion",
+"corregido": true
 },
 "1705": {
 "nombre": "COSLADA - ESTADIO EL OLIVO (HA)",
@@ -6207,11 +6985,13 @@
 -3.570395
 ],
 "dist_rffm_direccion_km": 0.18,
+"instalacion": "Velódromo y Estadio de fútbol El Olivo",
+"dist_instalacion_km": 0.28,
 "navegacion": [
-40.418702,
--3.572045
+40.420815,
+-3.570157
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1401": {
@@ -6223,11 +7003,13 @@
 ],
 "dir_consultada": "CAMINO A TORREJÓN DE VELASCO 14|Casarrubuelos",
 "sin_geocodificar": true,
+"instalacion": "Polideportivo Municipal de Casarrubuelos",
+"dist_instalacion_km": 0.07,
 "navegacion": [
-40.172196,
--3.829277
+40.17282,
+-3.82942
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "129": {
@@ -6244,11 +7026,16 @@
 ],
 "dist_rffm_direccion_km": 26.34,
 "aviso": "Coordenadas de la RFFM a 26.3 km de la dirección (sin confirmar)",
+"entrada": {
+"entrance": "main"
+},
+"instalacion": "Instalación Deportiva Arturo Ruiz García",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.476762,
--3.721607
+40.476717,
+-3.720925
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1231": {
@@ -6264,11 +7051,13 @@
 -3.888515
 ],
 "dist_rffm_direccion_km": 0.14,
+"instalacion": "Polideportivo Dehesa de Navalcarbón",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.506998,
--3.889595
+40.50702,
+-3.888325
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "511": {
@@ -6284,11 +7073,24 @@
 -3.69109
 ],
 "dist_rffm_direccion_km": 0.07,
+"entrada": {
+"access": "yes",
+"addr:city": "Madrid",
+"addr:housenumber": "4",
+"addr:postcode": "28041",
+"addr:street": "Calle de la Alianza",
+"barrier": "gate",
+"bicycle": "yes",
+"entrance": "main",
+"foot": "yes"
+},
+"instalacion": "Félix Rubio",
+"dist_instalacion_km": 0.01,
 "navegacion": [
-40.357314,
--3.691723
+40.357452,
+-3.69141
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1509": {
@@ -6304,11 +7106,13 @@
 -3.664319
 ],
 "dist_rffm_direccion_km": 0.37,
+"instalacion": "Complejo deportivo Paseo del Prado.",
+"dist_instalacion_km": 0.07,
 "navegacion": [
-40.191963,
--3.668638
+40.191869,
+-3.66787
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "112": {
@@ -6324,11 +7128,13 @@
 -3.716744
 ],
 "dist_rffm_direccion_km": 0.05,
+"instalacion": "Campo de fútbol \"San Federico\"",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.462977,
--3.716116
+40.462618,
+-3.71575
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "12297817": {
@@ -6344,13 +7150,15 @@
 -3.58473
 ],
 "dist_rffm_direccion_km": 42.68,
-"aviso": "Coordenadas de la RFFM a 42.7 km de la dirección (sin confirmar)",
+"aviso": "Coordenadas de la RFFM a 42.7 km de la dirección: corregido",
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.09,
 "navegacion": [
-40.396904,
--3.74369
+40.032659,
+-3.585772
 ],
-"tipo": "rffm",
-"corregido": false
+"tipo": "instalacion",
+"corregido": true
 },
 "1717": {
 "nombre": "LOS SANTOS DE LA HUMOSA (HA)",
@@ -6365,11 +7173,13 @@
 -3.252087
 ],
 "dist_rffm_direccion_km": 0.26,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.03,
 "navegacion": [
-40.494612,
--3.251794
+40.494595,
+-3.252112
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "9999": {
@@ -6407,11 +7217,20 @@
 -3.664289
 ],
 "dist_rffm_direccion_km": 0.12,
+"entrada": {
+"addr:city": "Madrid",
+"addr:housenumber": "10",
+"addr:postcode": "28018",
+"addr:street": "Avenida del Parque de Palomeras Bajas",
+"entrance": "main"
+},
+"instalacion": "Instalación Deportiva Municipal Básica José Durán",
+"dist_instalacion_km": 0.13,
 "navegacion": [
-40.381237,
--3.665334
+40.380548,
+-3.664289
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "508": {
@@ -6423,11 +7242,13 @@
 ],
 "dir_consultada": "CAMINO VIEJO DE VILLAVERDE S/N|Madrid",
 "sin_geocodificar": true,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.15,
 "navegacion": [
-40.369598,
--3.710823
+40.36828,
+-3.71139
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1214": {
@@ -6439,11 +7260,13 @@
 ],
 "dir_consultada": "AVDA. DE LOS ESTUDIANTES, 3|Villanueva Del Pardillo",
 "sin_geocodificar": true,
+"instalacion": "Campo de Fútbol Los Pinos",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.482844,
--3.97202
+40.48354,
+-3.973458
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "408": {
@@ -6455,11 +7278,13 @@
 ],
 "dir_consultada": "CALLE RICARDO BELTRAN Y ROZPIDE 12|Madrid",
 "sin_geocodificar": true,
+"instalacion": "Colonia Zofío",
+"dist_instalacion_km": 0.01,
 "navegacion": [
-40.381028,
--3.718159
+40.38096,
+-3.718192
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "120": {
@@ -6475,11 +7300,13 @@
 -3.707196
 ],
 "dist_rffm_direccion_km": 0.04,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.1,
 "navegacion": [
-40.48303,
--3.707618
+40.482674,
+-3.706567
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "704": {
@@ -6495,11 +7322,16 @@
 -3.644
 ],
 "dist_rffm_direccion_km": 0.5,
+"entrada": {
+"entrance": "main"
+},
+"instalacion": "Polideportivo La Concepción",
+"dist_instalacion_km": 0.09,
 "navegacion": [
-40.43725,
--3.648441
+40.437224,
+-3.648493
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1504": {
@@ -6515,11 +7347,13 @@
 -3.692892
 ],
 "dist_rffm_direccion_km": 0.01,
+"instalacion": "Pabellón Municipal Sandra Aguilar",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.249468,
--3.692804
+40.249435,
+-3.693337
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1777": {
@@ -6535,11 +7369,13 @@
 -3.352864
 ],
 "dist_rffm_direccion_km": 0.03,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.485029,
--3.352549
+40.485609,
+-3.353174
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2596943": {
@@ -6555,11 +7391,13 @@
 -3.830752
 ],
 "dist_rffm_direccion_km": 1.06,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.01,
 "navegacion": [
-40.442982,
--3.83306
+40.442931,
+-3.83304
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "549230": {
@@ -6575,11 +7413,19 @@
 -3.689662
 ],
 "dist_rffm_direccion_km": 0.03,
+"entrada": {
+"access": "yes",
+"barrier": "gate",
+"bicycle": "yes",
+"foot": "yes"
+},
+"instalacion": "Instalación Deportiva Municipal Básica La Perla",
+"dist_instalacion_km": 0.03,
 "navegacion": [
-40.367366,
--3.689885
+40.367267,
+-3.689858
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "300501": {
@@ -6591,11 +7437,13 @@
 ],
 "dir_consultada": "AVDA. DE LA AURORA BOREAL, 4|Madrid",
 "sin_geocodificar": true,
+"instalacion": "Club Deportivo Vicálvaro",
+"dist_instalacion_km": 0.0,
 "navegacion": [
-40.400241,
--3.610898
+40.400265,
+-3.610878
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1425": {
@@ -6611,13 +7459,15 @@
 -3.789733
 ],
 "dist_rffm_direccion_km": 5.02,
-"aviso": "Coordenadas de la RFFM a 5.0 km de la dirección (sin confirmar)",
+"aviso": "Coordenadas de la RFFM a 5.0 km de la dirección: corregido",
+"instalacion": "Parque Residencial Fuenlabrada II",
+"dist_instalacion_km": 0.35,
 "navegacion": [
-40.305344,
--3.839784
+40.284045,
+-3.787994
 ],
-"tipo": "rffm",
-"corregido": false
+"tipo": "instalacion",
+"corregido": true
 },
 "716": {
 "nombre": "I.D.B. SAN PASCUAL (HA)",
@@ -6632,11 +7482,13 @@
 -3.653817
 ],
 "dist_rffm_direccion_km": 0.1,
+"instalacion": "San Pascual",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.438486,
--3.654854
+40.438337,
+-3.65609
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1729": {
@@ -6652,11 +7504,13 @@
 -3.108634
 ],
 "dist_rffm_direccion_km": 0.03,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.189725,
--3.108818
+40.189627,
+-3.109337
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "12286982": {
@@ -6672,11 +7526,13 @@
 -3.711639
 ],
 "dist_rffm_direccion_km": 0.56,
+"instalacion": "Gimnasio",
+"dist_instalacion_km": 0.19,
 "navegacion": [
-40.317834,
--3.715231
+40.316645,
+-3.716892
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "22676244": {
@@ -6692,13 +7548,15 @@
 -3.985217
 ],
 "dist_rffm_direccion_km": 1.96,
-"aviso": "Coordenadas de la RFFM a 2.0 km de la dirección (sin confirmar)",
+"aviso": "Coordenadas de la RFFM a 2.0 km de la dirección: corregido",
+"instalacion": "pitch",
+"dist_instalacion_km": 0.12,
 "navegacion": [
-40.300861,
--4.008256
+40.300657,
+-3.984139
 ],
-"tipo": "rffm",
-"corregido": false
+"tipo": "instalacion",
+"corregido": true
 },
 "11043104": {
 "nombre": "ALCALA - ATLETICO DE MADRID C.D. (HA)",
@@ -6713,11 +7571,13 @@
 -3.361426
 ],
 "dist_rffm_direccion_km": 0.06,
+"instalacion": "Centro Deportivo Alcalá de Henares",
+"dist_instalacion_km": 0.12,
 "navegacion": [
-40.508294,
--3.360855
+40.507503,
+-3.361831
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "902437": {
@@ -6729,11 +7589,13 @@
 ],
 "dir_consultada": "CALLE JULIAN BESTEIRO ESQ. CON CALLE MIGUEL ÁNGEL BLANCO|Mejorada Del Campo",
 "sin_geocodificar": true,
+"instalacion": "Polideportivo Municipal La Dehesa",
+"dist_instalacion_km": 0.25,
 "navegacion": [
-40.393659,
--3.477218
+40.392355,
+-3.479614
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1446": {
@@ -6749,11 +7611,16 @@
 -3.714191
 ],
 "dist_rffm_direccion_km": 0.01,
+"entrada": {
+"entrance": "yes"
+},
+"instalacion": "Coliseum",
+"dist_instalacion_km": 0.12,
 "navegacion": [
-40.324852,
--3.714132
+40.325619,
+-3.716013
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "14982100": {
@@ -6769,11 +7636,13 @@
 -3.895631
 ],
 "dist_rffm_direccion_km": 0.07,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.07,
 "navegacion": [
-40.410906,
--3.896471
+40.411422,
+-3.896837
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2201": {
@@ -6789,11 +7658,18 @@
 -3.924273
 ],
 "dist_rffm_direccion_km": 0.12,
+"entrada": {
+"barrier": "gate",
+"bicycle": "no",
+"foot": "no"
+},
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.2,
 "navegacion": [
-40.697784,
--3.925715
+40.697637,
+-3.923513
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "19778416": {
@@ -6825,11 +7701,16 @@
 -3.667356
 ],
 "dist_rffm_direccion_km": 0.97,
+"entrada": {
+"barrier": "gate"
+},
+"instalacion": "Instalación Deportiva Municipal Básica Puerto Balbarán",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.376523,
--3.657919
+40.376913,
+-3.658541
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "12292321": {
@@ -6845,11 +7726,13 @@
 -3.610768
 ],
 "dist_rffm_direccion_km": 0.15,
+"instalacion": "Ciudad Deportiva del Rayo Vallecano",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.376963,
--3.612401
+40.376529,
+-3.612689
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1417": {
@@ -6865,11 +7748,13 @@
 -3.818138
 ],
 "dist_rffm_direccion_km": 1.06,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.1,
 "navegacion": [
-40.1968,
--3.805668
+40.19755,
+-3.806206
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1211": {
@@ -6881,11 +7766,13 @@
 ],
 "dir_consultada": "AVENIDA DE MIRASIERRA 4|Villanueva De La Cañada",
 "sin_geocodificar": true,
+"instalacion": "Piscina Cubierta Municipal",
+"dist_instalacion_km": 0.01,
 "navegacion": [
-40.454099,
--3.996055
+40.454166,
+-3.995997
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1741": {
@@ -6901,11 +7788,13 @@
 -3.458253
 ],
 "dist_rffm_direccion_km": 0.93,
+"instalacion": "Campos de Fútbol Municipales J. Mª. Gutiérrez Hernández \"Guti\"",
+"dist_instalacion_km": 0.04,
 "navegacion": [
-40.46341,
--3.447921
+40.463713,
+-3.4477
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "813": {
@@ -6921,11 +7810,13 @@
 -3.631118
 ],
 "dist_rffm_direccion_km": 0.11,
+"instalacion": "Club de futbol Agrupación Deportiva Villa Rosa",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.469063,
--3.63099
+40.469234,
+-3.630424
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "320": {
@@ -6941,11 +7832,13 @@
 -3.76614
 ],
 "dist_rffm_direccion_km": 0.4,
+"instalacion": "Instalación Deportiva Básica Óscar y Jesús",
+"dist_instalacion_km": 0.07,
 "navegacion": [
-40.375571,
--3.770706
+40.375189,
+-3.771328
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1709": {
@@ -6982,11 +7875,13 @@
 -3.721521
 ],
 "dist_rffm_direccion_km": 0.29,
+"instalacion": "Complejo de campos de fútbol Ernesto Cotorruelo",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.381582,
--3.723952
+40.380586,
+-3.723875
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1220": {
@@ -7002,11 +7897,13 @@
 -3.895408
 ],
 "dist_rffm_direccion_km": 0.03,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.09,
 "navegacion": [
-40.510033,
--3.895544
+40.510758,
+-3.895885
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "514": {
@@ -7022,11 +7919,13 @@
 -3.701862
 ],
 "dist_rffm_direccion_km": 0.07,
+"instalacion": "Instalación Deportiva Municipal Básica David González Rubio - Pradolongo",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.377067,
--3.701542
+40.377458,
+-3.701781
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "443255": {
@@ -7042,11 +7941,13 @@
 -3.818917
 ],
 "dist_rffm_direccion_km": 0.45,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.03,
 "navegacion": [
-40.337307,
--3.821827
+40.337619,
+-3.821839
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "123": {
@@ -7062,11 +7963,13 @@
 -3.714184
 ],
 "dist_rffm_direccion_km": 0.62,
+"instalacion": "Centro Deportivo Municipal La Masó",
+"dist_instalacion_km": 0.13,
 "navegacion": [
-40.484108,
--3.714873
+40.485192,
+-3.715429
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "806": {
@@ -7078,11 +7981,13 @@
 ],
 "dir_consultada": "CAMINO DEL MONTORO S/N|Madrid",
 "sin_geocodificar": true,
+"instalacion": "Instalación Deportiva Municipal Básica Barrio de Las Cárcavas",
+"dist_instalacion_km": 0.26,
 "navegacion": [
-40.480609,
--3.629819
+40.479689,
+-3.632692
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1448": {
@@ -7098,11 +8003,13 @@
 -3.762538
 ],
 "dist_rffm_direccion_km": 0.41,
+"instalacion": "Complejo Polideportivo Las Américas",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.233618,
--3.762489
+40.234005,
+-3.760939
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1453": {
@@ -7118,11 +8025,13 @@
 -3.819807
 ],
 "dist_rffm_direccion_km": 0.08,
+"instalacion": "Pabellón Deportivo Campohermoso",
+"dist_instalacion_km": 0.03,
 "navegacion": [
-40.256283,
--3.819405
+40.256565,
+-3.819374
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1704": {
@@ -7178,11 +8087,16 @@
 -3.863397
 ],
 "dist_rffm_direccion_km": 0.12,
+"entrada": {
+"barrier": "gate"
+},
+"instalacion": "Campos Municipales de la Oliva",
+"dist_instalacion_km": 0.12,
 "navegacion": [
-40.456415,
--3.864804
+40.45593,
+-3.8641
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "203": {
@@ -7198,11 +8112,13 @@
 -3.738731
 ],
 "dist_rffm_direccion_km": 0.01,
+"instalacion": "AD Fundación",
+"dist_instalacion_km": 0.04,
 "navegacion": [
-40.48149,
--3.738654
+40.481675,
+-3.738199
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1514": {
@@ -7218,11 +8134,13 @@
 -3.696321
 ],
 "dist_rffm_direccion_km": 0.15,
+"instalacion": "Pabellón Municipal Cubierto Parque Pinto",
+"dist_instalacion_km": 0.09,
 "navegacion": [
-40.237944,
--3.694854
+40.23874,
+-3.69493
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "714": {
@@ -7238,11 +8156,13 @@
 -3.60794
 ],
 "dist_rffm_direccion_km": 0.01,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.44019,
--3.60795
+40.440224,
+-3.608497
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "708": {
@@ -7258,11 +8178,13 @@
 -3.575926
 ],
 "dist_rffm_direccion_km": 0.37,
+"instalacion": "Campo de Deportes Nuestra Señora de la Soledad",
+"dist_instalacion_km": 0.2,
 "navegacion": [
-40.469814,
--3.57932
+40.468043,
+-3.579669
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1490": {
@@ -7339,11 +8261,13 @@
 ],
 "dir_consultada": "CALLE DE LA BAHIA DE MALAGA 5|Madrid",
 "sin_geocodificar": true,
+"instalacion": "Campo de Fútbol Municipal \"Los Coronales\"",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.467189,
--3.595537
+40.467699,
+-3.595686
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "14636494": {
@@ -7375,11 +8299,13 @@
 -3.748896
 ],
 "dist_rffm_direccion_km": 0.0,
+"instalacion": "Campo de Fútbol Castroserna",
+"dist_instalacion_km": 0.12,
 "navegacion": [
-40.401782,
--3.74887
+40.402578,
+-3.749845
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2605": {
@@ -7391,11 +8317,13 @@
 ],
 "dir_consultada": "CALLE GRAN VÍA S/N|Orusco De Tajuña",
 "sin_geocodificar": true,
+"instalacion": "Campo de Fútbol Municipal \"Eurocopa 2008\"",
+"dist_instalacion_km": 0.09,
 "navegacion": [
-40.281795,
--3.208845
+40.281068,
+-3.20934
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "23367285": {
@@ -7411,13 +8339,15 @@
 -3.842559
 ],
 "dist_rffm_direccion_km": 20.93,
-"aviso": "Coordenadas de la RFFM a 20.9 km de la dirección (sin confirmar)",
+"aviso": "Coordenadas de la RFFM a 20.9 km de la dirección: corregido",
+"instalacion": "pitch",
+"dist_instalacion_km": 0.04,
 "navegacion": [
-40.530771,
--3.910286
+40.349937,
+-3.842249
 ],
-"tipo": "rffm",
-"corregido": false
+"tipo": "instalacion",
+"corregido": true
 },
 "1726": {
 "nombre": "ALCALA - I.E.S. ANTONIO MACHADO (HA)",
@@ -7432,11 +8362,13 @@
 -3.370431
 ],
 "dist_rffm_direccion_km": 0.0,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.22,
 "navegacion": [
-40.490747,
--3.370435
+40.489053,
+-3.369154
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2208": {
@@ -7452,11 +8384,13 @@
 -4.14461
 ],
 "dist_rffm_direccion_km": 0.2,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.19,
 "navegacion": [
-40.585918,
--4.144146
+40.587582,
+-4.144398
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "725": {
@@ -7472,11 +8406,13 @@
 -3.656544
 ],
 "dist_rffm_direccion_km": 0.04,
+"instalacion": "Sporting de Hortaleza",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.478143,
--3.656168
+40.477911,
+-3.6549
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "713": {
@@ -7492,11 +8428,13 @@
 -3.599813
 ],
 "dist_rffm_direccion_km": 0.14,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.13,
 "navegacion": [
-40.408099,
--3.601247
+40.409289,
+-3.601191
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "305002": {
@@ -7512,11 +8450,13 @@
 -3.909969
 ],
 "dist_rffm_direccion_km": 0.39,
+"instalacion": "Polideportivo Los Mosquitos",
+"dist_instalacion_km": 0.1,
 "navegacion": [
-40.291768,
--3.913541
+40.291548,
+-3.912428
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1332": {
@@ -7532,11 +8472,16 @@
 -3.842233
 ],
 "dist_rffm_direccion_km": 0.25,
+"entrada": {
+"entrance": "yes"
+},
+"instalacion": "Ciudad Deportiva Santo Domingo",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.337357,
--3.844003
+40.338495,
+-3.842689
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "13708544": {
@@ -7552,11 +8497,16 @@
 -3.714191
 ],
 "dist_rffm_direccion_km": 0.01,
+"entrada": {
+"entrance": "yes"
+},
+"instalacion": "Coliseum",
+"dist_instalacion_km": 0.12,
 "navegacion": [
-40.324852,
--3.714132
+40.325619,
+-3.716013
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "14610183": {
@@ -7568,11 +8518,16 @@
 ],
 "dir_consultada": "CALLE BECERREÁ 4|0",
 "sin_geocodificar": true,
+"entrada": {
+"barrier": "gate"
+},
+"instalacion": "Instalación Deportiva Vereda de Ganapanes",
+"dist_instalacion_km": 0.02,
 "navegacion": [
-40.470661,
--3.713515
+40.471366,
+-3.712965
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1408": {
@@ -7584,11 +8539,13 @@
 ],
 "dir_consultada": "CALLE DE CASTELLO BRANCO 2|Leganés",
 "sin_geocodificar": true,
+"instalacion": "Polideportivo municipal de La Fortuna",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.359081,
--3.78344
+40.359653,
+-3.782925
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1452": {
@@ -7604,11 +8561,13 @@
 -3.745948
 ],
 "dist_rffm_direccion_km": 0.28,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.295177,
--3.74823
+40.2955,
+-3.748685
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1021860": {
@@ -7624,11 +8583,13 @@
 -3.827339
 ],
 "dist_rffm_direccion_km": 1.31,
+"instalacion": "Polideportivo Campos de la Huerta",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.341673,
--3.818637
+40.342221,
+-3.818094
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2510": {
@@ -7644,11 +8605,19 @@
 -3.566363
 ],
 "dist_rffm_direccion_km": 0.07,
+"entrada": {
+"addr:housenumber": "17",
+"addr:postcode": "28330",
+"addr:street": "Avenida de los Abogados de Atocha",
+"entrance": "yes"
+},
+"instalacion": "Polideportivo Municipal San Martin de la Vega",
+"dist_instalacion_km": 0.16,
 "navegacion": [
-40.214798,
--3.566284
+40.215651,
+-3.566575
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1723": {
@@ -7664,11 +8633,13 @@
 -3.486756
 ],
 "dist_rffm_direccion_km": 0.1,
+"instalacion": "Campo de fútbol Las Fronteras",
+"dist_instalacion_km": 0.09,
 "navegacion": [
-40.458685,
--3.487078
+40.45821,
+-3.486256
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1420": {
@@ -7684,11 +8655,13 @@
 -3.866829
 ],
 "dist_rffm_direccion_km": 0.25,
+"instalacion": "Polideportivo Municipal La Dehesa",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.261662,
--3.869271
+40.261331,
+-3.86963
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "106": {
@@ -7704,11 +8677,13 @@
 -3.734493
 ],
 "dist_rffm_direccion_km": 0.47,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.0,
 "navegacion": [
-40.483911,
--3.73028
+40.483912,
+-3.730271
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1714": {
@@ -7724,11 +8699,13 @@
 -3.486716
 ],
 "dist_rffm_direccion_km": 0.05,
+"instalacion": "Polideportivo Municipal Vicente García del Campo",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.370433,
--3.486187
+40.369709,
+-3.485997
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "684932": {
@@ -7764,11 +8741,13 @@
 -3.873178
 ],
 "dist_rffm_direccion_km": 0.92,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.0,
 "navegacion": [
-40.417318,
--3.869877
+40.417332,
+-3.869915
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2205": {
@@ -7784,11 +8763,16 @@
 -4.091237
 ],
 "dist_rffm_direccion_km": 0.18,
+"entrada": {
+"barrier": "gate"
+},
+"instalacion": "Complejo deportivo de Guadarrama",
+"dist_instalacion_km": 0.1,
 "navegacion": [
-40.664431,
--4.089747
+40.663941,
+-4.088417
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1431": {
@@ -7804,11 +8788,13 @@
 -3.755337
 ],
 "dist_rffm_direccion_km": 0.08,
+"instalacion": "Polideportivo Julián Montero",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.326183,
--3.756311
+40.325613,
+-3.756182
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1508": {
@@ -7820,11 +8806,13 @@
 ],
 "dir_consultada": "CAMINO DE LA PEÑUELA 1|Ciempozuelos",
 "sin_geocodificar": true,
+"instalacion": "Campos de Fútbol Municipales Las Peñuelas",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.155034,
--3.610134
+40.155064,
+-3.609408
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1219": {
@@ -7856,11 +8844,13 @@
 ],
 "dir_consultada": "CALLE DE LA SOCIEDAD COSECHEROS 5 B|Chinchón",
 "sin_geocodificar": true,
+"instalacion": "Polideportivo Municipal El Salitral",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.13705,
--3.417865
+40.136733,
+-3.418667
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "616": {
@@ -7876,11 +8866,13 @@
 -3.651161
 ],
 "dist_rffm_direccion_km": 0.09,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.19,
 "navegacion": [
-40.396895,
--3.650443
+40.397611,
+-3.652417
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1108": {
@@ -7912,11 +8904,13 @@
 -3.756484
 ],
 "dist_rffm_direccion_km": 0.05,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.1,
 "navegacion": [
-40.369196,
--3.755897
+40.370052,
+-3.755486
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "605": {
@@ -7932,11 +8926,13 @@
 -3.614162
 ],
 "dist_rffm_direccion_km": 0.33,
+"instalacion": "Campo de La Unión",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.383741,
--3.615398
+40.383746,
+-3.614397
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1326": {
@@ -7952,11 +8948,13 @@
 -4.023369
 ],
 "dist_rffm_direccion_km": 0.16,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.18,
 "navegacion": [
-40.285477,
--4.022482
+40.284183,
+-4.023759
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "407": {
@@ -7972,11 +8970,13 @@
 -3.755547
 ],
 "dist_rffm_direccion_km": 0.14,
+"instalacion": "Centro Deportivo Amorós",
+"dist_instalacion_km": 0.04,
 "navegacion": [
-40.371445,
--3.757238
+40.371109,
+-3.757412
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 }
 }
