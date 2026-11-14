@@ -786,12 +786,14 @@ function perfilEquipo(d,id){
 }
 const f1=x=>x.toFixed(1).replace(".",",");
 const recTxt=r=>`${r.g}G ${r.e}E ${r.p}P`;
+const recLargo=r=>`${r.g} victoria${r.g===1?"":"s"}, ${r.e} empate${r.e===1?"":"s"} y ${r.p} derrota${r.p===1?"":"s"}`;
 function previaDatosTexto(d,m,H,A){
   const nombre=id=>(d.table.find(r=>r.id===id)||{}).name||"";
   const lin=(P,rol)=>{const b=rol==="LOCAL"?P.casa:P.fuera,dn=rol==="LOCAL"?"en casa":"fuera";
-    return `${rol}: ${nombre(P.id)} — ${P.pos}º con ${P.pts} puntos en ${P.tot.pj} partidos (${recTxt(P.tot)}, goles ${P.tot.gf}-${P.tot.gc}).
-  ${dn[0].toUpperCase()+dn.slice(1)}: ${b.pj} partidos, ${recTxt(b)}, ${f1(b.ppp)} puntos/partido, marca ${f1(b.gfp)} y encaja ${f1(b.gcp)} por partido.
-  Últimos ${P.ult.length}: ${P.ult.map(x=>({W:"V",D:"E",L:"D"})[x]).join(" ")} (racha actual: ${P.racha} ${(P.racha===1?{W:"victoria",D:"empate",L:"derrota"}:{W:"victorias seguidas",D:"empates seguidos",L:"derrotas seguidas"})[P.tipoRacha]||""}).
+    return `${rol}: ${nombre(P.id)} — ${P.pos}º con ${P.pts} puntos en ${P.tot.pj} partidos (${recLargo(P.tot)}, goles ${P.tot.gf}-${P.tot.gc}).
+  ${dn[0].toUpperCase()+dn.slice(1)}: ${b.pj} partidos, ${recLargo(b)}, ${f1(b.ppp)} puntos/partido, marca ${f1(b.gfp)} y encaja ${f1(b.gcp)} por partido.
+  Últimos ${P.ult.length} resultados, del más antiguo al más reciente: ${P.ult.map(x=>({W:"victoria",D:"empate",L:"derrota"})[x]).join(", ")}.
+  Racha actual: ${P.racha===1?({W:"ganó el último partido",D:"empató el último partido",L:"perdió el último partido"})[P.tipoRacha]:"lleva "+P.racha+" "+({W:"victorias seguidas",D:"empates seguidos",L:"derrotas seguidas"})[P.tipoRacha]}.
   Evolución del puesto por jornada: ${P.posis.join(", ")}. Regularidad: ${P.reg}. Partidos sin marcar: ${P.sinMarcar}. Porterías a cero: ${P.porteria0}.`};
   const ida=d.matches.find(x=>x.played&&x!==m&&((x.home===m.home&&x.away===m.away)||(x.home===m.away&&x.away===m.home)));
   return `${grupoNombre(d.id)} · Jornada ${m.j} · ${d.table.length} equipos
