@@ -135,6 +135,7 @@ html[data-theme="estadio"] .carr-fijo{background:#070b16;border-bottom-color:#1e
 .mc-res span{opacity:.5;margin:0 3px}
 .mc-hora{font-family:"Barlow Condensed",system-ui,sans-serif;font-size:26px;font-weight:700;padding:2px 10px;border-radius:10px;border:1.5px dashed var(--line)}
 .mc-campo{font-size:12px;color:var(--muted);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mc.jugado{cursor:pointer}.mc.jugado:active{transform:scale(.985)}
 .mc-bot{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;min-height:32px}
 .mc-bot .btn{text-decoration:none;font-size:12.5px;padding:7px 11px}
 .carr-hint{text-align:center;opacity:.7;margin-top:2px}
@@ -695,14 +696,38 @@ function cronoHTML(m,g){
     return `<div class="cr-row"><div class="cr-l">${e.lado==="L"?celda:""}</div><div class="cr-m">${e.min!=null?e.min+"'":"–"}</div><div class="cr-r">${e.lado==="V"?celda:""}</div></div>`}).join("");
   const alin=suf=>{const js=(g["jugadores_equipo_"+suf]||[]);const tit=js.filter(x=>siNo(x.titular)),sup=js.filter(x=>!siNo(x.titular));
     const li=x=>`<div class="small">${x.dorsal!=null&&x.dorsal!==""?`<b>${esc(x.dorsal)}</b> `:""}${esc(corto(x.nombre_jugador))}${x.posicion_jugador_abreviatura?` <span style="opacity:.6">${esc(x.posicion_jugador_abreviatura)}</span>`:""}${siNo(x.capitan)?" (C)":""}${siNo(x.portero)?" 🧤":""}</div>`;
-    return js.length?`${tit.map(li).join("")}${sup.length?`<div class="small" style="margin-top:4px;opacity:.75">Suplentes</div>${sup.map(li).join("")}`:""}`:`<div class="small">Sin alineación publicada.</div>`};
+    return js.length?`${tit.length&&sup.length?`<div class="small" style="margin-top:4px;opacity:.75">Titulares</div>`:""}${tit.map(li).join("")}${sup.length?`<div class="small" style="margin-top:4px;opacity:.75">Suplentes</div>${sup.map(li).join("")}`:""}`:`<div class="small">El acta no publica los convocados.</div>`};
   const hayCambios=ev.some(e=>e.tipo==="cambio");
   return `<b>Cronología</b> · J${m.j}${m.date?" · "+fdate(m.date):""}
    <div class="cr-head"><div>${esc(m.homeN)}</div><div class="cr-res">${m.hg} – ${m.ag}</div><div>${esc(m.awayN)}</div></div>
    ${ev.length?`<div class="cr">${filas}</div>`:`<div class="small" style="margin:8px 0">El acta no recoge goles ni tarjetas.</div>`}
    ${hayCambios?"":`<div class="small" style="opacity:.75">El acta de este partido no incluye los cambios.</div>`}
-   <details class="cr-al"><summary>Alineaciones</summary><div class="cr-cols"><div><b class="small">${esc(m.homeN)}</b>${alin("local")}</div><div><b class="small">${esc(m.awayN)}</b>${alin("visitante")}</div></div></details>
+   <details class="cr-al" open><summary>Convocados</summary><div class="cr-cols"><div><b class="small">${esc(m.homeN)}</b>${alin("local")}</div><div><b class="small">${esc(m.awayN)}</b>${alin("visitante")}</div></div></details>
    <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button class="btn ghost" data-copiar="${esc(m.acta)}">Copiar resumen</button>${linkRFFM(urlActaRFFM(m),"Acta en la RFFM")}</div>`;
+}
+// Clasificación calculada con los resultados hasta esa jornada (incluida)
+function tablaHasta(d,j){
+  const T=new Map();const fila=(id,n)=>{if(!T.has(id))T.set(id,{id,name:n,pj:0,g:0,e:0,p:0,gf:0,gc:0,pts:0});return T.get(id)};
+  for(const r of d.table)fila(r.id,r.name);
+  for(const m of d.matches){if(!m.home||!m.away||m.j==null||m.j>j)continue;fila(m.home,m.homeN);fila(m.away,m.awayN);if(!m.played)continue;
+    const a=T.get(m.home),b=T.get(m.away);a.pj++;b.pj++;a.gf+=m.hg;a.gc+=m.ag;b.gf+=m.ag;b.gc+=m.hg;
+    if(m.hg>m.ag){a.g++;a.pts+=3;b.p++}else if(m.hg<m.ag){b.g++;b.pts+=3;a.p++}else{a.e++;b.e++;a.pts++;b.pts++}}
+  const t=[...T.values()].sort((x,y)=>y.pts-x.pts||(y.gf-y.gc)-(x.gf-x.gc)||y.gf-x.gf||x.name.localeCompare(y.name));
+  t.forEach((r,i)=>r.pos=i+1);return {id:d.id,table:t};
+}
+function fichaPartidoMsgs(t,m){
+  const d=GD[m.gid]||teamGroup(t);const msgs=[];
+  const o=outcome(m,t.id);
+  msgs.push({r:"b",h:`<b>${{W:"Victoria",D:"Empate",L:"Derrota"}[o]}</b> ${m.home===t.id?"en casa":"fuera"}${scoreCard(m).replace(/<div style="display:flex;gap:8px;justify-content:center[\s\S]*$/,"")}`});
+  const ultJ=Math.max(...d.matches.filter(x=>x.played&&x.j!=null).map(x=>x.j));
+  if(m.j!=null&&m.j<ultJ){const th=tablaHasta(d,m.j);const me=th.table.find(r=>r.id===t.id);
+    msgs.push({r:"b",h:`Clasificación tras la <b>jornada ${m.j}</b>${me?`: iba <b>${me.pos}º</b> con ${me.pts} puntos`:""}.${tableHTML(th,t.id)}<div class="small" style="opacity:.75">Calculada con los resultados hasta esa jornada.</div>`});
+    msgs.push({r:"b",h:"Clasificación actual: "+ansTable(t)});
+  } else msgs.push({r:"b",h:ansTable(t)});
+  if(m.acta){if(ANDROID)msgs.push({r:"b",h:'<span class="typing">…</span> Cargando cronología y convocados…'});
+    else msgs.push({r:"b",h:`La cronología y los convocados están en el acta:<div>${linkRFFM(urlActaRFFM(m),"Acta en la RFFM")}</div>`})}
+  else msgs.push({r:"b",h:`<span class="small">La federación aún no ha publicado el acta de este partido.</span>`});
+  return msgs;
 }
 function buscarPartido(acta){for(const d of Object.values(GD)){const m=(d.matches||[]).find(x=>x.acta===acta);if(m)return m}return null}
 
@@ -717,9 +742,9 @@ function tarjetaPartido(t,m,esProx){
   const centro=m.played?`<div class="mc-res">${m.hg}<span>–</span>${m.ag}</div>`:`<div class="mc-hora">${m.time||"--:--"}</div>`;
   const nom=(id,n)=>id===t.id?`<div class="mc-yo">${crest(t,26)}<b>${esc(n)}</b></div>`:L(id,n);
   const bot=m.played
-    ?(m.acta?`${ANDROID?`<button class="btn" data-crono="${esc(m.acta)}">⏱️ Cronología</button>`:""}<a class="btn ghost" href="${urlActaRFFM(m)}" target="_blank" rel="noopener">📄 Acta</a>`:"")
+    ?`<button class="btn" data-fp="${esc(m.gid)}|${m.j}|${esc(m.home)}">📋 Ver partido</button>${m.acta?`<a class="btn ghost" href="${urlActaRFFM(m)}" target="_blank" rel="noopener">📄 Acta</a>`:""}`
     :`${c?`<a class="btn ghost" href="${navUrl(c)}" target="_blank" rel="noopener">📍 Cómo llegar</a>`:""}${esProx?`<button class="btn ghost" data-ask="¿Qué tiempo hará?">🌦️ Tiempo</button>`:""}`;
-  return `<div class="mc${m.played?"":" fut"}${esProx?" prox":""}" data-j="${m.j}">
+  return `<div class="mc${m.played?" jugado":" fut"}${esProx?" prox":""}" data-j="${m.j}"${m.played?` data-fp="${esc(m.gid)}|${m.j}|${esc(m.home)}"`:""}>
     <div class="mc-top"><span>J${m.j??"?"} · ${fecha}</span>${estado}</div>
     <div class="mc-eq"><div>${nom(m.home,m.homeN)}</div>${centro}<div>${nom(m.away,m.awayN)}</div></div>
     <div class="mc-campo">${home?"🏠 En casa":"✈️ Fuera"}${c?` · ${esc(c.name)}`:m.campoN?` · ${esc(m.campoN)}`:""}</div>
@@ -1171,6 +1196,13 @@ function renderChat(app,t){
   $("#f").onsubmit=e=>{e.preventDefault();const v=$("#q").value;$("#q").value="";ask(v)};
   app.onclick=e=>{
     const a=e.target.closest("[data-ask]");if(a){ask(a.dataset.ask);return}
+    const fp=!e.target.closest("a,[data-ver],[data-ask]")&&e.target.closest("[data-fp]");if(fp&&t){const[gid,j,home]=fp.dataset.fp.split("|");
+      const m=teamMatches(t).find(x=>String(x.gid)===gid&&String(x.j)===j&&String(x.home)===home);if(!m||!m.played)return;
+      state.chats[key].push({r:"u",h:`📋 J${m.j} · ${esc(m.homeN)} ${m.hg}–${m.ag} ${esc(m.awayN)}`});
+      const ini=state.chats[key].length;state.chats[key].push(...fichaPartidoMsgs(t,m));draw();
+      const el=chat.querySelectorAll(".msg")[ini-1],sc=$("#scroll"),cw=document.querySelector(".carr-wrap");
+      if(el){const tope=sc.getBoundingClientRect().top;sc.scrollTop+=el.getBoundingClientRect().top-tope-30}
+      if(m.acta&&ANDROID)cargarCrono(m);return}
     const cr=e.target.closest("[data-crono]");if(cr){const m=buscarPartido(cr.dataset.crono);if(!m)return;
       state.chats[key].push({r:"u",h:"⏱️ Cronología del partido"});state.chats[key].push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span>'});draw();
       cargarCrono(m);return}
