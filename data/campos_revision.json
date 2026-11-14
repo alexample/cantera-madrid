@@ -6,6 +6,7 @@
 40.340418,
 -3.762508
 ],
+"dir_consultada": "CALLE ARQUITECTURA 8|Leganés",
 "direccion_gps": [
 40.339599,
 -3.762738
@@ -25,6 +26,8 @@
 40.400241,
 -3.610898
 ],
+"dir_consultada": "AVDA. DE LA AURORA BOREAL 4|Madrid",
+"sin_geocodificar": true,
 "navegacion": [
 40.400241,
 -3.610898
@@ -39,6 +42,7 @@
 40.307198,
 -3.449361
 ],
+"dir_consultada": "CALLE SAN SEBASTIÁN 6|Arganda Del Rey",
 "direccion_gps": [
 40.307513,
 -3.451333
@@ -58,12 +62,13 @@
 40.313722,
 -3.741321
 ],
+"dir_consultada": "CTRA. DE LEGANES S/N|Madrid",
 "direccion_gps": [
-40.36401,
--3.743432
+40.364756,
+-3.742898
 ],
-"dist_rffm_direccion_km": 5.59,
-"aviso": "Coordenadas de la RFFM a 5.6 km de la dirección (sin confirmar)",
+"dist_rffm_direccion_km": 5.68,
+"aviso": "Coordenadas de la RFFM a 5.7 km de la dirección (sin confirmar)",
 "navegacion": [
 40.313722,
 -3.741321
@@ -78,6 +83,7 @@
 40.535592,
 -3.784518
 ],
+"dir_consultada": "CARRETERA COLMENAR VIEJO S/N|Madrid",
 "direccion_gps": [
 40.518514,
 -3.773552
@@ -98,6 +104,7 @@
 40.461527,
 -3.861633
 ],
+"dir_consultada": "CALLE CERRO DEL ESPINO S/N|Majadahonda",
 "direccion_gps": [
 40.460643,
 -3.862788
@@ -117,6 +124,7 @@
 40.489437,
 -3.891217
 ],
+"dir_consultada": "CALLE COMUNIDAD DE ANDALUCÍA 53|Las Rozas De Madrid",
 "direccion_gps": [
 40.489479,
 -3.891201
@@ -136,6 +144,7 @@
 40.382241,
 -3.746321
 ],
+"dir_consultada": "CALLE MONSEÑOR ÓSCAR ROMERO 41|Madrid",
 "direccion_gps": [
 40.381464,
 -3.746696
@@ -155,6 +164,8 @@
 40.350103,
 -3.755786
 ],
+"dir_consultada": "CARRETERA LEGANES-CARABANCHEL (M-421), km 1.100|Leganés",
+"sin_geocodificar": true,
 "navegacion": [
 40.350103,
 -3.755786
@@ -169,11 +180,12 @@
 40.452637,
 -3.779723
 ],
+"dir_consultada": "GLORIETA RIO ZANCARA 1|Madrid",
 "direccion_gps": [
-40.452472,
--3.779534
+40.452619,
+-3.779051
 ],
-"dist_rffm_direccion_km": 0.02,
+"dist_rffm_direccion_km": 0.06,
 "navegacion": [
 40.452637,
 -3.779723
@@ -188,6 +200,7 @@
 40.338863,
 -3.76279
 ],
+"dir_consultada": "CALLE ARQUITECTURA 4|Leganés",
 "direccion_gps": [
 40.339599,
 -3.762738
@@ -207,6 +220,7 @@
 40.455293,
 -3.59453
 ],
+"dir_consultada": "CALLE DE LA RIOJA 1|Madrid",
 "direccion_gps": [
 40.334139,
 -3.755152
@@ -227,11 +241,12 @@
 40.317834,
 -3.715231
 ],
+"dir_consultada": "AVDA. JUAN DE BORBON S/N|Getafe",
 "direccion_gps": [
-40.316774,
--3.714362
+40.313558,
+-3.711639
 ],
-"dist_rffm_direccion_km": 0.14,
+"dist_rffm_direccion_km": 0.56,
 "navegacion": [
 40.317834,
 -3.715231
@@ -246,6 +261,7 @@
 40.368105,
 -3.697747
 ],
+"dir_consultada": "Calle de Moreja 11|Madrid",
 "direccion_gps": [
 40.368185,
 -3.697334
@@ -265,6 +281,7 @@
 40.41733,
 -3.57545
 ],
+"dir_consultada": "CALLE DEL PUERTO DE BILBAO 1|Coslada",
 "direccion_gps": [
 40.416206,
 -3.576454
@@ -284,6 +301,8 @@
 40.393495,
 -3.480555
 ],
+"dir_consultada": "CALLE DE JOAN MIRÓ 22|Mejorada Del Campo",
+"sin_geocodificar": true,
 "navegacion": [
 40.393495,
 -3.480555
@@ -298,6 +317,7 @@
 40.470647,
 -3.713545
 ],
+"dir_consultada": "CALLE BECERREÁ 4|Madrid",
 "direccion_gps": [
 40.471461,
 -3.712729
@@ -317,11 +337,12 @@
 40.447059,
 -3.658927
 ],
+"dir_consultada": "CALLE RAMIREZ DE ARELLANO, 30|Madrid",
 "direccion_gps": [
-40.448316,
--3.656978
+40.448741,
+-3.655415
 ],
-"dist_rffm_direccion_km": 0.22,
+"dist_rffm_direccion_km": 0.35,
 "navegacion": [
 40.447059,
 -3.658927
@@ -336,6 +357,8 @@
 40.437684,
 -3.297102
 ],
+"dir_consultada": "CTRA. VALDEÁGUILA S/N|Villalbilla",
+"sin_geocodificar": true,
 "navegacion": [
 40.437684,
 -3.297102
@@ -350,6 +373,7 @@
 40.357003,
 -3.855351
 ],
+"dir_consultada": "DEMOCRACIA S/N|Alcorcón",
 "direccion_gps": [
 40.330381,
 -3.821777
@@ -370,12 +394,13 @@
 40.305344,
 -3.839784
 ],
+"dir_consultada": "CALLE DE LA FUENTE S/N|Fuenlabrada",
 "direccion_gps": [
-40.277714,
--3.787302
+40.281214,
+-3.789733
 ],
-"dist_rffm_direccion_km": 5.41,
-"aviso": "Coordenadas de la RFFM a 5.4 km de la dirección (sin confirmar)",
+"dist_rffm_direccion_km": 5.02,
+"aviso": "Coordenadas de la RFFM a 5.0 km de la dirección (sin confirmar)",
 "navegacion": [
 40.305344,
 -3.839784
@@ -390,6 +415,8 @@
 40.316895,
 -3.286032
 ],
+"dir_consultada": "CAMINO DE NUEVO BAZTÁN S/N|Valdilecha",
+"sin_geocodificar": true,
 "navegacion": [
 40.316895,
 -3.286032
@@ -404,6 +431,7 @@
 40.711312,
 -3.984208
 ],
+"dir_consultada": "CALLE DE SOLOS PRADOS S/N|Becerril De La Sierra",
 "direccion_gps": [
 40.710906,
 -3.985317
@@ -423,6 +451,8 @@
 40.412497,
 -3.870621
 ],
+"dir_consultada": "CTRA. DE BOADILLA A POZUELO KM. 1,400|Boadilla Del Monte",
+"sin_geocodificar": true,
 "navegacion": [
 40.412497,
 -3.870621
@@ -437,6 +467,7 @@
 40.42367,
 -3.611926
 ],
+"dir_consultada": "AVDA. DE CANILLEJAS A VICALVARO 82|Madrid",
 "direccion_gps": [
 40.424679,
 -3.613007
@@ -456,6 +487,7 @@
 40.347983,
 -4.097392
 ],
+"dir_consultada": "PASEO DE CASTILLA 1|Villanueva De Perales",
 "direccion_gps": [
 40.34751,
 -4.097313
@@ -475,6 +507,8 @@
 40.398577,
 -3.733222
 ],
+"dir_consultada": "CALLE DE ARROYO DE VALDECELADA 3|Madrid",
+"sin_geocodificar": true,
 "navegacion": [
 40.398577,
 -3.733222
@@ -489,6 +523,7 @@
 40.276552,
 -3.797696
 ],
+"dir_consultada": "CALLE DEL HIGUERAL S/N|Fuenlabrada",
 "direccion_gps": [
 40.276333,
 -3.798088
@@ -508,6 +543,7 @@
 40.325875,
 -4.203004
 ],
+"dir_consultada": "CARRETERA DE CHAPINERÍA S/N|Aldea Del Fresno",
 "direccion_gps": [
 40.340592,
 -4.207786
@@ -528,6 +564,8 @@
 40.654445,
 -4.019161
 ],
+"dir_consultada": "CALLE DEL CAMPO DE FÚTBOL S/N|Alpedrete",
+"sin_geocodificar": true,
 "navegacion": [
 40.654445,
 -4.019161
@@ -542,11 +580,12 @@
 40.552629,
 -4.012098
 ],
+"dir_consultada": "CTRA. DE VILLANUEVA DEL PARDILLO S/N|Colmenarejo",
 "direccion_gps": [
-40.553599,
--4.013247
+40.552294,
+-4.011744
 ],
-"dist_rffm_direccion_km": 0.15,
+"dist_rffm_direccion_km": 0.05,
 "navegacion": [
 40.552629,
 -4.012098
@@ -561,6 +600,7 @@
 40.397406,
 -3.359422
 ],
+"dir_consultada": "CALLE DE LAS PALMERAS S/N|Torres De La Alameda",
 "direccion_gps": [
 40.396834,
 -3.359223
@@ -580,6 +620,8 @@
 40.313871,
 -3.739966
 ],
+"dir_consultada": "CTRA. DE GETAFE A LEGANÉS S/N|Getafe",
+"sin_geocodificar": true,
 "navegacion": [
 40.313871,
 -3.739966
@@ -594,6 +636,8 @@
 40.552895,
 -3.647783
 ],
+"dir_consultada": "CALLE DE FCO. LARGO CABALLERO 2|Alcobendas",
+"sin_geocodificar": true,
 "navegacion": [
 40.552895,
 -3.647783
@@ -608,6 +652,7 @@
 40.382405,
 -3.634328
 ],
+"dir_consultada": "CALLE DEL TRANVÍA DE ARGANDA 4|Madrid",
 "direccion_gps": [
 40.382728,
 -3.633565
@@ -627,6 +672,7 @@
 40.379486,
 -3.533474
 ],
+"dir_consultada": "AVDA. DE LOS ALMENDROS 2|Rivas-Vaciamadrid",
 "direccion_gps": [
 40.360489,
 -3.542587
@@ -647,6 +693,8 @@
 40.420622,
 -3.819818
 ],
+"dir_consultada": "AVDA. JUAN ANTONIO SAMARANCH TORELLÓ 8|Pozuelo De Alarcón",
+"sin_geocodificar": true,
 "navegacion": [
 40.420622,
 -3.819818
@@ -661,6 +709,7 @@
 40.43347,
 -3.526094
 ],
+"dir_consultada": "PASEO DE LOS PINOS S/N|San Fernando De Henares",
 "direccion_gps": [
 40.431388,
 -3.52451
@@ -680,6 +729,7 @@
 40.39307,
 -3.77885
 ],
+"dir_consultada": "CALLE DARIO GAZAPO 17|Madrid",
 "direccion_gps": [
 40.390923,
 -3.779309
@@ -699,6 +749,8 @@
 40.626141,
 -3.475603
 ],
+"dir_consultada": "CAMINO DEL FRESNO S/N|Valdeolmos-Alalpardo",
+"sin_geocodificar": true,
 "navegacion": [
 40.626141,
 -3.475603
@@ -713,6 +765,7 @@
 40.463899,
 -3.63009
 ],
+"dir_consultada": "CALLE DE EL PROVENCIO S/N|Madrid",
 "direccion_gps": [
 40.46488,
 -3.627923
@@ -732,6 +785,8 @@
 40.420622,
 -3.819818
 ],
+"dir_consultada": "AVDA.JUAN ANTONIO SAMARANACH TORELLÓ 8|Pozuelo De Alarcón",
+"sin_geocodificar": true,
 "navegacion": [
 40.420622,
 -3.819818
@@ -746,11 +801,13 @@
 40.378863,
 -3.756682
 ],
+"dir_consultada": "AVENIDA DE LOS POBLADOS 72|Madrid",
 "direccion_gps": [
-40.383735,
--3.759523
+40.373702,
+-3.714097
 ],
-"dist_rffm_direccion_km": 0.59,
+"dist_rffm_direccion_km": 3.65,
+"aviso": "Coordenadas de la RFFM a 3.7 km de la dirección (sin confirmar)",
 "navegacion": [
 40.378863,
 -3.756682
@@ -765,6 +822,7 @@
 40.747569,
 -3.785143
 ],
+"dir_consultada": "CALLE EGIDILLO 37|Soto Del Real",
 "direccion_gps": [
 40.747414,
 -3.785166
@@ -784,6 +842,8 @@
 40.544846,
 -3.617188
 ],
+"dir_consultada": "AVDA. MATAPIÑONERA S/N|San Sebastián De Los Reyes",
+"sin_geocodificar": true,
 "navegacion": [
 40.544846,
 -3.617188
@@ -798,6 +858,7 @@
 40.364471,
 -3.246021
 ],
+"dir_consultada": "CALLE FÁBRICA 3|Nuevo Baztán",
 "direccion_gps": [
 40.364561,
 -3.245313
@@ -817,6 +878,7 @@
 40.552869,
 -3.641065
 ],
+"dir_consultada": "CALLE DE MANUEL DE FALLA 54|Alcobendas",
 "direccion_gps": [
 40.552483,
 -3.641091
@@ -836,6 +898,7 @@
 40.459514,
 -3.643137
 ],
+"dir_consultada": "CALLE DE ANDORRA 28|Madrid",
 "direccion_gps": [
 40.458964,
 -3.645244
@@ -855,6 +918,7 @@
 40.487498,
 -3.72695
 ],
+"dir_consultada": "CALLE MIRADOR DE LA REINA 2|Madrid",
 "direccion_gps": [
 40.488853,
 -3.725382
@@ -874,11 +938,12 @@
 40.27315,
 -3.913314
 ],
+"dir_consultada": "CALLE MADRID 46|Arroyomolinos",
 "direccion_gps": [
-40.273231,
--3.913559
+40.2697,
+-3.922567
 ],
-"dist_rffm_direccion_km": 0.02,
+"dist_rffm_direccion_km": 0.87,
 "navegacion": [
 40.27315,
 -3.913314
@@ -893,11 +958,12 @@
 40.337357,
 -3.844003
 ],
+"dir_consultada": "AVDA. DE ESTEBAN MARQUEZ, S/N|Alcorcón",
 "direccion_gps": [
-40.340481,
--3.841087
+40.340492,
+-3.841158
 ],
-"dist_rffm_direccion_km": 0.43,
+"dist_rffm_direccion_km": 0.42,
 "navegacion": [
 40.337357,
 -3.844003
@@ -912,11 +978,12 @@
 40.56619,
 -3.626749
 ],
+"dir_consultada": "AVENIDA DE LA DEHESA S/N|San Sebastián De Los Reyes",
 "direccion_gps": [
-40.563119,
--3.622262
+40.565882,
+-3.626961
 ],
-"dist_rffm_direccion_km": 0.51,
+"dist_rffm_direccion_km": 0.04,
 "navegacion": [
 40.56619,
 -3.626749
@@ -931,6 +998,7 @@
 40.419733,
 -3.619244
 ],
+"dir_consultada": "AVDA. DE GUADALAJARA 16|Madrid",
 "direccion_gps": [
 40.420057,
 -3.618696
@@ -950,11 +1018,12 @@
 40.535836,
 -3.622151
 ],
+"dir_consultada": "AVDA. DE LA TRANSICIÓN ESPAÑOLA 7|Alcobendas",
 "direccion_gps": [
-40.535152,
--3.621263
+40.535358,
+-3.621708
 ],
-"dist_rffm_direccion_km": 0.11,
+"dist_rffm_direccion_km": 0.07,
 "navegacion": [
 40.535836,
 -3.622151
@@ -969,6 +1038,8 @@
 40.47498,
 -3.36462
 ],
+"dir_consultada": "CALLE RONDA FISCAL 2|Alcalá De Henares",
+"sin_geocodificar": true,
 "navegacion": [
 40.47498,
 -3.36462
@@ -983,6 +1054,8 @@
 40.399692,
 -3.748521
 ],
+"dir_consultada": "CALLE CONCEJAL FRANCISCO JOSÉ JIMÉNEZ MARTÍN 11|Madrid",
+"sin_geocodificar": true,
 "navegacion": [
 40.399692,
 -3.748521
@@ -997,6 +1070,7 @@
 40.48125,
 -3.659015
 ],
+"dir_consultada": "CALLE TIJOLA S/N|Madrid",
 "direccion_gps": [
 40.480862,
 -3.65915
@@ -1016,6 +1090,8 @@
 40.366003,
 -4.399763
 ],
+"dir_consultada": "PLAZA DE LOS DEPORTES S/N|San Martín De Valdeiglesias",
+"sin_geocodificar": true,
 "navegacion": [
 40.366003,
 -4.399763
@@ -1030,6 +1106,8 @@
 40.906853,
 -3.884574
 ],
+"dir_consultada": "PLAZA CANTO BLANCO S/N|Rascafría",
+"sin_geocodificar": true,
 "navegacion": [
 40.906853,
 -3.884574
@@ -1044,6 +1122,7 @@
 40.747589,
 -3.511757
 ],
+"dir_consultada": "CAMINO DEL CUBILLO 2|Talamanca De Jarama",
 "direccion_gps": [
 40.756561,
 -3.504426
@@ -1063,6 +1142,7 @@
 40.581002,
 -3.507407
 ],
+"dir_consultada": "CALLE COBRE S/N - M 103|Cobeña",
 "direccion_gps": [
 40.561266,
 -3.49927
@@ -1083,11 +1163,12 @@
 40.501614,
 -3.522101
 ],
+"dir_consultada": "AVENIDA DE LOS DEPORTES S/N|Paracuellos De Jarama",
 "direccion_gps": [
-40.50035,
--3.522413
+40.503928,
+-3.521654
 ],
-"dist_rffm_direccion_km": 0.14,
+"dist_rffm_direccion_km": 0.26,
 "navegacion": [
 40.501614,
 -3.522101
@@ -1102,6 +1183,8 @@
 40.639786,
 -4.003571
 ],
+"dir_consultada": "CALLE DE LA GRANJA 18|Collado Villalba",
+"sin_geocodificar": true,
 "navegacion": [
 40.639786,
 -4.003571
@@ -1116,6 +1199,7 @@
 40.301091,
 -3.808866
 ],
+"dir_consultada": "PASEO RIAZOR S/N|Fuenlabrada",
 "direccion_gps": [
 40.301478,
 -3.810868
@@ -1135,6 +1219,7 @@
 40.404837,
 -3.731351
 ],
+"dir_consultada": "CALLE DE PABLO SARASATE 1|Madrid",
 "direccion_gps": [
 40.260818,
 -3.699353
@@ -1155,6 +1240,8 @@
 40.626625,
 -3.597446
 ],
+"dir_consultada": "AVDA. DE GUADALIX S/N. CTRA. A-1 KM. 28,100) URB. CIUDALCAMPO|San Sebastián De Los Reyes",
+"sin_geocodificar": true,
 "navegacion": [
 40.626625,
 -3.597446
@@ -1169,6 +1256,8 @@
 40.373573,
 -3.735171
 ],
+"dir_consultada": "AVENIDA DE LOS POBLADOS 106, ESQUINA CON VIA LUSITANA|Madrid",
+"sin_geocodificar": true,
 "navegacion": [
 40.373573,
 -3.735171
@@ -1183,11 +1272,12 @@
 40.376963,
 -3.612401
 ],
+"dir_consultada": "CALLE DEL RAYO VALLECANO DE MADRID 2|Madrid",
 "direccion_gps": [
-40.375193,
--3.612704
+40.377486,
+-3.610768
 ],
-"dist_rffm_direccion_km": 0.2,
+"dist_rffm_direccion_km": 0.15,
 "navegacion": [
 40.376963,
 -3.612401
@@ -1202,6 +1292,7 @@
 40.292478,
 -3.429
 ],
+"dir_consultada": "CALLE MAR CANTÁBRICO 21 B|Arganda Del Rey",
 "direccion_gps": [
 40.29308,
 -3.430172
@@ -1221,6 +1312,7 @@
 40.455472,
 -3.982931
 ],
+"dir_consultada": "AVDA. UNIVERSIDAD 1|Villanueva De La Cañada",
 "direccion_gps": [
 40.483052,
 -3.937459
@@ -1241,6 +1333,8 @@
 40.472381,
 -3.657843
 ],
+"dir_consultada": "CALLE DEL VELACHO BAJO S/N|Madrid",
+"sin_geocodificar": true,
 "navegacion": [
 40.472381,
 -3.657843
@@ -1255,6 +1349,8 @@
 40.34223,
 -3.820165
 ],
+"dir_consultada": "AVDA. POLVORANCA 60|Alcorcón",
+"sin_geocodificar": true,
 "navegacion": [
 40.34223,
 -3.820165
@@ -1269,6 +1365,7 @@
 40.242415,
 -3.693313
 ],
+"dir_consultada": "CALLE SEVILLA S/N|Pinto",
 "direccion_gps": [
 40.24242,
 -3.692934
@@ -1288,11 +1385,12 @@
 40.191777,
 -3.663828
 ],
+"dir_consultada": "PASEO DEL PRADO S/N|Valdemoro",
 "direccion_gps": [
-40.192065,
--3.660428
+40.191613,
+-3.662385
 ],
-"dist_rffm_direccion_km": 0.29,
+"dist_rffm_direccion_km": 0.12,
 "navegacion": [
 40.191777,
 -3.663828
@@ -1307,11 +1405,12 @@
 40.299057,
 -3.830172
 ],
+"dir_consultada": "AVDA. DE NUEVO VERSALLES 1|Fuenlabrada",
 "direccion_gps": [
-40.293216,
--3.831314
+40.300225,
+-3.82927
 ],
-"dist_rffm_direccion_km": 0.66,
+"dist_rffm_direccion_km": 0.15,
 "navegacion": [
 40.299057,
 -3.830172
@@ -1326,6 +1425,7 @@
 40.02577,
 -3.619801
 ],
+"dir_consultada": "CALLE JUAN DE HERRERA 1|Aranjuez",
 "direccion_gps": [
 40.02609,
 -3.619409
@@ -1345,6 +1445,7 @@
 40.506998,
 -3.889595
 ],
+"dir_consultada": "AVDA. NTRA. SRA. DEL RETAMAR 16|Las Rozas De Madrid",
 "direccion_gps": [
 40.506014,
 -3.888515
@@ -1364,11 +1465,12 @@
 40.381582,
 -3.723952
 ],
+"dir_consultada": "VIA LUSITANA 5|Madrid",
 "direccion_gps": [
-40.38283,
--3.723421
+40.383374,
+-3.721521
 ],
-"dist_rffm_direccion_km": 0.15,
+"dist_rffm_direccion_km": 0.29,
 "navegacion": [
 40.381582,
 -3.723952
@@ -1383,11 +1485,12 @@
 40.329768,
 -3.513959
 ],
+"dir_consultada": "AVDA. DE FRANCIA S/N|Rivas-Vaciamadrid",
 "direccion_gps": [
-40.328739,
--3.517027
+40.32955,
+-3.514645
 ],
-"dist_rffm_direccion_km": 0.28,
+"dist_rffm_direccion_km": 0.06,
 "navegacion": [
 40.329768,
 -3.513959
@@ -1402,11 +1505,12 @@
 40.256842,
 -3.819047
 ],
+"dir_consultada": "CALLE VALDEHONDILLO, S/N.|Humanes De Madrid",
 "direccion_gps": [
-40.256666,
--3.818901
+40.255678,
+-3.819807
 ],
-"dist_rffm_direccion_km": 0.02,
+"dist_rffm_direccion_km": 0.14,
 "navegacion": [
 40.256842,
 -3.819047
@@ -1421,6 +1525,7 @@
 40.377694,
 -3.673897
 ],
+"dir_consultada": "RONDA DEL SUR 4|Madrid",
 "direccion_gps": [
 40.296547,
 -3.45892
@@ -1441,11 +1546,12 @@
 40.325675,
 -3.88309
 ],
+"dir_consultada": "AVDA. DE IKER CASILLAS S/N|Móstoles",
 "direccion_gps": [
-40.326145,
--3.892784
+40.325694,
+-3.883368
 ],
-"dist_rffm_direccion_km": 0.82,
+"dist_rffm_direccion_km": 0.02,
 "navegacion": [
 40.325675,
 -3.88309
@@ -1460,6 +1566,8 @@
 40.389264,
 -3.70171
 ],
+"dir_consultada": "CALLE DE HERMENEGILDO BIELSA S/N|Madrid",
+"sin_geocodificar": true,
 "navegacion": [
 40.389264,
 -3.70171
@@ -1474,6 +1582,7 @@
 40.115093,
 -3.393485
 ],
+"dir_consultada": "CALLE DE MADRID 30|Colmenar De Oreja",
 "direccion_gps": [
 40.114539,
 -3.392537
@@ -1493,6 +1602,8 @@
 40.815228,
 -3.675035
 ],
+"dir_consultada": "LAGO GRANDE esq. TRAVESIA SAN ISIDRO|Navalafuente",
+"sin_geocodificar": true,
 "navegacion": [
 40.815228,
 -3.675035
@@ -1507,6 +1618,8 @@
 40.494527,
 -3.360296
 ],
+"dir_consultada": "CALLE CUESTA DE TEATINOS S/N|Alcalá De Henares",
+"sin_geocodificar": true,
 "navegacion": [
 40.494527,
 -3.360296
@@ -1521,6 +1634,8 @@
 40.499567,
 -3.333914
 ],
+"dir_consultada": "CALLE DE COGOLLUDOS 2|Alcalá De Henares",
+"sin_geocodificar": true,
 "navegacion": [
 40.499567,
 -3.333914
@@ -1535,6 +1650,8 @@
 40.469134,
 -3.709419
 ],
+"dir_consultada": "CALLE MIRAMELINDOS 5|Madrid",
+"sin_geocodificar": true,
 "navegacion": [
 40.469134,
 -3.709419
@@ -1549,11 +1666,12 @@
 40.325508,
 -3.653967
 ],
+"dir_consultada": "CALLE SIERRA DE GREDOS 1|Getafe",
 "direccion_gps": [
-40.324006,
--3.651305
+40.324428,
+-3.652217
 ],
-"dist_rffm_direccion_km": 0.28,
+"dist_rffm_direccion_km": 0.19,
 "navegacion": [
 40.325508,
 -3.653967
@@ -1568,6 +1686,8 @@
 40.598164,
 -3.510341
 ],
+"dir_consultada": "CAMINO VEREDA DE LA LOBERA S/N|Algete",
+"sin_geocodificar": true,
 "navegacion": [
 40.598164,
 -3.510341
@@ -1582,6 +1702,7 @@
 40.632831,
 -4.025933
 ],
+"dir_consultada": "CALLE SANTA EMILIA 76|Guadarrama",
 "direccion_gps": [
 40.631179,
 -4.029607
@@ -1601,6 +1722,7 @@
 40.407624,
 -3.717364
 ],
+"dir_consultada": "PASEO IMPERIAL 20|Madrid",
 "direccion_gps": [
 40.407097,
 -3.718024
@@ -1620,6 +1742,7 @@
 40.411754,
 -3.674149
 ],
+"dir_consultada": "CALLE DE LOS REYES MAGOS 3|Madrid",
 "direccion_gps": [
 40.384517,
 -4.255207
@@ -1640,11 +1763,12 @@
 40.233525,
 -3.760004
 ],
+"dir_consultada": "AVDA. DE AMÉRICA S/N|Parla",
 "direccion_gps": [
-40.235994,
--3.75903
+40.22809,
+-3.764065
 ],
-"dist_rffm_direccion_km": 0.29,
+"dist_rffm_direccion_km": 0.7,
 "navegacion": [
 40.233525,
 -3.760004
@@ -1659,6 +1783,7 @@
 40.377057,
 -3.728841
 ],
+"dir_consultada": "VIA LUSITANA 19|Madrid",
 "direccion_gps": [
 40.377018,
 -3.728306
@@ -1678,6 +1803,7 @@
 40.468831,
 -3.648731
 ],
+"dir_consultada": "CALLE AGUSTÍN DE ITURBIDE 1|Madrid",
 "direccion_gps": [
 40.469704,
 -3.648376
@@ -1697,6 +1823,7 @@
 40.410906,
 -3.896471
 ],
+"dir_consultada": "MENENDEZ PIDAL 16|Boadilla Del Monte",
 "direccion_gps": [
 40.410845,
 -3.895631
@@ -1716,11 +1843,12 @@
 40.37582,
 -3.618059
 ],
+"dir_consultada": "CAMINO DE LA SUERTE S/N|Madrid",
 "direccion_gps": [
-40.375216,
--3.617936
+40.375743,
+-3.617781
 ],
-"dist_rffm_direccion_km": 0.07,
+"dist_rffm_direccion_km": 0.03,
 "navegacion": [
 40.37582,
 -3.618059
@@ -1735,6 +1863,8 @@
 40.416903,
 -3.861397
 ],
+"dir_consultada": "CTRA. DE BOADILLA A POZUELO KM. 1,400|Boadilla Del Monte",
+"sin_geocodificar": true,
 "navegacion": [
 40.416903,
 -3.861397
@@ -1749,6 +1879,7 @@
 40.38272,
 -3.77364
 ],
+"dir_consultada": "AVDA. DE LAS AGUILAS 14|Madrid",
 "direccion_gps": [
 40.38447,
 -3.76759
@@ -1768,6 +1899,8 @@
 40.621868,
 -3.397366
 ],
+"dir_consultada": "CALLE DEL ROMERAL 9|Fresno De Torote",
+"sin_geocodificar": true,
 "navegacion": [
 40.621868,
 -3.397366
@@ -1782,6 +1915,8 @@
 40.324852,
 -3.714132
 ],
+"dir_consultada": "CALLE MARIA MONTESORRI S/N|Getafe",
+"sin_geocodificar": true,
 "navegacion": [
 40.324852,
 -3.714132
@@ -1796,11 +1931,12 @@
 40.376963,
 -3.612401
 ],
+"dir_consultada": "CALLE DEL RAYO VALLECANO DE MADRID 2|Madrid",
 "direccion_gps": [
-40.375193,
--3.612704
+40.377486,
+-3.610768
 ],
-"dist_rffm_direccion_km": 0.2,
+"dist_rffm_direccion_km": 0.15,
 "navegacion": [
 40.376963,
 -3.612401
@@ -1815,6 +1951,8 @@
 40.34223,
 -3.820165
 ],
+"dir_consultada": "AVDA. POLVORANCA 60|Alcorcón",
+"sin_geocodificar": true,
 "navegacion": [
 40.34223,
 -3.820165
@@ -1829,11 +1967,12 @@
 40.398439,
 -3.632365
 ],
+"dir_consultada": "CALLE VALDEBERNARDO 2|Madrid",
 "direccion_gps": [
-40.401238,
--3.623455
+40.40478,
+-3.621945
 ],
-"dist_rffm_direccion_km": 0.82,
+"dist_rffm_direccion_km": 1.13,
 "navegacion": [
 40.398439,
 -3.632365
@@ -1848,6 +1987,7 @@
 40.481824,
 -3.726509
 ],
+"dir_consultada": "CALLE RAMÓN GOMEZ DE LA SERNA S/N|Madrid",
 "direccion_gps": [
 40.48246,
 -3.722653
@@ -1867,6 +2007,7 @@
 40.695747,
 -3.51754
 ],
+"dir_consultada": "CAMINO DE LA VEGA 1|Valdetorres De Jarama",
 "direccion_gps": [
 40.695843,
 -3.518452
@@ -1886,6 +2027,7 @@
 40.427182,
 -4.051792
 ],
+"dir_consultada": "CALLE DEL PINAR 11|Quijorna",
 "direccion_gps": [
 40.426962,
 -4.052339
@@ -1905,6 +2047,8 @@
 40.360093,
 -3.549253
 ],
+"dir_consultada": "CALLE PABLO LIMA PRO S/N|Rivas-Vaciamadrid",
+"sin_geocodificar": true,
 "navegacion": [
 40.360093,
 -3.549253
@@ -1919,6 +2063,8 @@
 40.323747,
 -3.739568
 ],
+"dir_consultada": "AVDA. DE ECUADOR 11|Getafe",
+"sin_geocodificar": true,
 "navegacion": [
 40.323747,
 -3.739568
@@ -1933,6 +2079,7 @@
 40.245735,
 -3.816162
 ],
+"dir_consultada": "AVDA. DE LOS DEPORTES 14|Humanes De Madrid",
 "direccion_gps": [
 40.247565,
 -3.820839
@@ -1952,6 +2099,7 @@
 40.679787,
 -3.957304
 ],
+"dir_consultada": "CALLE CAÑADA 50|Moralzarzal",
 "direccion_gps": [
 40.679674,
 -3.95842
@@ -1971,11 +2119,12 @@
 40.545938,
 -3.634197
 ],
+"dir_consultada": "AVDA. DE ESPAÑA S/N|Alcobendas",
 "direccion_gps": [
-40.543441,
--3.628166
+40.547229,
+-3.641047
 ],
-"dist_rffm_direccion_km": 0.58,
+"dist_rffm_direccion_km": 0.6,
 "navegacion": [
 40.545938,
 -3.634197
@@ -1990,6 +2139,7 @@
 40.603126,
 -3.707901
 ],
+"dir_consultada": "AVDA. DE LA LUZ S/N|Tres Cantos",
 "direccion_gps": [
 40.603898,
 -3.707107
@@ -2009,6 +2159,8 @@
 40.549834,
 -3.659114
 ],
+"dir_consultada": "CALLE DE LA FELICIDAD 27|Alcobendas",
+"sin_geocodificar": true,
 "navegacion": [
 40.549834,
 -3.659114
@@ -2023,6 +2175,7 @@
 40.422256,
 -3.547582
 ],
+"dir_consultada": "CALLE CHILE 138|Coslada",
 "direccion_gps": [
 40.422205,
 -3.54736
@@ -2042,6 +2195,7 @@
 40.769442,
 -3.585982
 ],
+"dir_consultada": "TRAVESÍA DEHESA S/N|Vellón (El)",
 "direccion_gps": [
 40.769161,
 -3.586059
@@ -2061,11 +2215,12 @@
 40.810691,
 -3.75948
 ],
+"dir_consultada": "AVDA. DE LA CONSTITUCIÓN 30|Miraflores De La Sierra",
 "direccion_gps": [
-40.81151,
--3.760274
+40.812992,
+-3.762759
 ],
-"dist_rffm_direccion_km": 0.11,
+"dist_rffm_direccion_km": 0.38,
 "navegacion": [
 40.810691,
 -3.75948
@@ -2080,11 +2235,12 @@
 40.347143,
 -3.54259
 ],
+"dir_consultada": "AVENIDA DE LA TÉCNICA S/N|Rivas-Vaciamadrid",
 "direccion_gps": [
-40.343586,
--3.538545
+40.352761,
+-3.547547
 ],
-"dist_rffm_direccion_km": 0.52,
+"dist_rffm_direccion_km": 0.75,
 "navegacion": [
 40.347143,
 -3.54259
@@ -2099,6 +2255,7 @@
 40.393813,
 -3.750517
 ],
+"dir_consultada": "CALLE DE LOS YEBENES 137|Madrid",
 "direccion_gps": [
 40.39389,
 -3.750525
@@ -2118,6 +2275,7 @@
 40.568259,
 -3.920265
 ],
+"dir_consultada": "AVD. DE LA FONTANILLA Nº 1|Torrelodones",
 "direccion_gps": [
 40.564822,
 -3.922376
@@ -2137,6 +2295,8 @@
 40.472653,
 -3.611889
 ],
+"dir_consultada": "CAMINO DE SINTRA 4|Madrid",
+"sin_geocodificar": true,
 "navegacion": [
 40.472653,
 -3.611889
@@ -2151,6 +2311,7 @@
 40.396613,
 -3.752245
 ],
+"dir_consultada": "CALLE DE LA DUQUESA DE PARCENT 37|Madrid",
 "direccion_gps": [
 40.395493,
 -3.74867
@@ -2170,6 +2331,7 @@
 40.331739,
 -3.745423
 ],
+"dir_consultada": "AVDA. DE ALEMANIA 2|Leganés",
 "direccion_gps": [
 40.331373,
 -3.744064
@@ -2189,6 +2351,8 @@
 40.406002,
 -3.63016
 ],
+"dir_consultada": "CALLE DEL CAÑÓN DE RÍO LOBOS 6|Madrid",
+"sin_geocodificar": true,
 "navegacion": [
 40.406002,
 -3.63016
@@ -2203,6 +2367,7 @@
 40.396904,
 -3.74369
 ],
+"dir_consultada": "CALLE ALHAMBRA 37|Madrid",
 "direccion_gps": [
 40.03276,
 -3.58473
@@ -2223,6 +2388,7 @@
 40.375626,
 -3.712616
 ],
+"dir_consultada": "AVDA. RAFAELA YBARRA 52|Madrid",
 "direccion_gps": [
 40.376188,
 -3.713598
@@ -2242,11 +2408,12 @@
 40.376963,
 -3.612401
 ],
+"dir_consultada": "CALLE DEL RAYO VALLECANO DE MADRID 2|Madrid",
 "direccion_gps": [
-40.375193,
--3.612704
+40.377486,
+-3.610768
 ],
-"dist_rffm_direccion_km": 0.2,
+"dist_rffm_direccion_km": 0.15,
 "navegacion": [
 40.376963,
 -3.612401
@@ -2261,11 +2428,12 @@
 40.501614,
 -3.522101
 ],
+"dir_consultada": "AVENIDA DE LOS DEPORTES S/N|Paracuellos De Jarama",
 "direccion_gps": [
-40.50035,
--3.522413
+40.503928,
+-3.521654
 ],
-"dist_rffm_direccion_km": 0.14,
+"dist_rffm_direccion_km": 0.26,
 "navegacion": [
 40.501614,
 -3.522101
@@ -2280,6 +2448,7 @@
 40.339879,
 -3.372746
 ],
+"dir_consultada": "CALLE PARÍS 24|Campo Real",
 "direccion_gps": [
 40.34005,
 -3.372532
@@ -2299,11 +2468,12 @@
 40.490651,
 -3.659851
 ],
+"dir_consultada": "AV. DE FRANCISCO PI Y MARGALL, 77|Madrid",
 "direccion_gps": [
-40.494586,
--3.665614
+40.487834,
+-3.65341
 ],
-"dist_rffm_direccion_km": 0.65,
+"dist_rffm_direccion_km": 0.63,
 "navegacion": [
 40.490651,
 -3.659851
@@ -2318,6 +2488,8 @@
 40.219823,
 -3.840085
 ],
+"dir_consultada": "CALLE FUENSANTA 1|Griñón",
+"sin_geocodificar": true,
 "navegacion": [
 40.219823,
 -3.840085
@@ -2332,11 +2504,12 @@
 40.53719,
 -3.623702
 ],
+"dir_consultada": "AVDA. TRANSICIÓN ESPAÑOLA, S/N|Alcobendas",
 "direccion_gps": [
-40.535152,
--3.621263
+40.533582,
+-3.619123
 ],
-"dist_rffm_direccion_km": 0.31,
+"dist_rffm_direccion_km": 0.56,
 "navegacion": [
 40.53719,
 -3.623702
@@ -2351,6 +2524,8 @@
 40.482844,
 -3.97202
 ],
+"dir_consultada": "AVDA. DE LOS ESTUDIANTES, 3|Villanueva Del Pardillo",
+"sin_geocodificar": true,
 "navegacion": [
 40.482844,
 -3.97202
@@ -2365,6 +2540,7 @@
 40.377067,
 -3.701542
 ],
+"dir_consultada": "CALLE DEL DR. TOLOSA LATOUR S/N|Madrid",
 "direccion_gps": [
 40.376525,
 -3.701862
@@ -2384,6 +2560,8 @@
 40.36088,
 -3.768645
 ],
+"dir_consultada": "CALLE PINAR DE SAN JOSE 72|Madrid",
+"sin_geocodificar": true,
 "navegacion": [
 40.36088,
 -3.768645
@@ -2398,11 +2576,12 @@
 40.454366,
 -3.599631
 ],
+"dir_consultada": "PASEO DE LA ALAMEDA DE OSUNA 46|Madrid",
 "direccion_gps": [
-40.459593,
--3.587689
+40.451938,
+-3.604114
 ],
-"dist_rffm_direccion_km": 1.17,
+"dist_rffm_direccion_km": 0.47,
 "navegacion": [
 40.454366,
 -3.599631
@@ -2417,11 +2596,12 @@
 40.680749,
 -3.619361
 ],
+"dir_consultada": "CALLE FÉLIX CIMAS PRADOS 1|San Agustín Del Guadalix",
 "direccion_gps": [
-40.682126,
--3.619488
+40.683842,
+-3.620013
 ],
-"dist_rffm_direccion_km": 0.15,
+"dist_rffm_direccion_km": 0.35,
 "navegacion": [
 40.680749,
 -3.619361
@@ -2436,6 +2616,7 @@
 40.728718,
 -3.859705
 ],
+"dir_consultada": "CALLE CAÑADA 66|Manzanares El Real",
 "direccion_gps": [
 40.727138,
 -3.8639
@@ -2455,6 +2636,8 @@
 40.292545,
 -3.783149
 ],
+"dir_consultada": "CALLE COLOMBIA ESQ. CON AVDA. DE LA HISPANIDAD|Fuenlabrada",
+"sin_geocodificar": true,
 "navegacion": [
 40.292545,
 -3.783149
@@ -2469,6 +2652,7 @@
 40.494729,
 -3.695032
 ],
+"dir_consultada": "CALLE HOSPITALET DE LLOBREGAT 11|Madrid",
 "direccion_gps": [
 40.313279,
 -3.72169
@@ -2489,6 +2673,7 @@
 40.326183,
 -3.756311
 ],
+"dir_consultada": "CALLE DEL MAESTRO 6|Leganés",
 "direccion_gps": [
 40.326183,
 -3.755337
@@ -2508,11 +2693,12 @@
 40.325675,
 -3.88309
 ],
+"dir_consultada": "AVDA. DE IKER CASILLAS S/N|Móstoles",
 "direccion_gps": [
-40.326145,
--3.892784
+40.325694,
+-3.883368
 ],
-"dist_rffm_direccion_km": 0.82,
+"dist_rffm_direccion_km": 0.02,
 "navegacion": [
 40.325675,
 -3.88309
@@ -2527,6 +2713,7 @@
 40.733626,
 -4.041299
 ],
+"dir_consultada": "CALLE ALDEA 8|Cercedilla",
 "direccion_gps": [
 40.737356,
 -4.057174
@@ -2546,6 +2733,7 @@
 40.300615,
 -3.983239
 ],
+"dir_consultada": "CONIFERAS S/N|Navalcarnero",
 "direccion_gps": [
 40.299987,
 -3.985217
@@ -2565,6 +2753,7 @@
 40.362519,
 -3.917312
 ],
+"dir_consultada": "CALLE ALEXANDER GRAHAM BELL 2|Villaviciosa De Odón",
 "direccion_gps": [
 40.362481,
 -3.91733
@@ -2584,6 +2773,7 @@
 40.344501,
 -4.127729
 ],
+"dir_consultada": "CALLE DE LOS CEDROS 2|Villamantilla",
 "direccion_gps": [
 40.343728,
 -4.12785
@@ -2603,11 +2793,12 @@
 40.203842,
 -3.871123
 ],
+"dir_consultada": "CALLE DE LOS ALMENDROS 46|Serranillos Del Valle",
 "direccion_gps": [
-40.207149,
--3.869964
+40.20494,
+-3.876761
 ],
-"dist_rffm_direccion_km": 0.38,
+"dist_rffm_direccion_km": 0.49,
 "navegacion": [
 40.203842,
 -3.871123
@@ -2622,6 +2813,8 @@
 40.420622,
 -3.819818
 ],
+"dir_consultada": "AVDA. JUAN ANTONIO SAMARANCH TORELLÓ 8|Pozuelo De Alarcón",
+"sin_geocodificar": true,
 "navegacion": [
 40.420622,
 -3.819818
@@ -2636,11 +2829,12 @@
 40.193381,
 -3.656767
 ],
+"dir_consultada": "PASEO DEL PRADO, 50|Valdemoro",
 "direccion_gps": [
-40.191811,
--3.664319
+40.191613,
+-3.662385
 ],
-"dist_rffm_direccion_km": 0.66,
+"dist_rffm_direccion_km": 0.52,
 "navegacion": [
 40.193381,
 -3.656767
@@ -2655,6 +2849,7 @@
 40.478712,
 -3.69334
 ],
+"dir_consultada": "AVDA. MONFORTE DE LEMOS 13|Madrid",
 "direccion_gps": [
 40.478951,
 -3.693494
@@ -2674,6 +2869,7 @@
 40.368476,
 -3.717463
 ],
+"dir_consultada": "CALLE DE GAINZA S/N|Madrid",
 "direccion_gps": [
 40.372341,
 -3.718546
@@ -2693,6 +2889,8 @@
 40.416771,
 -3.858569
 ],
+"dir_consultada": "CTRA. DE BOADILLA A POZUELO KM. 1,400|Boadilla Del Monte",
+"sin_geocodificar": true,
 "navegacion": [
 40.416771,
 -3.858569
@@ -2707,6 +2905,7 @@
 40.168881,
 -3.285933
 ],
+"dir_consultada": "AVDA. MARIANO DÍAZ S/N|Villarejo De Salvanés",
 "direccion_gps": [
 40.169107,
 -3.284346
@@ -2726,6 +2925,7 @@
 40.391981,
 -3.412905
 ],
+"dir_consultada": "CALLE DE LA CRUZ DE PIEDRA 49|Loeches",
 "direccion_gps": [
 40.387212,
 -3.41367
@@ -2745,6 +2945,7 @@
 40.624135,
 -3.906618
 ],
+"dir_consultada": "AVDA. DE LA CABILDA 4|Hoyo De Manzanares",
 "direccion_gps": [
 40.624124,
 -3.906078
@@ -2764,11 +2965,12 @@
 40.229554,
 -3.987293
 ],
+"dir_consultada": "CALLE DEL RIO TORMES S/N|Álamo (El)",
 "direccion_gps": [
-40.230273,
--3.987271
+40.22785,
+-3.9874
 ],
-"dist_rffm_direccion_km": 0.08,
+"dist_rffm_direccion_km": 0.19,
 "navegacion": [
 40.229554,
 -3.987293
@@ -2783,6 +2985,7 @@
 40.237944,
 -3.694854
 ],
+"dir_consultada": "CALLE PABLO PICASSO S/N|Pinto",
 "direccion_gps": [
 40.237141,
 -3.696321
@@ -2802,11 +3005,12 @@
 40.325675,
 -3.88309
 ],
+"dir_consultada": "AVDA. DE IKER CASILLAS S/N|Móstoles",
 "direccion_gps": [
-40.326145,
--3.892784
+40.325694,
+-3.883368
 ],
-"dist_rffm_direccion_km": 0.82,
+"dist_rffm_direccion_km": 0.02,
 "navegacion": [
 40.325675,
 -3.88309
@@ -2821,6 +3025,7 @@
 40.397359,
 -3.705583
 ],
+"dir_consultada": "PASEO DE YESERIAS 51|Madrid",
 "direccion_gps": [
 40.397349,
 -3.705374
@@ -2840,11 +3045,12 @@
 40.545629,
 -3.486726
 ],
+"dir_consultada": "CALLE VICTOR HURTADO S/N|Ajalvir",
 "direccion_gps": [
-40.53819,
--3.485262
+40.540219,
+-3.486649
 ],
-"dist_rffm_direccion_km": 0.84,
+"dist_rffm_direccion_km": 0.6,
 "navegacion": [
 40.545629,
 -3.486726
@@ -2859,6 +3065,7 @@
 40.420491,
 -3.651595
 ],
+"dir_consultada": "CALLE SAN LAMBERTO S/N|Madrid",
 "direccion_gps": [
 40.420784,
 -3.651524
@@ -2878,6 +3085,8 @@
 40.241488,
 -3.295268
 ],
+"dir_consultada": "CAMINO DE LAS DEHESAS S/N|Tielmes",
+"sin_geocodificar": true,
 "navegacion": [
 40.241488,
 -3.295268
@@ -2892,17 +3101,7 @@
 40.328043,
 -3.767636
 ],
-"direccion_gps": [
-40.329212,
--3.771111
-],
-"dist_rffm_direccion_km": 0.32,
-"navegacion": [
-40.328043,
--3.767636
-],
-"tipo": "rffm",
-"corregido": false
+"aviso": "Campo pendiente de asignar"
 },
 "1775": {
 "nombre": "ALCALA - CIUDAD DPTVA. EL VAL 1 (HA)",
@@ -2911,11 +3110,12 @@
 40.483514,
 -3.346672
 ],
+"dir_consultada": "AVDA. VIRGEN DEL VAL S/N|Alcalá De Henares",
 "direccion_gps": [
-40.483088,
--3.349478
+40.48239,
+-3.354
 ],
-"dist_rffm_direccion_km": 0.24,
+"dist_rffm_direccion_km": 0.63,
 "navegacion": [
 40.483514,
 -3.346672
@@ -2930,6 +3130,7 @@
 40.458308,
 -3.777119
 ],
+"dir_consultada": "CALLE DE LA FUENTE DEL REY 33|Madrid",
 "direccion_gps": [
 40.455104,
 -3.767914
@@ -2949,6 +3150,8 @@
 40.404431,
 -3.623205
 ],
+"dir_consultada": "CALLE DE LADERA DE LOS ALMENDROS 2|Madrid",
+"sin_geocodificar": true,
 "navegacion": [
 40.404431,
 -3.623205
@@ -2963,17 +3166,7 @@
 40.311434,
 -3.729546
 ],
-"direccion_gps": [
-40.321052,
--3.72835
-],
-"dist_rffm_direccion_km": 1.07,
-"navegacion": [
-40.311434,
--3.729546
-],
-"tipo": "rffm",
-"corregido": false
+"aviso": "Campo pendiente de asignar"
 },
 "16419677": {
 "nombre": "ALCOBENDAS (J.CABALLERO 2)",
@@ -2982,11 +3175,12 @@
 40.53719,
 -3.623702
 ],
+"dir_consultada": "AVDA. TRANSICIÓN ESPAÑOLA, S/N|Alcobendas",
 "direccion_gps": [
-40.535152,
--3.621263
+40.535358,
+-3.621708
 ],
-"dist_rffm_direccion_km": 0.31,
+"dist_rffm_direccion_km": 0.26,
 "navegacion": [
 40.53719,
 -3.623702
@@ -3001,6 +3195,7 @@
 40.471949,
 -3.717611
 ],
+"dir_consultada": "CALLE DE LA CABRERA S/N|Madrid",
 "direccion_gps": [
 40.471917,
 -3.717504
@@ -3020,6 +3215,8 @@
 40.642793,
 -4.000293
 ],
+"dir_consultada": "CALLE DE LAS ÁGUEDAS S/N|Collado Villalba",
+"sin_geocodificar": true,
 "navegacion": [
 40.642793,
 -4.000293
@@ -3034,6 +3231,8 @@
 40.350469,
 -3.825665
 ],
+"dir_consultada": "CALLE DE LA CANALEJA S/N|Alcorcón",
+"sin_geocodificar": true,
 "navegacion": [
 40.350469,
 -3.825665
@@ -3048,6 +3247,7 @@
 40.338863,
 -3.76279
 ],
+"dir_consultada": "CALLE ARQUITECTURA 4|Leganés",
 "direccion_gps": [
 40.339599,
 -3.762738
@@ -3067,6 +3267,7 @@
 40.182015,
 -3.686422
 ],
+"dir_consultada": "CALLE DE FEBO 7|Valdemoro",
 "direccion_gps": [
 40.181326,
 -3.684813
@@ -3086,11 +3287,12 @@
 40.025252,
 -3.612006
 ],
+"dir_consultada": "PASEO DEL DELEITE 7|Aranjuez",
 "direccion_gps": [
-40.022752,
--3.627537
+40.025007,
+-3.615815
 ],
-"dist_rffm_direccion_km": 1.35,
+"dist_rffm_direccion_km": 0.33,
 "navegacion": [
 40.025252,
 -3.612006
@@ -3105,6 +3307,7 @@
 40.301091,
 -3.808866
 ],
+"dir_consultada": "PASEO RIAZOR S/N|Fuenlabrada",
 "direccion_gps": [
 40.301478,
 -3.810868
@@ -3124,12 +3327,12 @@
 40.381582,
 -3.723952
 ],
+"dir_consultada": "VIA LUSITANA 5|Madrid",
 "direccion_gps": [
-40.370498,
--3.737712
+40.383374,
+-3.721521
 ],
-"dist_rffm_direccion_km": 1.7,
-"aviso": "Coordenadas de la RFFM a 1.7 km de la dirección (sin confirmar)",
+"dist_rffm_direccion_km": 0.29,
 "navegacion": [
 40.381582,
 -3.723952
@@ -3144,6 +3347,8 @@
 40.469085,
 -3.677923
 ],
+"dir_consultada": "PLAZA DUQUE DE PASTRANA 5|Madrid",
+"sin_geocodificar": true,
 "navegacion": [
 40.469085,
 -3.677923
@@ -3158,6 +3363,7 @@
 40.235708,
 -3.433833
 ],
+"dir_consultada": "CALLE DE JOSÉ MARÍA RODELGO 34|Morata De Tajuña",
 "direccion_gps": [
 40.23427,
 -3.434767
@@ -3177,6 +3383,7 @@
 40.371916,
 -3.657161
 ],
+"dir_consultada": "CALLE REGUERA DE TOMATEROS 39|Madrid",
 "direccion_gps": [
 40.371642,
 -3.656227
@@ -3196,11 +3403,12 @@
 40.233525,
 -3.760004
 ],
+"dir_consultada": "AVDA. DE AMÉRICA S/N|Parla",
 "direccion_gps": [
-40.235994,
--3.75903
+40.228158,
+-3.764095
 ],
-"dist_rffm_direccion_km": 0.29,
+"dist_rffm_direccion_km": 0.69,
 "navegacion": [
 40.233525,
 -3.760004
@@ -3215,11 +3423,12 @@
 40.337357,
 -3.844003
 ],
+"dir_consultada": "AVDA. DE ESTEBAN MARQUEZ S/N|Alcorcón",
 "direccion_gps": [
-40.340481,
--3.841087
+40.3392,
+-3.842233
 ],
-"dist_rffm_direccion_km": 0.43,
+"dist_rffm_direccion_km": 0.25,
 "navegacion": [
 40.337357,
 -3.844003
@@ -3234,11 +3443,12 @@
 40.325675,
 -3.88309
 ],
+"dir_consultada": "AVDA DE IKER CASILLAS S/N|Móstoles",
 "direccion_gps": [
-40.326145,
--3.892784
+40.325694,
+-3.883368
 ],
-"dist_rffm_direccion_km": 0.82,
+"dist_rffm_direccion_km": 0.02,
 "navegacion": [
 40.325675,
 -3.88309
@@ -3253,6 +3463,8 @@
 40.233025,
 -3.748587
 ],
+"dir_consultada": "AVDA. JUAN CARLOS I S/N|Parla",
+"sin_geocodificar": true,
 "navegacion": [
 40.233025,
 -3.748587
@@ -3267,11 +3479,12 @@
 40.232237,
 -3.761837
 ],
+"dir_consultada": "AVDA. DE AMÉRICA S/N|Parla",
 "direccion_gps": [
-40.235994,
--3.75903
+40.228158,
+-3.764095
 ],
-"dist_rffm_direccion_km": 0.48,
+"dist_rffm_direccion_km": 0.49,
 "navegacion": [
 40.232237,
 -3.761837
@@ -3286,6 +3499,7 @@
 40.468521,
 -4.123289
 ],
+"dir_consultada": "CTRA. M-510|Navalagamella",
 "direccion_gps": [
 40.461514,
 -4.129723
@@ -3305,6 +3519,7 @@
 40.280124,
 -3.820701
 ],
+"dir_consultada": "CAMINO DEL MOLINO S/N|Fuenlabrada",
 "direccion_gps": [
 40.286228,
 -3.821317
@@ -3324,6 +3539,8 @@
 40.426111,
 -3.806097
 ],
+"dir_consultada": "CALLE PAJARES 22 - ENTRADA POR VIA DE SERVICIO DE M-502|Pozuelo De Alarcón",
+"sin_geocodificar": true,
 "navegacion": [
 40.426111,
 -3.806097
@@ -3338,11 +3555,12 @@
 40.29623,
 -3.830663
 ],
+"dir_consultada": "AVDA. DE NUEVO VERSALLES S/N|Fuenlabrada",
 "direccion_gps": [
-40.300225,
--3.82927
+40.293216,
+-3.831314
 ],
-"dist_rffm_direccion_km": 0.46,
+"dist_rffm_direccion_km": 0.34,
 "navegacion": [
 40.29623,
 -3.830663
@@ -3357,6 +3575,8 @@
 40.503016,
 -3.373271
 ],
+"dir_consultada": "ROTONDA PADRE SOLER 37|Alcalá De Henares",
+"sin_geocodificar": true,
 "navegacion": [
 40.503016,
 -3.373271
@@ -3371,11 +3591,12 @@
 40.44275,
 -3.47012
 ],
+"dir_consultada": "CALLE JOAQUÍN BLUME S/N|Torrejón De Ardoz",
 "direccion_gps": [
-40.447168,
--3.469117
+40.446179,
+-3.469983
 ],
-"dist_rffm_direccion_km": 0.5,
+"dist_rffm_direccion_km": 0.38,
 "navegacion": [
 40.44275,
 -3.47012
@@ -3390,6 +3611,8 @@
 40.480667,
 -3.358245
 ],
+"dir_consultada": "CALLE PASEO DE LOS AGUADORES, 5.|Alcalá De Henares",
+"sin_geocodificar": true,
 "navegacion": [
 40.480667,
 -3.358245
@@ -3404,6 +3627,7 @@
 40.382523,
 -3.602869
 ],
+"dir_consultada": "CALLE CERRO ALMODÓVAR S/N|Madrid",
 "direccion_gps": [
 40.386403,
 -3.605668
@@ -3423,11 +3647,12 @@
 40.065766,
 -3.597543
 ],
+"dir_consultada": "AVD. MEMORIAL DE LA PAZ DE HIROSIMA S/N|Aranjuez",
 "direccion_gps": [
-40.066394,
--3.604048
+40.065323,
+-3.607465
 ],
-"dist_rffm_direccion_km": 0.56,
+"dist_rffm_direccion_km": 0.85,
 "navegacion": [
 40.065766,
 -3.597543
@@ -3442,6 +3667,8 @@
 40.363217,
 -4.326391
 ],
+"dir_consultada": "AVDA. DEL ARQUITECTO GARCÍA BENITO S/N|Pelayos De La Presa",
+"sin_geocodificar": true,
 "navegacion": [
 40.363217,
 -4.326391
@@ -3456,6 +3683,7 @@
 40.187646,
 -3.838697
 ],
+"dir_consultada": "CALLE SAN ISIDRO 3|Cubas De La Sagra",
 "direccion_gps": [
 40.187788,
 -3.838665
@@ -3475,11 +3703,12 @@
 40.857703,
 -3.718947
 ],
+"dir_consultada": "CALLE CUESTA DEL CANTÓN S/N|Bustarviejo",
 "direccion_gps": [
-40.857865,
--3.709545
+40.858959,
+-3.718977
 ],
-"dist_rffm_direccion_km": 0.79,
+"dist_rffm_direccion_km": 0.14,
 "navegacion": [
 40.857703,
 -3.718947
@@ -3494,6 +3723,8 @@
 40.368832,
 -3.684441
 ],
+"dir_consultada": "CALLE DE EMBAJADORES 340 (CAJA MÁGICA)|Madrid",
+"sin_geocodificar": true,
 "navegacion": [
 40.368832,
 -3.684441
@@ -3508,18 +3739,7 @@
 40.471568,
 -3.449835
 ],
-"direccion_gps": [
-40.454616,
--3.479601
-],
-"dist_rffm_direccion_km": 3.15,
-"aviso": "Coordenadas de la RFFM a 3.1 km de la dirección (sin confirmar)",
-"navegacion": [
-40.471568,
--3.449835
-],
-"tipo": "rffm",
-"corregido": false
+"aviso": "Campo pendiente de asignar"
 },
 "711": {
 "nombre": "COLEGIO SANTO DOMINGO SAVIO (HA)",
@@ -3528,6 +3748,7 @@
 40.430426,
 -3.634229
 ],
+"dir_consultada": "CALLE SANTO DOMINGO SAVIO 2|Madrid",
 "direccion_gps": [
 40.430141,
 -3.633647
@@ -3547,6 +3768,8 @@
 40.786636,
 -3.686605
 ],
+"dir_consultada": "CAMINO MAJALGAR S/N|Guadalix De La Sierra",
+"sin_geocodificar": true,
 "navegacion": [
 40.786636,
 -3.686605
@@ -3561,6 +3784,8 @@
 40.550238,
 -3.453152
 ],
+"dir_consultada": "CALLE FRESNO DE TOROTE S/N|Daganzo De Arriba",
+"sin_geocodificar": true,
 "navegacion": [
 40.550238,
 -3.453152
@@ -3575,11 +3800,12 @@
 40.236288,
 -3.699086
 ],
+"dir_consultada": "CALLE SUR S/N|Pinto",
 "direccion_gps": [
-40.236384,
--3.69794
+40.236325,
+-3.698576
 ],
-"dist_rffm_direccion_km": 0.1,
+"dist_rffm_direccion_km": 0.04,
 "navegacion": [
 40.236288,
 -3.699086
@@ -3594,6 +3820,8 @@
 40.301877,
 -4.450366
 ],
+"dir_consultada": "CTRA. DE ROZAS DE PUERTO REAL 24|Cadalso De Los Vidrios",
+"sin_geocodificar": true,
 "navegacion": [
 40.301877,
 -4.450366
@@ -3608,6 +3836,7 @@
 40.446535,
 -3.708331
 ],
+"dir_consultada": "AVDA. PABLO IGLESIAS 15|Madrid",
 "direccion_gps": [
 40.298542,
 -3.841635
@@ -3628,6 +3857,7 @@
 40.56619,
 -3.626749
 ],
+"dir_consultada": "AVENIDA DE LA DEHESA S/N|San Sebastián De Los Reyes",
 "direccion_gps": [
 40.563119,
 -3.622262
@@ -3647,6 +3877,7 @@
 40.461527,
 -3.861633
 ],
+"dir_consultada": "CALLE CERRO DEL ESPINO S/N|Majadahonda",
 "direccion_gps": [
 40.460643,
 -3.862788
@@ -3666,6 +3897,8 @@
 40.598164,
 -3.510341
 ],
+"dir_consultada": "CAMINO VEREDA DE LA LOBERA S/N|Algete",
+"sin_geocodificar": true,
 "navegacion": [
 40.598164,
 -3.510341
@@ -3680,6 +3913,8 @@
 40.472653,
 -3.611889
 ],
+"dir_consultada": "CAMINO DE SINTRA 4|Madrid",
+"sin_geocodificar": true,
 "navegacion": [
 40.472653,
 -3.611889
@@ -3694,6 +3929,8 @@
 40.598164,
 -3.510341
 ],
+"dir_consultada": "CAMINO VEREDA DE LA LOBERA S/N|Algete",
+"sin_geocodificar": true,
 "navegacion": [
 40.598164,
 -3.510341
@@ -3708,6 +3945,7 @@
 40.582799,
 -4.010576
 ],
+"dir_consultada": "CALLE GUADARRAMA 129|Galapagar",
 "direccion_gps": [
 40.581902,
 -4.009232
@@ -3727,11 +3965,12 @@
 40.607866,
 -3.709559
 ],
+"dir_consultada": "AVDA DE LA VEGA,S/N|Tres Cantos",
 "direccion_gps": [
-40.611693,
--3.705839
+40.608283,
+-3.709137
 ],
-"dist_rffm_direccion_km": 0.53,
+"dist_rffm_direccion_km": 0.06,
 "navegacion": [
 40.607866,
 -3.709559
@@ -3746,6 +3985,8 @@
 40.55147,
 -3.650154
 ],
+"dir_consultada": "CALLE DE MIGUEL DE CERVANTES S/N|Alcobendas",
+"sin_geocodificar": true,
 "navegacion": [
 40.55147,
 -3.650154
@@ -3760,6 +4001,7 @@
 40.471646,
 -3.639829
 ],
+"dir_consultada": "CALLE MAR ADRIÁTICO 11|Madrid",
 "direccion_gps": [
 40.471841,
 -3.641353
@@ -3779,6 +4021,7 @@
 40.301752,
 -3.742183
 ],
+"dir_consultada": "SENDA DE EPI Y BLAS S/N|Getafe",
 "direccion_gps": [
 40.301891,
 -3.742221
@@ -3798,6 +4041,8 @@
 40.472653,
 -3.611889
 ],
+"dir_consultada": "CAMINO DE SINTRA 4|Madrid",
+"sin_geocodificar": true,
 "navegacion": [
 40.472653,
 -3.611889
@@ -3812,11 +4057,12 @@
 40.229813,
 -3.761338
 ],
+"dir_consultada": "AVDA. DE AMÉRICA S/N|Parla",
 "direccion_gps": [
-40.235994,
--3.75903
+40.228158,
+-3.764095
 ],
-"dist_rffm_direccion_km": 0.71,
+"dist_rffm_direccion_km": 0.3,
 "navegacion": [
 40.229813,
 -3.761338
@@ -3831,6 +4077,7 @@
 40.452366,
 -3.637626
 ],
+"dir_consultada": "RONDA ABUBILLA, 5.|Madrid",
 "direccion_gps": [
 40.45243,
 -3.637408
@@ -3850,6 +4097,7 @@
 40.371324,
 -3.658124
 ],
+"dir_consultada": "CALLE REGUERA DE TOMATEROS S/N|Madrid",
 "direccion_gps": [
 40.370496,
 -3.65765
@@ -3869,11 +4117,12 @@
 40.557004,
 -3.627463
 ],
+"dir_consultada": "AVDA. NAVARRONDÁN S/N|San Sebastián De Los Reyes",
 "direccion_gps": [
-40.5665,
--3.631579
+40.566783,
+-3.631495
 ],
-"dist_rffm_direccion_km": 1.11,
+"dist_rffm_direccion_km": 1.14,
 "navegacion": [
 40.557004,
 -3.627463
@@ -3888,17 +4137,7 @@
 40.237505,
 -3.696772
 ],
-"direccion_gps": [
-40.242992,
--3.703836
-],
-"dist_rffm_direccion_km": 0.86,
-"navegacion": [
-40.237505,
--3.696772
-],
-"tipo": "rffm",
-"corregido": false
+"aviso": "Campo pendiente de asignar"
 },
 "300436": {
 "nombre": "CANODROMO (HA)",
@@ -3907,6 +4146,7 @@
 40.397452,
 -3.735794
 ],
+"dir_consultada": "CALLE VÍA CARPETANA 57|Madrid",
 "direccion_gps": [
 40.397033,
 -3.735667
@@ -3926,6 +4166,7 @@
 40.351262,
 -3.676473
 ],
+"dir_consultada": "AVDA. DE LOS ROSALES 133|Madrid",
 "direccion_gps": [
 40.351021,
 -3.676666
@@ -3945,6 +4186,7 @@
 40.496165,
 -3.702179
 ],
+"dir_consultada": "CALLE DE LA COSTA BRAVA 4|Madrid",
 "direccion_gps": [
 40.497283,
 -3.702903
@@ -3964,6 +4206,7 @@
 40.582799,
 -4.010576
 ],
+"dir_consultada": "CALLE GUADARRAMA 129|Galapagar",
 "direccion_gps": [
 40.581902,
 -4.009232
@@ -3983,6 +4226,7 @@
 40.465706,
 -3.472499
 ],
+"dir_consultada": "CALLE TURÍN 12|Torrejón De Ardoz",
 "direccion_gps": [
 40.465352,
 -3.47259
@@ -4002,6 +4246,8 @@
 40.389892,
 -4.248324
 ],
+"dir_consultada": "VÍA OLÍMPICA 7|Navas Del Rey",
+"sin_geocodificar": true,
 "navegacion": [
 40.389892,
 -4.248324
@@ -4016,6 +4262,7 @@
 40.554531,
 -3.885975
 ],
+"dir_consultada": "CAMINO GARZO 79|Las Matas",
 "direccion_gps": [
 40.552849,
 -3.888824
@@ -4035,11 +4282,12 @@
 40.325675,
 -3.88309
 ],
+"dir_consultada": "AVDA. DE IKER CASILLAS S/N|Móstoles",
 "direccion_gps": [
-40.326145,
--3.892784
+40.325694,
+-3.883368
 ],
-"dist_rffm_direccion_km": 0.82,
+"dist_rffm_direccion_km": 0.02,
 "navegacion": [
 40.325675,
 -3.88309
@@ -4054,11 +4302,12 @@
 40.247587,
 -3.943613
 ],
+"dir_consultada": "CALLE ÁGUILA REAL S/N|Batres",
 "direccion_gps": [
-40.247926,
--3.949028
+40.247777,
+-3.939841
 ],
-"dist_rffm_direccion_km": 0.46,
+"dist_rffm_direccion_km": 0.32,
 "navegacion": [
 40.247587,
 -3.943613
@@ -4073,6 +4322,7 @@
 40.430021,
 -3.607031
 ],
+"dir_consultada": "AVENIDA DE NIZA S/N|Madrid",
 "direccion_gps": [
 40.430448,
 -3.607139
@@ -4092,6 +4342,7 @@
 40.502177,
 -4.063777
 ],
+"dir_consultada": "AVENIDA DE SEGOVIA S/N|Valdemorillo",
 "direccion_gps": [
 40.501726,
 -4.06494
@@ -4111,6 +4362,7 @@
 40.100457,
 -3.489385
 ],
+"dir_consultada": "CARRETERA A VILLARRUBIA S/N|Villaconejos",
 "direccion_gps": [
 40.105617,
 -3.546572
@@ -4131,6 +4383,7 @@
 40.362519,
 -3.917312
 ],
+"dir_consultada": "CALLE ALEXANDER GRAHAM BELL 2|Villaviciosa De Odón",
 "direccion_gps": [
 40.362481,
 -3.91733
@@ -4150,18 +4403,7 @@
 40.512814,
 -3.911363
 ],
-"direccion_gps": [
-40.494294,
--3.867936
-],
-"dist_rffm_direccion_km": 4.21,
-"aviso": "Coordenadas de la RFFM a 4.2 km de la dirección (sin confirmar)",
-"navegacion": [
-40.512814,
--3.911363
-],
-"tipo": "rffm",
-"corregido": false
+"aviso": "Campo pendiente de asignar"
 },
 "1422": {
 "nombre": "GETAFE - ALHONDIGA SECTOR III 1 (HA)",
@@ -4170,6 +4412,8 @@
 40.313722,
 -3.741321
 ],
+"dir_consultada": "CTRA. DE LEGANES S/N|Getafe",
+"sin_geocodificar": true,
 "navegacion": [
 40.313722,
 -3.741321
@@ -4184,6 +4428,7 @@
 40.508323,
 -3.388398
 ],
+"dir_consultada": "AVDA. DE PASIONISTAS 10|Alcalá De Henares",
 "direccion_gps": [
 40.507843,
 -3.38763
@@ -4203,11 +4448,12 @@
 40.692095,
 -4.041582
 ],
+"dir_consultada": "PASEO DE LOS ROSALES 65|Collado Mediano",
 "direccion_gps": [
-40.691902,
--4.047448
+40.692642,
+-4.038627
 ],
-"dist_rffm_direccion_km": 0.5,
+"dist_rffm_direccion_km": 0.26,
 "navegacion": [
 40.692095,
 -4.041582
@@ -4222,6 +4468,8 @@
 40.455461,
 -3.686491
 ],
+"dir_consultada": "CALLE DE PADRE DAMIÁN 18|Madrid",
+"sin_geocodificar": true,
 "navegacion": [
 40.455461,
 -3.686491
@@ -4236,6 +4484,7 @@
 40.445672,
 -3.816329
 ],
+"dir_consultada": "AVDA. DE BULARAS S/N|Pozuelo De Alarcón",
 "direccion_gps": [
 40.447708,
 -3.812897
@@ -4255,6 +4504,8 @@
 40.411206,
 -3.642062
 ],
+"dir_consultada": "AVDA. DOCTOR GARCIA TAPIA 117|Madrid",
+"sin_geocodificar": true,
 "navegacion": [
 40.411206,
 -3.642062
@@ -4269,6 +4520,8 @@
 40.57257,
 -3.92347
 ],
+"dir_consultada": "PASEO JOAQUÍN RUÍZ GIMÉNEZ 24|Torrelodones",
+"sin_geocodificar": true,
 "navegacion": [
 40.57257,
 -3.92347
@@ -4283,6 +4536,7 @@
 40.327137,
 -3.886239
 ],
+"dir_consultada": "CALLE CICLISTA DAVID GEA 3|Móstoles",
 "direccion_gps": [
 40.329273,
 -3.886832
@@ -4302,6 +4556,7 @@
 40.336138,
 -3.233946
 ],
+"dir_consultada": "CALLE ISLAS FILIPINAS 5|Villar Del Olmo",
 "direccion_gps": [
 40.336322,
 -3.234446
@@ -4321,6 +4576,7 @@
 40.47834,
 -3.387384
 ],
+"dir_consultada": "AVDA. DE MADRID 9|Alcalá De Henares",
 "direccion_gps": [
 40.476602,
 -3.392765
@@ -4340,6 +4596,7 @@
 40.31154,
 -3.78215
 ],
+"dir_consultada": "CALLE PARLA 4 B|Leganés",
 "direccion_gps": [
 40.311539,
 -3.78201
@@ -4359,6 +4616,8 @@
 40.628559,
 -3.582941
 ],
+"dir_consultada": "AVDA. DEL GUADALIX S/N (URBANIZ. STO. DOMINGO)|Algete",
+"sin_geocodificar": true,
 "navegacion": [
 40.628559,
 -3.582941
@@ -4373,11 +4632,12 @@
 40.284673,
 -4.018331
 ],
+"dir_consultada": "CALLE DEL RIO NALÓN S/N|Navalcarnero",
 "direccion_gps": [
-40.284548,
--4.018539
+40.285105,
+-4.017567
 ],
-"dist_rffm_direccion_km": 0.02,
+"dist_rffm_direccion_km": 0.08,
 "navegacion": [
 40.284673,
 -4.018331
@@ -4392,11 +4652,12 @@
 40.392062,
 -3.638656
 ],
+"dir_consultada": "CALLE ANTONIO MAIRENA 23|Madrid",
 "direccion_gps": [
-40.391133,
--3.639061
+40.392026,
+-3.639496
 ],
-"dist_rffm_direccion_km": 0.11,
+"dist_rffm_direccion_km": 0.07,
 "navegacion": [
 40.392062,
 -3.638656
@@ -4411,6 +4672,7 @@
 40.137414,
 -3.576425
 ],
+"dir_consultada": "CALLE GRANDE 1 D|Titulcia",
 "direccion_gps": [
 40.136658,
 -3.577446
@@ -4430,6 +4692,7 @@
 40.129264,
 -3.339076
 ],
+"dir_consultada": "CALLE ESTRELLA S/N|Belmonte De Tajo",
 "direccion_gps": [
 40.13394,
 -3.340606
@@ -4449,6 +4712,7 @@
 40.646738,
 -3.78561
 ],
+"dir_consultada": "AVDA. DE JUAN PABLO II 13|Colmenar Viejo",
 "direccion_gps": [
 40.646828,
 -3.790326
@@ -4468,6 +4732,7 @@
 40.446105,
 -3.59238
 ],
+"dir_consultada": "CALLE DE EUTERPE S/N|Madrid",
 "direccion_gps": [
 40.447986,
 -3.59209
@@ -4487,11 +4752,12 @@
 40.394309,
 -3.869842
 ],
+"dir_consultada": "CALLE SAN VICENTE DE LA BARQUERA S/N|Boadilla Del Monte",
 "direccion_gps": [
-40.389772,
--3.881376
+40.388858,
+-3.883799
 ],
-"dist_rffm_direccion_km": 1.1,
+"dist_rffm_direccion_km": 1.33,
 "navegacion": [
 40.394309,
 -3.869842
@@ -4506,6 +4772,7 @@
 40.183227,
 -3.776508
 ],
+"dir_consultada": "AVDA. JOSÉ FERNÁNDEZ SEGOVIA 16|Torrejón De Velasco",
 "direccion_gps": [
 40.184311,
 -3.777601
@@ -4525,6 +4792,7 @@
 40.498232,
 -4.241036
 ],
+"dir_consultada": "CALLE ERAS DEL CRISTO S/N|Robledo De Chavela",
 "direccion_gps": [
 40.498185,
 -4.240988
@@ -4544,6 +4812,7 @@
 40.324852,
 -3.714132
 ],
+"dir_consultada": "CALLE MARÍA MONTESSORI S/N|Getafe",
 "direccion_gps": [
 40.324806,
 -3.714191
@@ -4563,11 +4832,12 @@
 40.440687,
 -3.708441
 ],
+"dir_consultada": "AVDA. ISLAS FILIPINAS S/N|Madrid",
 "direccion_gps": [
-40.44171,
--3.705637
+40.441642,
+-3.706041
 ],
-"dist_rffm_direccion_km": 0.26,
+"dist_rffm_direccion_km": 0.23,
 "navegacion": [
 40.440687,
 -3.708441
@@ -4582,6 +4852,7 @@
 40.348715,
 -3.700349
 ],
+"dir_consultada": "PASEO TALLERES 1|Madrid",
 "direccion_gps": [
 40.348218,
 -3.701037
@@ -4601,6 +4872,7 @@
 40.416033,
 -3.656073
 ],
+"dir_consultada": "CALLE ALCALDE GARRIDO JUARISTI 17|Madrid",
 "direccion_gps": [
 40.413556,
 -3.653041
@@ -4620,6 +4892,7 @@
 40.406508,
 -3.99918
 ],
+"dir_consultada": "CALLE DE LOS ARCOS 1|Brunete",
 "direccion_gps": [
 40.405797,
 -4.000258
@@ -4639,18 +4912,7 @@
 40.51343,
 -3.409463
 ],
-"direccion_gps": [
-40.48906,
--3.366189
-],
-"dist_rffm_direccion_km": 4.55,
-"aviso": "Coordenadas de la RFFM a 4.6 km de la dirección (sin confirmar)",
-"navegacion": [
-40.51343,
--3.409463
-],
-"tipo": "rffm",
-"corregido": false
+"aviso": "Campo pendiente de asignar"
 },
 "1315": {
 "nombre": "SEVILLA LA NUEVA - POL. MPAL. HÉCTOR VALERO (HA)",
@@ -4659,6 +4921,8 @@
 40.355398,
 -4.008062
 ],
+"dir_consultada": "AVDA. DE GUADARRAMA S/N|Sevilla La Nueva",
+"sin_geocodificar": true,
 "navegacion": [
 40.355398,
 -4.008062
@@ -4673,6 +4937,7 @@
 40.62826,
 -3.517029
 ],
+"dir_consultada": "AVDA. JULIAN SANCHEZ 21|Fuente El Saz De Jarama",
 "direccion_gps": [
 40.628532,
 -3.517503
@@ -4692,6 +4957,7 @@
 40.43347,
 -3.526094
 ],
+"dir_consultada": "PASEO DE LOS PINOS S/N|San Fernando De Henares",
 "direccion_gps": [
 40.431388,
 -3.52451
@@ -4711,6 +4977,7 @@
 40.418148,
 -3.627593
 ],
+"dir_consultada": "CALLE DE NICOLÁS SALMERÓN S/N|Madrid",
 "direccion_gps": [
 40.419615,
 -3.630355
@@ -4730,6 +4997,7 @@
 40.34155,
 -3.688185
 ],
+"dir_consultada": "CALLE DE ROCAFORT S/N|Madrid",
 "direccion_gps": [
 40.341854,
 -3.690668
@@ -4749,6 +5017,7 @@
 40.378361,
 -3.617117
 ],
+"dir_consultada": "CALLE PUERTO DE REINOSA 2|Madrid",
 "direccion_gps": [
 40.379019,
 -3.616477
@@ -4768,11 +5037,12 @@
 40.229813,
 -3.761338
 ],
+"dir_consultada": "AVDA. DE AMÉRICA S/N|Parla",
 "direccion_gps": [
-40.235994,
--3.75903
+40.228158,
+-3.764095
 ],
-"dist_rffm_direccion_km": 0.71,
+"dist_rffm_direccion_km": 0.3,
 "navegacion": [
 40.229813,
 -3.761338
@@ -4787,11 +5057,12 @@
 40.461434,
 -3.488768
 ],
+"dir_consultada": "CALLE DE SAN FERNANDO S/N|Torrejón De Ardoz",
 "direccion_gps": [
-40.46165,
--3.487012
+40.46118,
+-3.490199
 ],
-"dist_rffm_direccion_km": 0.15,
+"dist_rffm_direccion_km": 0.12,
 "navegacion": [
 40.461434,
 -3.488768
@@ -4806,6 +5077,8 @@
 40.410082,
 -3.607104
 ],
+"dir_consultada": "CALLE VEREDA DEL PINAR 10|Madrid",
+"sin_geocodificar": true,
 "navegacion": [
 40.410082,
 -3.607104
@@ -4820,6 +5093,7 @@
 40.118897,
 -3.161652
 ],
+"dir_consultada": "Fuentidueña de Tajo|Fuentidueña De Tajo",
 "direccion_gps": [
 40.118735,
 -3.15961
@@ -4839,6 +5113,8 @@
 40.273598,
 -4.30478
 ],
+"dir_consultada": "CALLE LA SOLEDAD 6|Villa Del Prado",
+"sin_geocodificar": true,
 "navegacion": [
 40.273598,
 -4.30478
@@ -4853,11 +5129,12 @@
 40.442847,
 -3.81366
 ],
+"dir_consultada": "CAMINO DE LAS HUERTAS S/N|Pozuelo De Alarcón",
 "direccion_gps": [
-40.447251,
--3.808088
+40.440845,
+-3.814719
 ],
-"dist_rffm_direccion_km": 0.68,
+"dist_rffm_direccion_km": 0.24,
 "navegacion": [
 40.442847,
 -3.81366
@@ -4872,6 +5149,8 @@
 40.296724,
 -4.10872
 ],
+"dir_consultada": "CALLE CAÑADA REAL SEGOVIANA S/N|Villamanta",
+"sin_geocodificar": true,
 "navegacion": [
 40.296724,
 -4.10872
@@ -4886,6 +5165,8 @@
 40.747826,
 -3.599842
 ],
+"dir_consultada": "CALLE DEL POLIDEPORTIVO S/N|Pedrezuela",
+"sin_geocodificar": true,
 "navegacion": [
 40.747826,
 -3.599842
@@ -4900,11 +5181,12 @@
 40.53719,
 -3.623702
 ],
+"dir_consultada": "AVDA. TRANSICIÓN ESPAÑOLA, S/N|Alcobendas",
 "direccion_gps": [
-40.535152,
--3.621263
+40.535358,
+-3.621708
 ],
-"dist_rffm_direccion_km": 0.31,
+"dist_rffm_direccion_km": 0.26,
 "navegacion": [
 40.53719,
 -3.623702
@@ -4919,6 +5201,7 @@
 40.483343,
 -3.387871
 ],
+"dir_consultada": "CALLE ARTURO SORIA 3|Alcalá De Henares",
 "direccion_gps": [
 40.480442,
 -3.394971
@@ -4938,6 +5221,7 @@
 40.312456,
 -3.47681
 ],
+"dir_consultada": "CALLE MALLORCA S/N|Arganda Del Rey",
 "direccion_gps": [
 40.312332,
 -3.476827
@@ -4957,6 +5241,7 @@
 40.378366,
 -3.534468
 ],
+"dir_consultada": "AVDA. DE LA TIERRA,4|Rivas-Vaciamadrid",
 "direccion_gps": [
 40.377231,
 -3.538141
@@ -4976,11 +5261,12 @@
 40.422101,
 -3.648098
 ],
+"dir_consultada": "AVENIDA DE LAS TRECE ROSAS 2|Madrid",
 "direccion_gps": [
-40.422897,
--3.647934
+40.418073,
+-3.649409
 ],
-"dist_rffm_direccion_km": 0.09,
+"dist_rffm_direccion_km": 0.46,
 "navegacion": [
 40.422101,
 -3.648098
@@ -4995,6 +5281,7 @@
 40.301091,
 -3.808866
 ],
+"dir_consultada": "PASEO RIAZOR S/N|Fuenlabrada",
 "direccion_gps": [
 40.301478,
 -3.810868
@@ -5014,6 +5301,7 @@
 40.461527,
 -3.861633
 ],
+"dir_consultada": "CALLE CERRO DEL ESPINO S/N|Majadahonda",
 "direccion_gps": [
 40.460643,
 -3.862788
@@ -5033,11 +5321,12 @@
 40.360689,
 -3.686161
 ],
+"dir_consultada": "CALLE DEL CONSENSO 5|Madrid",
 "direccion_gps": [
-40.359595,
--3.686259
+40.358438,
+-3.686188
 ],
-"dist_rffm_direccion_km": 0.12,
+"dist_rffm_direccion_km": 0.25,
 "navegacion": [
 40.360689,
 -3.686161
@@ -5052,6 +5341,7 @@
 40.362519,
 -3.917312
 ],
+"dir_consultada": "ALEXANDER GRAHAM BELL, 2|Villaviciosa De Odón",
 "direccion_gps": [
 40.362481,
 -3.91733
@@ -5071,6 +5361,7 @@
 40.446962,
 -3.713763
 ],
+"dir_consultada": "CALLE DE JUAN MONTALVO 30|Madrid",
 "direccion_gps": [
 40.447329,
 -3.712369
@@ -5090,11 +5381,12 @@
 40.498071,
 -3.523729
 ],
+"dir_consultada": "PASEO DEL RADAR, 37|Paracuellos De Jarama",
 "direccion_gps": [
-40.500307,
--3.523607
+40.502472,
+-3.524751
 ],
-"dist_rffm_direccion_km": 0.25,
+"dist_rffm_direccion_km": 0.5,
 "navegacion": [
 40.498071,
 -3.523729
@@ -5109,6 +5401,7 @@
 40.509069,
 -3.6792
 ],
+"dir_consultada": "CALLE FRÓMISTA 1|Madrid",
 "direccion_gps": [
 40.509212,
 -3.679083
@@ -5128,6 +5421,7 @@
 40.442542,
 -3.872011
 ],
+"dir_consultada": "C/ DE LA COMUNIDAD CANARIA 8|Boadilla Del Monte",
 "direccion_gps": [
 40.441366,
 -3.87161
@@ -5147,11 +5441,12 @@
 40.233525,
 -3.760004
 ],
+"dir_consultada": "AVDA. DE AMÉRICA S/N|Parla",
 "direccion_gps": [
-40.235994,
--3.75903
+40.22809,
+-3.764065
 ],
-"dist_rffm_direccion_km": 0.29,
+"dist_rffm_direccion_km": 0.7,
 "navegacion": [
 40.233525,
 -3.760004
@@ -5166,6 +5461,7 @@
 40.477509,
 -3.845966
 ],
+"dir_consultada": "CALLE ARROYO DE LA SACEDILLA Nº 44|Majadahonda",
 "direccion_gps": [
 40.477263,
 -3.844862
@@ -5185,6 +5481,7 @@
 40.362519,
 -3.917312
 ],
+"dir_consultada": "CALLE ALEXANDER GRAHAM BELL 2|Villaviciosa De Odón",
 "direccion_gps": [
 40.362481,
 -3.91733
@@ -5204,6 +5501,7 @@
 40.301091,
 -3.808866
 ],
+"dir_consultada": "PASEO DE RIAZOR, S/N|Fuenlabrada",
 "direccion_gps": [
 40.301478,
 -3.810868
@@ -5223,6 +5521,7 @@
 40.339514,
 -3.762957
 ],
+"dir_consultada": "CALLE ARQUITECTURA 4|Leganés",
 "direccion_gps": [
 40.339599,
 -3.762738
@@ -5242,6 +5541,7 @@
 40.237944,
 -3.694854
 ],
+"dir_consultada": "CALLE PABLO PICASSO S/N|Pinto",
 "direccion_gps": [
 40.237141,
 -3.696321
@@ -5261,6 +5561,7 @@
 40.338901,
 -3.762764
 ],
+"dir_consultada": "CALLE ARQUITECTURA 4|Leganés",
 "direccion_gps": [
 40.339599,
 -3.762738
@@ -5280,12 +5581,12 @@
 40.381582,
 -3.723952
 ],
+"dir_consultada": "VIA LUSITANA 5|Madrid",
 "direccion_gps": [
-40.370498,
--3.737712
+40.383374,
+-3.721521
 ],
-"dist_rffm_direccion_km": 1.7,
-"aviso": "Coordenadas de la RFFM a 1.7 km de la dirección (sin confirmar)",
+"dist_rffm_direccion_km": 0.29,
 "navegacion": [
 40.381582,
 -3.723952
@@ -5300,6 +5601,7 @@
 40.295245,
 -3.744348
 ],
+"dir_consultada": "AVDA. DE LAS ARCAS DEL AGUA S/N|Getafe",
 "direccion_gps": [
 40.291955,
 -3.747
@@ -5319,6 +5621,7 @@
 40.362519,
 -3.917312
 ],
+"dir_consultada": "CALLE ALEXANDER GRAHAM BELL 2|Villaviciosa De Odón",
 "direccion_gps": [
 40.362481,
 -3.91733
@@ -5338,6 +5641,7 @@
 40.410906,
 -3.896471
 ],
+"dir_consultada": "MENENDEZ PIDAL 16|Boadilla Del Monte",
 "direccion_gps": [
 40.410845,
 -3.895631
@@ -5357,6 +5661,8 @@
 40.639786,
 -4.003571
 ],
+"dir_consultada": "CALLE DE LA GRANJA, 18|Collado Villalba",
+"sin_geocodificar": true,
 "navegacion": [
 40.639786,
 -4.003571
@@ -5371,6 +5677,7 @@
 40.509816,
 -3.611237
 ],
+"dir_consultada": "CALLE DEL CAMINO ANCHO 10|Alcobendas",
 "direccion_gps": [
 40.509852,
 -3.611249
@@ -5390,6 +5697,7 @@
 40.496289,
 -3.411503
 ],
+"dir_consultada": "AVENIDA DE AJALVIR 38|Alcalá De Henares",
 "direccion_gps": [
 40.48957,
 -3.379622
@@ -5410,6 +5718,7 @@
 40.34761,
 -3.675199
 ],
+"dir_consultada": "CALLE ESTEFANITA 3|Madrid",
 "direccion_gps": [
 40.347317,
 -3.674975
@@ -5429,6 +5738,7 @@
 40.377057,
 -3.728841
 ],
+"dir_consultada": "VIA LUSITANA 19|Madrid",
 "direccion_gps": [
 40.377018,
 -3.728306
@@ -5448,11 +5758,12 @@
 40.612872,
 -3.720395
 ],
+"dir_consultada": "C/ FUEGO Nº 9|Tres Cantos",
 "direccion_gps": [
-40.613408,
--3.718514
+40.613358,
+-3.717732
 ],
-"dist_rffm_direccion_km": 0.17,
+"dist_rffm_direccion_km": 0.23,
 "navegacion": [
 40.612872,
 -3.720395
@@ -5467,6 +5778,7 @@
 40.82693,
 -3.533117
 ],
+"dir_consultada": "CAMINO DE LA SOLEDAD 12|Torrelaguna",
 "direccion_gps": [
 40.825966,
 -3.531898
@@ -5486,6 +5798,7 @@
 40.283587,
 -3.908243
 ],
+"dir_consultada": "CALLE DE LA GUARDIA 1|Arroyomolinos",
 "direccion_gps": [
 40.283155,
 -3.908096
@@ -5505,6 +5818,7 @@
 40.465827,
 -3.957556
 ],
+"dir_consultada": "CALLE VALLE DEL RONCAL 57|Villanueva Del Pardillo",
 "direccion_gps": [
 40.492045,
 -3.965782
@@ -5525,6 +5839,7 @@
 40.449371,
 -3.67158
 ],
+"dir_consultada": "C/ EL PRADILLO, 33|Madrid",
 "direccion_gps": [
 40.63212,
 -4.00427
@@ -5545,6 +5860,8 @@
 40.421093,
 -3.661096
 ],
+"dir_consultada": "CALLE DEL ALCALDE SÁIZ DE BARANDA 94|Madrid",
+"sin_geocodificar": true,
 "navegacion": [
 40.421093,
 -3.661096
@@ -5559,6 +5876,7 @@
 40.237944,
 -3.694854
 ],
+"dir_consultada": "CALLE PABLO PICASSO|Pinto",
 "direccion_gps": [
 40.237141,
 -3.696321
@@ -5578,6 +5896,8 @@
 40.412434,
 -3.897136
 ],
+"dir_consultada": "CTRA. DE BOADILLA A POZUELO KM. 1,400|Boadilla Del Monte",
+"sin_geocodificar": true,
 "navegacion": [
 40.412434,
 -3.897136
@@ -5592,6 +5912,7 @@
 40.437124,
 -3.660831
 ],
+"dir_consultada": "Avda. Brasilia, 2|Madrid",
 "direccion_gps": [
 40.440667,
 -3.660936
@@ -5611,6 +5932,8 @@
 40.499623,
 -3.700324
 ],
+"dir_consultada": "CALLE MONASTERIO DE EL PAULAR 138|Madrid",
+"sin_geocodificar": true,
 "navegacion": [
 40.499623,
 -3.700324
@@ -5625,6 +5948,7 @@
 40.529959,
 -3.63141
 ],
+"dir_consultada": "CALLE DE LA SALVIA 48|Alcobendas",
 "direccion_gps": [
 40.530029,
 -3.631329
@@ -5644,6 +5968,7 @@
 40.56619,
 -3.626749
 ],
+"dir_consultada": "AVENIDA DE LA DEHESA S/N|San Sebastián De Los Reyes",
 "direccion_gps": [
 40.563119,
 -3.622262
@@ -5659,18 +5984,22 @@
 "28821260": {
 "nombre": "ALCORCON - PVO. MPAL. SANTO DOMINGO F/7 2",
 "localidad": "Alcorcón",
-"rffm": null,
-"direccion_gps": [
+"rffm": [
 40.340481,
 -3.841087
 ],
-"aviso": "La RFFM no da coordenadas: se usa la dirección",
+"dir_consultada": "AVDA. DE ESTEBAN MARQUEZ, S/N|Alcorcón",
+"direccion_gps": [
+40.3392,
+-3.842233
+],
+"dist_rffm_direccion_km": 0.17,
 "navegacion": [
 40.340481,
 -3.841087
 ],
-"tipo": "direccion",
-"corregido": true
+"tipo": "rffm",
+"corregido": false
 },
 "4532965": {
 "nombre": "COLEGIO J.H. NEWMAN (HA)",
@@ -5679,6 +6008,7 @@
 40.421188,
 -3.615013
 ],
+"dir_consultada": "AVDA. DE GUADALAJARA 28|Madrid",
 "direccion_gps": [
 40.420836,
 -3.614794
@@ -5698,6 +6028,7 @@
 40.339514,
 -3.762957
 ],
+"dir_consultada": "CALLE ARQUITECTURA 4|Leganés",
 "direccion_gps": [
 40.339599,
 -3.762738
@@ -5717,6 +6048,7 @@
 40.602314,
 -4.127149
 ],
+"dir_consultada": "CALLE LAS POZAS 183|San Lorenzo De El Escorial",
 "direccion_gps": [
 40.60279,
 -4.126736
@@ -5736,6 +6068,7 @@
 40.362519,
 -3.917312
 ],
+"dir_consultada": "ALEXANDER GRAHAM BELL, 2|Villaviciosa De Odón",
 "direccion_gps": [
 40.362481,
 -3.91733
@@ -5744,6 +6077,1904 @@
 "navegacion": [
 40.362519,
 -3.917312
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1507": {
+"nombre": "CIEMPOZUELOS - ESTADIO MPAL. (HA)",
+"localidad": "Ciempozuelos",
+"rffm": [
+40.150303,
+-3.614634
+],
+"dir_consultada": "CAMINO DE VALDINOJOS 2|Ciempozuelos",
+"sin_geocodificar": true,
+"navegacion": [
+40.150303,
+-3.614634
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2204": {
+"nombre": "EL ESCORIAL - NAVAARMADO (HA)",
+"localidad": "Escorial (El)",
+"rffm": [
+40.581837,
+-4.122518
+],
+"dir_consultada": "CALLE DE NAVAARMADO S/N|Escorial (El)",
+"direccion_gps": [
+40.581685,
+-4.122516
+],
+"dist_rffm_direccion_km": 0.02,
+"navegacion": [
+40.581837,
+-4.122518
+],
+"tipo": "rffm",
+"corregido": false
+},
+"301403": {
+"nombre": "PVO. GALLUR (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.398211,
+-3.739143
+],
+"dir_consultada": "CALLE GALLUR S/N|Madrid",
+"direccion_gps": [
+40.398175,
+-3.739595
+],
+"dist_rffm_direccion_km": 0.04,
+"navegacion": [
+40.398211,
+-3.739143
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2304": {
+"nombre": "CHAPINERIA - LAS LAGUNILLAS (HA)",
+"localidad": "Chapinería",
+"rffm": [
+40.382221,
+-4.206048
+],
+"dir_consultada": "AVDA. DEL POLIDEPORTIVO 15|Chapinería",
+"sin_geocodificar": true,
+"navegacion": [
+40.382221,
+-4.206048
+],
+"tipo": "rffm",
+"corregido": false
+},
+"411": {
+"nombre": "ROMAN VALERO (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.389291,
+-3.705869
+],
+"dir_consultada": "CALLE DE ANDRES ARTEAGA 1|Madrid",
+"direccion_gps": [
+40.388865,
+-3.70632
+],
+"dist_rffm_direccion_km": 0.06,
+"navegacion": [
+40.389291,
+-3.705869
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1407": {
+"nombre": "FUENLABRADA - LA ALDEHUELA 1 (HA)",
+"localidad": "Fuenlabrada",
+"rffm": [
+40.305344,
+-3.839784
+],
+"dir_consultada": "CALLE DE LA FUENTE S/N|Fuenlabrada",
+"direccion_gps": [
+40.281214,
+-3.789733
+],
+"dist_rffm_direccion_km": 5.02,
+"aviso": "Coordenadas de la RFFM a 5.0 km de la dirección (sin confirmar)",
+"navegacion": [
+40.305344,
+-3.839784
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1705": {
+"nombre": "COSLADA - ESTADIO EL OLIVO (HA)",
+"localidad": "Coslada",
+"rffm": [
+40.418702,
+-3.572045
+],
+"dir_consultada": "CALLE DEL MAR CANTÁBRICO S/N|Coslada",
+"direccion_gps": [
+40.419706,
+-3.570395
+],
+"dist_rffm_direccion_km": 0.18,
+"navegacion": [
+40.418702,
+-3.572045
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1401": {
+"nombre": "CASARRUBUELOS (HA)",
+"localidad": "Casarrubuelos",
+"rffm": [
+40.172196,
+-3.829277
+],
+"dir_consultada": "CAMINO A TORREJÓN DE VELASCO 14|Casarrubuelos",
+"sin_geocodificar": true,
+"navegacion": [
+40.172196,
+-3.829277
+],
+"tipo": "rffm",
+"corregido": false
+},
+"129": {
+"nombre": "ISLA TABARCA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.476762,
+-3.721607
+],
+"dir_consultada": "CALLE DE LA ISLA DE TABARCA 2|Madrid",
+"direccion_gps": [
+40.253581,
+-3.825855
+],
+"dist_rffm_direccion_km": 26.34,
+"aviso": "Coordenadas de la RFFM a 26.3 km de la dirección (sin confirmar)",
+"navegacion": [
+40.476762,
+-3.721607
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1231": {
+"nombre": "LAS ROZAS - PVO. DEHESA DE NAVALCARBON 1 (HA)",
+"localidad": "Las Rozas De Madrid",
+"rffm": [
+40.506998,
+-3.889595
+],
+"dir_consultada": "AVDA. NTRA. SRA. DEL RETAMAR 16|Las Rozas De Madrid",
+"direccion_gps": [
+40.506014,
+-3.888515
+],
+"dist_rffm_direccion_km": 0.14,
+"navegacion": [
+40.506998,
+-3.889595
+],
+"tipo": "rffm",
+"corregido": false
+},
+"511": {
+"nombre": "PVO. OROQUIETA - FELIX RUBIO (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.357314,
+-3.691723
+],
+"dir_consultada": "CALLE DE LA ALIANZA 4|Madrid",
+"direccion_gps": [
+40.356972,
+-3.69109
+],
+"dist_rffm_direccion_km": 0.07,
+"navegacion": [
+40.357314,
+-3.691723
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1509": {
+"nombre": "VALDEMORO (HA)",
+"localidad": "Valdemoro",
+"rffm": [
+40.191963,
+-3.668638
+],
+"dir_consultada": "PASEO DEL PRADO, S/N|Valdemoro",
+"direccion_gps": [
+40.191811,
+-3.664319
+],
+"dist_rffm_direccion_km": 0.37,
+"navegacion": [
+40.191963,
+-3.668638
+],
+"tipo": "rffm",
+"corregido": false
+},
+"112": {
+"nombre": "DEHESA VILLA (T)",
+"localidad": "Madrid",
+"rffm": [
+40.462977,
+-3.716116
+],
+"dir_consultada": "CALLE DEL ALCALDE MARTIN DE ALZAGA 4|Madrid",
+"direccion_gps": [
+40.462955,
+-3.716744
+],
+"dist_rffm_direccion_km": 0.05,
+"navegacion": [
+40.462977,
+-3.716116
+],
+"tipo": "rffm",
+"corregido": false
+},
+"12297817": {
+"nombre": "LOS CARMENES 2 (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.396904,
+-3.74369
+],
+"dir_consultada": "CALLE ALHAMBRA 37|Madrid",
+"direccion_gps": [
+40.03276,
+-3.58473
+],
+"dist_rffm_direccion_km": 42.68,
+"aviso": "Coordenadas de la RFFM a 42.7 km de la dirección (sin confirmar)",
+"navegacion": [
+40.396904,
+-3.74369
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1717": {
+"nombre": "LOS SANTOS DE LA HUMOSA (HA)",
+"localidad": "Santos De La Humosa (Los)",
+"rffm": [
+40.494612,
+-3.251794
+],
+"dir_consultada": "CALLE CANAL DE ISABEL II 60|Santos De La Humosa (Los)",
+"direccion_gps": [
+40.496928,
+-3.252087
+],
+"dist_rffm_direccion_km": 0.26,
+"navegacion": [
+40.494612,
+-3.251794
+],
+"tipo": "rffm",
+"corregido": false
+},
+"9999": {
+"nombre": "PENDIENTE ASIGNACION CAMPO",
+"localidad": "Alcalá De Henares",
+"rffm": null,
+"aviso": "Campo pendiente de asignar"
+},
+"1129": {
+"nombre": "COLMENAR VIEJO - PVO. MPAL. LORENZO RICO (HA)",
+"localidad": "Colmenar Viejo",
+"rffm": [
+40.653949,
+-3.765016
+],
+"dir_consultada": "CALLE DE LAS HUERTAS 55|Colmenar Viejo",
+"sin_geocodificar": true,
+"navegacion": [
+40.653949,
+-3.765016
+],
+"tipo": "rffm",
+"corregido": false
+},
+"613": {
+"nombre": "JOSE DURAN (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.381237,
+-3.665334
+],
+"dir_consultada": "AVENIDA DEL PARQUE DE PALOMERAS BAJAS 10|Madrid",
+"direccion_gps": [
+40.380548,
+-3.664289
+],
+"dist_rffm_direccion_km": 0.12,
+"navegacion": [
+40.381237,
+-3.665334
+],
+"tipo": "rffm",
+"corregido": false
+},
+"508": {
+"nombre": "ASOC. VEC. ORCASITAS (H.A.)",
+"localidad": "Madrid",
+"rffm": [
+40.369598,
+-3.710823
+],
+"dir_consultada": "CAMINO VIEJO DE VILLAVERDE S/N|Madrid",
+"sin_geocodificar": true,
+"navegacion": [
+40.369598,
+-3.710823
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1214": {
+"nombre": "VILLANUEVA DEL PARDILLO 1 (MUNICIPAL JUAN MANUEL ANGELINA)(HA)",
+"localidad": "Villanueva Del Pardillo",
+"rffm": [
+40.482844,
+-3.97202
+],
+"dir_consultada": "AVDA. DE LOS ESTUDIANTES, 3|Villanueva Del Pardillo",
+"sin_geocodificar": true,
+"navegacion": [
+40.482844,
+-3.97202
+],
+"tipo": "rffm",
+"corregido": false
+},
+"408": {
+"nombre": "COLONIA ZOFIO (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.381028,
+-3.718159
+],
+"dir_consultada": "CALLE RICARDO BELTRAN Y ROZPIDE 12|Madrid",
+"sin_geocodificar": true,
+"navegacion": [
+40.381028,
+-3.718159
+],
+"tipo": "rffm",
+"corregido": false
+},
+"120": {
+"nombre": "COLEGIO VALDELUZ (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.48303,
+-3.707618
+],
+"dir_consultada": "CALLE DE FERMIN CABALLERO 53|Madrid",
+"direccion_gps": [
+40.482843,
+-3.707196
+],
+"dist_rffm_direccion_km": 0.04,
+"navegacion": [
+40.48303,
+-3.707618
+],
+"tipo": "rffm",
+"corregido": false
+},
+"704": {
+"nombre": "C.D.M. LA CONCEPCIÓN (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.43725,
+-3.648441
+],
+"dir_consultada": "CALLE DE JOSÉ DEL HIERRO 5|Madrid",
+"direccion_gps": [
+40.440218,
+-3.644
+],
+"dist_rffm_direccion_km": 0.5,
+"navegacion": [
+40.43725,
+-3.648441
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1504": {
+"nombre": "PINTO - ESTADIO AMELIA DEL CASTILLO (HA)",
+"localidad": "Pinto",
+"rffm": [
+40.249468,
+-3.692804
+],
+"dir_consultada": "CALLE DOÑA MANOLITA S/N|Pinto",
+"direccion_gps": [
+40.249372,
+-3.692892
+],
+"dist_rffm_direccion_km": 0.01,
+"navegacion": [
+40.249468,
+-3.692804
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1777": {
+"nombre": "ALCALA - COLEGIO ESCUELAS PÍAS (H.A.)",
+"localidad": "Alcalá De Henares",
+"rffm": [
+40.485029,
+-3.352549
+],
+"dir_consultada": "AVDA. LOPE DE FIGUEROA 27|Alcalá De Henares",
+"direccion_gps": [
+40.485207,
+-3.352864
+],
+"dist_rffm_direccion_km": 0.03,
+"navegacion": [
+40.485029,
+-3.352549
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2596943": {
+"nombre": "UNIVERSIDAD FRANCISCO DE VITORIA (HA)",
+"localidad": "Pozuelo De Alarcón",
+"rffm": [
+40.442982,
+-3.83306
+],
+"dir_consultada": "CTRA. DE POZUELO A MAJADAHONDA KM. 1,800|Pozuelo De Alarcón",
+"direccion_gps": [
+40.433656,
+-3.830752
+],
+"dist_rffm_direccion_km": 1.06,
+"navegacion": [
+40.442982,
+-3.83306
+],
+"tipo": "rffm",
+"corregido": false
+},
+"549230": {
+"nombre": "LA PERLA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.367366,
+-3.689885
+],
+"dir_consultada": "CALLE DEL CORINDÓN 3|Madrid",
+"direccion_gps": [
+40.367598,
+-3.689662
+],
+"dist_rffm_direccion_km": 0.03,
+"navegacion": [
+40.367366,
+-3.689885
+],
+"tipo": "rffm",
+"corregido": false
+},
+"300501": {
+"nombre": "CAMPO VALDEBERNARDO 1 (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.400241,
+-3.610898
+],
+"dir_consultada": "AVDA. DE LA AURORA BOREAL, 4|Madrid",
+"sin_geocodificar": true,
+"navegacion": [
+40.400241,
+-3.610898
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1425": {
+"nombre": "FUENLABRADA - LA ALDEHUELA 2 (HA)",
+"localidad": "Fuenlabrada",
+"rffm": [
+40.305344,
+-3.839784
+],
+"dir_consultada": "CALLE DE LA FUENTE S/N|Fuenlabrada",
+"direccion_gps": [
+40.281214,
+-3.789733
+],
+"dist_rffm_direccion_km": 5.02,
+"aviso": "Coordenadas de la RFFM a 5.0 km de la dirección (sin confirmar)",
+"navegacion": [
+40.305344,
+-3.839784
+],
+"tipo": "rffm",
+"corregido": false
+},
+"716": {
+"nombre": "I.D.B. SAN PASCUAL (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.438486,
+-3.654854
+],
+"dir_consultada": "CALLE DE ESTEBAN MORA S/N|Madrid",
+"direccion_gps": [
+40.438911,
+-3.653817
+],
+"dist_rffm_direccion_km": 0.1,
+"navegacion": [
+40.438486,
+-3.654854
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1729": {
+"nombre": "ESTREMERA (HA)",
+"localidad": "Estremera",
+"rffm": [
+40.189725,
+-3.108818
+],
+"dir_consultada": "AVD. DEL PAPA JUAN PABLO II|Estremera",
+"direccion_gps": [
+40.189542,
+-3.108634
+],
+"dist_rffm_direccion_km": 0.03,
+"navegacion": [
+40.189725,
+-3.108818
+],
+"tipo": "rffm",
+"corregido": false
+},
+"12286982": {
+"nombre": "GETAFE - JUAN DE LA CIERVA 1 (HA)",
+"localidad": "Getafe",
+"rffm": [
+40.317834,
+-3.715231
+],
+"dir_consultada": "AVDA. JUAN DE BORBON S/N|Getafe",
+"direccion_gps": [
+40.313558,
+-3.711639
+],
+"dist_rffm_direccion_km": 0.56,
+"navegacion": [
+40.317834,
+-3.715231
+],
+"tipo": "rffm",
+"corregido": false
+},
+"22676244": {
+"nombre": "NAVALCARNERO - EL PINAR 2 (H.A.)",
+"localidad": "Navalcarnero",
+"rffm": [
+40.300861,
+-4.008256
+],
+"dir_consultada": "CONIFERAS S/N|Navalcarnero",
+"direccion_gps": [
+40.299987,
+-3.985217
+],
+"dist_rffm_direccion_km": 1.96,
+"aviso": "Coordenadas de la RFFM a 2.0 km de la dirección (sin confirmar)",
+"navegacion": [
+40.300861,
+-4.008256
+],
+"tipo": "rffm",
+"corregido": false
+},
+"11043104": {
+"nombre": "ALCALA - ATLETICO DE MADRID C.D. (HA)",
+"localidad": "Alcalá De Henares",
+"rffm": [
+40.508294,
+-3.360855
+],
+"dir_consultada": "AVDA. GUSTAVO ADOLFO BECQUER 64|Alcalá De Henares",
+"direccion_gps": [
+40.5086,
+-3.361426
+],
+"dist_rffm_direccion_km": 0.06,
+"navegacion": [
+40.508294,
+-3.360855
+],
+"tipo": "rffm",
+"corregido": false
+},
+"902437": {
+"nombre": "MEJORADA - NUEVO ESTADIO (HA)",
+"localidad": "Mejorada Del Campo",
+"rffm": [
+40.393659,
+-3.477218
+],
+"dir_consultada": "CALLE JULIAN BESTEIRO ESQ. CON CALLE MIGUEL ÁNGEL BLANCO|Mejorada Del Campo",
+"sin_geocodificar": true,
+"navegacion": [
+40.393659,
+-3.477218
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1446": {
+"nombre": "GETAFE - CIUDAD DPTVA 1 (HA)",
+"localidad": "Getafe",
+"rffm": [
+40.324852,
+-3.714132
+],
+"dir_consultada": "CALLE MARÍA MONTESSORI S/N|Getafe",
+"direccion_gps": [
+40.324806,
+-3.714191
+],
+"dist_rffm_direccion_km": 0.01,
+"navegacion": [
+40.324852,
+-3.714132
+],
+"tipo": "rffm",
+"corregido": false
+},
+"14982100": {
+"nombre": "BOADILLA (CONDESA CHINCHON 1)",
+"localidad": "Boadilla Del Monte",
+"rffm": [
+40.410906,
+-3.896471
+],
+"dir_consultada": "MENENDEZ PIDAL 16|Boadilla Del Monte",
+"direccion_gps": [
+40.410845,
+-3.895631
+],
+"dist_rffm_direccion_km": 0.07,
+"navegacion": [
+40.410906,
+-3.896471
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2201": {
+"nombre": "CERCEDA (HA)",
+"localidad": "Boalo (El)",
+"rffm": [
+40.697784,
+-3.925715
+],
+"dir_consultada": "CALLE PUENTE MADRID 11 (CERCEDA)|Boalo (El)",
+"direccion_gps": [
+40.697707,
+-3.924273
+],
+"dist_rffm_direccion_km": 0.12,
+"navegacion": [
+40.697784,
+-3.925715
+],
+"tipo": "rffm",
+"corregido": false
+},
+"19778416": {
+"nombre": "ALCALA - DISTRITO 2 LA GAL",
+"localidad": "Alcalá De Henares",
+"rffm": [
+40.482181,
+-3.380998
+],
+"dir_consultada": "CALLE CAMINO DE LAS CALLEJUELAS Nº 2|Alcalá De Henares",
+"sin_geocodificar": true,
+"navegacion": [
+40.482181,
+-3.380998
+],
+"tipo": "rffm",
+"corregido": false
+},
+"10288947": {
+"nombre": "PALOMERAS BAJAS (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.376523,
+-3.657919
+],
+"dir_consultada": "CALLE PUERTO DE BALBARÁN 18|Madrid",
+"direccion_gps": [
+40.381413,
+-3.667356
+],
+"dist_rffm_direccion_km": 0.97,
+"navegacion": [
+40.376523,
+-3.657919
+],
+"tipo": "rffm",
+"corregido": false
+},
+"12292321": {
+"nombre": "CIUDAD DPTVA. FUND. RAYO VALLECANO 3 (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.376963,
+-3.612401
+],
+"dir_consultada": "CALLE DEL RAYO VALLECANO DE MADRID 2|Madrid",
+"direccion_gps": [
+40.377486,
+-3.610768
+],
+"dist_rffm_direccion_km": 0.15,
+"navegacion": [
+40.376963,
+-3.612401
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1417": {
+"nombre": "TORREJÓN DE LA CALZADA (HA)",
+"localidad": "Torrejón De La Calzada",
+"rffm": [
+40.1968,
+-3.805668
+],
+"dir_consultada": "CAMINO DE CUBAS 2|Torrejón De La Calzada",
+"direccion_gps": [
+40.196786,
+-3.818138
+],
+"dist_rffm_direccion_km": 1.06,
+"navegacion": [
+40.1968,
+-3.805668
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1211": {
+"nombre": "VILLANUEVA DE LA CAÑADA (HA)",
+"localidad": "Villanueva De La Cañada",
+"rffm": [
+40.454099,
+-3.996055
+],
+"dir_consultada": "AVENIDA DE MIRASIERRA 4|Villanueva De La Cañada",
+"sin_geocodificar": true,
+"navegacion": [
+40.454099,
+-3.996055
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1741": {
+"nombre": "TORREJÓN DE ARDOZ - 'GUTI' (HA)",
+"localidad": "Torrejón De Ardoz",
+"rffm": [
+40.46341,
+-3.447921
+],
+"dir_consultada": "AVDA. DE LA CONSTITUCIÓN 193|Torrejón De Ardoz",
+"direccion_gps": [
+40.460485,
+-3.458253
+],
+"dist_rffm_direccion_km": 0.93,
+"navegacion": [
+40.46341,
+-3.447921
+],
+"tipo": "rffm",
+"corregido": false
+},
+"813": {
+"nombre": "CAMPO NUEVO VILLA ROSA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.469063,
+-3.63099
+],
+"dir_consultada": "CALLE NEVADO DEL CUMBAL 2|Madrid",
+"direccion_gps": [
+40.470049,
+-3.631118
+],
+"dist_rffm_direccion_km": 0.11,
+"navegacion": [
+40.469063,
+-3.63099
+],
+"tipo": "rffm",
+"corregido": false
+},
+"320": {
+"nombre": "I.D.B. OSCAR Y JESÚS (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.375571,
+-3.770706
+],
+"dir_consultada": "CALLE DE SOLEDAD CAZORLA 22|Madrid",
+"direccion_gps": [
+40.374588,
+-3.76614
+],
+"dist_rffm_direccion_km": 0.4,
+"navegacion": [
+40.375571,
+-3.770706
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1709": {
+"nombre": "MECO - PVO. MUNICIPAL (HA)",
+"localidad": "Meco",
+"rffm": [
+40.549583,
+-3.333018
+],
+"dir_consultada": "CTRA. ALCALÁ DE HENARES S/N|Meco",
+"direccion_gps": [
+40.531187,
+-3.340448
+],
+"dist_rffm_direccion_km": 2.14,
+"aviso": "Coordenadas de la RFFM a 2.1 km de la dirección (sin confirmar)",
+"navegacion": [
+40.549583,
+-3.333018
+],
+"tipo": "rffm",
+"corregido": false
+},
+"405": {
+"nombre": "COTORRUELO II (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.381582,
+-3.723952
+],
+"dir_consultada": "VIA LUSITANA 5|Madrid",
+"direccion_gps": [
+40.383374,
+-3.721521
+],
+"dist_rffm_direccion_km": 0.29,
+"navegacion": [
+40.381582,
+-3.723952
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1220": {
+"nombre": "LAS ROZAS - RECINTO FERIAL (HA)",
+"localidad": "Las Rozas De Madrid",
+"rffm": [
+40.510033,
+-3.895544
+],
+"dir_consultada": "CALLE CASTILLO DE SIMANCAS 2|Las Rozas De Madrid",
+"direccion_gps": [
+40.510239,
+-3.895408
+],
+"dist_rffm_direccion_km": 0.03,
+"navegacion": [
+40.510033,
+-3.895544
+],
+"tipo": "rffm",
+"corregido": false
+},
+"514": {
+"nombre": "MARIS STELLA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.377067,
+-3.701542
+],
+"dir_consultada": "CALLE DEL DR. TOLOSA LATOUR S/N|Madrid",
+"direccion_gps": [
+40.376525,
+-3.701862
+],
+"dist_rffm_direccion_km": 0.07,
+"navegacion": [
+40.377067,
+-3.701542
+],
+"tipo": "rffm",
+"corregido": false
+},
+"443255": {
+"nombre": "ALCORCON - ESTEBAN MARQUEZ (HA)",
+"localidad": "Alcorcón",
+"rffm": [
+40.337307,
+-3.821827
+],
+"dir_consultada": "CALLE PARQUE FERIAL 4|Alcorcón",
+"direccion_gps": [
+40.333919,
+-3.818917
+],
+"dist_rffm_direccion_km": 0.45,
+"navegacion": [
+40.337307,
+-3.821827
+],
+"tipo": "rffm",
+"corregido": false
+},
+"123": {
+"nombre": "PVO. LA MASÓ (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.484108,
+-3.714873
+],
+"dir_consultada": "CALLE DE LA MASÓ 80|Madrid",
+"direccion_gps": [
+40.489639,
+-3.714184
+],
+"dist_rffm_direccion_km": 0.62,
+"navegacion": [
+40.484108,
+-3.714873
+],
+"tipo": "rffm",
+"corregido": false
+},
+"806": {
+"nombre": "OLÍMPICO HORTALEZA - LAS CÁRCAVAS (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.480609,
+-3.629819
+],
+"dir_consultada": "CAMINO DEL MONTORO S/N|Madrid",
+"sin_geocodificar": true,
+"navegacion": [
+40.480609,
+-3.629819
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1448": {
+"nombre": "PARLA - LAS AMÉRICAS (HA)",
+"localidad": "Parla",
+"rffm": [
+40.233618,
+-3.762489
+],
+"dir_consultada": "CALLE DE FELIPE II 19|Parla",
+"direccion_gps": [
+40.237288,
+-3.762538
+],
+"dist_rffm_direccion_km": 0.41,
+"navegacion": [
+40.233618,
+-3.762489
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1453": {
+"nombre": "HUMANES - EMILIO ZAZO 2 (HA)",
+"localidad": "Humanes De Madrid",
+"rffm": [
+40.256283,
+-3.819405
+],
+"dir_consultada": "CALLE VALDEHONDILLO, S/N.|Humanes De Madrid",
+"direccion_gps": [
+40.255678,
+-3.819807
+],
+"dist_rffm_direccion_km": 0.08,
+"navegacion": [
+40.256283,
+-3.819405
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1704": {
+"nombre": "CAMARMA DE ESTERUELAS - PVO. MUNICIPAL (HA)",
+"localidad": "Camarma De Esteruelas",
+"rffm": [
+40.536441,
+-3.377626
+],
+"dir_consultada": "CAMINO DEL MOLINO S/N|Camarma De Esteruelas",
+"direccion_gps": [
+40.546591,
+-3.377466
+],
+"dist_rffm_direccion_km": 1.13,
+"navegacion": [
+40.536441,
+-3.377626
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2102": {
+"nombre": "LA CABRERA - C.D.M. JULIAN BERRENDERO (HA)",
+"localidad": "Cabrera (La)",
+"rffm": [
+40.869687,
+-3.608393
+],
+"dir_consultada": "CALLE DE LOS DEPORTES 2|Cabrera (La)",
+"direccion_gps": [
+40.869949,
+-3.607451
+],
+"dist_rffm_direccion_km": 0.08,
+"navegacion": [
+40.869687,
+-3.608393
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1216": {
+"nombre": "MAJADAHONDA - INST. DEP. LA OLIVA - CTRO. OESTE (HA)",
+"localidad": "Majadahonda",
+"rffm": [
+40.456415,
+-3.864804
+],
+"dir_consultada": "CALLE SOROLLA 1|Majadahonda",
+"direccion_gps": [
+40.456094,
+-3.863397
+],
+"dist_rffm_direccion_km": 0.12,
+"navegacion": [
+40.456415,
+-3.864804
+],
+"tipo": "rffm",
+"corregido": false
+},
+"203": {
+"nombre": "FUNDACION (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.48149,
+-3.738654
+],
+"dir_consultada": "CALLE BRAOJOS 21|Madrid",
+"direccion_gps": [
+40.481512,
+-3.738731
+],
+"dist_rffm_direccion_km": 0.01,
+"navegacion": [
+40.48149,
+-3.738654
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1514": {
+"nombre": "PINTO - PVO. MPAL. PRÍNCIPES DE ASTURIAS (HA)",
+"localidad": "Pinto",
+"rffm": [
+40.237944,
+-3.694854
+],
+"dir_consultada": "CALLE PABLO PICASSO S/N|Pinto",
+"direccion_gps": [
+40.237141,
+-3.696321
+],
+"dist_rffm_direccion_km": 0.15,
+"navegacion": [
+40.237944,
+-3.694854
+],
+"tipo": "rffm",
+"corregido": false
+},
+"714": {
+"nombre": "ANTONIO PALACIOS (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.44019,
+-3.60795
+],
+"dir_consultada": "CALLE DE LA ESFINGE 76|Madrid",
+"direccion_gps": [
+40.440267,
+-3.60794
+],
+"dist_rffm_direccion_km": 0.01,
+"navegacion": [
+40.44019,
+-3.60795
+],
+"tipo": "rffm",
+"corregido": false
+},
+"708": {
+"nombre": "NTRA. SRA. DE LA SOLEDAD (H.A.)",
+"localidad": "Madrid",
+"rffm": [
+40.469814,
+-3.57932
+],
+"dir_consultada": "CALLE DE AYERBE S/N|Madrid",
+"direccion_gps": [
+40.471966,
+-3.575926
+],
+"dist_rffm_direccion_km": 0.37,
+"navegacion": [
+40.469814,
+-3.57932
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1490": {
+"nombre": "FUENLABRADA PTE. DETERMINAR POR AYUNTAMIENTO",
+"localidad": "Fuenlabrada",
+"rffm": [
+40.30179,
+-3.829911
+],
+"aviso": "Campo pendiente de asignar"
+},
+"1139": {
+"nombre": "COLMENAR VIEJO - ALBERTO RUIZ (HA)",
+"localidad": "Colmenar Viejo",
+"rffm": [
+40.657767,
+-3.759945
+],
+"dir_consultada": "CALLE TOMILLO S/N|Colmenar Viejo",
+"direccion_gps": [
+40.657767,
+-3.759887
+],
+"dist_rffm_direccion_km": 0.0,
+"navegacion": [
+40.657767,
+-3.759945
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1309": {
+"nombre": "MOSTOLES - LA PEÑA (HB)",
+"localidad": "Móstoles",
+"rffm": [
+40.294862,
+-3.870762
+],
+"dir_consultada": "CAMINO DE LEÑEROS S/N|Móstoles",
+"sin_geocodificar": true,
+"navegacion": [
+40.294862,
+-3.870762
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1118": {
+"nombre": "TRES CANTOS - KEKA VEGA (HA)",
+"localidad": "Tres Cantos",
+"rffm": [
+40.607866,
+-3.709559
+],
+"dir_consultada": "AVDA DE LA VEGA,S/N|Tres Cantos",
+"direccion_gps": [
+40.608283,
+-3.709137
+],
+"dist_rffm_direccion_km": 0.06,
+"navegacion": [
+40.607866,
+-3.709559
+],
+"tipo": "rffm",
+"corregido": false
+},
+"715": {
+"nombre": "SAN ROQUE (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.467189,
+-3.595537
+],
+"dir_consultada": "CALLE DE LA BAHIA DE MALAGA 5|Madrid",
+"sin_geocodificar": true,
+"navegacion": [
+40.467189,
+-3.595537
+],
+"tipo": "rffm",
+"corregido": false
+},
+"14636494": {
+"nombre": "CIUDAD REAL MADRID 6 (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.472653,
+-3.611889
+],
+"dir_consultada": "CAMINO DE SINTRA 4|Madrid",
+"sin_geocodificar": true,
+"navegacion": [
+40.472653,
+-3.611889
+],
+"tipo": "rffm",
+"corregido": false
+},
+"308": {
+"nombre": "CASTROSERNA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.401782,
+-3.74887
+],
+"dir_consultada": "CALLE DE CASTROSERNA S/N|Madrid",
+"direccion_gps": [
+40.401765,
+-3.748896
+],
+"dist_rffm_direccion_km": 0.0,
+"navegacion": [
+40.401782,
+-3.74887
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2605": {
+"nombre": "ORUSCO - MPAL. EUROCOPA 2008 (HA)",
+"localidad": "Orusco De Tajuña",
+"rffm": [
+40.281795,
+-3.208845
+],
+"dir_consultada": "CALLE GRAN VÍA S/N|Orusco De Tajuña",
+"sin_geocodificar": true,
+"navegacion": [
+40.281795,
+-3.208845
+],
+"tipo": "rffm",
+"corregido": false
+},
+"23367285": {
+"nombre": "ALCORCON - UNIVERSIDAD REY JUAN CARLOS (H.A.)",
+"localidad": "Alcorcón",
+"rffm": [
+40.530771,
+-3.910286
+],
+"dir_consultada": "AVENIDA DE ATENAS S/N|Alcorcón",
+"direccion_gps": [
+40.349721,
+-3.842559
+],
+"dist_rffm_direccion_km": 20.93,
+"aviso": "Coordenadas de la RFFM a 20.9 km de la dirección (sin confirmar)",
+"navegacion": [
+40.530771,
+-3.910286
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1726": {
+"nombre": "ALCALA - I.E.S. ANTONIO MACHADO (HA)",
+"localidad": "Alcalá De Henares",
+"rffm": [
+40.490747,
+-3.370435
+],
+"dir_consultada": "CALLE ALALPARDO 2|Alcalá De Henares",
+"direccion_gps": [
+40.490717,
+-3.370431
+],
+"dist_rffm_direccion_km": 0.0,
+"navegacion": [
+40.490747,
+-3.370435
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2208": {
+"nombre": "SAN LORENZO DE EL ESCORIAL - LA HERRERIA (HA)",
+"localidad": "San Lorenzo De El Escorial",
+"rffm": [
+40.585918,
+-4.144146
+],
+"dir_consultada": "CALLEJA LARGA,S/N|San Lorenzo De El Escorial",
+"direccion_gps": [
+40.584158,
+-4.14461
+],
+"dist_rffm_direccion_km": 0.2,
+"navegacion": [
+40.585918,
+-4.144146
+],
+"tipo": "rffm",
+"corregido": false
+},
+"725": {
+"nombre": "PVO. MPAL. SPORTING HORTALEZA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.478143,
+-3.656168
+],
+"dir_consultada": "CALLE DE MONÓVAR 8|Madrid",
+"direccion_gps": [
+40.477884,
+-3.656544
+],
+"dist_rffm_direccion_km": 0.04,
+"navegacion": [
+40.478143,
+-3.656168
+],
+"tipo": "rffm",
+"corregido": false
+},
+"713": {
+"nombre": "I.D.M MARGOT MOLES - PVO. VICÁLVARO (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.408099,
+-3.601247
+],
+"dir_consultada": "PASEO DEL POLIDEPORTIVO S/N|Madrid",
+"direccion_gps": [
+40.407511,
+-3.599813
+],
+"dist_rffm_direccion_km": 0.14,
+"navegacion": [
+40.408099,
+-3.601247
+],
+"tipo": "rffm",
+"corregido": false
+},
+"305002": {
+"nombre": "ARROYOMOLINOS - PVO. MPAL. LOS MOSQUITOS (HA)",
+"localidad": "Arroyomolinos",
+"rffm": [
+40.291768,
+-3.913541
+],
+"dir_consultada": "CALLE DE SANTANDER 110|Arroyomolinos",
+"direccion_gps": [
+40.289614,
+-3.909969
+],
+"dist_rffm_direccion_km": 0.39,
+"navegacion": [
+40.291768,
+-3.913541
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1332": {
+"nombre": "ALCORCON - PVO. MPAL. SANTO DOMINGO (HA)",
+"localidad": "Alcorcón",
+"rffm": [
+40.337357,
+-3.844003
+],
+"dir_consultada": "AVDA. DE ESTEBAN MARQUEZ S/N|Alcorcón",
+"direccion_gps": [
+40.3392,
+-3.842233
+],
+"dist_rffm_direccion_km": 0.25,
+"navegacion": [
+40.337357,
+-3.844003
+],
+"tipo": "rffm",
+"corregido": false
+},
+"13708544": {
+"nombre": "GETAFE (CIUDAD DEPORTIVA HA 5)",
+"localidad": "Getafe",
+"rffm": [
+40.324852,
+-3.714132
+],
+"dir_consultada": "CALLE MARÍA MONTESSORI S/N|Getafe",
+"direccion_gps": [
+40.324806,
+-3.714191
+],
+"dist_rffm_direccion_km": 0.01,
+"navegacion": [
+40.324852,
+-3.714132
+],
+"tipo": "rffm",
+"corregido": false
+},
+"14610183": {
+"nombre": "VEREDA GANAPANES 1 (HA)",
+"localidad": "0",
+"rffm": [
+40.470661,
+-3.713515
+],
+"dir_consultada": "CALLE BECERREÁ 4|0",
+"sin_geocodificar": true,
+"navegacion": [
+40.470661,
+-3.713515
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1408": {
+"nombre": "LEGANES - PVO. MPAL. LA FORTUNA (HA)",
+"localidad": "Leganés",
+"rffm": [
+40.359081,
+-3.78344
+],
+"dir_consultada": "CALLE DE CASTELLO BRANCO 2|Leganés",
+"sin_geocodificar": true,
+"navegacion": [
+40.359081,
+-3.78344
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1452": {
+"nombre": "GETAFE - ARCAS DEL AGUA (HA)",
+"localidad": "Getafe",
+"rffm": [
+40.295177,
+-3.74823
+],
+"dir_consultada": "SENDA DE MAFALDA 2|Getafe",
+"direccion_gps": [
+40.29338,
+-3.745948
+],
+"dist_rffm_direccion_km": 0.28,
+"navegacion": [
+40.295177,
+-3.74823
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1021860": {
+"nombre": "ALCORCON - VICENTE DEL BOSQUE (HA)",
+"localidad": "Alcorcón",
+"rffm": [
+40.341673,
+-3.818637
+],
+"dir_consultada": "CALLE POLVORANCA S/N|Alcorcón",
+"direccion_gps": [
+40.351372,
+-3.827339
+],
+"dist_rffm_direccion_km": 1.31,
+"navegacion": [
+40.341673,
+-3.818637
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2510": {
+"nombre": "SAN MARTÍN DE LA VEGA (HA)",
+"localidad": "San Martín De La Vega",
+"rffm": [
+40.214798,
+-3.566284
+],
+"dir_consultada": "AVDA. ABOGADOS DE ATOCHA 20|San Martín De La Vega",
+"direccion_gps": [
+40.215425,
+-3.566363
+],
+"dist_rffm_direccion_km": 0.07,
+"navegacion": [
+40.214798,
+-3.566284
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1723": {
+"nombre": "TORREJÓN DE ARDOZ - FRONTERAS (HA)",
+"localidad": "Torrejón De Ardoz",
+"rffm": [
+40.458685,
+-3.487078
+],
+"dir_consultada": "CALLE SALVADOR ALLENDE 2|Torrejón De Ardoz",
+"direccion_gps": [
+40.459532,
+-3.486756
+],
+"dist_rffm_direccion_km": 0.1,
+"navegacion": [
+40.458685,
+-3.487078
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1420": {
+"nombre": "MORALEJA DE ENMEDIO - LA DEHESA (HA)",
+"localidad": "Moraleja De Enmedio",
+"rffm": [
+40.261662,
+-3.869271
+],
+"dir_consultada": "CAMINO DE LA DEHESA,S/N|Moraleja De Enmedio",
+"direccion_gps": [
+40.260389,
+-3.866829
+],
+"dist_rffm_direccion_km": 0.25,
+"navegacion": [
+40.261662,
+-3.869271
+],
+"tipo": "rffm",
+"corregido": false
+},
+"106": {
+"nombre": "VALDEYEROS (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.483911,
+-3.73028
+],
+"dir_consultada": "CALLE DE ROSALIA DE CASTRO 77|Madrid",
+"direccion_gps": [
+40.48112,
+-3.734493
+],
+"dist_rffm_direccion_km": 0.47,
+"navegacion": [
+40.483911,
+-3.73028
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1714": {
+"nombre": "VELILLA DE SAN ANTONIO - PVO. MUNICIPAL (HA)",
+"localidad": "Velilla De San Antonio",
+"rffm": [
+40.370433,
+-3.486187
+],
+"dir_consultada": "CALLE OLIVAR 2|Velilla De San Antonio",
+"direccion_gps": [
+40.370218,
+-3.486716
+],
+"dist_rffm_direccion_km": 0.05,
+"navegacion": [
+40.370433,
+-3.486187
+],
+"tipo": "rffm",
+"corregido": false
+},
+"684932": {
+"nombre": "ALCOBENDAS - COLEGIO ALDOVEA (HA)",
+"localidad": "Alcobendas",
+"rffm": [
+40.525531,
+-3.630882
+],
+"dir_consultada": "PASEO DE ALCOBENDAS 3|Alcobendas",
+"direccion_gps": [
+40.526089,
+-3.631445
+],
+"dist_rffm_direccion_km": 0.08,
+"navegacion": [
+40.525531,
+-3.630882
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1318": {
+"nombre": "BOADILLA - CLUB LAS ENCINAS (HA)",
+"localidad": "Boadilla Del Monte",
+"rffm": [
+40.417318,
+-3.869877
+],
+"dir_consultada": "CTRA. DE POZUELO A BOADILLA Km 4,600|Boadilla Del Monte",
+"direccion_gps": [
+40.409473,
+-3.873178
+],
+"dist_rffm_direccion_km": 0.92,
+"navegacion": [
+40.417318,
+-3.869877
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2205": {
+"nombre": "GUADARRAMA - MUNICIPAL (HA)",
+"localidad": "Guadarrama",
+"rffm": [
+40.664431,
+-4.089747
+],
+"dir_consultada": "CALLE DE LOS ESCORIALES 13|Guadarrama",
+"direccion_gps": [
+40.663304,
+-4.091237
+],
+"dist_rffm_direccion_km": 0.18,
+"navegacion": [
+40.664431,
+-4.089747
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1431": {
+"nombre": "LEGANES - MERCACENTRO PVO. JULIAN MONTERO 1 (HA)",
+"localidad": "Leganés",
+"rffm": [
+40.326183,
+-3.756311
+],
+"dir_consultada": "CALLE DEL MAESTRO 6|Leganés",
+"direccion_gps": [
+40.326183,
+-3.755337
+],
+"dist_rffm_direccion_km": 0.08,
+"navegacion": [
+40.326183,
+-3.756311
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1508": {
+"nombre": "CIEMPOZUELOS - PEÑUELAS (HA)",
+"localidad": "Ciempozuelos",
+"rffm": [
+40.155034,
+-3.610134
+],
+"dir_consultada": "CAMINO DE LA PEÑUELA 1|Ciempozuelos",
+"sin_geocodificar": true,
+"navegacion": [
+40.155034,
+-3.610134
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1219": {
+"nombre": "BUITRAGO (HA)",
+"localidad": "Buitrago Del Lozoya",
+"rffm": [
+40.991642,
+-3.640996
+],
+"dir_consultada": "CALLE PEÑALTA 1|Buitrago Del Lozoya",
+"direccion_gps": [
+40.992094,
+-3.639642
+],
+"dist_rffm_direccion_km": 0.12,
+"navegacion": [
+40.991642,
+-3.640996
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1501": {
+"nombre": "CHINCHON (PVO. MPAL JAVIER MANQUILLO)",
+"localidad": "Chinchón",
+"rffm": [
+40.13705,
+-3.417865
+],
+"dir_consultada": "CALLE DE LA SOCIEDAD COSECHEROS 5 B|Chinchón",
+"sin_geocodificar": true,
+"navegacion": [
+40.13705,
+-3.417865
+],
+"tipo": "rffm",
+"corregido": false
+},
+"616": {
+"nombre": "COLEGIO TAJAMAR (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.396895,
+-3.650443
+],
+"dir_consultada": "CALLE DE PÍO FELIPE 12|Madrid",
+"direccion_gps": [
+40.397453,
+-3.651161
+],
+"dist_rffm_direccion_km": 0.09,
+"navegacion": [
+40.396895,
+-3.650443
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1108": {
+"nombre": "EL MOLAR - CENT. DEP. FUENTE DEL TORO (HA)",
+"localidad": "Molar (El)",
+"rffm": [
+40.743958,
+-3.57705
+],
+"dir_consultada": "AVDA. DE LA CONSTITUCIÓN S/N|Molar (El)",
+"sin_geocodificar": true,
+"navegacion": [
+40.743958,
+-3.57705
+],
+"tipo": "rffm",
+"corregido": false
+},
+"401": {
+"nombre": "COLEGIO AMOROS (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.369196,
+-3.755897
+],
+"dir_consultada": "CALLE GÓMEZ DE ARTECHE 28|Madrid",
+"direccion_gps": [
+40.369174,
+-3.756484
+],
+"dist_rffm_direccion_km": 0.05,
+"navegacion": [
+40.369196,
+-3.755897
+],
+"tipo": "rffm",
+"corregido": false
+},
+"605": {
+"nombre": "LA UNION - VALLECAS VILLA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.383741,
+-3.615398
+],
+"dir_consultada": "CALLE DE ENRIQUE GARCÍA ÁLVAREZ 65|Madrid",
+"direccion_gps": [
+40.380921,
+-3.614162
+],
+"dist_rffm_direccion_km": 0.33,
+"navegacion": [
+40.383741,
+-3.615398
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1326": {
+"nombre": "NAVALCARNERO - LOS MANZANOS (HA)",
+"localidad": "Navalcarnero",
+"rffm": [
+40.285477,
+-4.022482
+],
+"dir_consultada": "CALLE CAMILO JOSÉ CELA S/N|Navalcarnero",
+"direccion_gps": [
+40.284157,
+-4.023369
+],
+"dist_rffm_direccion_km": 0.16,
+"navegacion": [
+40.285477,
+-4.022482
+],
+"tipo": "rffm",
+"corregido": false
+},
+"407": {
+"nombre": "COLEGIO AMOROS (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.371445,
+-3.757238
+],
+"dir_consultada": "CALLE DE JOAQUÍN TURINA 39|Madrid",
+"direccion_gps": [
+40.371555,
+-3.755547
+],
+"dist_rffm_direccion_km": 0.14,
+"navegacion": [
+40.371445,
+-3.757238
 ],
 "tipo": "rffm",
 "corregido": false
