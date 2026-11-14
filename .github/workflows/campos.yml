@@ -28,9 +28,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Verificar los campos pendientes
-        # Para repasarlos todos de nuevo: añadir --todos (se hace por tandas de 45 min)
-        run: python robot/campos.py | tee campos.log
+      - name: Verificar todos los campos
+        # Las direcciones ya localizadas se reutilizan; OpenStreetMap se descarga una vez por pasada
+        run: python robot/campos.py --todos | tee campos.log
       - name: Guardar cambios
         if: always()
         run: |

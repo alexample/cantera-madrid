@@ -83,23 +83,32 @@ def _celda(la, lo):
 
 
 def cargar_osm():
-    """Una sola consulta: instalaciones deportivas y entradas/puertas de toda la Comunidad de Madrid."""
+    """Instalaciones deportivas y sus entradas/puertas de la Comunidad de Madrid, en 4 zonas."""
     global _OSM
     if _OSM is not None:
         return
-    q = """[out:json][timeout:300][bbox:39.85,-4.6,41.17,-3.05];
-(way[leisure~"^(sports_centre|stadium)$"];relation[leisure~"^(sports_centre|stadium)$"];way[leisure=pitch][sport~"soccer"];);
-out tags center bb;
-(node[entrance];node[barrier~"^(gate|entrance|lift_gate|turnstile)$"];);
+    _OSM = []
+    S, W, N, E = 39.85, -4.6, 41.17, -3.05
+    zonas = [(S, W, (S + N) / 2, (W + E) / 2), (S, (W + E) / 2, (S + N) / 2, E),
+             ((S + N) / 2, W, N, (W + E) / 2), ((S + N) / 2, (W + E) / 2, N, E)]
+    for (s_, w_, n_, e_) in zonas:
+        q = f"""[out:json][timeout:180][bbox:{s_},{w_},{n_},{e_}];
+(way[leisure~"^(sports_centre|stadium)$"];relation[leisure~"^(sports_centre|stadium)$"];way[leisure=pitch][sport~"soccer"];)->.f;
+.f out tags center bb;
+(way.f;way(r.f);)->.w;
+node(w.w)->.n;
+(node.n[entrance];node.n[barrier];);
 out;"""
-    data = urllib.parse.urlencode({"data": q}).encode()
-    for url in OVERPASS:
-        try:
-            _OSM = get(url, data=data, intentos=3).get("elements", [])
-            break
-        except Exception as e:
-            print("Overpass falló en", url, e, flush=True)
-    _OSM = _OSM or []
+        data = urllib.parse.urlencode({"data": q}).encode()
+        for url in OVERPASS:
+            try:
+                el = get(url, data=data, intentos=2).get("elements", [])
+                _OSM.extend(el)
+                print(f"  zona {s_:.2f},{w_:.2f}: {len(el)} elementos", flush=True)
+                break
+            except Exception as ex:
+                print("  Overpass falló en", url, ex, flush=True)
+        time.sleep(5)
     for e in _OSM:
         la = e.get("lat", e.get("center", {}).get("lat"))
         lo = e.get("lon", e.get("center", {}).get("lon"))
@@ -107,6 +116,8 @@ out;"""
             continue
         _REJILLA.setdefault(_celda(la, lo), []).append(e)
     print(len(_OSM), "elementos de OpenStreetMap", flush=True)
+    if not _OSM:
+        raise SystemExit("OpenStreetMap no ha devuelto datos: no se toca nada")
 
 
 def overpass(lat, lon, radio=400):
@@ -185,6 +196,8 @@ def main():
     ruta_rev = os.path.join(DATA, "campos_revision.json")
     rev = json.load(open(ruta_rev, encoding="utf-8")) if os.path.exists(ruta_rev) else {}
     pend = [k for k, v in campos.items() if todos or len(v) < 8]
+    if pend:
+        cargar_osm()
     print(len(pend), "campos por revisar de", len(campos), flush=True)
     for i, cid in enumerate(pend, 1):
         if time.time() > limite:
@@ -193,15 +206,24 @@ def main():
         v = campos[cid]
         nombre, direccion, loc, la, lo = v[0], v[1], v[2], v[3], v[4]
         info = {"nombre": nombre, "localidad": loc, "rffm": [la, lo] if la is not None else None}
-        if "PENDIENTE" in (nombre or "").upper():
+        if re.search(r"PENDIENTE|PTE\.? ?DETERMINAR|SIN ASIGNAR", (nombre or "").upper()):
             info["aviso"] = "Campo pendiente de asignar"
             campos[cid] = v[:5] + [None, None, "sin_campo"]
             rev[cid] = info
             continue
-        try:
-            geo = geocodificar(direccion, loc) if direccion or loc else None
-        except Exception:
+        previo = rev.get(cid, {})
+        if previo.get("dir_consultada") == f"{direccion}|{loc}" and "direccion_gps" in previo:
+            geo = tuple(previo["direccion_gps"]) + ("",)
+        elif previo.get("dir_consultada") == f"{direccion}|{loc}" and previo.get("sin_geocodificar"):
             geo = None
+        else:
+            try:
+                geo = geocodificar(direccion, loc) if direccion or loc else None
+            except Exception:
+                geo = None
+        info["dir_consultada"] = f"{direccion}|{loc}"
+        if not geo:
+            info["sin_geocodificar"] = True
         base, corregido = (la, lo), False
         if geo:
             info["direccion_gps"] = [round(geo[0], 6), round(geo[1], 6)]
@@ -248,6 +270,8 @@ def main():
             guardar(campos, rev)
 
     guardar(campos, rev)
+    json.dump({"osm_elementos": len(_OSM or []), "revisados": len(rev), "act": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())},
+              open(os.path.join(DATA, "campos_estado.json"), "w"), indent=1)
     from collections import Counter
     c = Counter(r.get("tipo", "otro") for r in rev.values())
     avisos = [f"{k}: {r['nombre']} ({r['localidad']}) — {r['aviso']}" for k, r in rev.items() if r.get("aviso")]
