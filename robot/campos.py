@@ -49,6 +49,12 @@ def get(url, data=None, intentos=3):
     raise err
 
 
+def norm_txt(t):
+    import unicodedata
+    t = unicodedata.normalize("NFD", t or "").encode("ascii", "ignore").decode().lower()
+    return re.sub(r"[^a-z0-9 ]", " ", t)
+
+
 def limpiar_dir(d):
     d = re.sub(r"\bS/?N\b|\bSIN N[UÚ]MERO\b", "", d or "", flags=re.I)
     d = re.sub(r"\bAVDA?\.?\s", "Avenida ", d, flags=re.I)
@@ -220,7 +226,7 @@ def main():
             rev[cid] = info
             continue
         previo = rev.get(cid, {})
-        if previo.get("dir_consultada") == f"{direccion}|{loc}" and "direccion_gps" in previo:
+        if previo.get("dir_consultada") == f"{direccion}|{loc}" and "direccion_gps" in previo and "direccion_nombre" in previo:
             geo = tuple(previo["direccion_gps"]) + ("",)
         elif previo.get("dir_consultada") == f"{direccion}|{loc}" and previo.get("sin_geocodificar"):
             geo = None
@@ -230,6 +236,10 @@ def main():
             except Exception:
                 geo = None
         info["dir_consultada"] = f"{direccion}|{loc}"
+        if geo and geo[2]:
+            info["direccion_nombre"] = geo[2]
+        elif previo.get("direccion_nombre"):
+            info["direccion_nombre"] = previo["direccion_nombre"]
         if not geo:
             info["sin_geocodificar"] = True
         base, corregido = (la, lo), False
@@ -242,14 +252,19 @@ def main():
                 d = km(la, lo, geo[0], geo[1])
                 info["dist_rffm_direccion_km"] = round(d, 2)
                 if d > 1.5:
-                    # ¿Hay una instalación deportiva junto a la dirección? Entonces la RFFM está mal.
-                    el = overpass(geo[0], geo[1], 350)
-                    f, _ = elegir(geo[0], geo[1], el)
-                    if f:
+                    # Solo se corrige si en el punto de la RFFM NO hay ninguna instalación deportiva,
+                    # sí la hay junto a la dirección y la dirección cae en el municipio del campo.
+                    fr, _ = elegir(la, lo, overpass(la, lo, 400))
+                    hay_en_rffm = fr is not None and km(la, lo, fr["center"]["lat"], fr["center"]["lon"]) < 0.4
+                    fg, _ = elegir(geo[0], geo[1], overpass(geo[0], geo[1], 350))
+                    muni = norm_txt(localidad(loc)).split(" ")[0] if loc else ""
+                    en_muni = bool(muni) and muni in norm_txt(info.get("direccion_nombre", ""))
+                    if not hay_en_rffm and fg is not None and en_muni:
                         base, corregido = (geo[0], geo[1]), True
-                        info["aviso"] = f"Coordenadas de la RFFM a {d:.1f} km de la dirección: corregido"
+                        info["aviso"] = f"Coordenadas de la RFFM a {d:.1f} km de la dirección y sin instalación deportiva: corregido"
                     else:
-                        info["aviso"] = f"Coordenadas de la RFFM a {d:.1f} km de la dirección (sin confirmar)"
+                        info["aviso"] = (f"La dirección queda a {d:.1f} km, pero se mantiene la ubicación de la RFFM"
+                                         + (" (hay una instalación deportiva en ese punto)" if hay_en_rffm else ""))
         if base[0] is None:
             campos[cid] = v[:5] + [None, None, "sin_ubicacion"]
             info["aviso"] = "Sin coordenadas ni dirección localizable"
