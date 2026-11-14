@@ -287,19 +287,31 @@ public class Avisos extends Worker {
         double lat = cp.optDouble(3), lon = cp.optDouble(4);
         StringBuilder r = new StringBuilder();
         try {
-            String url = "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon
-                    + "&hourly=precipitation_probability,precipitation,snowfall,weather_code,wind_speed_10m,wind_gusts_10m"
-                    + "&timezone=Europe%2FMadrid&start_date=" + m.optString(1) + "&end_date=" + m.optString(1);
-            JSONObject h = new JSONObject(descargar(url)).getJSONObject("hourly");
             int H = Integer.parseInt(m.optString(2).split(":")[0]);
+            JSONObject h = null;
+            // Primero AEMET (vía el worker de la app); si no cubre la hora del partido, Open-Meteo
+            try {
+                JSONObject a = new JSONObject(descargar("https://dondeloechan-ia.alexample.workers.dev/cantera-tiempo?lat=" + lat + "&lon=" + lon + "&fecha=" + m.optString(1)));
+                JSONArray cubre = a.optJSONArray("cubre");
+                boolean ok = false;
+                for (int i = 0; cubre != null && i < cubre.length(); i++) if (cubre.optInt(i) == H) ok = true;
+                if (ok) h = a.getJSONObject("hourly");
+            } catch (Exception ignored) { }
+            if (h == null) {
+                String url = "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon
+                        + "&hourly=precipitation_probability,precipitation,snowfall,weather_code,wind_speed_10m,wind_gusts_10m"
+                        + "&timezone=Europe%2FMadrid&start_date=" + m.optString(1) + "&end_date=" + m.optString(1);
+                h = new JSONObject(descargar(url)).getJSONObject("hourly");
+            }
+            JSONArray vacio = new JSONArray();
             int prob = 0, cod = 0; double mm = 0, nieve = 0, viento = 0, racha = 0;
             for (int k = H; k <= Math.min(23, H + 1); k++) {
-                prob = Math.max(prob, h.getJSONArray("precipitation_probability").optInt(k));
-                mm += h.getJSONArray("precipitation").optDouble(k, 0);
-                nieve += h.getJSONArray("snowfall").optDouble(k, 0);
-                cod = Math.max(cod, h.getJSONArray("weather_code").optInt(k));
-                viento = Math.max(viento, h.getJSONArray("wind_speed_10m").optDouble(k, 0));
-                racha = Math.max(racha, h.getJSONArray("wind_gusts_10m").optDouble(k, 0));
+                prob = Math.max(prob, (h.has("precipitation_probability") ? h.getJSONArray("precipitation_probability") : vacio).optInt(k));
+                mm += (h.has("precipitation") ? h.getJSONArray("precipitation") : vacio).optDouble(k, 0);
+                nieve += (h.has("snowfall") ? h.getJSONArray("snowfall") : vacio).optDouble(k, 0);
+                cod = Math.max(cod, (h.has("weather_code") ? h.getJSONArray("weather_code") : vacio).optInt(k));
+                viento = Math.max(viento, (h.has("wind_speed_10m") ? h.getJSONArray("wind_speed_10m") : vacio).optDouble(k, 0));
+                racha = Math.max(racha, (h.has("wind_gusts_10m") ? h.getJSONArray("wind_gusts_10m") : vacio).optDouble(k, 0));
             }
             if (cod >= 95) r.append("⛈️ Tormenta");
             else if (nieve > 0 || (cod >= 71 && cod <= 77) || cod == 85 || cod == 86) r.append("🌨️ Nieve");

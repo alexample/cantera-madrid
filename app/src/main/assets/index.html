@@ -629,8 +629,12 @@ function meteoPH(m){
   const iso=`${m.date.getFullYear()}-${String(m.date.getMonth()+1).padStart(2,"0")}-${String(m.date.getDate()).padStart(2,"0")}`;
   return `<div class="meteo" data-m="${c.ll[0]}|${c.ll[1]}|${iso}|${m.time}"><div class="small">🌦️ Cargando la previsión del tiempo…</div></div>`;
 }
-async function datosMeteo(lat,lon,iso){
+async function datosMeteo(lat,lon,iso,hora){
   const k=`${lat},${lon},${iso}`;if(METEO[k]&&Date.now()-METEO[k].t<30*60e3)return METEO[k].d;
+  // Primero AEMET (a través del worker; solo da horas para los próximos ~2 días); si no cubre la hora del partido, Open-Meteo
+  try{const ctl=new AbortController();const to=setTimeout(()=>ctl.abort(),8000);
+    const r=await fetch(`${IA_URL.replace("/cantera-ia","/cantera-tiempo")}?lat=${lat}&lon=${lon}&fecha=${iso}`,{signal:ctl.signal});clearTimeout(to);
+    if(r.ok){const d=await r.json();const H=+String(hora||"12").split(":")[0];if(d.hourly&&(d.cubre||[]).includes(H)){METEO[k]={t:Date.now(),d};return d}}}catch(e){}
   const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,precipitation_probability,precipitation,weather_code,wind_speed_10m&timezone=Europe%2FMadrid&start_date=${iso}&end_date=${iso}`;
   const r=await fetch(url);if(!r.ok)throw new Error("HTTP "+r.status);const d=await r.json();METEO[k]={t:Date.now(),d};return d;
 }
@@ -663,12 +667,12 @@ function meteoHTML(d,hora){
   return `${mal.length?`<div class="mt-alerta">⚠️ Atención: ${mal.join(" y ")} a la hora del partido</div>`:""}<div class="mt-head"><span class="mt-ic">${ic}</span><div><b>${txt} · ${Math.round(T[k])}°</b><div class="small">A la hora del partido: lluvia ${P[k]}% · viento ${Math.round(V[k])} km/h</div></div></div>
    <div class="mt-icons">${C.map((c,i)=>`<span class="${i===k?"on":""}">${WMO(c)[0]}</span>`).join("")}</div>${svg}
    <div class="small mt-det" data-dets='${esc(JSON.stringify(idx.map((_,i)=>det(i))))}'>${det(k)}</div>
-   <div class="small" style="opacity:.7">Toca una hora para ver el detalle · Open-Meteo</div>`;
+   <div class="small" style="opacity:.7">Toca una hora para ver el detalle · ${d.fuente==="AEMET"?`Fuente: AEMET${d.municipio?" ("+esc(d.municipio)+")":""}`:"Fuente: Open-Meteo"}</div>`;
 }
 async function rellenarMeteo(root){
   for(const el of root.querySelectorAll(".meteo:not([data-ok])")){
     const[lat,lon,iso,hora]=el.dataset.m.split("|");el.dataset.ok="1";
-    try{el.innerHTML=meteoHTML(await datosMeteo(lat,lon,iso),hora)}
+    try{el.innerHTML=meteoHTML(await datosMeteo(lat,lon,iso,hora),hora)}
     catch(e){el.innerHTML=`<div class="small">🌦️ No se ha podido cargar la previsión del tiempo.</div>`}
   }
 }
