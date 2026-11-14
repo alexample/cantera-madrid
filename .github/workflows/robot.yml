@@ -45,7 +45,7 @@ jobs:
           MODO: ${{ github.event.client_payload.modo || github.event.inputs.modo || 'completo' }}
         run: |
           echo "Modo: $MODO"
-          if [ "$MODO" = "rapido" ]; then python robot/rffm.py --rapido; else python robot/rffm.py; fi
+          if [ "$MODO" = "rapido" ]; then python robot/rffm.py --rapido; else python robot/rffm.py && python robot/campos.py; fi
       - name: Guardar cambios
         if: always()
         run: |

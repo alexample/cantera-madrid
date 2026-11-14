@@ -296,7 +296,7 @@ async function getJSON(name,{fresh=false}={}){
 }
 function buildIndex(ix){
   IDX=ix;TEAMS=[];TEAM.clear();
-  for(const [id,v] of Object.entries(ix.campos||{}))CAMPOS[id]={id,name:v[0],addr:v[1],loc:v[2],ll:v[3]!=null&&v[4]!=null?[v[3],v[4]]:null};
+  for(const [id,v] of Object.entries(ix.campos||{}))CAMPOS[id]={id,name:v[0],addr:v[1],loc:v[2],ll:v[3]!=null&&v[4]!=null?[v[3],v[4]]:null,nav:v[5]!=null&&v[6]!=null?[v[5],v[6]]:null,tipo:v[7]||""};
   for(let [id,n,c,gs,campo,esc] of ix.equipos){
     const grupos=gs.filter(g=>ix.grupos[g]);if(!grupos.length)continue;
     const g0=ix.grupos[grupos[0]];
@@ -373,7 +373,9 @@ const icons={
   grip:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg>',
   trash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>'
 };
-function mapLink(c,label){if(!c)return"";const q=c.ll?c.ll.join(","):encodeURIComponent(c.name+", "+c.addr+", "+c.loc);return `<a class="map" href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" rel="noopener">${icons.pin} ${label||"Abrir en mapas"}</a>`}
+// «Cómo llegar»: navegación hasta la entrada verificada del campo (o su ubicación si no hay entrada en el mapa)
+function navUrl(c){const p=c.nav||c.ll;return p?`https://www.google.com/maps/dir/?api=1&destination=${p[0]},${p[1]}&travelmode=driving`:`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.name+", "+c.addr+", "+c.loc)}`}
+function mapLink(c,label){if(!c)return"";return `<a class="map" href="${navUrl(c)}" target="_blank" rel="noopener">${icons.pin} ${label||"Cómo llegar"}</a>${c.tipo==="entrada"?`<span class="small" style="margin-left:6px;opacity:.75">· te lleva a la entrada</span>`:""}`}
 const opts=list=>`<div class="opts">${list.map(o=>`<button class="opt" data-ask="${esc(o.v||o.l||o)}">${o.ic?`<span>${o.ic}</span>`:""}${esc(o.l||o)}</button>`).join("")}</div>`;
 function teamRow(t,extra){const f=state.follows.includes(t.id);return `<div class="prow">${crest(t,34)}<div class="grow"><b>${esc(t.name)}</b><div class="small">${extra??esc(grupoNombre(t.grupos[0]))}</div></div><button class="btn ${f?"ghost":""}" data-open="${t.id}">${f?"Abrir":"Seguir"}</button></div>`}
 const teamCards=(ts,ll)=>`<div class="plist">${ts.map(t=>{const d=km(ll,t.ll);return teamRow(t,`${esc(CATN[t.cat])}${t.fem?" fem.":""} · ${esc(t.town||"")}${d!=null?` · a ${d<1?"menos de 1":Math.round(d)} km`:""}<br>${esc(grupoNombre(t.grupos[0]))}`)}).join("")}</div>`;
@@ -716,7 +718,7 @@ function tarjetaPartido(t,m,esProx){
   const nom=(id,n)=>id===t.id?`<div class="mc-yo">${crest(t,26)}<b>${esc(n)}</b></div>`:L(id,n);
   const bot=m.played
     ?(m.acta?`${ANDROID?`<button class="btn" data-crono="${esc(m.acta)}">⏱️ Cronología</button>`:""}<a class="btn ghost" href="${urlActaRFFM(m)}" target="_blank" rel="noopener">📄 Acta</a>`:"")
-    :`${c?`<a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=${c.ll?c.ll.join(","):encodeURIComponent(c.name+", "+c.loc)}" target="_blank" rel="noopener">📍 Cómo llegar</a>`:""}${esProx?`<button class="btn ghost" data-ask="¿Qué tiempo hará?">🌦️ Tiempo</button>`:""}`;
+    :`${c?`<a class="btn ghost" href="${navUrl(c)}" target="_blank" rel="noopener">📍 Cómo llegar</a>`:""}${esProx?`<button class="btn ghost" data-ask="¿Qué tiempo hará?">🌦️ Tiempo</button>`:""}`;
   return `<div class="mc${m.played?"":" fut"}${esProx?" prox":""}" data-j="${m.j}">
     <div class="mc-top"><span>J${m.j??"?"} · ${fecha}</span>${estado}</div>
     <div class="mc-eq"><div>${nom(m.home,m.homeN)}</div>${centro}<div>${nom(m.away,m.awayN)}</div></div>
@@ -730,9 +732,13 @@ function carruselHTML(t){
   return `<div class="carr-wrap"><div class="carr" id="carr">${ms.map(m=>tarjetaPartido(t,m,m===prox)).join("")}</div>
     <div class="carr-hint small">← anteriores · desliza · próximos →</div></div>`;
 }
+// Al abrir la ficha: el último resultado hasta 3 días después de jugarse; pasado ese plazo, el próximo partido
+function focoPartido(t){const ult=lastMatch(t),prox=nextMatch(t);
+  if(ult&&ult.date&&(TODAY-ult.date)<=3*864e5)return{m:ult,tipo:"resultado"};
+  if(prox)return{m:prox,tipo:"proximo"};if(ult)return{m:ult,tipo:"resultado"};return null}
 function colocarCarrusel(t){
   const el=$("#carr");if(!el)return;const ms=[...el.children];
-  const ult=lastMatch(t);let i=ult?ms.findIndex(c=>+c.dataset.j===ult.j):0;if(i<0)i=0;
+  const f=focoPartido(t);let i=f?ms.findIndex(c=>+c.dataset.j===f.m.j):0;if(i<0)i=0;
   el.scrollLeft=ms[i].offsetLeft-el.offsetLeft-12;
 }
 
@@ -1110,7 +1116,20 @@ async function renderTeam(app,t){
 function renderChat(app,t){
   const key=t?t.id:"_main";
   if(t&&state.resumen===t.id){state.resumen=null;if(!state.chats[key]||state.chats[key].length<=1)state.chats[key]=[{r:"b",h:ansResumen(t)+`<div class="small" style="margin-top:10px">Pregúntame lo que quieras de este equipo o toca otro rival. ${linkRFFM(urlEquipoRFFM(t),"Ficha en la RFFM")}</div>`}]}
-  if(!state.chats[key])state.chats[key]=[{r:"b",h:t?`Arriba tienes sus partidos: desliza para ver los anteriores y los próximos. Toca cualquier equipo con <span class="tl" style="pointer-events:none"><span class="tl-c" style="background:var(--muted)">›</span>flecha<span class="tl-ch">›</span></span> para ver su ficha. Pregúntame lo que quieras sobre el <b>${esc(t.name)}</b>${etiqueta(t)?`, el equipo de <b>${esc(etiqueta(t))}</b>`:""}.<div style="margin-top:4px">${linkRFFM(urlEquipoRFFM(t),"Ficha oficial y plantilla en la RFFM")}</div>${state.follows.includes(t.id)&&!etiqueta(t)?`<div class="small" style="margin-top:6px">Toca 🔔 arriba para ponerle una etiqueta («Adrián», «Mi hijo») y elegir sus avisos.</div>`:""}`:welcomeMain()}];
+  let cronoInicial=null;
+  if(!state.chats[key]&&t){
+    const f=focoPartido(t);const tip=`<div class="small" style="margin-top:8px">Desliza los partidos de arriba para ver anteriores y próximos · toca un equipo con › para ver su ficha${state.follows.includes(t.id)&&!etiqueta(t)?" · 🔔 para etiquetarlo y elegir avisos":""}. ${linkRFFM(urlEquipoRFFM(t),"Ficha RFFM")}</div>`;
+    const msgs=[];
+    if(f&&f.tipo==="resultado"){
+      msgs.push({r:"b",h:`<b>${esc(t.name)}</b>${etiqueta(t)?` · <span class="tag">⭐ ${esc(etiqueta(t))}</span>`:""}<br>`+ansLast(t)+tip});
+      msgs.push({r:"b",h:ansTable(t)});
+      if(f.m.acta&&ANDROID){msgs.push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span> <span class="small">Cargando la cronología…</span>'});cronoInicial=f.m}
+    }else if(f){
+      msgs.push({r:"b",h:`<b>${esc(t.name)}</b>${etiqueta(t)?` · <span class="tag">⭐ ${esc(etiqueta(t))}</span>`:""}<br>`+ansNext(t)+tip});
+    }else msgs.push({r:"b",h:`No hay partidos en el calendario de este equipo.`+tip});
+    state.chats[key]=msgs;
+  }
+  if(!state.chats[key])state.chats[key]=[{r:"b",h:welcomeMain()}];
   const chips=t?CHIPS_TEAM:["Menú","Buscar un equipo","Buscar un jugador","Ayúdame a encontrar un equipo","Ver clasificaciones"];
   app.innerHTML=`<header class="top"><div class="toprow"><button class="iconbtn" id="back" aria-label="Volver">${icons.back}</button>
     ${t?crest(t,40):""}<div class="grow">${t&&etiqueta(t)?`<span class="tag">⭐ ${esc(etiqueta(t))}</span>`:""}<h1 class="tn" style="font-size:21px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(t.name):"Chat principal"}</h1><div class="sub" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(grupoNombre(t.grupos[0])):"Equipos y jugadores de Madrid"}</div></div>
@@ -1128,7 +1147,13 @@ function renderChat(app,t){
   const draw=()=>{chat.innerHTML=state.chats[key].map(m=>`<div class="msg ${m.r}${wide(m.h)?" wide":""}">${m.h}</div>`).join("")+sugerencias();
     if(t)chat.querySelectorAll(`a[data-ver="${CSS.escape(t.id)}"]`).forEach(a=>{a.replaceWith(Object.assign(document.createElement("b"),{textContent:[...a.childNodes].filter(x=>x.nodeType===3).map(x=>x.textContent).join("")}))}); // el propio equipo no es botón
     $("#scroll").scrollTop=1e9;rellenarMeteo(chat)};
-  draw();if(state.chats[key].length===1)$("#scroll").scrollTop=0; // el resumen se lee desde arriba
+  // Rellena el último mensaje (marcador de carga) con la cronología del partido
+  const cargarCrono=m=>leerActa(m).then(a=>{const msgs=state.chats[key];if(!msgs)return;const i=msgs.map(x=>x.h).lastIndexOf(msgs.filter(x=>x.h.includes("typing")).pop()?.h);
+    const h=a?cronoHTML(m,a.game):`No he podido leer el acta ahora mismo. Puedes verla en la web de la federación:<div>${linkRFFM(urlActaRFFM(m),"Acta en la RFFM")}</div>`;
+    if(i>=0)msgs[i]={r:"b",h};else msgs.push({r:"b",h});
+    if(t?(state.view==="team"&&state.team===t.id):state.view==="main"){const sc=$("#scroll"),st=sc.scrollTop;draw();sc.scrollTop=st}});
+  draw();if(t||state.chats[key].length===1)$("#scroll").scrollTop=0; // la ficha se lee desde arriba
+  if(cronoInicial)cargarCrono(cronoInicial);
   if(t)colocarCarrusel(t);
   const ask=text=>{
     if(!text.trim())return;
@@ -1148,7 +1173,7 @@ function renderChat(app,t){
     const a=e.target.closest("[data-ask]");if(a){ask(a.dataset.ask);return}
     const cr=e.target.closest("[data-crono]");if(cr){const m=buscarPartido(cr.dataset.crono);if(!m)return;
       state.chats[key].push({r:"u",h:"⏱️ Cronología del partido"});state.chats[key].push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span>'});draw();
-      leerActa(m).then(a=>{state.chats[key].pop();state.chats[key].push({r:"b",h:a?cronoHTML(m,a.game):`No he podido leer el acta ahora mismo. Puedes verla en la web de la federación:<div>${linkRFFM(urlActaRFFM(m),"Acta en la RFFM")}</div>`});if(state.view===(t?"team":"main"))draw()});return}
+      cargarCrono(m);return}
     const cp=e.target.closest("[data-copiar]");if(cp){const a=ACTAS[cp.dataset.copiar];const mm=buscarPartido(cp.dataset.copiar);if(!a||!mm)return;const txt=resumenTexto(mm,a.game);
       (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>toast("Acta copiada"),()=>{const ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");toast("Acta copiada")}catch(_){toast("No se ha podido copiar")}ta.remove()});return}
     const mh=e.target.closest("[data-mh]");if(mh){const box=mh.closest(".meteo");const det=box.querySelector(".mt-det");det.textContent=JSON.parse(det.dataset.dets)[+mh.dataset.mh];box.querySelectorAll(".mt-band").forEach(b=>b.setAttribute("x",(+mh.dataset.mh)*50+1));return}

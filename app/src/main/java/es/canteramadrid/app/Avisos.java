@@ -422,6 +422,9 @@ public class Avisos extends Worker {
 
     private static String mapaUri(JSONObject campos, JSONArray m) {
         JSONArray cp = campos.optJSONArray(m.optString(9));
+        // Punto de navegación verificado (entrada del campo), si lo hay
+        if (cp != null && cp.length() > 6 && !cp.isNull(5) && !cp.isNull(6))
+            return "https://www.google.com/maps/dir/?api=1&destination=" + cp.optDouble(5) + "," + cp.optDouble(6) + "&travelmode=driving";
         if (cp != null && !cp.isNull(3) && !cp.isNull(4)) {
             String ll = cp.optDouble(3) + "," + cp.optDouble(4);
             return "geo:" + ll + "?q=" + ll + "(" + Uri.encode(cp.optString(0)) + ")";
