@@ -67,8 +67,8 @@
 "nombre": "GETAFE - ALHONDIGA SECTOR III 2 (HA)",
 "localidad": "Madrid",
 "rffm": [
-40.364756,
--3.742898
+40.313722,
+-3.741321
 ],
 "dir_consultada": "CTRA. DE LEGANES S/N|Madrid",
 "direccion_nombre": "Carretera de Leganés, Buenavista, Carabanchel, Madrid, Comunidad de Madrid, 28054, España",
@@ -76,15 +76,16 @@
 40.364756,
 -3.742898
 ],
-"dist_rffm_direccion_km": 0.0,
+"dist_rffm_direccion_km": 5.68,
+"aviso": "La dirección queda a 5.7 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
 "entrada": {
 "barrier": "gate"
 },
-"instalacion": "Centro Deportivo Municipal Francisco Fernández Ochoa",
-"dist_instalacion_km": 0.26,
+"instalacion": "Polideportivo Giner de los Ríos",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.365836,
--3.740896
+40.313074,
+-3.739954
 ],
 "tipo": "entrada",
 "corregido": false
@@ -271,8 +272,8 @@
 "nombre": "COLEGIO ALAMEDA DE OSUNA (HA)",
 "localidad": "Madrid",
 "rffm": [
-40.334139,
--3.755152
+40.455293,
+-3.59453
 ],
 "dir_consultada": "CALLE DE LA RIOJA 1|Madrid",
 "direccion_nombre": "1, Calle de La Rioja, Los Santos, Zarzaquemada, Leganés, Comunidad de Madrid, 28915, España",
@@ -280,12 +281,13 @@
 40.334139,
 -3.755152
 ],
-"dist_rffm_direccion_km": 0.0,
+"dist_rffm_direccion_km": 19.14,
+"aviso": "La dirección queda a 19.1 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
 "instalacion": "pitch",
-"dist_instalacion_km": 0.35,
+"dist_instalacion_km": 0.13,
 "navegacion": [
-40.332164,
--3.75195
+40.454107,
+-3.594852
 ],
 "tipo": "instalacion",
 "corregido": false
@@ -448,8 +450,8 @@
 "nombre": "ALCORCON - COLEGIO JUAN PABLO II",
 "localidad": "Alcorcón",
 "rffm": [
-40.330381,
--3.821777
+40.357003,
+-3.855351
 ],
 "dir_consultada": "DEMOCRACIA S/N|Alcorcón",
 "direccion_nombre": "Calle Democracia, Los Palomares, Suroeste, Alcorcón, Comunidad de Madrid, 28922, España",
@@ -457,7 +459,8 @@
 40.330381,
 -3.821777
 ],
-"dist_rffm_direccion_km": 0.0,
+"dist_rffm_direccion_km": 4.11,
+"aviso": "Coordenadas de la RFFM a 4.1 km de la dirección y sin instalación deportiva: corregido",
 "instalacion": "sports_centre",
 "dist_instalacion_km": 0.27,
 "navegacion": [
@@ -465,14 +468,14 @@
 -3.823765
 ],
 "tipo": "instalacion",
-"corregido": false
+"corregido": true
 },
 "13397939": {
 "nombre": "FUENLABRADA-LA ALDEHUELA 3( HA)",
 "localidad": "Fuenlabrada",
 "rffm": [
-40.281214,
--3.789733
+40.305344,
+-3.839784
 ],
 "dir_consultada": "CALLE DE LA FUENTE S/N|Fuenlabrada",
 "direccion_nombre": "Calle de la Fuente, El Pinar, Centro - El Arroyo - La Fuente, Fuenlabrada, Comunidad de Madrid, 28944, España",
@@ -480,7 +483,8 @@
 40.281214,
 -3.789733
 ],
-"dist_rffm_direccion_km": 0.0,
+"dist_rffm_direccion_km": 5.02,
+"aviso": "Coordenadas de la RFFM a 5.0 km de la dirección y sin instalación deportiva: corregido",
 "instalacion": "Parque Residencial Fuenlabrada II",
 "dist_instalacion_km": 0.35,
 "navegacion": [
@@ -488,7 +492,7 @@
 -3.787994
 ],
 "tipo": "instalacion",
-"corregido": false
+"corregido": true
 },
 "1609": {
 "nombre": "VALDILECHA (HA)",
@@ -804,8 +808,8 @@
 "nombre": "RIVAS - CERRO TELÉGRAFO (HA)",
 "localidad": "Rivas-Vaciamadrid",
 "rffm": [
-40.360489,
--3.542587
+40.379486,
+-3.533474
 ],
 "dir_consultada": "AVDA. DE LOS ALMENDROS 2|Rivas-Vaciamadrid",
 "direccion_nombre": "2, Avenida de los Almendros, Los Olmos, Santa Mónica, Rivas Centro, Rivas-Vaciamadrid, Comunidad de Madrid, 28522, España",
@@ -813,17 +817,15 @@
 40.360489,
 -3.542587
 ],
-"dist_rffm_direccion_km": 0.0,
-"entrada": {
-"entrance": "yes"
-},
+"dist_rffm_direccion_km": 2.25,
+"aviso": "La dirección queda a 2.2 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
 "instalacion": "pitch",
-"dist_instalacion_km": 0.2,
+"dist_instalacion_km": 0.38,
 "navegacion": [
-40.357823,
--3.54325
+40.377319,
+-3.536882
 ],
-"tipo": "entrada",
+"tipo": "instalacion",
 "corregido": false
 },
 "1207": {
@@ -968,8 +970,8 @@
 "nombre": "PVO. LAS CRUCES (HA)",
 "localidad": "Madrid",
 "rffm": [
-40.373702,
--3.714097
+40.378863,
+-3.756682
 ],
 "dir_consultada": "AVENIDA DE LOS POBLADOS 72|Madrid",
 "direccion_nombre": "Avenida de los Poblados, Orcasitas, Usera, Madrid, Comunidad de Madrid, 28041, España",
@@ -977,14 +979,18 @@
 40.373801,
 -3.718471
 ],
-"dist_rffm_direccion_km": 0.37,
-"instalacion": "Centro Deportivo Municipal Orcasitas",
-"dist_instalacion_km": 0.24,
+"dist_rffm_direccion_km": 3.29,
+"aviso": "La dirección queda a 3.3 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
+"entrada": {
+"entrance": "main"
+},
+"instalacion": "Polideportivo Las Cruces",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.375723,
--3.715168
+40.37887,
+-3.7564
 ],
-"tipo": "instalacion",
+"tipo": "entrada",
 "corregido": false
 },
 "1116": {
@@ -1458,8 +1464,8 @@
 "nombre": "BARRIO GOYA (HA)",
 "localidad": "Madrid",
 "rffm": [
-40.260818,
--3.699353
+40.404837,
+-3.731351
 ],
 "dir_consultada": "CALLE DE PABLO SARASATE 1|Madrid",
 "direccion_nombre": "1, Calle de Pablo Sarasate, La Tenería II, Pinto, Comunidad de Madrid, 28320, España",
@@ -1467,12 +1473,13 @@
 40.260818,
 -3.699353
 ],
-"dist_rffm_direccion_km": 0.0,
-"instalacion": "pitch",
-"dist_instalacion_km": 0.33,
+"dist_rffm_direccion_km": 16.24,
+"aviso": "La dirección queda a 16.2 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
+"instalacion": "Instalación Deportiva Municipal Básica Barrio Goya",
+"dist_instalacion_km": 0.1,
 "navegacion": [
-40.258267,
--3.697315
+40.405407,
+-3.730482
 ],
 "tipo": "instalacion",
 "corregido": false
@@ -2792,8 +2799,8 @@
 "nombre": "LOS CARMENES 1 (HA)",
 "localidad": "Madrid",
 "rffm": [
-40.03276,
--3.58473
+40.396904,
+-3.74369
 ],
 "dir_consultada": "CALLE ALHAMBRA 37|Madrid",
 "direccion_nombre": "37, Calle Alhambra de Granada, Urbanización Los Faisanes, El Pino, Valdelascasas, Aranjuez, Comunidad de Madrid, 28300, España",
@@ -2801,12 +2808,13 @@
 40.03276,
 -3.58473
 ],
-"dist_rffm_direccion_km": 0.0,
-"instalacion": "sports_centre",
-"dist_instalacion_km": 0.09,
+"dist_rffm_direccion_km": 42.68,
+"aviso": "La dirección queda a 42.7 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
+"instalacion": "pitch",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.032659,
--3.585772
+40.39755,
+-3.743236
 ],
 "tipo": "instalacion",
 "corregido": false
@@ -3115,8 +3123,8 @@
 "nombre": "ANDRES NAVARRETE (HA)",
 "localidad": "Madrid",
 "rffm": [
-40.313279,
--3.72169
+40.494729,
+-3.695032
 ],
 "dir_consultada": "CALLE HOSPITALET DE LLOBREGAT 11|Madrid",
 "direccion_nombre": "Calle Hospitalet de Llobregat, Juan de la Cierva, Getafe, Comunidad de Madrid, 28903, España",
@@ -3124,12 +3132,13 @@
 40.313279,
 -3.72169
 ],
-"dist_rffm_direccion_km": 0.0,
-"instalacion": "Centro Deportivo Ignacio Pinedo",
-"dist_instalacion_km": 0.23,
+"dist_rffm_direccion_km": 20.3,
+"aviso": "La dirección queda a 20.3 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
+"instalacion": "pitch",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.314885,
--3.723357
+40.494753,
+-3.695692
 ],
 "tipo": "instalacion",
 "corregido": false
@@ -6849,8 +6858,8 @@
 "nombre": "VILLANUEVA DE LA CAÑADA - COL. ZOLA (H.A.)",
 "localidad": "Villanueva Del Pardillo",
 "rffm": [
-40.492045,
--3.965782
+40.465827,
+-3.957556
 ],
 "dir_consultada": "CALLE VALLE DEL RONCAL 57|Villanueva Del Pardillo",
 "direccion_nombre": "Calle Valle del Roncal, Sanabria, Las Vegas - Santa María, Villanueva del Pardillo, Comunidad de Madrid, 28229, España",
@@ -6858,7 +6867,8 @@
 40.492045,
 -3.965782
 ],
-"dist_rffm_direccion_km": 0.0,
+"dist_rffm_direccion_km": 3.0,
+"aviso": "Coordenadas de la RFFM a 3.0 km de la dirección y sin instalación deportiva: corregido",
 "instalacion": "pitch",
 "dist_instalacion_km": 0.22,
 "navegacion": [
@@ -6866,7 +6876,7 @@
 -3.96775
 ],
 "tipo": "instalacion",
-"corregido": false
+"corregido": true
 },
 "13372982": {
 "nombre": "CDM EL PRADILLO",
@@ -7053,25 +7063,25 @@
 "28821260": {
 "nombre": "ALCORCON - PVO. MPAL. SANTO DOMINGO F/7 2",
 "localidad": "Alcorcón",
-"rffm": [
-40.340481,
--3.841087
-],
+"rffm": null,
 "dir_consultada": "AVDA. DE ESTEBAN MARQUEZ, S/N|Alcorcón",
 "direccion_nombre": "Avenida de Esteban Márquez, Prado de Santo Domingo, Suroeste, Alcorcón, Comunidad de Madrid, 28922, España",
 "direccion_gps": [
 40.3392,
 -3.842233
 ],
-"dist_rffm_direccion_km": 0.17,
-"instalacion": "Estadio Municipal de Santo Domingo",
-"dist_instalacion_km": 0.18,
+"aviso": "La RFFM no da coordenadas: se usa la dirección",
+"entrada": {
+"entrance": "yes"
+},
+"instalacion": "Ciudad Deportiva Santo Domingo",
+"dist_instalacion_km": 0.17,
 "navegacion": [
-40.338886,
--3.840521
+40.338495,
+-3.842689
 ],
-"tipo": "instalacion",
-"corregido": false
+"tipo": "entrada",
+"corregido": true
 },
 "4532965": {
 "nombre": "COLEGIO J.H. NEWMAN (HA)",
@@ -7280,8 +7290,8 @@
 "nombre": "FUENLABRADA - LA ALDEHUELA 1 (HA)",
 "localidad": "Fuenlabrada",
 "rffm": [
-40.281214,
--3.789733
+40.305344,
+-3.839784
 ],
 "dir_consultada": "CALLE DE LA FUENTE S/N|Fuenlabrada",
 "direccion_nombre": "Calle de la Fuente, El Pinar, Centro - El Arroyo - La Fuente, Fuenlabrada, Comunidad de Madrid, 28944, España",
@@ -7289,7 +7299,8 @@
 40.281214,
 -3.789733
 ],
-"dist_rffm_direccion_km": 0.0,
+"dist_rffm_direccion_km": 5.02,
+"aviso": "Coordenadas de la RFFM a 5.0 km de la dirección y sin instalación deportiva: corregido",
 "instalacion": "Parque Residencial Fuenlabrada II",
 "dist_instalacion_km": 0.35,
 "navegacion": [
@@ -7297,7 +7308,7 @@
 -3.787994
 ],
 "tipo": "instalacion",
-"corregido": false
+"corregido": true
 },
 "1705": {
 "nombre": "COSLADA - ESTADIO EL OLIVO (HA)",
@@ -7474,8 +7485,8 @@
 "nombre": "LOS CARMENES 2 (HA)",
 "localidad": "Madrid",
 "rffm": [
-40.03276,
--3.58473
+40.396904,
+-3.74369
 ],
 "dir_consultada": "CALLE ALHAMBRA 37|Madrid",
 "direccion_nombre": "37, Calle Alhambra de Granada, Urbanización Los Faisanes, El Pino, Valdelascasas, Aranjuez, Comunidad de Madrid, 28300, España",
@@ -7483,12 +7494,13 @@
 40.03276,
 -3.58473
 ],
-"dist_rffm_direccion_km": 0.0,
-"instalacion": "sports_centre",
-"dist_instalacion_km": 0.09,
+"dist_rffm_direccion_km": 42.68,
+"aviso": "La dirección queda a 42.7 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
+"instalacion": "pitch",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.032659,
--3.585772
+40.39755,
+-3.743236
 ],
 "tipo": "instalacion",
 "corregido": false
@@ -7799,8 +7811,8 @@
 "nombre": "FUENLABRADA - LA ALDEHUELA 2 (HA)",
 "localidad": "Fuenlabrada",
 "rffm": [
-40.281214,
--3.789733
+40.305344,
+-3.839784
 ],
 "dir_consultada": "CALLE DE LA FUENTE S/N|Fuenlabrada",
 "direccion_nombre": "Calle de la Fuente, El Pinar, Centro - El Arroyo - La Fuente, Fuenlabrada, Comunidad de Madrid, 28944, España",
@@ -7808,7 +7820,8 @@
 40.281214,
 -3.789733
 ],
-"dist_rffm_direccion_km": 0.0,
+"dist_rffm_direccion_km": 5.02,
+"aviso": "Coordenadas de la RFFM a 5.0 km de la dirección y sin instalación deportiva: corregido",
 "instalacion": "Parque Residencial Fuenlabrada II",
 "dist_instalacion_km": 0.35,
 "navegacion": [
@@ -7816,7 +7829,7 @@
 -3.787994
 ],
 "tipo": "instalacion",
-"corregido": false
+"corregido": true
 },
 "716": {
 "nombre": "I.D.B. SAN PASCUAL (HA)",
@@ -7891,8 +7904,8 @@
 "nombre": "NAVALCARNERO - EL PINAR 2 (H.A.)",
 "localidad": "Navalcarnero",
 "rffm": [
-40.299987,
--3.985217
+40.300861,
+-4.008256
 ],
 "dir_consultada": "CONIFERAS S/N|Navalcarnero",
 "direccion_nombre": "Calle Coníferas, La Dehesa, Sexmo de Casarrubios, Comunidad de Ciudad y Tierra de Segovia, Navalcarnero, Comunidad de Madrid, 28600, España",
@@ -7900,7 +7913,8 @@
 40.299987,
 -3.985217
 ],
-"dist_rffm_direccion_km": 0.0,
+"dist_rffm_direccion_km": 1.96,
+"aviso": "Coordenadas de la RFFM a 2.0 km de la dirección y sin instalación deportiva: corregido",
 "instalacion": "pitch",
 "dist_instalacion_km": 0.12,
 "navegacion": [
@@ -7908,7 +7922,7 @@
 -3.984139
 ],
 "tipo": "instalacion",
-"corregido": false
+"corregido": true
 },
 "11043104": {
 "nombre": "ALCALA - ATLETICO DE MADRID C.D. (HA)",
@@ -8723,8 +8737,8 @@
 "nombre": "ALCORCON - UNIVERSIDAD REY JUAN CARLOS (H.A.)",
 "localidad": "Alcorcón",
 "rffm": [
-40.349721,
--3.842559
+40.530771,
+-3.910286
 ],
 "dir_consultada": "AVENIDA DE ATENAS S/N|Alcorcón",
 "direccion_nombre": "Avenida de Atenas, Suroeste, Alcorcón, Comunidad de Madrid, 28922, España",
@@ -8732,7 +8746,8 @@
 40.349721,
 -3.842559
 ],
-"dist_rffm_direccion_km": 0.0,
+"dist_rffm_direccion_km": 20.93,
+"aviso": "Coordenadas de la RFFM a 20.9 km de la dirección y sin instalación deportiva: corregido",
 "instalacion": "pitch",
 "dist_instalacion_km": 0.04,
 "navegacion": [
@@ -8740,7 +8755,7 @@
 -3.842249
 ],
 "tipo": "instalacion",
-"corregido": false
+"corregido": true
 },
 "1726": {
 "nombre": "ALCALA - I.E.S. ANTONIO MACHADO (HA)",
