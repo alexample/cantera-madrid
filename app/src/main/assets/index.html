@@ -139,6 +139,11 @@ html[data-theme="estadio"] .carr-fijo{background:#070b16;border-bottom-color:#1e
 .evo svg{display:block;overflow:visible}.evo-g{stroke:var(--line);stroke-width:1}.evo-t{font-size:10px;fill:var(--muted,#888)}
 .evo-l{fill:none;stroke:var(--pitch2);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
 .evo-p{fill:var(--pitch2);stroke:var(--card);stroke-width:2}.evo-p.on{fill:var(--accent)}.evo-v{font-size:12px;font-weight:700;fill:var(--ink)}.evo-det{margin-top:2px}
+.jl{cursor:pointer;color:var(--ink)}.jl:active{opacity:.6}
+.jt td{padding:7px 4px}.jt th{padding:6px 4px}
+.jf-cab{display:flex;gap:12px;align-items:center;margin-bottom:10px}.jf-dor{flex:none;width:44px;height:44px;border-radius:50%;background:var(--pitch2);color:#fff;display:grid;place-items:center;font:700 19px "Barlow Condensed",sans-serif}
+.jf-st{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}.jf-st div{background:var(--bg);border-radius:10px;padding:8px 4px;text-align:center}.jf-st b{display:block;font-size:20px}.jf-st span{font-size:11px;color:var(--muted)}
+.jp{padding:7px 0;border-top:1px solid var(--line);cursor:pointer}.jp:active{opacity:.6}
 .mc-bot{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;min-height:32px}
 .mc-bot .btn{text-decoration:none;font-size:12.5px;padding:7px 11px}
 .carr-hint{text-align:center;opacity:.7;margin-top:2px}
@@ -415,7 +420,8 @@ function evolucionHTML(t,jSel){
   const d=teamGroup(t);if(!d||!d.table||!d.table.find(r=>r.id===t.id))return "";
   const js=[...new Set(d.matches.filter(m=>m.played&&m.j!=null).map(m=>m.j))].sort((a,b)=>a-b);
   if(js.length<2)return "";
-  const pts=js.map(j=>{const th=tablaHasta(d,j);const r=th.table.find(x=>x.id===t.id);return {j,pos:r.pos,pts:r.pts,pj:r.pj}});
+  const mios=teamMatches(t).filter(m=>m.gid===d.id);
+  const pts=js.map(j=>{const th=tablaHasta(d,j);const r=th.table.find(x=>x.id===t.id);const m=mios.find(x=>x.j===j);return {j,pos:r.pos,pts:r.pts,pj:r.pj,fp:m?firma(m):""}});
   const N=d.table.length,W=330,H=170,ml=26,mr=12,mt=12,mb=24,iw=W-ml-mr,ih=H-mt-mb;
   const x=i=>ml+(js.length===1?iw/2:i*iw/(js.length-1)),y=p=>mt+(N===1?0:(p-1)*ih/(N-1));
   const guias=[1,Math.ceil(N/2),N].filter((v,i,a)=>a.indexOf(v)===i);
@@ -429,9 +435,9 @@ function evolucionHTML(t,jSel){
    ${guias.map(g=>`<line x1="${ml}" x2="${W-mr}" y1="${y(g)}" y2="${y(g)}" class="evo-g"/><text x="${ml-6}" y="${y(g)+4}" text-anchor="end" class="evo-t">${g}º</text>`).join("")}
    ${pts.map((p,i)=>i%paso&&i!==pts.length-1?"":`<text x="${x(i)}" y="${H-6}" text-anchor="middle" class="evo-t">J${p.j}</text>`).join("")}
    <path d="${linea}" class="evo-l"/>
-   ${pts.map((p,i)=>`<g data-evp="${esc(det(p))}"><rect x="${x(i)-iw/js.length/2}" y="${mt-8}" width="${iw/js.length+1}" height="${ih+16}" fill="transparent"/><circle cx="${x(i)}" cy="${y(p.pos)}" r="${p===sel?6:4}" class="evo-p${p===sel?" on":""}"/></g>`).join("")}
+   ${pts.map((p,i)=>`<g data-evp="${esc(det(p))}"${p.fp?` data-fp="${esc(p.fp)}"`:""}><rect x="${x(i)-iw/js.length/2}" y="${mt-8}" width="${iw/js.length+1}" height="${ih+16}" fill="transparent"/><circle cx="${x(i)}" cy="${y(p.pos)}" r="${p===sel?6:4}" class="evo-p${p===sel?" on":""}"/></g>`).join("")}
    <text x="${Math.min(x(pts.length-1),W-mr)}" y="${y(ult.pos)+(ult.pos<=2?18:-10)}" text-anchor="end" class="evo-v">${ult.pos}º</text>
-  </svg><div class="small evo-det">${det(sel)} · toca la gráfica para ver cada jornada</div></div>`;
+  </svg><div class="small evo-det">${det(sel)} · toca una jornada para abrirla</div></div>`;
 }
 function ansTable(t,jSel){
   const d=teamGroup(t);const me=d.table.find(r=>r.id===t.id);
@@ -524,7 +530,7 @@ function nearestClubs(ll,cat,limit=5,fem=null){
    1) se normaliza el texto y se corrigen faltas contra un vocabulario de palabras clave
    2) se busca la intención por reglas, de la más concreta a la más general
    3) se responde con los datos del grupo                                            */
-const KW="evolucion grafica tiempo llover lluvia llueve frio calor temperatura prevision viento clima proximo proxima siguiente cuando hora horario donde campo direccion llegar llego ubicacion mapa juega jugamos juegan jugais juego toca rival contra quien quedo quedamos quedaron resultado resultados gano ganamos ganaron perdio perdimos perdieron empato empatamos marcador ultimo ultima clasificacion tabla posicion puesto lider primero colista ascenso descenso puntos goleador goleadores pichichi marco marcaron goles gol racha forma estadisticas balance calendario partidos quedan jornada plantilla jugadores convocatoria alineacion arbitro equipacion entrenador casa fuera visitante local semana sabado domingo manana hoy finde pasado victorias derrotas empates encajado metido diferencia ayuda hola gracias".split(" ");
+const KW="evolucion grafica convocados titulares tiempo llover lluvia llueve frio calor temperatura prevision viento clima proximo proxima siguiente cuando hora horario donde campo direccion llegar llego ubicacion mapa juega jugamos juegan jugais juego toca rival contra quien quedo quedamos quedaron resultado resultados gano ganamos ganaron perdio perdimos perdieron empato empatamos marcador ultimo ultima clasificacion tabla posicion puesto lider primero colista ascenso descenso puntos goleador goleadores pichichi marco marcaron goles gol racha forma estadisticas balance calendario partidos quedan jornada plantilla jugadores convocatoria alineacion arbitro equipacion entrenador casa fuera visitante local semana sabado domingo manana hoy finde pasado victorias derrotas empates encajado metido diferencia ayuda hola gracias".split(" ");
 // Palabras corrientes que no se deben "corregir" y abreviaturas típicas de móvil
 const PROTEGIDAS=new Set("cuantos cuantas cuanto bajamos subimos ganados perdidos empatados partido partidos ultimos ultimas puedo preguntar llevamos llevan lleva tal que como esta estan estamos vamos van tenemos hemos habeis donde cuando quien quienes sabes sabe dime hace hacen nuestro nuestra equipo liga grupo semana dias campo campos hijo hija mismo todo todos".split(" "));
 const ABREV={q:"que",k:"que",ke:"que",dnd:"donde",dnde:"donde",dond:"donde",ora:"hora",hra:"hora",hr:"hora",xq:"porque",pq:"porque",tb:"tambien",mñn:"manana",mnn:"manana",kdamos:"quedamos",kedamos:"quedamos",keda:"queda",kien:"quien",qien:"quien",cuado:"cuando",cnd:"cuando",cdo:"cuando",prox:"proximo",clasi:"clasificacion",clasif:"clasificacion",resul:"resultado",finde:"finde",jor:"jornada"};
@@ -539,6 +545,7 @@ const INTENCIONES=[
   ["tiempo",R(/(tiempo|llover|llovera|lluvia|llueve|frio|calor|temperatura|meteo|prevision|viento|nieve|clima|abrigo|chubasquero|paraguas|sol\b)/)],
   ["resumen",R(/^(resumen|todo|info|informacion|ficha|datos|como va el equipo|como esta el equipo)$/)],
   ["jornada",R(/\b(jornada|j)\s*\d+\b/)],
+  ["jugadores",R(/(jugadores|plantilla|convocatoria|convocados|convocado|alineacion|alineaciones|titular|titulares|quien juega|quien ha jugado|quienes juegan|estadisticas? de (los )?jugador)/)],
   ["noDato",R(/(jugadores|ficha de|fichas|hay que (ir|llegar|estar)|a que hora (hay que|tenemos que|quedamos para)|arbitro|arbitra|equipacion|camiseta|entrenador|mister|convocatoria|convocados|alineacion|titular|plantilla|lesion|entradas|precio|hora de llegada|hay que estar|quedada|bus|autobus)/)],
   ["proxCasa",R(/(proximo|siguiente|cuando)\b.*\b(en casa|como local)|\b(en casa|como local)\b.*(proximo|siguiente|cuando)/)],
   ["proxFuera",R(/(proximo|siguiente|cuando)\b.*\b(fuera|visitante)|\b(fuera|visitante)\b.*(proximo|siguiente|cuando)/)],
@@ -671,14 +678,15 @@ function ansTiempo(t){
 
 
 /* ---------- cronología del partido (lee el acta SOLO cuando el usuario lo pide) ---------- */
-const ACTAS={};const ESPERA_ACTA={};
+const ACTAS=store.get("actas",{});const ESPERA_ACTA={};
+function guardarActas(){const ks=Object.keys(ACTAS);if(ks.length>200)ks.slice(0,ks.length-200).forEach(k=>delete ACTAS[k]);store.set("actas",ACTAS)}
 window.__acta=(cb,json)=>{const f=ESPERA_ACTA[cb];if(f){delete ESPERA_ACTA[cb];f(json?JSON.parse(json):null)}};
 function leerActa(m){
   if(ACTAS[m.acta])return Promise.resolve(ACTAS[m.acta]);
   const g=grupo(m.gid);const q=g?`temporada=${g.temp}&competicion=${g.compId}&grupo=${m.gid}`:"";
   return new Promise(res=>{const cb="a"+Date.now()+Math.random().toString(36).slice(2,6);
     const to=setTimeout(()=>{delete ESPERA_ACTA[cb];res(null)},25000);
-    ESPERA_ACTA[cb]=d=>{clearTimeout(to);if(d){d={game:d.game||d};ACTAS[m.acta]=d}res(d)};
+    ESPERA_ACTA[cb]=d=>{clearTimeout(to);if(d){d={game:d.game||d};ACTAS[m.acta]=d;guardarActas()}res(d)};
     try{AndroidApp.acta(String(m.acta),q,cb)}catch(e){clearTimeout(to);res(null)}});
 }
 const siNo=v=>v===true||v===1||v==="1"||v==="S"||v==="s"||v==="true";
@@ -721,7 +729,8 @@ function cronoHTML(m,g){
     const celda=`<span class="cr-ic">${e.ic}</span> ${esc(e.txt)} ${marc}`;
     return `<div class="cr-row"><div class="cr-l">${e.lado==="L"?celda:""}</div><div class="cr-m">${e.min!=null?e.min+"'":"–"}</div><div class="cr-r">${e.lado==="V"?celda:""}</div></div>`}).join("");
   const alin=suf=>{const js=(g["jugadores_equipo_"+suf]||[]);const tit=js.filter(x=>siNo(x.titular)),sup=js.filter(x=>!siNo(x.titular));
-    const li=x=>`<div class="small">${x.dorsal!=null&&x.dorsal!==""?`<b>${esc(x.dorsal)}</b> `:""}${esc(corto(x.nombre_jugador))}${x.posicion_jugador_abreviatura?` <span style="opacity:.6">${esc(x.posicion_jugador_abreviatura)}</span>`:""}${siNo(x.capitan)?" (C)":""}${siNo(x.portero)?" 🧤":""}</div>`;
+    const eqId=suf==="local"?m.home:m.away;const tap=ANDROID&&TEAM.get(eqId);
+    const li=x=>`<div class="small${tap?" jl":""}"${tap?` data-jug="${esc(eqId)}|${esc(claveJ(x))}"`:""}>${x.dorsal!=null&&x.dorsal!==""?`<b>${esc(x.dorsal)}</b> `:""}${esc(corto(x.nombre_jugador))}${x.posicion_jugador_abreviatura?` <span style="opacity:.6">${esc(x.posicion_jugador_abreviatura)}</span>`:""}${siNo(x.capitan)?" (C)":""}${siNo(x.portero)?" 🧤":""}${tap?" ›":""}</div>`;
     return js.length?`${tit.length&&sup.length?`<div class="small" style="margin-top:4px;opacity:.75">Titulares</div>`:""}${tit.map(li).join("")}${sup.length?`<div class="small" style="margin-top:4px;opacity:.75">Suplentes</div>${sup.map(li).join("")}`:""}`:`<div class="small">El acta no publica los convocados.</div>`};
   const hayCambios=ev.some(e=>e.tipo==="cambio");
   return `<b>Cronología</b> · J${m.j}${m.date?" · "+fdate(m.date):""}
@@ -768,6 +777,55 @@ function fichaPartidoMsgs(t,m){
   else msgs.push({r:"b",h:`<span class="small">La federación aún no ha publicado el acta de este partido.</span>`});
   return msgs;
 }
+/* ---------- jugadores: estadísticas calculadas con las actas del equipo (se leen en el móvil, a petición) ---------- */
+const codJ=x=>x&&(x.codjugador||x.cod_jugador||x.codigo_jugador||x.id_jugador||x.codigojugador||"");
+const claveJ=x=>String(codJ(x)||norm(x.nombre_jugador||x.nombre||""));
+async function actasEquipo(t,progreso){
+  const ms=teamMatches(t).filter(m=>m.played&&m.acta).sort((a,b)=>(a.date||0)-(b.date||0));
+  let n=0;for(const m of ms){if(!ACTAS[m.acta]){await leerActa(m);await new Promise(r=>setTimeout(r,250))}n++;progreso&&progreso(n,ms.length)}
+  return ms.filter(m=>ACTAS[m.acta]).map(m=>({m,g:ACTAS[m.acta].game}));
+}
+function statsJugadores(t,lista){
+  const J=new Map();
+  for(const{m,g}of lista){const suf=m.home===t.id?"local":"visitante";
+    const js=g["jugadores_equipo_"+suf]||[];
+    const goles=g["goles_equipo_"+suf]||[],tarj=g["tarjetas_equipo_"+suf]||[];
+    const ents=Object.keys(g).filter(k=>/(sustitu|cambio)/i.test(k)&&k.toLowerCase().includes(suf)).flatMap(k=>Array.isArray(g[k])?g[k]:[]).map(x=>norm(x.nombre_jugador_entra||x.jugador_entra||x.entra||x.nombre_entra||""));
+    const hayCambios=ents.length>0;
+    for(const x of js){const k=claveJ(x);if(!J.has(k))J.set(k,{k,nombre:x.nombre_jugador,cod:codJ(x),conv:0,tit:0,sup:0,entro:0,gol:0,am:0,ro:0,dorsales:{},por:x.posicion_jugador_abreviatura||"",partidos:[]});
+      const p=J.get(k);const tit=siNo(x.titular);const nn=norm(x.nombre_jugador||"");
+      const gl=goles.filter(y=>claveJ(y)===k||norm(y.nombre_jugador||"")===nn).length;
+      const ts=tarj.filter(y=>claveJ(y)===k||norm(y.nombre_jugador||"")===nn);
+      const ro=ts.filter(y=>{const c=String(y.codigo_tipo_amonestacion||"");return c==="101"||c==="102"||siNo(y.segunda_amarilla)}).length;
+      const am=ts.length-ts.filter(y=>String(y.codigo_tipo_amonestacion||"")==="101").length;
+      const entro=!tit&&hayCambios&&ents.includes(nn);
+      p.conv++;tit?p.tit++:p.sup++;if(entro)p.entro++;p.gol+=gl;p.am+=am;p.ro+=ro;
+      if(x.dorsal!=null&&x.dorsal!=="")p.dorsales[x.dorsal]=(p.dorsales[x.dorsal]||0)+1;
+      if(siNo(x.portero))p.portero=true;if(x.posicion_jugador_abreviatura)p.por=x.posicion_jugador_abreviatura;
+      p.partidos.push({m,tit,entro,hayCambios,gl,am,ro})}
+  }
+  return [...J.values()].sort((a,b)=>b.conv-a.conv||b.tit-a.tit||b.gol-a.gol||completo(a.nombre).localeCompare(completo(b.nombre)));
+}
+const dorsalJ=p=>{const e=Object.entries(p.dorsales).sort((a,b)=>b[1]-a[1]);return e.length?e[0][0]:""};
+const urlJugadorRFFM=p=>p.cod?`https://www.rffm.es/fichajugador/${encodeURIComponent(p.cod)}`:"";
+function plantillaHTML(t,st,total){
+  if(!st.length)return `Las actas de este equipo no traen convocados.<div>${linkRFFM(urlEquipoRFFM(t),"Plantilla en la RFFM")}</div>`;
+  return `<b>Jugadores</b> · ${total} partido${total===1?"":"s"} con acta<div class="small" style="opacity:.75">Toca un jugador para ver su ficha.</div>
+  <table class="st jt"><tr><th style="text-align:left">Jugador</th><th title="Convocado">Conv</th><th title="Titular">Tit</th><th title="Suplente">Sup</th><th>⚽</th><th>🟨</th><th>🟥</th></tr>
+  ${st.map(p=>`<tr class="tap" data-jug="${esc(t.id)}|${esc(p.k)}"><td class="n"><span class="tl-row">${dorsalJ(p)?`<b>${esc(dorsalJ(p))}</b> `:""}${esc(corto(p.nombre))}${p.portero?" 🧤":""}</span></td><td>${p.conv}</td><td>${p.tit}</td><td>${p.sup}</td><td>${p.gol||""}</td><td>${p.am||""}</td><td>${p.ro||""}</td></tr>`).join("")}</table>
+  <div class="small" style="opacity:.75;margin-top:4px">Conv: convocado · Tit: titular · Sup: en el banquillo. ${st.some(p=>p.entro)?"":"Las actas de la federación no suelen recoger los cambios, así que no se sabe si un suplente llegó a jugar."}</div>`;
+}
+function fichaJugadorHTML(t,p,total){
+  const pct=total?Math.round(p.conv*100/total):0;
+  const fila=x=>{const r=outcome(x.m,t.id);const riv=rivalOf(x.m,t.id);
+    return `<div class="jp" data-fp="${esc(firma(x.m))}"><span class="badge ${r}">${{W:"G",D:"E",L:"P"}[r]}</span> <b>J${x.m.j}</b> ${x.m.home===t.id?"vs":"en"} ${esc(riv.n)} <b>${x.m.hg}–${x.m.ag}</b>
+      <span class="small"> · ${x.tit?"Titular":x.entro?"Entró de suplente":"Suplente"}${x.gl?" · "+"⚽".repeat(Math.min(x.gl,5)):""}${x.am?" · 🟨":""}${x.ro?" · 🟥":""}</span></div>`};
+  return `<div class="jf"><div class="jf-cab"><div class="jf-dor">${esc(dorsalJ(p)||"·")}</div><div><b style="font-size:17px">${esc(completo(p.nombre))}</b><div class="small">${esc(t.name)}${p.por?" · "+esc(p.por):""}${p.portero?" · Portero 🧤":""}</div></div></div>
+  <div class="jf-st"><div><b>${p.conv}</b><span>Convocado</span></div><div><b>${p.tit}</b><span>Titular</span></div><div><b>${p.sup}</b><span>Suplente</span></div><div><b>${p.gol}</b><span>Goles</span></div><div><b>${p.am}</b><span>Amarillas</span></div><div><b>${p.ro}</b><span>Rojas</span></div></div>
+  <div class="small">Convocado en ${p.conv} de ${total} partidos (${pct}%)${p.gol?` · ${(p.gol/p.conv).toFixed(2).replace(".",",")} goles por partido`:""}.</div>
+  <div style="margin-top:8px"><b class="small">Partido a partido</b> <span class="small" style="opacity:.75">(toca uno para abrirlo)</span>${p.partidos.slice().reverse().map(fila).join("")}</div>
+  ${p.cod?`<div style="margin-top:8px">${linkRFFM(urlJugadorRFFM(p),"Ficha del jugador en la RFFM")}</div>`:""}</div>`;
+}
 function buscarPartido(acta){for(const d of Object.values(GD)){const m=(d.matches||[]).find(x=>x.acta===acta);if(m)return m}return null}
 
 
@@ -805,12 +863,12 @@ function colocarCarrusel(t){
   const sel=state.foco[t.id];const f=focoPartido(t);
   let i=sel?ms.findIndex(c=>c.dataset.fp===sel):-1;if(i<0)i=f?ms.findIndex(c=>c.dataset.fp===firma(f.m)):0;if(i<0)i=0;
   ms.forEach((c,k)=>c.classList.toggle("sel",k===i));
-  el.scrollLeft=ms[i].offsetLeft-el.offsetLeft-12;
+  const x=ms[i].offsetLeft-el.offsetLeft-12;if(el.dataset.listo){el.scrollTo({left:x,behavior:"smooth"})}else{el.scrollLeft=x;el.dataset.listo=1}
 }
 
 const NO_DATO="La federación no publica ese dato (plantillas, alineaciones, árbitros, equipaciones u horarios de llegada). Esa información la da el club o el entrenador.";
 const HELP_TEAM="Puedo contarte el último resultado, el próximo partido con hora y campo, la clasificación y los puntos, los goleadores, la racha, las estadísticas, los partidos que quedan, una jornada («jornada 3») o cómo os fue contra un rival («contra Alcorcón»).";
-const CHIPS_TEAM=["Resumen","¿Cómo quedó el último partido?","¿Cuándo y dónde es el próximo?","¿Qué tiempo hará?","Clasificación","Evolución","Goleadores","Racha","Plantilla"];
+const CHIPS_TEAM=["Resumen","¿Cómo quedó el último partido?","¿Cuándo y dónde es el próximo?","¿Qué tiempo hará?","Clasificación","Evolución","Goleadores","Racha","Jugadores"];
 function responderEquipo(t,id,q,text){
   switch(id){
     case "saludo":return `¡Hola! ${HELP_TEAM}`;
@@ -819,6 +877,7 @@ function responderEquipo(t,id,q,text){
     case "resumen":return ansResumen(t);
     case "tiempo":return ansTiempo(t);
     case "jornada":return ansJornada(t,+(q.match(/(\d+)/)[1]));
+    case "jugadores":if(ANDROID)return ansJugadores(t);return `Las estadísticas de los jugadores se calculan con las actas, y eso solo funciona en la app del móvil.<div>${linkRFFM(urlEquipoRFFM(t),"Plantilla en la RFFM")}</div>`;
     case "noDato":return /(plantilla|jugador|convoca|alineacion|titular)/.test(q)?`La plantilla y las fichas de los jugadores están en la web oficial de la federación:<div>${linkRFFM(urlEquipoRFFM(t),"Ver plantilla en la RFFM")}</div><div class="small" style="margin-top:6px">Se abre en el navegador. Las convocatorias y alineaciones de cada partido las da el club.</div>`:NO_DATO;
     case "proxCasa":return ansProxDonde(t,"casa");
     case "proxFuera":return ansProxDonde(t,"fuera");
@@ -834,6 +893,11 @@ function responderEquipo(t,id,q,text){
   }
   return null;
 }
+async function ansJugadores(t){
+  const lista=await actasEquipo(t,(n,tot)=>progresoChat(`Leyendo las actas ${n}/${tot}…`));
+  return plantillaHTML(t,statsJugadores(t,lista),lista.length);
+}
+let progresoChat=()=>{};
 function answerTeam(t,text){
   const {id,q}=intencion(text);
   // Rival: «contra el Alcorcón», «¿y el Getafe?», o solo el nombre del rival
@@ -1205,7 +1269,7 @@ function renderChat(app,t){
   <div class="composer">
   <form class="inp" id="f"><button type="button" id="clr" class="clr" aria-label="Borrar el chat">${icons.trash}</button><input id="q" placeholder="${t?"Pregunta sobre el equipo…":"Escribe o elige una opción…"}" autocomplete="off" enterkeyhint="send"><button aria-label="Enviar">${icons.send}</button></form></div>`;
   const chat=$("#chat");
-  const wide=h=>h&&(h.includes("<table")||h.includes("plist")||h.includes('class="opts'));
+  const wide=h=>h&&(h.includes("<table")||h.includes("plist")||h.includes('class="jf"')||h.includes('class="opts'));
   const sugerencias=()=>{const ult=state.chats[key][state.chats[key].length-1];if(!ult||ult.r!=="b"||ult.h.includes("typing"))return "";
     const pregUlt=(state.chats[key].filter(m=>m.r==="u").pop()||{}).h||"";
     const lista=chips.filter(c=>esc(c)!==pregUlt);
@@ -1221,6 +1285,7 @@ function renderChat(app,t){
   draw();if(t||state.chats[key].length===1)$("#scroll").scrollTop=0; // la ficha se lee desde arriba
   if(cronoInicial)cargarCrono(cronoInicial);
   if(t)colocarCarrusel(t);
+  progresoChat=txt=>{const msgs=state.chats[key];const u=msgs&&msgs[msgs.length-1];if(!u||!u.h.includes("typing"))return;u.h=`<span class="typing"><i></i><i></i><i></i></span> <span class="small">${esc(txt)}</span>`;if(state.view===(t?"team":"main")){const sc=$("#scroll"),st=sc.scrollTop;draw();sc.scrollTop=st}};
   const ask=text=>{
     if(!text.trim())return;
     const shown=text.startsWith("ia:")?"🤖 Preguntar a la IA":text.startsWith("q:")||text.startsWith("qc:")?((document.querySelector(`[data-ask="${CSS.escape(text)}"]`)||{}).textContent||"Ese equipo"):text.startsWith("clubteams:")?"Ver equipos de "+((TEAMS.find(t=>t.clubKey===text.split(":")[1])||{}).club||"club"):text.startsWith("comp:")||text.startsWith("grupo:")||text.startsWith("club:")?(document.querySelector(`[data-ask="${CSS.escape(text)}"]`)||{}).textContent||text:text;
@@ -1228,7 +1293,7 @@ function renderChat(app,t){
     setTimeout(async()=>{let h;
       try{
         if(text.startsWith("ia:")){h=await preguntarIAconCupo(key,text.slice(3),t)}
-        else{h=t?answerTeam(t,text):await handleMain(text);
+        else{h=t?await answerTeam(t,text):await handleMain(text);
           if(h==null)h=noEntiendo(text,t)}}
       catch(e){h="Ha fallado algo al consultar los datos. Inténtalo otra vez."}
       state.chats[key].pop();state.chats[key].push({r:"b",h});if(state.view===(t?"team":"main"))draw()},250);
@@ -1237,12 +1302,17 @@ function renderChat(app,t){
   $("#f").onsubmit=e=>{e.preventDefault();const v=$("#q").value;$("#q").value="";ask(v)};
   app.onclick=e=>{
     const a=e.target.closest("[data-ask]");if(a){ask(a.dataset.ask);return}
+    const jg=e.target.closest("[data-jug]");if(jg){const[eid,k]=jg.dataset.jug.split("|");const eq=TEAM.get(eid);if(!eq)return;
+      state.chats[key].push({r:"u",h:"👤 "+esc(jg.textContent.replace("›","").trim())});state.chats[key].push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span>'});draw();
+      actasEquipo(eq,(n,tot)=>progresoChat(`Leyendo las actas de ${eq.name} ${n}/${tot}…`)).then(lista=>{const st=statsJugadores(eq,lista);const p=st.find(x=>x.k===k);
+        const msgs=state.chats[key];msgs.pop();msgs.push({r:"b",h:p?fichaJugadorHTML(eq,p,lista.length):"No encuentro a ese jugador en las actas del equipo."});
+        if(state.view===(t?"team":"main"))draw()});return}
     const fp=!e.target.closest("a,[data-ver],[data-ask]")&&e.target.closest("[data-fp]");if(fp&&t){
       const m=teamMatches(t).find(x=>firma(x)===fp.dataset.fp);if(!m)return;
       state.foco[t.id]=firma(m);
       const cab=m.played?`📋 J${m.j} · ${esc(m.homeN)} ${m.hg}–${m.ag} ${esc(m.awayN)}`:`📋 J${m.j??"?"} · ${esc(m.homeN)} – ${esc(m.awayN)}`;
       state.chats[key]=[{r:"u",h:cab},...(m.played?fichaPartidoMsgs(t,m):fichaProxMsgs(t,m))];
-      document.querySelectorAll("#carr .mc").forEach(c=>c.classList.toggle("sel",c===fp));
+      colocarCarrusel(t);
       draw();$("#scroll").scrollTop=0;
       if(m.played&&m.acta&&ANDROID)cargarCrono(m);return}
     const cr=e.target.closest("[data-crono]");if(cr){const m=buscarPartido(cr.dataset.crono);if(!m)return;
