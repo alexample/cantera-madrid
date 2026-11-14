@@ -155,6 +155,11 @@ html[data-theme="estadio"] .carr-fijo{background:#070b16;border-bottom-color:#1e
 @media (prefers-reduced-motion:reduce){.vivo-dot{animation:none}}
 .aq{border:1px solid var(--line);border-radius:12px;padding:8px 10px;margin-top:8px}.aq.on{border-color:#e5352b;box-shadow:0 0 0 2px rgba(229,53,43,.25)}
 .aq-top{display:flex;justify-content:space-between;align-items:center;gap:6px}.aq-top .vivo-box{white-space:nowrap;flex:none}.aq-eq{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:6px}.aq-res{font-size:16px}.aq-ya{margin-top:10px}.aq-ya summary{cursor:pointer;color:var(--muted);font-size:13px}
+.team[style*="--eq"]{border-left:5px solid var(--eq)!important;padding-left:10px}
+.team[style*="--eq"] .crest{box-shadow:0 0 0 2.5px var(--eq)}
+.colsel{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 10px}.colbt{width:32px;height:32px;border-radius:50%;border:3px solid transparent;cursor:pointer}
+.colbt.on{border-color:var(--ink);box-shadow:0 0 0 2px var(--card) inset}
+.top.eqcol{border-bottom:4px solid var(--eq)!important}.top.eqcol .crest{box-shadow:0 0 0 3px var(--eq)}
 .mc-bot{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;min-height:32px}
 .mc-bot .btn{text-decoration:none;font-size:12.5px;padding:7px 11px}
 .carr-hint{text-align:center;opacity:.7;margin-top:2px}
@@ -374,7 +379,7 @@ const fin=s=>/\.$/.test(s)?"":".";
 const rivalOf=(m,id)=>m.home===id?{id:m.away,n:m.awayN}:{id:m.home,n:m.homeN};
 
 /* ---------- estado ---------- */
-const state={foco:{},orden:store.get("orden","manual"),pila:[],etq:store.get("etiquetas",{}),avEq:store.get("avEq",{}),tema:store.get("tema","clasico"),follows:store.get("follows",[]).filter(Boolean),verified:store.get("verified",false),chats:{},iah:{},flow:null,view:"home",team:null};
+const state={col:store.get("colores",{}),auto:{},foco:{},orden:store.get("orden","manual"),pila:[],etq:store.get("etiquetas",{}),avEq:store.get("avEq",{}),tema:store.get("tema","clasico"),follows:store.get("follows",[]).filter(Boolean),verified:store.get("verified",false),chats:{},iah:{},flow:null,view:"home",team:null};
 const ANDROID=typeof window.AndroidApp!=="undefined";
 // Pasa a Android los equipos seguidos (para los avisos en segundo plano)
 function syncAndroid(){if(!ANDROID||!IDX)return;try{AndroidApp.guardarEquipos(JSON.stringify(state.follows.map(id=>TEAM.get(id)).filter(Boolean).map(t=>({id:t.id,g:t.grupos[0],n:t.name,e:state.etq[t.id]||"",av:state.avEq[t.id]||null}))))}catch(e){}}
@@ -939,7 +944,7 @@ function tarjetaPartido(t,m,esProx){
   const fecha=m.date?`${DIAS_C[m.date.getDay()]} ${m.date.getDate()} ${MESES[m.date.getMonth()]}`:"Fecha por confirmar";
   const r=m.played?outcome(m,t.id):null;const vivo=enJuego(t,m);
   const estado=vivo&&vivo.f!=="fin"?`<span class="badge vivo-b"><i class="vivo-dot"></i>En juego</span>`:vivo?`<span class="badge D">Terminado</span>`:m.played?`<span class="badge ${r}">${{W:"Victoria",D:"Empate",L:"Derrota"}[r]}</span>`:esProx?`<span class="badge" style="background:var(--accent)">Próximo</span>`:`<span class="badge D">Pendiente</span>`;
-  const centro=m.played?`<div class="mc-res">${m.hg}<span>–</span>${m.ag}</div>${m.prov?`<div class="small" style="opacity:.75;text-align:center">provisional</div>`:""}`:vivo?`<div class="mc-hora vivo-box${vivo.f==="fin"?" off":""}"><div style="font-size:12px;opacity:.8">${m.time}</div><div class="vivo-t" ${vivoAttr(t,m)}>${vivo.txt}</div></div>`:`<div class="mc-hora">${m.time||"--:--"}</div>`;
+  const centro=m.played?(m.prov?`<div style="display:flex;flex-direction:column;align-items:center"><div class="mc-res">${m.hg}<span>–</span>${m.ag}</div><div class="small" style="opacity:.75">provisional</div></div>`:`<div class="mc-res">${m.hg}<span>–</span>${m.ag}</div>`):vivo?`<div class="mc-hora vivo-box${vivo.f==="fin"?" off":""}"><div style="font-size:12px;opacity:.8">${m.time}</div><div class="vivo-t" ${vivoAttr(t,m)}>${vivo.txt}</div></div>`:`<div class="mc-hora">${m.time||"--:--"}</div>`;
   const nom=(id,n)=>id===t.id?`<div class="mc-yo">${crest(t,26)}<b>${esc(n)}</b></div>`:L(id,n);
   const bot=m.played
     ?`<button class="btn" data-fp="${esc(m.gid)}|${m.j}|${esc(m.home)}">📋 Ver partido</button>${m.acta?`<a class="btn ghost" href="${urlActaRFFM(m)}" target="_blank" rel="noopener">📄 Acta</a>`:""}`
@@ -1292,10 +1297,17 @@ function homeRow(t){
     meta+=v?` · <span class="vivo-box${v.f==="fin"?" off":""}"><span class="badge vivo-b"><i class="vivo-dot"></i>${v.f==="fin"?"Terminado":"En juego"}</span> <span class="vivo-t" data-corto="1" ${vivoAttr(t,nm)}>${v.corto}</span></span>`
       :` · ${lm?`<span class="badge ${outcome(lm,t.id)}">${lm.hg}-${lm.ag}</span>`:""}${nm&&nm.date?" · próx. "+fdate(nm.date).split(" ").slice(0,2).join(" "):""}`}
   const mute=silenciado(t);
-  return `<div class="team${mute?" mute":""}" data-team="${t.id}" role="button" tabindex="0"><div class="drag" data-drag aria-label="Arrastrar para ordenar">${icons.grip}</div>${crest(t)}<div class="info">${tagHTML(t)}<div class="nm">${esc(t.name)}</div><div class="meta">${meta}</div></div><div class="side">${side}</div><button class="bellbtn${mute?" off":""}" data-bell="${t.id}" aria-label="${mute?"Activar avisos":"Silenciar avisos"}">${mute?icons.bellOff:icons.bell}</button></div>`;
+  const col=colorEquipo(t);
+  return `<div class="team${mute?" mute":""}" data-team="${t.id}" role="button" tabindex="0"${col?` style="--eq:${col}"`:""}><div class="drag" data-drag aria-label="Arrastrar para ordenar">${icons.grip}</div>${crest(t)}<div class="info">${tagHTML(t)}<div class="nm">${esc(t.name)}</div><div class="meta">${meta}</div></div><div class="side">${side}</div><button class="bellbtn${mute?" off":""}" data-bell="${t.id}" aria-label="${mute?"Activar avisos":"Silenciar avisos"}">${mute?icons.bellOff:icons.bell}</button></div>`;
 }
 // Arrastrar la manija (⋮⋮) para cambiar el orden de «Mis equipos»
 
+/* ---------- color propio de cada equipo seguido (orden fijo; el color va con el equipo, no con su posición) ---------- */
+const COLORES=["#2a78d6","#eb6834","#1baf7a","#eda100","#e87ba4","#0ca30c","#7b6cf0","#e34948"];
+function colorEquipo(t){if(!t||!state.follows.includes(t.id))return null;
+  if(!state.col[t.id]){const usados=new Set(state.follows.filter(id=>id!==t.id).map(id=>state.col[id]).filter(Boolean));
+    state.col[t.id]=COLORES.find(c=>!usados.has(c))||COLORES[state.follows.indexOf(t.id)%COLORES.length];store.set("colores",state.col)}
+  return state.col[t.id]}
 /* ---------- ordenar «Mis equipos» ---------- */
 const ORDENES=[["manual","Mi orden"],["division","División"],["categoria","Categoría"],["proximo","Próximo partido"],["posicion","Posición"],["club","Club"],["etiqueta","Etiqueta"]];
 // Nivel de la competición (menor = más alto)
@@ -1398,6 +1410,10 @@ function renderChat(app,t){
   const key=t?t.id:"_main";
   if(t&&state.resumen===t.id){state.resumen=null;if(!state.chats[key]||state.chats[key].length<=1)state.chats[key]=[{r:"b",h:ansResumen(t)+`<div class="small" style="margin-top:10px">Pregúntame lo que quieras de este equipo o toca otro rival. ${linkRFFM(urlEquipoRFFM(t),"Ficha en la RFFM")}</div>`}]}
   let cronoInicial=null;
+  // La ficha se rehace sola si cambian los datos o el día, salvo que el usuario ya haya preguntado o tocado algo
+  const sello=(IDX.act||"")+"|"+isoHoy();
+  if(t&&state.chats[key]&&state.auto[key]&&state.auto[key].s!==sello&&state.chats[key].length===state.auto[key].n){delete state.chats[key];delete state.foco[t.id]}
+  const nuevo=!state.chats[key]&&t;
   if(!state.chats[key]&&t){
     const f=focoPartido(t);const tip=`<div class="small" style="margin-top:8px">Desliza los partidos de arriba para ver anteriores y próximos · toca un equipo con › para ver su ficha${state.follows.includes(t.id)&&!etiqueta(t)?" · 🔔 para etiquetarlo y elegir avisos":""}. ${linkRFFM(urlEquipoRFFM(t),"Ficha RFFM")}</div>`;
     const msgs=[];
@@ -1410,10 +1426,12 @@ function renderChat(app,t){
       const pv=previaHTML(t,f.m);if(pv)msgs.push({r:"b",h:pv});
     }else msgs.push({r:"b",h:`No hay partidos en el calendario de este equipo.`+tip});
     state.chats[key]=msgs;
+    state.auto[key]={s:sello,n:msgs.length};
   }
   if(!state.chats[key])state.chats[key]=[{r:"b",h:welcomeMain()}];
   const chips=t?CHIPS_TEAM:["Menú","Buscar un equipo","Buscar un jugador","Ayúdame a encontrar un equipo","Ver clasificaciones"];
-  app.innerHTML=`<header class="top"><div class="toprow"><button class="iconbtn" id="back" aria-label="Volver">${icons.back}</button>
+  const colT=t&&colorEquipo(t);
+  app.innerHTML=`<header class="top${colT?" eqcol":""}"${colT?` style="--eq:${colT}"`:""}><div class="toprow"><button class="iconbtn" id="back" aria-label="Volver">${icons.back}</button>
     ${t?crest(t,40):""}<div class="grow">${t&&etiqueta(t)?`<span class="tag">⭐ ${esc(etiqueta(t))}</span>`:""}<h1 class="tn" style="font-size:21px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(t.name):"Chat principal"}</h1><div class="sub" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(grupoNombre(t.grupos[0])):"Equipos y jugadores de Madrid"}</div></div>
     ${t?(state.follows.includes(t.id)?`<button class="iconbtn" id="tset" aria-label="Ajustes del equipo">${silenciado(t)?icons.bellOff:icons.bell}</button>`:`<button class="btn" id="tfol" style="flex:none">Seguir</button>`):""}</div></header>
   ${t?`<div class="carr-fijo">${carruselHTML(t)}</div>`:""}
@@ -1503,6 +1521,8 @@ function openTeamSettings(t){
    <span class="lbl">Etiqueta</span>
    <input class="search" id="etq" maxlength="24" placeholder="Ej.: Adrián, Mi hijo, Sobrino…" value="${esc(etiqueta(t))}">
    <div class="chips" style="padding:0 0 6px">${["Mi hijo","Mi hija","Sobrino","Nieto","Mi equipo"].map(x=>`<button class="chip" data-etq="${x}">${x}</button>`).join("")}</div>
+   <span class="lbl">Color del equipo</span>
+   <div class="colsel">${COLORES.map(c=>`<button class="colbt${colorEquipo(t)===c?" on":""}" data-col="${c}" style="background:${c}" aria-label="Color ${c}"></button>`).join("")}</div>
    <div style="margin:4px 0 2px">${linkRFFM(urlEquipoRFFM(t),"Ficha oficial y plantilla en la RFFM")}</div>
    <div class="section-t">Avisos de este equipo</div>
    <div class="tog"><div class="grow"><b>Recibir avisos de este equipo</b><div class="small">Desactívalo para seguirlo sin notificaciones.</div></div><button class="sw ${silenciado(t)?"":"on"}" id="activos" aria-label="Recibir avisos"></button></div>
@@ -1518,6 +1538,8 @@ function openTeamSettings(t){
    </div>
    <div style="display:flex;gap:10px;margin-top:16px"><button class="btn ghost" id="unf2" style="flex:1;padding:12px;color:var(--loss)">Dejar de seguir</button><button class="btn" id="ok" style="flex:1;padding:12px">Listo</button></div>`,()=>{
     let usarGen=!propio;
+    $("#sheet").querySelectorAll("[data-col]").forEach(b=>b.onclick=()=>{const c=b.dataset.col;const otro=Object.keys(state.col).find(id=>id!==t.id&&state.col[id]===c&&state.follows.includes(id));
+      if(otro)state.col[otro]=state.col[t.id];state.col[t.id]=c;store.set("colores",state.col);$("#sheet").querySelectorAll("[data-col]").forEach(x=>x.classList.toggle("on",x===b))});
     const guardar=()=>{const e=$("#etq").value.trim();if(e)state.etq[t.id]=e;else delete state.etq[t.id];store.set("etiquetas",state.etq);
       const prop=usarGen?null:{resultado:!!av.resultado,asignado:!!av.asignado,previo:!!av.previo,meteo:av.meteo!==false,horas:av.horas||3};
       if(mute)state.avEq[t.id]={resultado:false,asignado:false,previo:false,meteo:false,horas:3,silencio:true,antes:prop};
