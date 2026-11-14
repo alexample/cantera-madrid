@@ -7,6 +7,7 @@
 -3.762508
 ],
 "dir_consultada": "CALLE ARQUITECTURA 8|Leganés",
+"direccion_nombre": "Calle Arquitectura, Batallas, San Nicasio, Leganés, Comunidad de Madrid, 28913, España",
 "direccion_gps": [
 40.339599,
 -3.762738
@@ -47,6 +48,7 @@
 -3.449361
 ],
 "dir_consultada": "CALLE SAN SEBASTIÁN 6|Arganda Del Rey",
+"direccion_nombre": "Calle San Sebastián, Los Villares, Arganda del Rey, Comunidad de Madrid, 28500, España",
 "direccion_gps": [
 40.307513,
 -3.451333
@@ -65,16 +67,16 @@
 "nombre": "GETAFE - ALHONDIGA SECTOR III 2 (HA)",
 "localidad": "Madrid",
 "rffm": [
-40.313722,
--3.741321
+40.364756,
+-3.742898
 ],
 "dir_consultada": "CTRA. DE LEGANES S/N|Madrid",
+"direccion_nombre": "Carretera de Leganés, Buenavista, Carabanchel, Madrid, Comunidad de Madrid, 28054, España",
 "direccion_gps": [
 40.364756,
 -3.742898
 ],
-"dist_rffm_direccion_km": 5.68,
-"aviso": "Coordenadas de la RFFM a 5.7 km de la dirección: corregido",
+"dist_rffm_direccion_km": 0.0,
 "entrada": {
 "barrier": "gate"
 },
@@ -85,7 +87,7 @@
 -3.740896
 ],
 "tipo": "entrada",
-"corregido": true
+"corregido": false
 },
 "205": {
 "nombre": "EL PARDO - MINGORRUBIO (HA)",
@@ -95,17 +97,20 @@
 -3.784518
 ],
 "dir_consultada": "CARRETERA COLMENAR VIEJO S/N|Madrid",
+"direccion_nombre": "Carretera Colmenar Viejo, El Pardo, Fuencarral-El Pardo, Madrid, Comunidad de Madrid, 28048, España",
 "direccion_gps": [
 40.518514,
 -3.773552
 ],
 "dist_rffm_direccion_km": 2.11,
-"aviso": "Coordenadas de la RFFM a 2.1 km de la dirección (sin confirmar)",
+"aviso": "La dirección queda a 2.1 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
+"instalacion": "pitch",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.535592,
--3.784518
+40.535095,
+-3.785233
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1224": {
@@ -116,6 +121,7 @@
 -3.861633
 ],
 "dir_consultada": "CALLE CERRO DEL ESPINO S/N|Majadahonda",
+"direccion_nombre": "Calle Cerro del Espino, Majadahonda, Comunidad de Madrid, 28221, España",
 "direccion_gps": [
 40.460643,
 -3.862788
@@ -150,6 +156,7 @@
 -3.891217
 ],
 "dir_consultada": "CALLE COMUNIDAD DE ANDALUCÍA 53|Las Rozas De Madrid",
+"direccion_nombre": "53, Calle Comunidad de Andalucía, Las Rozas de Madrid, Comunidad de Madrid, 28231, España",
 "direccion_gps": [
 40.489479,
 -3.891201
@@ -172,6 +179,7 @@
 -3.746321
 ],
 "dir_consultada": "CALLE MONSEÑOR ÓSCAR ROMERO 41|Madrid",
+"direccion_nombre": "Centro Deportivo Municipal Blanca Fernández Ochoa (La Mina), 41, Calle de Monseñor Óscar Romero, Vista Alegre, Carabanchel, Madrid, Comunidad de Madrid, 28025, España",
 "direccion_gps": [
 40.381464,
 -3.746696
@@ -216,6 +224,7 @@
 -3.779723
 ],
 "dir_consultada": "GLORIETA RIO ZANCARA 1|Madrid",
+"direccion_nombre": "Glorieta del Río Záncara, Aravaca, Moncloa-Aravaca, Madrid, Comunidad de Madrid, 28023, España",
 "direccion_gps": [
 40.452619,
 -3.779051
@@ -243,6 +252,7 @@
 -3.76279
 ],
 "dir_consultada": "CALLE ARQUITECTURA 4|Leganés",
+"direccion_nombre": "Calle Arquitectura, Batallas, San Nicasio, Leganés, Comunidad de Madrid, 28913, España",
 "direccion_gps": [
 40.339599,
 -3.762738
@@ -261,16 +271,16 @@
 "nombre": "COLEGIO ALAMEDA DE OSUNA (HA)",
 "localidad": "Madrid",
 "rffm": [
-40.455293,
--3.59453
+40.334139,
+-3.755152
 ],
 "dir_consultada": "CALLE DE LA RIOJA 1|Madrid",
+"direccion_nombre": "1, Calle de La Rioja, Los Santos, Zarzaquemada, Leganés, Comunidad de Madrid, 28915, España",
 "direccion_gps": [
 40.334139,
 -3.755152
 ],
-"dist_rffm_direccion_km": 19.14,
-"aviso": "Coordenadas de la RFFM a 19.1 km de la dirección: corregido",
+"dist_rffm_direccion_km": 0.0,
 "instalacion": "pitch",
 "dist_instalacion_km": 0.35,
 "navegacion": [
@@ -278,7 +288,7 @@
 -3.75195
 ],
 "tipo": "instalacion",
-"corregido": true
+"corregido": false
 },
 "1430": {
 "nombre": "GETAFE - JUAN DE LA CIERVA 2 (HA)",
@@ -288,6 +298,7 @@
 -3.715231
 ],
 "dir_consultada": "AVDA. JUAN DE BORBON S/N|Getafe",
+"direccion_nombre": "Avenida Juan de Borbón, El Casar, Getafe Norte, Getafe, Comunidad de Madrid, 28903, España",
 "direccion_gps": [
 40.313558,
 -3.711639
@@ -310,6 +321,7 @@
 -3.697747
 ],
 "dir_consultada": "Calle de Moreja 11|Madrid",
+"direccion_nombre": "Centro Deportivo Municipal Orcasur, 11, Calle de Moreja, Orcasur, Usera, Madrid, Comunidad de Madrid, 28041, España",
 "direccion_gps": [
 40.368185,
 -3.697334
@@ -332,6 +344,7 @@
 -3.57545
 ],
 "dir_consultada": "CALLE DEL PUERTO DE BILBAO 1|Coslada",
+"direccion_nombre": "Campos de Fútbol Barrio del Puerto, 1, Calle del Puerto de Bilbao, Coslada, Comunidad de Madrid, 28821, España",
 "direccion_gps": [
 40.416206,
 -3.576454
@@ -372,6 +385,7 @@
 -3.713545
 ],
 "dir_consultada": "CALLE BECERREÁ 4|Madrid",
+"direccion_nombre": "Calle de Becerrea, Pilar, Fuencarral-El Pardo, Madrid, Comunidad de Madrid, 28029, España",
 "direccion_gps": [
 40.471461,
 -3.712729
@@ -397,6 +411,7 @@
 -3.658927
 ],
 "dir_consultada": "CALLE RAMIREZ DE ARELLANO, 30|Madrid",
+"direccion_nombre": "Calle Ramírez de Arellano, San Juan Bautista, Ciudad Lineal, Madrid, Comunidad de Madrid, 28027, España",
 "direccion_gps": [
 40.448741,
 -3.655415
@@ -433,16 +448,16 @@
 "nombre": "ALCORCON - COLEGIO JUAN PABLO II",
 "localidad": "Alcorcón",
 "rffm": [
-40.357003,
--3.855351
+40.330381,
+-3.821777
 ],
 "dir_consultada": "DEMOCRACIA S/N|Alcorcón",
+"direccion_nombre": "Calle Democracia, Los Palomares, Suroeste, Alcorcón, Comunidad de Madrid, 28922, España",
 "direccion_gps": [
 40.330381,
 -3.821777
 ],
-"dist_rffm_direccion_km": 4.11,
-"aviso": "Coordenadas de la RFFM a 4.1 km de la dirección: corregido",
+"dist_rffm_direccion_km": 0.0,
 "instalacion": "sports_centre",
 "dist_instalacion_km": 0.27,
 "navegacion": [
@@ -450,22 +465,22 @@
 -3.823765
 ],
 "tipo": "instalacion",
-"corregido": true
+"corregido": false
 },
 "13397939": {
 "nombre": "FUENLABRADA-LA ALDEHUELA 3( HA)",
 "localidad": "Fuenlabrada",
 "rffm": [
-40.305344,
--3.839784
+40.281214,
+-3.789733
 ],
 "dir_consultada": "CALLE DE LA FUENTE S/N|Fuenlabrada",
+"direccion_nombre": "Calle de la Fuente, El Pinar, Centro - El Arroyo - La Fuente, Fuenlabrada, Comunidad de Madrid, 28944, España",
 "direccion_gps": [
 40.281214,
 -3.789733
 ],
-"dist_rffm_direccion_km": 5.02,
-"aviso": "Coordenadas de la RFFM a 5.0 km de la dirección: corregido",
+"dist_rffm_direccion_km": 0.0,
 "instalacion": "Parque Residencial Fuenlabrada II",
 "dist_instalacion_km": 0.35,
 "navegacion": [
@@ -473,7 +488,7 @@
 -3.787994
 ],
 "tipo": "instalacion",
-"corregido": true
+"corregido": false
 },
 "1609": {
 "nombre": "VALDILECHA (HA)",
@@ -499,6 +514,7 @@
 -3.984208
 ],
 "dir_consultada": "CALLE DE SOLOS PRADOS S/N|Becerril De La Sierra",
+"direccion_nombre": "Calle de Solos Prados, Becerril de la Sierra, Comunidad de Madrid, 28490, España",
 "direccion_gps": [
 40.710906,
 -3.985317
@@ -537,6 +553,7 @@
 -3.611926
 ],
 "dir_consultada": "AVDA. DE CANILLEJAS A VICALVARO 82|Madrid",
+"direccion_nombre": "Equipo de Orientación Educativa y Psicopedagógica Específico Deficiencias Motoricas, 82, Avenida de Canillejas a Vicálvaro, Arcos, San Blas - Canillejas, Madrid, Comunidad de Madrid, 28022, España",
 "direccion_gps": [
 40.424679,
 -3.613007
@@ -559,6 +576,7 @@
 -4.097392
 ],
 "dir_consultada": "PASEO DE CASTILLA 1|Villanueva De Perales",
+"direccion_nombre": "1, Paseo de Castilla, Urbanización Valdetablas, Villanueva de Perales, Comunidad de Madrid, 28609, España",
 "direccion_gps": [
 40.34751,
 -4.097313
@@ -602,6 +620,7 @@
 -3.797696
 ],
 "dir_consultada": "CALLE DEL HIGUERAL S/N|Fuenlabrada",
+"direccion_nombre": "Calle del Higueral, El Arroyo, Centro - El Arroyo - La Fuente, Fuenlabrada, Comunidad de Madrid, 28944, España",
 "direccion_gps": [
 40.276333,
 -3.798088
@@ -627,12 +646,13 @@
 -4.203004
 ],
 "dir_consultada": "CARRETERA DE CHAPINERÍA S/N|Aldea Del Fresno",
+"direccion_nombre": "Carretera de Collado Villalba a Aldea del Fresno, Sexmo de Casarrubios, Comunidad de Ciudad y Tierra de Segovia, Aldea del Fresno, Comunidad de Madrid, 28620, España",
 "direccion_gps": [
 40.340592,
 -4.207786
 ],
 "dist_rffm_direccion_km": 1.69,
-"aviso": "Coordenadas de la RFFM a 1.7 km de la dirección (sin confirmar)",
+"aviso": "La dirección queda a 1.7 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
 "instalacion": "Campo de Fútbol Municipal Los Fresnos",
 "dist_instalacion_km": 0.29,
 "navegacion": [
@@ -668,6 +688,7 @@
 -4.012098
 ],
 "dir_consultada": "CTRA. DE VILLANUEVA DEL PARDILLO S/N|Colmenarejo",
+"direccion_nombre": "Carretera de Villanueva del Pardillo, Colmenarejo, Comunidad de Madrid, 28270, España",
 "direccion_gps": [
 40.552294,
 -4.011744
@@ -693,6 +714,7 @@
 -3.359422
 ],
 "dir_consultada": "CALLE DE LAS PALMERAS S/N|Torres De La Alameda",
+"direccion_nombre": "Calle de las Palmeras, Torres de la Alameda, Comunidad de Madrid, 28813, España",
 "direccion_gps": [
 40.396834,
 -3.359223
@@ -737,11 +759,16 @@
 ],
 "dir_consultada": "CALLE DE FCO. LARGO CABALLERO 2|Alcobendas",
 "sin_geocodificar": true,
+"entrada": {
+"entrance": "yes"
+},
+"instalacion": "pitch",
+"dist_instalacion_km": 0.01,
 "navegacion": [
-40.552895,
--3.647783
+40.553433,
+-3.648335
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "603": {
@@ -752,6 +779,7 @@
 -3.634328
 ],
 "dir_consultada": "CALLE DEL TRANVÍA DE ARGANDA 4|Madrid",
+"direccion_nombre": "4, Calle del Tranvía de Arganda, Palomeras Sureste, Puente de Vallecas, Madrid, Comunidad de Madrid, 28031, España",
 "direccion_gps": [
 40.382728,
 -3.633565
@@ -776,16 +804,16 @@
 "nombre": "RIVAS - CERRO TELÉGRAFO (HA)",
 "localidad": "Rivas-Vaciamadrid",
 "rffm": [
-40.379486,
--3.533474
+40.360489,
+-3.542587
 ],
 "dir_consultada": "AVDA. DE LOS ALMENDROS 2|Rivas-Vaciamadrid",
+"direccion_nombre": "2, Avenida de los Almendros, Los Olmos, Santa Mónica, Rivas Centro, Rivas-Vaciamadrid, Comunidad de Madrid, 28522, España",
 "direccion_gps": [
 40.360489,
 -3.542587
 ],
-"dist_rffm_direccion_km": 2.25,
-"aviso": "Coordenadas de la RFFM a 2.2 km de la dirección: corregido",
+"dist_rffm_direccion_km": 0.0,
 "entrada": {
 "entrance": "yes"
 },
@@ -796,7 +824,7 @@
 -3.54325
 ],
 "tipo": "entrada",
-"corregido": true
+"corregido": false
 },
 "1207": {
 "nombre": "POZUELO - VALLE DE LAS CAÑAS 1 (HA)",
@@ -830,6 +858,7 @@
 -3.526094
 ],
 "dir_consultada": "PASEO DE LOS PINOS S/N|San Fernando De Henares",
+"direccion_nombre": "Paseo de los Pinos, San Fernando de Henares, Comunidad de Madrid, España",
 "direccion_gps": [
 40.431388,
 -3.52451
@@ -855,6 +884,7 @@
 -3.77885
 ],
 "dir_consultada": "CALLE DARIO GAZAPO 17|Madrid",
+"direccion_nombre": "Calle de Darío Gazapo, Campamento, Latina, Madrid, Comunidad de Madrid, 28024, España",
 "direccion_gps": [
 40.390923,
 -3.779309
@@ -878,11 +908,13 @@
 ],
 "dir_consultada": "CAMINO DEL FRESNO S/N|Valdeolmos-Alalpardo",
 "sin_geocodificar": true,
+"instalacion": "Polideportivo J. A. Corbalán",
+"dist_instalacion_km": 0.34,
 "navegacion": [
-40.626141,
--3.475603
+40.626843,
+-3.471684
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "808": {
@@ -893,6 +925,7 @@
 -3.63009
 ],
 "dir_consultada": "CALLE DE EL PROVENCIO S/N|Madrid",
+"direccion_nombre": "Calle de El Provencio, Canillas, Hortaleza, Madrid, Comunidad de Madrid, 20043, España",
 "direccion_gps": [
 40.46488,
 -3.627923
@@ -935,16 +968,16 @@
 "nombre": "PVO. LAS CRUCES (HA)",
 "localidad": "Madrid",
 "rffm": [
-40.378863,
--3.756682
-],
-"dir_consultada": "AVENIDA DE LOS POBLADOS 72|Madrid",
-"direccion_gps": [
 40.373702,
 -3.714097
 ],
-"dist_rffm_direccion_km": 3.65,
-"aviso": "Coordenadas de la RFFM a 3.7 km de la dirección: corregido",
+"dir_consultada": "AVENIDA DE LOS POBLADOS 72|Madrid",
+"direccion_nombre": "Avenida de los Poblados, Orcasitas, Usera, Madrid, Comunidad de Madrid, 28041, España",
+"direccion_gps": [
+40.373801,
+-3.718471
+],
+"dist_rffm_direccion_km": 0.37,
 "instalacion": "Centro Deportivo Municipal Orcasitas",
 "dist_instalacion_km": 0.24,
 "navegacion": [
@@ -952,7 +985,7 @@
 -3.715168
 ],
 "tipo": "instalacion",
-"corregido": true
+"corregido": false
 },
 "1116": {
 "nombre": "SOTO DEL REAL - MPAL. AMANCIO AMARO (HA)",
@@ -962,16 +995,23 @@
 -3.785143
 ],
 "dir_consultada": "CALLE EGIDILLO 37|Soto Del Real",
+"direccion_nombre": "Soto del Real Rugby Club, 37, Calle Egidillo, Soto del Real, Comunidad de Madrid, 28791, España",
 "direccion_gps": [
 40.747414,
 -3.785166
 ],
 "dist_rffm_direccion_km": 0.02,
+"entrada": {
+"access": "yes",
+"entrance": "main"
+},
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.01,
 "navegacion": [
-40.747569,
--3.785143
+40.747046,
+-3.785178
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1141": {
@@ -983,11 +1023,13 @@
 ],
 "dir_consultada": "AVDA. MATAPIÑONERA S/N|San Sebastián De Los Reyes",
 "sin_geocodificar": true,
+"instalacion": "stadium",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.544846,
--3.617188
+40.545115,
+-3.616621
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1611": {
@@ -998,6 +1040,7 @@
 -3.246021
 ],
 "dir_consultada": "CALLE FÁBRICA 3|Nuevo Baztán",
+"direccion_nombre": "Calle de la Fábrica, Eurovillas-Las Villas, Nuevo Baztán, Comunidad de Madrid, 28514, España",
 "direccion_gps": [
 40.364561,
 -3.245313
@@ -1020,16 +1063,19 @@
 -3.641065
 ],
 "dir_consultada": "CALLE DE MANUEL DE FALLA 54|Alcobendas",
+"direccion_nombre": "Instituto de Educación Secundaria Ágora, 54, Calle de Manuel de Falla, Valdelasfuentes, Alcobendas, Comunidad de Madrid, 28100, España",
 "direccion_gps": [
 40.552483,
 -3.641091
 ],
 "dist_rffm_direccion_km": 0.04,
+"instalacion": "Campo de fútbol Óscar Molina",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.552869,
--3.641065
+40.552151,
+-3.641922
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "802": {
@@ -1040,6 +1086,7 @@
 -3.643137
 ],
 "dir_consultada": "CALLE DE ANDORRA 28|Madrid",
+"direccion_nombre": "Calle de Andorra, Canillas, Hortaleza, Madrid, Comunidad de Madrid, 28043, España",
 "direccion_gps": [
 40.458964,
 -3.645244
@@ -1062,6 +1109,7 @@
 -3.72695
 ],
 "dir_consultada": "CALLE MIRADOR DE LA REINA 2|Madrid",
+"direccion_nombre": "Calle del Mirador de la Reina, Mirasierra, Fuencarral-El Pardo, Madrid, Comunidad de Madrid, 28035, España",
 "direccion_gps": [
 40.488853,
 -3.725382
@@ -1084,11 +1132,12 @@
 -3.913314
 ],
 "dir_consultada": "CALLE MADRID 46|Arroyomolinos",
+"direccion_nombre": "Calle de Madrid, Arroyomolinos, Comunidad de Madrid, 28939, España",
 "direccion_gps": [
-40.2697,
--3.922567
+40.275948,
+-3.908105
 ],
-"dist_rffm_direccion_km": 0.87,
+"dist_rffm_direccion_km": 0.54,
 "instalacion": "Ciudad Deportiva La Dehesa",
 "dist_instalacion_km": 0.09,
 "navegacion": [
@@ -1106,11 +1155,12 @@
 -3.844003
 ],
 "dir_consultada": "AVDA. DE ESTEBAN MARQUEZ, S/N|Alcorcón",
+"direccion_nombre": "Avenida de Esteban Márquez, Prado de Santo Domingo, Suroeste, Alcorcón, Comunidad de Madrid, 28922, España",
 "direccion_gps": [
-40.340492,
--3.841158
+40.3392,
+-3.842233
 ],
-"dist_rffm_direccion_km": 0.42,
+"dist_rffm_direccion_km": 0.25,
 "entrada": {
 "entrance": "yes"
 },
@@ -1131,16 +1181,19 @@
 -3.626749
 ],
 "dir_consultada": "AVENIDA DE LA DEHESA S/N|San Sebastián De Los Reyes",
+"direccion_nombre": "Avenida de la Dehesa, Dehesa Vieja, Los Tempranales, San Sebastián de los Reyes, Comunidad de Madrid, 28702, España",
 "direccion_gps": [
-40.565882,
--3.626961
+40.563119,
+-3.622262
 ],
-"dist_rffm_direccion_km": 0.04,
+"dist_rffm_direccion_km": 0.51,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.56619,
--3.626749
+40.566861,
+-3.627209
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "709": {
@@ -1151,6 +1204,7 @@
 -3.619244
 ],
 "dir_consultada": "AVDA. DE GUADALAJARA 16|Madrid",
+"direccion_nombre": "Avenida de Guadalajara, Arcos, San Blas - Canillejas, Madrid, Comunidad de Madrid, 28032, España",
 "direccion_gps": [
 40.420057,
 -3.618696
@@ -1173,16 +1227,22 @@
 -3.622151
 ],
 "dir_consultada": "AVDA. DE LA TRANSICIÓN ESPAÑOLA 7|Alcobendas",
+"direccion_nombre": "Avenida de la Transición Española, La Moraleja, Alcobendas, Comunidad de Madrid, 28703, España",
 "direccion_gps": [
-40.535358,
--3.621708
+40.533582,
+-3.619123
 ],
-"dist_rffm_direccion_km": 0.07,
+"dist_rffm_direccion_km": 0.36,
+"entrada": {
+"entrance": "main"
+},
+"instalacion": "Polideportivo Municipal José Caballero",
+"dist_instalacion_km": 0.24,
 "navegacion": [
-40.535836,
--3.622151
+40.535953,
+-3.622032
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1702": {
@@ -1229,6 +1289,7 @@
 -3.659015
 ],
 "dir_consultada": "CALLE TIJOLA S/N|Madrid",
+"direccion_nombre": "Calle Tijola, Apóstol Santiago, Hortaleza, Madrid, Comunidad de Madrid, 28033, España",
 "direccion_gps": [
 40.480862,
 -3.65915
@@ -1287,16 +1348,19 @@
 -3.511757
 ],
 "dir_consultada": "CAMINO DEL CUBILLO 2|Talamanca De Jarama",
+"direccion_nombre": "Camino del Cubillo, La Moraleja, Talamanca de Jarama, Comunidad de Madrid, 28160, España",
 "direccion_gps": [
 40.756561,
 -3.504426
 ],
 "dist_rffm_direccion_km": 1.17,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.33,
 "navegacion": [
-40.747589,
--3.511757
+40.747671,
+-3.515629
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1733": {
@@ -1307,17 +1371,20 @@
 -3.507407
 ],
 "dir_consultada": "CALLE COBRE S/N - M 103|Cobeña",
+"direccion_nombre": "Calle del Cobre, Polígono Industrial Campo Nuevo, Cobeña, Comunidad de Madrid, 28863, España",
 "direccion_gps": [
 40.561266,
 -3.49927
 ],
 "dist_rffm_direccion_km": 2.3,
-"aviso": "Coordenadas de la RFFM a 2.3 km de la dirección (sin confirmar)",
+"aviso": "La dirección queda a 2.3 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
+"instalacion": "Polideportivo Municipal La Dehesa",
+"dist_instalacion_km": 0.15,
 "navegacion": [
-40.581002,
--3.507407
+40.580719,
+-3.505657
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1123": {
@@ -1328,9 +1395,10 @@
 -3.522101
 ],
 "dir_consultada": "AVENIDA DE LOS DEPORTES S/N|Paracuellos De Jarama",
+"direccion_nombre": "Avenida de los Deportes, Paracuellos de Jarama, Comunidad de Madrid, 28860, España",
 "direccion_gps": [
-40.503928,
--3.521654
+40.503942,
+-3.521574
 ],
 "dist_rffm_direccion_km": 0.26,
 "instalacion": "pitch",
@@ -1368,6 +1436,7 @@
 -3.808866
 ],
 "dir_consultada": "PASEO RIAZOR S/N|Fuenlabrada",
+"direccion_nombre": "Paseo de Riazor, El Naranjo, El Naranjo - La Serna, Fuenlabrada, Comunidad de Madrid, 28941, España",
 "direccion_gps": [
 40.301478,
 -3.810868
@@ -1389,16 +1458,16 @@
 "nombre": "BARRIO GOYA (HA)",
 "localidad": "Madrid",
 "rffm": [
-40.404837,
--3.731351
+40.260818,
+-3.699353
 ],
 "dir_consultada": "CALLE DE PABLO SARASATE 1|Madrid",
+"direccion_nombre": "1, Calle de Pablo Sarasate, La Tenería II, Pinto, Comunidad de Madrid, 28320, España",
 "direccion_gps": [
 40.260818,
 -3.699353
 ],
-"dist_rffm_direccion_km": 16.24,
-"aviso": "Coordenadas de la RFFM a 16.2 km de la dirección: corregido",
+"dist_rffm_direccion_km": 0.0,
 "instalacion": "pitch",
 "dist_instalacion_km": 0.33,
 "navegacion": [
@@ -1406,7 +1475,7 @@
 -3.697315
 ],
 "tipo": "instalacion",
-"corregido": true
+"corregido": false
 },
 "9562383": {
 "nombre": "S.S. REYES - R.A.C.E. (HA)",
@@ -1450,11 +1519,12 @@
 -3.612401
 ],
 "dir_consultada": "CALLE DEL RAYO VALLECANO DE MADRID 2|Madrid",
+"direccion_nombre": "Calle del Rayo Vallecano de Madrid, Ensanche de Vallecas, Villa de Vallecas, Madrid, Comunidad de Madrid, 28031, España",
 "direccion_gps": [
-40.377486,
--3.610768
+40.375193,
+-3.612704
 ],
-"dist_rffm_direccion_km": 0.15,
+"dist_rffm_direccion_km": 0.2,
 "instalacion": "Ciudad Deportiva del Rayo Vallecano",
 "dist_instalacion_km": 0.05,
 "navegacion": [
@@ -1472,6 +1542,7 @@
 -3.429
 ],
 "dir_consultada": "CALLE MAR CANTÁBRICO 21 B|Arganda Del Rey",
+"direccion_nombre": "Calle Mar Cantábrico, Arganda del Rey, Comunidad de Madrid, 28500, España",
 "direccion_gps": [
 40.29308,
 -3.430172
@@ -1494,12 +1565,13 @@
 -3.982931
 ],
 "dir_consultada": "AVDA. UNIVERSIDAD 1|Villanueva De La Cañada",
+"direccion_nombre": "Al Plato María, 1, Avenida de los Castillos, Sexmo de Casarrubios, Villafranca del Castillo - la Mocha Chica, Comunidad de Ciudad y Tierra de Segovia, Villanueva del Pardillo, Comunidad de Madrid, 28692, España",
 "direccion_gps": [
 40.483052,
 -3.937459
 ],
 "dist_rffm_direccion_km": 4.92,
-"aviso": "Coordenadas de la RFFM a 4.9 km de la dirección (sin confirmar)",
+"aviso": "La dirección queda a 4.9 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
 "instalacion": "stadium",
 "dist_instalacion_km": 0.18,
 "navegacion": [
@@ -1553,6 +1625,7 @@
 -3.693313
 ],
 "dir_consultada": "CALLE SEVILLA S/N|Pinto",
+"direccion_nombre": "Calle de Sevilla, Parque Europa, Pinto, Comunidad de Madrid, 28320, España",
 "direccion_gps": [
 40.24242,
 -3.692934
@@ -1575,11 +1648,12 @@
 -3.663828
 ],
 "dir_consultada": "PASEO DEL PRADO S/N|Valdemoro",
+"direccion_nombre": "Paseo del Prado, El Caracol, Valdemoro, Comunidad de Madrid, 28343, España",
 "direccion_gps": [
-40.191613,
--3.662385
+40.191811,
+-3.664319
 ],
-"dist_rffm_direccion_km": 0.12,
+"dist_rffm_direccion_km": 0.04,
 "instalacion": "pitch",
 "dist_instalacion_km": 0.22,
 "navegacion": [
@@ -1597,11 +1671,12 @@
 -3.830172
 ],
 "dir_consultada": "AVDA. DE NUEVO VERSALLES 1|Fuenlabrada",
+"direccion_nombre": "Avenida de Nuevo Versalles, Nuevo Versalles, Loranca, Loranca - Nuevo Versalles - Parque Miraflores, Fuenlabrada, Comunidad de Madrid, 28942, España",
 "direccion_gps": [
-40.300225,
--3.82927
+40.293216,
+-3.831314
 ],
-"dist_rffm_direccion_km": 0.15,
+"dist_rffm_direccion_km": 0.66,
 "entrada": {
 "entrance": "yes"
 },
@@ -1622,6 +1697,7 @@
 -3.619801
 ],
 "dir_consultada": "CALLE JUAN DE HERRERA 1|Aranjuez",
+"direccion_nombre": "Calle Juan de Herrera, Urbanización los Jardines del Deleite, Vergel, Aranjuez, Comunidad de Madrid, 28300, España",
 "direccion_gps": [
 40.02609,
 -3.619409
@@ -1644,6 +1720,7 @@
 -3.889595
 ],
 "dir_consultada": "AVDA. NTRA. SRA. DEL RETAMAR 16|Las Rozas De Madrid",
+"direccion_nombre": "Inball padel, 16, Avenida Nuestra Señora del Retamar, La Puentecilla y Los Majuelos, Las Rozas de Madrid, Comunidad de Madrid, 28232, España",
 "direccion_gps": [
 40.506014,
 -3.888515
@@ -1666,6 +1743,7 @@
 -3.723952
 ],
 "dir_consultada": "VIA LUSITANA 5|Madrid",
+"direccion_nombre": "Vía Lusitana, Abrantes, Carabanchel, Madrid, Comunidad de Madrid, 28025, España",
 "direccion_gps": [
 40.383374,
 -3.721521
@@ -1688,11 +1766,12 @@
 -3.513959
 ],
 "dir_consultada": "AVDA. DE FRANCIA S/N|Rivas-Vaciamadrid",
+"direccion_nombre": "Avenida de Francia, Residencial Lagos de Rivas, Casco antiguo, Rivas Este, Rivas-Vaciamadrid, Comunidad de Madrid, 28521, España",
 "direccion_gps": [
-40.32955,
--3.514645
+40.328739,
+-3.517027
 ],
-"dist_rffm_direccion_km": 0.06,
+"dist_rffm_direccion_km": 0.28,
 "instalacion": "pitch",
 "dist_instalacion_km": 0.22,
 "navegacion": [
@@ -1710,11 +1789,12 @@
 -3.819047
 ],
 "dir_consultada": "CALLE VALDEHONDILLO, S/N.|Humanes De Madrid",
+"direccion_nombre": "Calle Valdehondillo, Humanes de Madrid, Comunidad de Madrid, 28970, España",
 "direccion_gps": [
-40.255678,
--3.819807
+40.256666,
+-3.818901
 ],
-"dist_rffm_direccion_km": 0.14,
+"dist_rffm_direccion_km": 0.02,
 "instalacion": "Pabellón Deportivo Campohermoso",
 "dist_instalacion_km": 0.04,
 "navegacion": [
@@ -1732,12 +1812,13 @@
 -3.673897
 ],
 "dir_consultada": "RONDA DEL SUR 4|Madrid",
+"direccion_nombre": "Ronda del Sur, Arganda del Rey, Comunidad de Madrid, 28500, España",
 "direccion_gps": [
 40.296547,
 -3.45892
 ],
 "dist_rffm_direccion_km": 20.33,
-"aviso": "Coordenadas de la RFFM a 20.3 km de la dirección (sin confirmar)",
+"aviso": "La dirección queda a 20.3 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
 "instalacion": "stadium",
 "dist_instalacion_km": 0.0,
 "navegacion": [
@@ -1755,6 +1836,7 @@
 -3.88309
 ],
 "dir_consultada": "AVDA. DE IKER CASILLAS S/N|Móstoles",
+"direccion_nombre": "Avenida de Iker Casillas, Móstoles, Comunidad de Madrid, 28935, España",
 "direccion_gps": [
 40.325694,
 -3.883368
@@ -1798,6 +1880,7 @@
 -3.393485
 ],
 "dir_consultada": "CALLE DE MADRID 30|Colmenar De Oreja",
+"direccion_nombre": "30, Calle de Madrid, San Juan, Colmenar de Oreja, Comunidad de Madrid, 28380, España",
 "direccion_gps": [
 40.114539,
 -3.392537
@@ -1821,11 +1904,13 @@
 ],
 "dir_consultada": "LAGO GRANDE esq. TRAVESIA SAN ISIDRO|Navalafuente",
 "sin_geocodificar": true,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.07,
 "navegacion": [
-40.815228,
--3.675035
+40.814793,
+-3.674478
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1739": {
@@ -1893,11 +1978,12 @@
 -3.653967
 ],
 "dir_consultada": "CALLE SIERRA DE GREDOS 1|Getafe",
+"direccion_nombre": "Calle Sierra de Gredos, Perales del Río, Getafe, Comunidad de Madrid, 28909, España",
 "direccion_gps": [
-40.324428,
--3.652217
+40.32483,
+-3.654088
 ],
-"dist_rffm_direccion_km": 0.19,
+"dist_rffm_direccion_km": 0.08,
 "instalacion": "sports_centre",
 "dist_instalacion_km": 0.01,
 "navegacion": [
@@ -1916,11 +2002,13 @@
 ],
 "dir_consultada": "CAMINO VEREDA DE LA LOBERA S/N|Algete",
 "sin_geocodificar": true,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.598164,
--3.510341
+40.599323,
+-3.511127
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "980997": {
@@ -1931,6 +2019,7 @@
 -4.025933
 ],
 "dir_consultada": "CALLE SANTA EMILIA 76|Guadarrama",
+"direccion_nombre": "Calle Santa Emilia, Los Negrales, Guadarrama, Comunidad de Madrid, 28439, España",
 "direccion_gps": [
 40.631179,
 -4.029607
@@ -1953,6 +2042,7 @@
 -3.717364
 ],
 "dir_consultada": "PASEO IMPERIAL 20|Madrid",
+"direccion_nombre": "Centro Deportivo Municipal Marqués de Samaranch, 20, Paseo Imperial, Imperial, Arganzuela, Madrid, Comunidad de Madrid, 28005, España",
 "direccion_gps": [
 40.407097,
 -3.718024
@@ -1975,12 +2065,13 @@
 -3.674149
 ],
 "dir_consultada": "CALLE DE LOS REYES MAGOS 3|Madrid",
+"direccion_nombre": "Calle de los Reyes Magos, Navas del Rey, Comunidad de Madrid, 28695, España",
 "direccion_gps": [
 40.384517,
 -4.255207
 ],
 "dist_rffm_direccion_km": 49.3,
-"aviso": "Coordenadas de la RFFM a 49.3 km de la dirección (sin confirmar)",
+"aviso": "La dirección queda a 49.3 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
 "instalacion": "pitch",
 "dist_instalacion_km": 0.1,
 "navegacion": [
@@ -1998,11 +2089,12 @@
 -3.760004
 ],
 "dir_consultada": "AVDA. DE AMÉRICA S/N|Parla",
+"direccion_nombre": "Avenida de América, Las Américas, Parla, Comunidad de Madrid, 28983, España",
 "direccion_gps": [
-40.22809,
--3.764065
+40.228158,
+-3.764095
 ],
-"dist_rffm_direccion_km": 0.7,
+"dist_rffm_direccion_km": 0.69,
 "instalacion": "Complejo Polideportivo Las Américas",
 "dist_instalacion_km": 0.1,
 "navegacion": [
@@ -2020,6 +2112,7 @@
 -3.728841
 ],
 "dir_consultada": "VIA LUSITANA 19|Madrid",
+"direccion_nombre": "Instalación Deportiva Municipal Básica Via Lusitana, 19, Vía Lusitana, Abrantes, Carabanchel, Madrid, Comunidad de Madrid, 28025, España",
 "direccion_gps": [
 40.377018,
 -3.728306
@@ -2042,6 +2135,7 @@
 -3.648731
 ],
 "dir_consultada": "CALLE AGUSTÍN DE ITURBIDE 1|Madrid",
+"direccion_nombre": "Instalación Deportiva Municipal Canillas, 1, Calle de Agustín de Iturbide, Colonia de Orisa, Pinar del Rey, Hortaleza, Madrid, Comunidad de Madrid, 28043, España",
 "direccion_gps": [
 40.469704,
 -3.648376
@@ -2064,6 +2158,7 @@
 -3.896471
 ],
 "dir_consultada": "MENENDEZ PIDAL 16|Boadilla Del Monte",
+"direccion_nombre": "Calle Menéndez Pidal, Residencial Siglo XXI, Boadilla del Monte, Comunidad de Madrid, 28660, España",
 "direccion_gps": [
 40.410845,
 -3.895631
@@ -2086,11 +2181,12 @@
 -3.618059
 ],
 "dir_consultada": "CAMINO DE LA SUERTE S/N|Madrid",
+"direccion_nombre": "Camino de la Suerte, Casco Histórico de Vallecas, Villa de Vallecas, Madrid, Comunidad de Madrid, 28031, España",
 "direccion_gps": [
-40.375743,
--3.617781
+40.375485,
+-3.617942
 ],
-"dist_rffm_direccion_km": 0.03,
+"dist_rffm_direccion_km": 0.04,
 "instalacion": "Instalación deportiva Municipal Camino de la Suerte",
 "dist_instalacion_km": 0.11,
 "navegacion": [
@@ -2129,6 +2225,7 @@
 -3.77364
 ],
 "dir_consultada": "AVDA. DE LAS AGUILAS 14|Madrid",
+"direccion_nombre": "Campo de Fútbol Polideportivo Aluche, 14, Avenida de Las Águilas, Las Águilas, Latina, Madrid, Comunidad de Madrid, 28044, España",
 "direccion_gps": [
 40.38447,
 -3.76759
@@ -2156,11 +2253,13 @@
 ],
 "dir_consultada": "CALLE DEL ROMERAL 9|Fresno De Torote",
 "sin_geocodificar": true,
+"instalacion": "Campo de Fútbol \"David Molina\"",
+"dist_instalacion_km": 0.17,
 "navegacion": [
-40.621868,
--3.397366
+40.620374,
+-3.397746
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "12287019": {
@@ -2192,11 +2291,12 @@
 -3.612401
 ],
 "dir_consultada": "CALLE DEL RAYO VALLECANO DE MADRID 2|Madrid",
+"direccion_nombre": "Calle del Rayo Vallecano de Madrid, Ensanche de Vallecas, Villa de Vallecas, Madrid, Comunidad de Madrid, 28031, España",
 "direccion_gps": [
-40.377486,
--3.610768
+40.375193,
+-3.612704
 ],
-"dist_rffm_direccion_km": 0.15,
+"dist_rffm_direccion_km": 0.2,
 "instalacion": "Ciudad Deportiva del Rayo Vallecano",
 "dist_instalacion_km": 0.05,
 "navegacion": [
@@ -2232,11 +2332,12 @@
 -3.632365
 ],
 "dir_consultada": "CALLE VALDEBERNARDO 2|Madrid",
+"direccion_nombre": "2, Calle de la Raya, Valdebernardo, Vicálvaro, Madrid, Comunidad de Madrid, 28032, España",
 "direccion_gps": [
-40.40478,
--3.621945
+40.401238,
+-3.623455
 ],
-"dist_rffm_direccion_km": 1.13,
+"dist_rffm_direccion_km": 0.82,
 "entrada": {
 "entrance": "yes"
 },
@@ -2257,11 +2358,12 @@
 -3.726509
 ],
 "dir_consultada": "CALLE RAMÓN GOMEZ DE LA SERNA S/N|Madrid",
+"direccion_nombre": "Calle de Ramón Gómez de la Serna, Peñagrande, Fuencarral-El Pardo, Madrid, Comunidad de Madrid, 28035, España",
 "direccion_gps": [
-40.48246,
--3.722653
+40.480353,
+-3.723834
 ],
-"dist_rffm_direccion_km": 0.33,
+"dist_rffm_direccion_km": 0.28,
 "instalacion": "pitch",
 "dist_instalacion_km": 0.14,
 "navegacion": [
@@ -2279,16 +2381,19 @@
 -3.51754
 ],
 "dir_consultada": "CAMINO DE LA VEGA 1|Valdetorres De Jarama",
+"direccion_nombre": "Calle Camino de la Vega, Valdetorres de Jarama, Comunidad de Madrid, 28150, España",
 "direccion_gps": [
 40.695843,
 -3.518452
 ],
 "dist_rffm_direccion_km": 0.08,
+"instalacion": "Pabellón Municipal de Deportes \"Félix Martínez Rufo\"",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.695747,
--3.51754
+40.695432,
+-3.516928
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1325": {
@@ -2299,6 +2404,7 @@
 -4.051792
 ],
 "dir_consultada": "CALLE DEL PINAR 11|Quijorna",
+"direccion_nombre": "Calle del Pinar, Quijorna, Comunidad de Madrid, 28693, España",
 "direccion_gps": [
 40.426962,
 -4.052339
@@ -2357,6 +2463,7 @@
 -3.816162
 ],
 "dir_consultada": "AVDA. DE LOS DEPORTES 14|Humanes De Madrid",
+"direccion_nombre": "Avenida de los Deportes, Humanes de Madrid, Comunidad de Madrid, 28970, España",
 "direccion_gps": [
 40.247565,
 -3.820839
@@ -2379,6 +2486,7 @@
 -3.957304
 ],
 "dir_consultada": "CALLE CAÑADA 50|Moralzarzal",
+"direccion_nombre": "50, Calle Cañada, Moralzarzal, Comunidad de Madrid, 28411, España",
 "direccion_gps": [
 40.679674,
 -3.95842
@@ -2407,16 +2515,19 @@
 -3.634197
 ],
 "dir_consultada": "AVDA. DE ESPAÑA S/N|Alcobendas",
+"direccion_nombre": "Avenida de España, Valdelasfuentes, Alcobendas, Comunidad de Madrid, 28700, España",
 "direccion_gps": [
-40.547229,
--3.641047
+40.543441,
+-3.628166
 ],
-"dist_rffm_direccion_km": 0.6,
+"dist_rffm_direccion_km": 0.58,
+"instalacion": "La Viña",
+"dist_instalacion_km": 0.26,
 "navegacion": [
-40.545938,
--3.634197
+40.548237,
+-3.634346
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1128": {
@@ -2427,16 +2538,22 @@
 -3.707901
 ],
 "dir_consultada": "AVDA. DE LA LUZ S/N|Tres Cantos",
+"direccion_nombre": "Avenida de la Luz, Soto de Viñuelas, Tres Cantos, Comunidad de Madrid, 28760, España",
 "direccion_gps": [
 40.603898,
 -3.707107
 ],
 "dist_rffm_direccion_km": 0.11,
+"entrada": {
+"entrance": "yes"
+},
+"instalacion": "Polideportivo La Luz",
+"dist_instalacion_km": 0.32,
 "navegacion": [
-40.603126,
--3.707901
+40.605177,
+-3.705992
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "728029": {
@@ -2448,11 +2565,13 @@
 ],
 "dir_consultada": "CALLE DE LA FELICIDAD 27|Alcobendas",
 "sin_geocodificar": true,
+"instalacion": "Canchas de Fútbol de Fuente Lucha",
+"dist_instalacion_km": 0.03,
 "navegacion": [
-40.549834,
--3.659114
+40.54987,
+-3.658799
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1738": {
@@ -2463,6 +2582,7 @@
 -3.547582
 ],
 "dir_consultada": "CALLE CHILE 138|Coslada",
+"direccion_nombre": "138, Calle Chile, Coslada, Comunidad de Madrid, 28822, España",
 "direccion_gps": [
 40.422205,
 -3.54736
@@ -2485,16 +2605,19 @@
 -3.585982
 ],
 "dir_consultada": "TRAVESÍA DEHESA S/N|Vellón (El)",
+"direccion_nombre": "Travesía La Dehesa, El Campillo, El Vellón, Comunidad de Madrid, 28723, España",
 "direccion_gps": [
 40.769161,
 -3.586059
 ],
 "dist_rffm_direccion_km": 0.03,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.769442,
--3.585982
+40.769632,
+-3.586545
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2105": {
@@ -2505,16 +2628,19 @@
 -3.75948
 ],
 "dir_consultada": "AVDA. DE LA CONSTITUCIÓN 30|Miraflores De La Sierra",
+"direccion_nombre": "Avenida de la Constitución, Miraflores de la Sierra, Comunidad de Madrid, 28792, España",
 "direccion_gps": [
-40.812992,
--3.762759
+40.81151,
+-3.760274
 ],
-"dist_rffm_direccion_km": 0.38,
+"dist_rffm_direccion_km": 0.11,
+"instalacion": "Polideportivo Municipal de Miraflores de la Sierra",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.810691,
--3.75948
+40.809736,
+-3.75987
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2602": {
@@ -2525,11 +2651,12 @@
 -3.54259
 ],
 "dir_consultada": "AVENIDA DE LA TÉCNICA S/N|Rivas-Vaciamadrid",
+"direccion_nombre": "Avenida de la Técnica, Rivas Centro, Rivas-Vaciamadrid, Comunidad de Madrid, 28523, España",
 "direccion_gps": [
-40.352761,
--3.547547
+40.353771,
+-3.548666
 ],
-"dist_rffm_direccion_km": 0.75,
+"dist_rffm_direccion_km": 0.9,
 "navegacion": [
 40.347143,
 -3.54259
@@ -2545,6 +2672,7 @@
 -3.750517
 ],
 "dir_consultada": "CALLE DE LOS YEBENES 137|Madrid",
+"direccion_nombre": "137, Calle de los Yébenes, Aluche, Latina, Madrid, Comunidad de Madrid, 28047, España",
 "direccion_gps": [
 40.39389,
 -3.750525
@@ -2567,6 +2695,7 @@
 -3.920265
 ],
 "dir_consultada": "AVD. DE LA FONTANILLA Nº 1|Torrelodones",
+"direccion_nombre": "Avenida de la Fontanilla, Los Prados, Torrelodones, Comunidad de Madrid, 28250, España",
 "direccion_gps": [
 40.564822,
 -3.922376
@@ -2603,6 +2732,7 @@
 -3.752245
 ],
 "dir_consultada": "CALLE DE LA DUQUESA DE PARCENT 37|Madrid",
+"direccion_nombre": "Calle de la Duquesa de Parcent, Aluche, Latina, Madrid, Comunidad de Madrid, 28047, España",
 "direccion_gps": [
 40.395493,
 -3.74867
@@ -2625,6 +2755,7 @@
 -3.745423
 ],
 "dir_consultada": "AVDA. DE ALEMANIA 2|Leganés",
+"direccion_nombre": "Ciudad Deportiva Europa, 2, Avenida de Alemania, El Carrascal, Leganés, Comunidad de Madrid, 28916, España",
 "direccion_gps": [
 40.331373,
 -3.744064
@@ -2661,16 +2792,16 @@
 "nombre": "LOS CARMENES 1 (HA)",
 "localidad": "Madrid",
 "rffm": [
-40.396904,
--3.74369
+40.03276,
+-3.58473
 ],
 "dir_consultada": "CALLE ALHAMBRA 37|Madrid",
+"direccion_nombre": "37, Calle Alhambra de Granada, Urbanización Los Faisanes, El Pino, Valdelascasas, Aranjuez, Comunidad de Madrid, 28300, España",
 "direccion_gps": [
 40.03276,
 -3.58473
 ],
-"dist_rffm_direccion_km": 42.68,
-"aviso": "Coordenadas de la RFFM a 42.7 km de la dirección: corregido",
+"dist_rffm_direccion_km": 0.0,
 "instalacion": "sports_centre",
 "dist_instalacion_km": 0.09,
 "navegacion": [
@@ -2678,7 +2809,7 @@
 -3.585772
 ],
 "tipo": "instalacion",
-"corregido": true
+"corregido": false
 },
 "504": {
 "nombre": "CDM. ORCASITAS 1 (HA)",
@@ -2688,11 +2819,12 @@
 -3.712616
 ],
 "dir_consultada": "AVDA. RAFAELA YBARRA 52|Madrid",
+"direccion_nombre": "Rafaela Ybarra-Avenida de los Poblados, 52, Avenida de Rafaela Ybarra, Zofío, Usera, Madrid, Comunidad de Madrid, 28026, España",
 "direccion_gps": [
-40.376188,
--3.713598
+40.373838,
+-3.712422
 ],
-"dist_rffm_direccion_km": 0.1,
+"dist_rffm_direccion_km": 0.2,
 "instalacion": "Centro Deportivo Municipal Orcasitas",
 "dist_instalacion_km": 0.22,
 "navegacion": [
@@ -2710,11 +2842,12 @@
 -3.612401
 ],
 "dir_consultada": "CALLE DEL RAYO VALLECANO DE MADRID 2|Madrid",
+"direccion_nombre": "Calle del Rayo Vallecano de Madrid, Ensanche de Vallecas, Villa de Vallecas, Madrid, Comunidad de Madrid, 28031, España",
 "direccion_gps": [
-40.377486,
--3.610768
+40.375193,
+-3.612704
 ],
-"dist_rffm_direccion_km": 0.15,
+"dist_rffm_direccion_km": 0.2,
 "instalacion": "Ciudad Deportiva del Rayo Vallecano",
 "dist_instalacion_km": 0.05,
 "navegacion": [
@@ -2732,9 +2865,10 @@
 -3.522101
 ],
 "dir_consultada": "AVENIDA DE LOS DEPORTES S/N|Paracuellos De Jarama",
+"direccion_nombre": "Avenida de los Deportes, Paracuellos de Jarama, Comunidad de Madrid, 28860, España",
 "direccion_gps": [
-40.503928,
--3.521654
+40.503942,
+-3.521574
 ],
 "dist_rffm_direccion_km": 0.26,
 "instalacion": "pitch",
@@ -2754,6 +2888,7 @@
 -3.372746
 ],
 "dir_consultada": "CALLE PARÍS 24|Campo Real",
+"direccion_nombre": "Calle de París, Campo Real, Comunidad de Madrid, 28510, España",
 "direccion_gps": [
 40.34005,
 -3.372532
@@ -2776,11 +2911,12 @@
 -3.659851
 ],
 "dir_consultada": "AV. DE FRANCISCO PI Y MARGALL, 77|Madrid",
+"direccion_nombre": "Avenida de Francisco Pi y Margall, Valdefuentes, Hortaleza, Madrid, Comunidad de Madrid, 28050, España",
 "direccion_gps": [
-40.487834,
--3.65341
+40.486304,
+-3.649273
 ],
-"dist_rffm_direccion_km": 0.63,
+"dist_rffm_direccion_km": 1.02,
 "instalacion": "pitch",
 "dist_instalacion_km": 0.06,
 "navegacion": [
@@ -2814,16 +2950,19 @@
 -3.623702
 ],
 "dir_consultada": "AVDA. TRANSICIÓN ESPAÑOLA, S/N|Alcobendas",
+"direccion_nombre": "Avenida de la Transición Española, La Moraleja, Alcobendas, Comunidad de Madrid, 28703, España",
 "direccion_gps": [
-40.533582,
--3.619123
+40.535358,
+-3.621708
 ],
-"dist_rffm_direccion_km": 0.56,
+"dist_rffm_direccion_km": 0.26,
+"instalacion": "Estadio Luis Aragonés",
+"dist_instalacion_km": 0.12,
 "navegacion": [
-40.53719,
--3.623702
+40.537014,
+-3.622279
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "15557644": {
@@ -2852,6 +2991,7 @@
 -3.701542
 ],
 "dir_consultada": "CALLE DEL DR. TOLOSA LATOUR S/N|Madrid",
+"direccion_nombre": "Calle del Doctor Tolosa Latour, Orcasur, Usera, Madrid, Comunidad de Madrid, 28041, España",
 "direccion_gps": [
 40.376525,
 -3.701862
@@ -2892,11 +3032,12 @@
 -3.599631
 ],
 "dir_consultada": "PASEO DE LA ALAMEDA DE OSUNA 46|Madrid",
+"direccion_nombre": "Paseo de la Alameda de Osuna, Alameda de Osuna, Barajas, Madrid, Comunidad de Madrid, 28042, España",
 "direccion_gps": [
-40.451938,
--3.604114
+40.454361,
+-3.598458
 ],
-"dist_rffm_direccion_km": 0.47,
+"dist_rffm_direccion_km": 0.1,
 "instalacion": "Instalación Deportiva Municipal El Capricho",
 "dist_instalacion_km": 0.08,
 "navegacion": [
@@ -2914,16 +3055,19 @@
 -3.619361
 ],
 "dir_consultada": "CALLE FÉLIX CIMAS PRADOS 1|San Agustín Del Guadalix",
+"direccion_nombre": "Calle Félix Cimas Prados, San Agustín de Guadalix, Comunidad de Madrid, 28750, España",
 "direccion_gps": [
 40.683842,
 -3.620013
 ],
 "dist_rffm_direccion_km": 0.35,
+"instalacion": "Polideportivo Municipal",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.680749,
--3.619361
+40.679816,
+-3.618935
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1107": {
@@ -2934,6 +3078,7 @@
 -3.859705
 ],
 "dir_consultada": "CALLE CAÑADA 66|Manzanares El Real",
+"direccion_nombre": "Calle Cañada, Manzanares el Real, Comunidad de Madrid, 28410, España",
 "direccion_gps": [
 40.727138,
 -3.8639
@@ -2970,16 +3115,16 @@
 "nombre": "ANDRES NAVARRETE (HA)",
 "localidad": "Madrid",
 "rffm": [
-40.494729,
--3.695032
+40.313279,
+-3.72169
 ],
 "dir_consultada": "CALLE HOSPITALET DE LLOBREGAT 11|Madrid",
+"direccion_nombre": "Calle Hospitalet de Llobregat, Juan de la Cierva, Getafe, Comunidad de Madrid, 28903, España",
 "direccion_gps": [
 40.313279,
 -3.72169
 ],
-"dist_rffm_direccion_km": 20.3,
-"aviso": "Coordenadas de la RFFM a 20.3 km de la dirección: corregido",
+"dist_rffm_direccion_km": 0.0,
 "instalacion": "Centro Deportivo Ignacio Pinedo",
 "dist_instalacion_km": 0.23,
 "navegacion": [
@@ -2987,7 +3132,7 @@
 -3.723357
 ],
 "tipo": "instalacion",
-"corregido": true
+"corregido": false
 },
 "8791578": {
 "nombre": "LEGANES - MERCACENTRO PVO. JULIAN MONTERO 2 (HA)",
@@ -2997,6 +3142,7 @@
 -3.756311
 ],
 "dir_consultada": "CALLE DEL MAESTRO 6|Leganés",
+"direccion_nombre": "Calle del Maestro, Flores, Vereda de los Estudiantes, Leganés, Comunidad de Madrid, 28912, España",
 "direccion_gps": [
 40.326183,
 -3.755337
@@ -3019,6 +3165,7 @@
 -3.88309
 ],
 "dir_consultada": "AVDA. DE IKER CASILLAS S/N|Móstoles",
+"direccion_nombre": "Avenida de Iker Casillas, Móstoles, Comunidad de Madrid, 28935, España",
 "direccion_gps": [
 40.325694,
 -3.883368
@@ -3041,6 +3188,7 @@
 -4.041299
 ],
 "dir_consultada": "CALLE ALDEA 8|Cercedilla",
+"direccion_nombre": "Calle Aldea, Urbanización Valle de Fuenfría, Cercedilla, Comunidad de Madrid, 28479, España",
 "direccion_gps": [
 40.737356,
 -4.057174
@@ -3063,6 +3211,7 @@
 -3.983239
 ],
 "dir_consultada": "CONIFERAS S/N|Navalcarnero",
+"direccion_nombre": "Calle Coníferas, La Dehesa, Sexmo de Casarrubios, Comunidad de Ciudad y Tierra de Segovia, Navalcarnero, Comunidad de Madrid, 28600, España",
 "direccion_gps": [
 40.299987,
 -3.985217
@@ -3085,6 +3234,7 @@
 -3.917312
 ],
 "dir_consultada": "CALLE ALEXANDER GRAHAM BELL 2|Villaviciosa De Odón",
+"direccion_nombre": "2, Calle Alexander Graham Bell, Villaviciosa de Odón, Comunidad de Madrid, 28670, España",
 "direccion_gps": [
 40.362481,
 -3.91733
@@ -3107,6 +3257,7 @@
 -4.127729
 ],
 "dir_consultada": "CALLE DE LOS CEDROS 2|Villamantilla",
+"direccion_nombre": "2, Calle de los Cedros, San Miguel, Sexmo de Casarrubios, Cerromesino y Galapaguera, Comunidad de Ciudad y Tierra de Segovia, Villamantilla, Comunidad de Madrid, 28609, España",
 "direccion_gps": [
 40.343728,
 -4.12785
@@ -3132,6 +3283,7 @@
 -3.871123
 ],
 "dir_consultada": "CALLE DE LOS ALMENDROS 46|Serranillos Del Valle",
+"direccion_nombre": "Calle de los Almendros, Serranillos del Valle, Comunidad de Madrid, 28979, España",
 "direccion_gps": [
 40.20494,
 -3.876761
@@ -3178,11 +3330,12 @@
 -3.656767
 ],
 "dir_consultada": "PASEO DEL PRADO, 50|Valdemoro",
+"direccion_nombre": "Paseo del Prado, El Caracol, Valdemoro, Comunidad de Madrid, 28343, España",
 "direccion_gps": [
-40.191613,
--3.662385
+40.191811,
+-3.664319
 ],
-"dist_rffm_direccion_km": 0.52,
+"dist_rffm_direccion_km": 0.66,
 "instalacion": "Polideportivo Municipal de Valdemoro",
 "dist_instalacion_km": 0.29,
 "navegacion": [
@@ -3200,6 +3353,7 @@
 -3.69334
 ],
 "dir_consultada": "AVDA. MONFORTE DE LEMOS 13|Madrid",
+"direccion_nombre": "13, Avenida de Monforte de Lemos, La Paz, Fuencarral, Fuencarral-El Pardo, Madrid, Comunidad de Madrid, 28029, España",
 "direccion_gps": [
 40.478951,
 -3.693494
@@ -3229,11 +3383,12 @@
 -3.717463
 ],
 "dir_consultada": "CALLE DE GAINZA S/N|Madrid",
+"direccion_nombre": "Calle de Gainza, Orcasitas, Usera, Madrid, Comunidad de Madrid, 28041, España",
 "direccion_gps": [
-40.372341,
--3.718546
+40.368747,
+-3.718808
 ],
-"dist_rffm_direccion_km": 0.44,
+"dist_rffm_direccion_km": 0.12,
 "instalacion": "sports_centre",
 "dist_instalacion_km": 0.18,
 "navegacion": [
@@ -3269,6 +3424,7 @@
 -3.285933
 ],
 "dir_consultada": "AVDA. MARIANO DÍAZ S/N|Villarejo De Salvanés",
+"direccion_nombre": "Avenida de Mariano Díaz, Villarejo de Salvanés, Comunidad de Madrid, 28590, España",
 "direccion_gps": [
 40.169107,
 -3.284346
@@ -3291,6 +3447,7 @@
 -3.412905
 ],
 "dir_consultada": "CALLE DE LA CRUZ DE PIEDRA 49|Loeches",
+"direccion_nombre": "Calle de la Cruz de Piedra, Loeches, Comunidad de Madrid, 28890, España",
 "direccion_gps": [
 40.387212,
 -3.41367
@@ -3313,6 +3470,7 @@
 -3.906618
 ],
 "dir_consultada": "AVDA. DE LA CABILDA 4|Hoyo De Manzanares",
+"direccion_nombre": "Avenida de la Cabilda, Hoyo de Manzanares, Comunidad de Madrid, 28240, España",
 "direccion_gps": [
 40.624124,
 -3.906078
@@ -3335,6 +3493,7 @@
 -3.987293
 ],
 "dir_consultada": "CALLE DEL RIO TORMES S/N|Álamo (El)",
+"direccion_nombre": "Calle del Río Tormes, El Álamo, Comunidad de Madrid, 28607, España",
 "direccion_gps": [
 40.22785,
 -3.9874
@@ -3360,6 +3519,7 @@
 -3.694854
 ],
 "dir_consultada": "CALLE PABLO PICASSO S/N|Pinto",
+"direccion_nombre": "Calle de Pablo Picasso, Parque Europa, Pinto, Comunidad de Madrid, 28320, España",
 "direccion_gps": [
 40.237141,
 -3.696321
@@ -3382,6 +3542,7 @@
 -3.88309
 ],
 "dir_consultada": "AVDA. DE IKER CASILLAS S/N|Móstoles",
+"direccion_nombre": "Avenida de Iker Casillas, Móstoles, Comunidad de Madrid, 28935, España",
 "direccion_gps": [
 40.325694,
 -3.883368
@@ -3404,6 +3565,7 @@
 -3.705583
 ],
 "dir_consultada": "PASEO DE YESERIAS 51|Madrid",
+"direccion_nombre": "51,53,55, Paseo de Yeserías, Las Acacias, Arganzuela, Madrid, Comunidad de Madrid, 28005, España",
 "direccion_gps": [
 40.397349,
 -3.705374
@@ -3426,6 +3588,7 @@
 -3.486726
 ],
 "dir_consultada": "CALLE VICTOR HURTADO S/N|Ajalvir",
+"direccion_nombre": "Calle Víctor Hurtado, Ajalvir, Comunidad de Madrid, 28864, España",
 "direccion_gps": [
 40.540219,
 -3.486649
@@ -3446,6 +3609,7 @@
 -3.651595
 ],
 "dir_consultada": "CALLE SAN LAMBERTO S/N|Madrid",
+"direccion_nombre": "Calle San Lamberto, La Elipa, Ventas, Ciudad Lineal, Madrid, Comunidad de Madrid, 28017, España",
 "direccion_gps": [
 40.420784,
 -3.651524
@@ -3493,6 +3657,7 @@
 -3.346672
 ],
 "dir_consultada": "AVDA. VIRGEN DEL VAL S/N|Alcalá De Henares",
+"direccion_nombre": "Avenida Virgen del Val, Virgen del Val, Distrito V, Alcalá de Henares, Comunidad de Madrid, 28804, España",
 "direccion_gps": [
 40.48239,
 -3.354
@@ -3515,6 +3680,7 @@
 -3.777119
 ],
 "dir_consultada": "CALLE DE LA FUENTE DEL REY 33|Madrid",
+"direccion_nombre": "Calle de la Fuente del Rey, Urbanización Fuente del Rey, Aravaca, Moncloa-Aravaca, Madrid, Comunidad de Madrid, 28023, España",
 "direccion_gps": [
 40.455104,
 -3.767914
@@ -3564,16 +3730,19 @@
 -3.623702
 ],
 "dir_consultada": "AVDA. TRANSICIÓN ESPAÑOLA, S/N|Alcobendas",
+"direccion_nombre": "Avenida de la Transición Española, La Moraleja, Alcobendas, Comunidad de Madrid, 28703, España",
 "direccion_gps": [
 40.535358,
 -3.621708
 ],
 "dist_rffm_direccion_km": 0.26,
+"instalacion": "Estadio Luis Aragonés",
+"dist_instalacion_km": 0.12,
 "navegacion": [
-40.53719,
--3.623702
+40.537014,
+-3.622279
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "118": {
@@ -3584,6 +3753,7 @@
 -3.717611
 ],
 "dir_consultada": "CALLE DE LA CABRERA S/N|Madrid",
+"direccion_nombre": "Calle de La Cabrera, Peñagrande, Fuencarral-El Pardo, Madrid, Comunidad de Madrid, 28035, España",
 "direccion_gps": [
 40.471917,
 -3.717504
@@ -3642,6 +3812,7 @@
 -3.76279
 ],
 "dir_consultada": "CALLE ARQUITECTURA 4|Leganés",
+"direccion_nombre": "Calle Arquitectura, Batallas, San Nicasio, Leganés, Comunidad de Madrid, 28913, España",
 "direccion_gps": [
 40.339599,
 -3.762738
@@ -3664,6 +3835,7 @@
 -3.686422
 ],
 "dir_consultada": "CALLE DE FEBO 7|Valdemoro",
+"direccion_nombre": "Calle de Febo, El Restón, Valdemoro, Comunidad de Madrid, 28341, España",
 "direccion_gps": [
 40.181326,
 -3.684813
@@ -3686,6 +3858,7 @@
 -3.612006
 ],
 "dir_consultada": "PASEO DEL DELEITE 7|Aranjuez",
+"direccion_nombre": "Paseo de Deleite, Urbanización los Jardines del Deleite, Vergel, Aranjuez, Comunidad de Madrid, 28300, España",
 "direccion_gps": [
 40.025007,
 -3.615815
@@ -3708,6 +3881,7 @@
 -3.808866
 ],
 "dir_consultada": "PASEO RIAZOR S/N|Fuenlabrada",
+"direccion_nombre": "Paseo de Riazor, El Naranjo, El Naranjo - La Serna, Fuenlabrada, Comunidad de Madrid, 28941, España",
 "direccion_gps": [
 40.301478,
 -3.810868
@@ -3733,6 +3907,7 @@
 -3.723952
 ],
 "dir_consultada": "VIA LUSITANA 5|Madrid",
+"direccion_nombre": "Vía Lusitana, Abrantes, Carabanchel, Madrid, Comunidad de Madrid, 28025, España",
 "direccion_gps": [
 40.383374,
 -3.721521
@@ -3773,6 +3948,7 @@
 -3.433833
 ],
 "dir_consultada": "CALLE DE JOSÉ MARÍA RODELGO 34|Morata De Tajuña",
+"direccion_nombre": "Calle de José María Rodelgo, Morata de Tajuña, Comunidad de Madrid, 28530, España",
 "direccion_gps": [
 40.23427,
 -3.434767
@@ -3799,6 +3975,7 @@
 -3.657161
 ],
 "dir_consultada": "CALLE REGUERA DE TOMATEROS 39|Madrid",
+"direccion_nombre": "Centro Deportivo Municipal Wilfred Agbonavbare, 39, Calle de la Reguera de Tomateros, El Pozo del Tío Raimundo, Entrevías, Puente de Vallecas, Madrid, Comunidad de Madrid, 28053, España",
 "direccion_gps": [
 40.371642,
 -3.656227
@@ -3821,6 +3998,7 @@
 -3.760004
 ],
 "dir_consultada": "AVDA. DE AMÉRICA S/N|Parla",
+"direccion_nombre": "Avenida de América, Las Américas, Parla, Comunidad de Madrid, 28983, España",
 "direccion_gps": [
 40.228158,
 -3.764095
@@ -3843,6 +4021,7 @@
 -3.844003
 ],
 "dir_consultada": "AVDA. DE ESTEBAN MARQUEZ S/N|Alcorcón",
+"direccion_nombre": "Avenida de Esteban Márquez, Prado de Santo Domingo, Suroeste, Alcorcón, Comunidad de Madrid, 28922, España",
 "direccion_gps": [
 40.3392,
 -3.842233
@@ -3868,6 +4047,7 @@
 -3.88309
 ],
 "dir_consultada": "AVDA DE IKER CASILLAS S/N|Móstoles",
+"direccion_nombre": "Avenida de Iker Casillas, Móstoles, Comunidad de Madrid, 28935, España",
 "direccion_gps": [
 40.325694,
 -3.883368
@@ -3906,6 +4086,7 @@
 -3.761837
 ],
 "dir_consultada": "AVDA. DE AMÉRICA S/N|Parla",
+"direccion_nombre": "Avenida de América, Las Américas, Parla, Comunidad de Madrid, 28983, España",
 "direccion_gps": [
 40.228158,
 -3.764095
@@ -3935,6 +4116,7 @@
 -4.123289
 ],
 "dir_consultada": "CTRA. M-510|Navalagamella",
+"direccion_nombre": "Carretera de Collado Villalba a Aldea del Fresno, Sexmo de Casarrubios, Comunidad de Ciudad y Tierra de Segovia, Navalagamella, Comunidad de Madrid, 28212, España",
 "direccion_gps": [
 40.461514,
 -4.129723
@@ -3957,6 +4139,7 @@
 -3.820701
 ],
 "dir_consultada": "CAMINO DEL MOLINO S/N|Fuenlabrada",
+"direccion_nombre": "Camino del Molino, El Vivero, El Vivero - Hospital - Universidad, Fuenlabrada, Comunidad de Madrid, 28942, España",
 "direccion_gps": [
 40.286228,
 -3.821317
@@ -3997,6 +4180,7 @@
 -3.830663
 ],
 "dir_consultada": "AVDA. DE NUEVO VERSALLES S/N|Fuenlabrada",
+"direccion_nombre": "Avenida de Nuevo Versalles, Nuevo Versalles, Loranca, Loranca - Nuevo Versalles - Parque Miraflores, Fuenlabrada, Comunidad de Madrid, 28942, España",
 "direccion_gps": [
 40.293216,
 -3.831314
@@ -4037,6 +4221,7 @@
 -3.47012
 ],
 "dir_consultada": "CALLE JOAQUÍN BLUME S/N|Torrejón De Ardoz",
+"direccion_nombre": "Calle de Joaquín Blume, Torrejón de Ardoz, Comunidad de Madrid, 28850, España",
 "direccion_gps": [
 40.446179,
 -3.469983
@@ -4077,6 +4262,7 @@
 -3.602869
 ],
 "dir_consultada": "CALLE CERRO ALMODÓVAR S/N|Madrid",
+"direccion_nombre": "Calle del Cerro Almodóvar, Casco Histórico de Vicálvaro, Vicálvaro, Madrid, Comunidad de Madrid, 28031, España",
 "direccion_gps": [
 40.386403,
 -3.605668
@@ -4102,6 +4288,7 @@
 -3.597543
 ],
 "dir_consultada": "AVD. MEMORIAL DE LA PAZ DE HIROSIMA S/N|Aranjuez",
+"direccion_nombre": "Avenida Memorial de la Paz de Hirosima, Monte Perdido, La Montaña, Aranjuez, Comunidad de Madrid, 28300, España",
 "direccion_gps": [
 40.065323,
 -3.607465
@@ -4142,6 +4329,7 @@
 -3.838697
 ],
 "dir_consultada": "CALLE SAN ISIDRO 3|Cubas De La Sagra",
+"direccion_nombre": "Calle de San Isidro, Urbanización Las Moreras, Urbanización La Nube, Cubas de la Sagra, Comunidad de Madrid, 28978, España",
 "direccion_gps": [
 40.187788,
 -3.838665
@@ -4164,6 +4352,7 @@
 -3.718947
 ],
 "dir_consultada": "CALLE CUESTA DEL CANTÓN S/N|Bustarviejo",
+"direccion_nombre": "Calle cuesta del cantón, Sexmo de Lozoya, Comunidad de Ciudad y Tierra de Segovia, Bustarviejo, Comunidad de Madrid, 28720, España",
 "direccion_gps": [
 40.858959,
 -3.718977
@@ -4216,6 +4405,7 @@
 -3.634229
 ],
 "dir_consultada": "CALLE SANTO DOMINGO SAVIO 2|Madrid",
+"direccion_nombre": "Centro Privado de Educación Primaria y Secundaria Santo Domingo Savio, 2, Calle de Santo Domingo Savio, Pueblo Nuevo, Ciudad Lineal, Madrid, Comunidad de Madrid, 28017, España",
 "direccion_gps": [
 40.430141,
 -3.633647
@@ -4239,11 +4429,13 @@
 ],
 "dir_consultada": "CAMINO MAJALGAR S/N|Guadalix De La Sierra",
 "sin_geocodificar": true,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.27,
 "navegacion": [
-40.786636,
--3.686605
+40.786416,
+-3.683432
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1718": {
@@ -4255,11 +4447,13 @@
 ],
 "dir_consultada": "CALLE FRESNO DE TOROTE S/N|Daganzo De Arriba",
 "sin_geocodificar": true,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.16,
 "navegacion": [
-40.550238,
--3.453152
+40.551448,
+-3.454237
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1511": {
@@ -4270,6 +4464,7 @@
 -3.699086
 ],
 "dir_consultada": "CALLE SUR S/N|Pinto",
+"direccion_nombre": "Calle Sur, La Tenería, Pinto, Comunidad de Madrid, 28320, España",
 "direccion_gps": [
 40.236325,
 -3.698576
@@ -4310,12 +4505,13 @@
 -3.708331
 ],
 "dir_consultada": "AVDA. PABLO IGLESIAS 15|Madrid",
+"direccion_nombre": "15, Avenida de Pablo Iglesias, Loranca, Loranca - Nuevo Versalles - Parque Miraflores, Fuenlabrada, Comunidad de Madrid, 28942, España",
 "direccion_gps": [
 40.298542,
 -3.841635
 ],
 "dist_rffm_direccion_km": 19.96,
-"aviso": "Coordenadas de la RFFM a 20.0 km de la dirección (sin confirmar)",
+"aviso": "La dirección queda a 20.0 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
 "instalacion": "pitch",
 "dist_instalacion_km": 0.05,
 "navegacion": [
@@ -4333,16 +4529,19 @@
 -3.626749
 ],
 "dir_consultada": "AVENIDA DE LA DEHESA S/N|San Sebastián De Los Reyes",
+"direccion_nombre": "Avenida de la Dehesa, Dehesa Vieja, Los Tempranales, San Sebastián de los Reyes, Comunidad de Madrid, 28702, España",
 "direccion_gps": [
 40.563119,
 -3.622262
 ],
 "dist_rffm_direccion_km": 0.51,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.56619,
--3.626749
+40.566861,
+-3.627209
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1203": {
@@ -4353,6 +4552,7 @@
 -3.861633
 ],
 "dir_consultada": "CALLE CERRO DEL ESPINO S/N|Majadahonda",
+"direccion_nombre": "Calle Cerro del Espino, Majadahonda, Comunidad de Madrid, 28221, España",
 "direccion_gps": [
 40.460643,
 -3.862788
@@ -4388,11 +4588,13 @@
 ],
 "dir_consultada": "CAMINO VEREDA DE LA LOBERA S/N|Algete",
 "sin_geocodificar": true,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.598164,
--3.510341
+40.599323,
+-3.511127
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "12292591": {
@@ -4420,11 +4622,13 @@
 ],
 "dir_consultada": "CAMINO VEREDA DE LA LOBERA S/N|Algete",
 "sin_geocodificar": true,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.598164,
--3.510341
+40.599323,
+-3.511127
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "11932690": {
@@ -4435,6 +4639,7 @@
 -4.010576
 ],
 "dir_consultada": "CALLE GUADARRAMA 129|Galapagar",
+"direccion_nombre": "Escuela Municipal de Idiomas, 129, Calle de Guadarrama, Los Almendros, Las Columnas, La Navata, Galapagar, Comunidad de Madrid, 28260, España",
 "direccion_gps": [
 40.581902,
 -4.009232
@@ -4460,16 +4665,19 @@
 -3.709559
 ],
 "dir_consultada": "AVDA DE LA VEGA,S/N|Tres Cantos",
+"direccion_nombre": "Avenida de la Vega, Soto de Viñuelas, Tres Cantos, Comunidad de Madrid, 28760, España",
 "direccion_gps": [
 40.608283,
 -3.709137
 ],
 "dist_rffm_direccion_km": 0.06,
+"instalacion": "Polideportivo Miguel de Cervantes",
+"dist_instalacion_km": 0.07,
 "navegacion": [
-40.607866,
--3.709559
+40.608373,
+-3.710003
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1136": {
@@ -4481,11 +4689,16 @@
 ],
 "dir_consultada": "CALLE DE MIGUEL DE CERVANTES S/N|Alcobendas",
 "sin_geocodificar": true,
+"entrada": {
+"entrance": "main"
+},
+"instalacion": "Ciudad Deportiva Valdelasfuentes",
+"dist_instalacion_km": 0.16,
 "navegacion": [
-40.55147,
--3.650154
+40.55116,
+-3.648792
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "8368576": {
@@ -4496,6 +4709,7 @@
 -3.639829
 ],
 "dir_consultada": "CALLE MAR ADRIÁTICO 11|Madrid",
+"direccion_nombre": "CES Escuela Superior de Imágen y Sonido, 11, Calle Mar Adriático, Pinar del Rey, Hortaleza, Madrid, Comunidad de Madrid, 28043, España",
 "direccion_gps": [
 40.471841,
 -3.641353
@@ -4518,6 +4732,7 @@
 -3.742183
 ],
 "dir_consultada": "SENDA DE EPI Y BLAS S/N|Getafe",
+"direccion_nombre": "Senda de Epi y Blas, Nuevo Hogar, Buenavista, Sector III, Getafe, Comunidad de Madrid, 28904, España",
 "direccion_gps": [
 40.301891,
 -3.742221
@@ -4556,6 +4771,7 @@
 -3.761338
 ],
 "dir_consultada": "AVDA. DE AMÉRICA S/N|Parla",
+"direccion_nombre": "Avenida de América, Las Américas, Parla, Comunidad de Madrid, 28983, España",
 "direccion_gps": [
 40.228158,
 -3.764095
@@ -4585,6 +4801,7 @@
 -3.637626
 ],
 "dir_consultada": "RONDA ABUBILLA, 5.|Madrid",
+"direccion_nombre": "5, Ronda de la Abubilla, Piovera, Hortaleza, Madrid, Comunidad de Madrid, 28043, España",
 "direccion_gps": [
 40.45243,
 -3.637408
@@ -4607,6 +4824,7 @@
 -3.658124
 ],
 "dir_consultada": "CALLE REGUERA DE TOMATEROS S/N|Madrid",
+"direccion_nombre": "Calle de la Reguera de Tomateros, El Pozo del Tío Raimundo, Entrevías, Puente de Vallecas, Madrid, Comunidad de Madrid, 28053, España",
 "direccion_gps": [
 40.370496,
 -3.65765
@@ -4629,16 +4847,19 @@
 -3.627463
 ],
 "dir_consultada": "AVDA. NAVARRONDÁN S/N|San Sebastián De Los Reyes",
+"direccion_nombre": "Avenida Navarrondán, Los Tempranales, San Sebastián de los Reyes, Comunidad de Madrid, 28701, España",
 "direccion_gps": [
 40.566783,
 -3.631495
 ],
 "dist_rffm_direccion_km": 1.14,
+"instalacion": "Polideportivo Municipal Eduardo López Mateo",
+"dist_instalacion_km": 0.24,
 "navegacion": [
-40.557004,
--3.627463
+40.558743,
+-3.629114
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1516": {
@@ -4658,6 +4879,7 @@
 -3.735794
 ],
 "dir_consultada": "CALLE VÍA CARPETANA 57|Madrid",
+"direccion_nombre": "Centro Deportivo Municipal Antiguo Canódromo, 57, Calle de la Vía Carpetana, San Isidro, Carabanchel, Madrid, Comunidad de Madrid, 28047, España",
 "direccion_gps": [
 40.397033,
 -3.735667
@@ -4680,6 +4902,7 @@
 -3.676473
 ],
 "dir_consultada": "AVDA. DE LOS ROSALES 133|Madrid",
+"direccion_nombre": "Centro Cultural Los Rosales, 133, Avenida de los Rosales, Butarque, Villaverde, Madrid, Comunidad de Madrid, 28041, España",
 "direccion_gps": [
 40.351021,
 -3.676666
@@ -4702,6 +4925,7 @@
 -3.702179
 ],
 "dir_consultada": "CALLE DE LA COSTA BRAVA 4|Madrid",
+"direccion_nombre": "Centro Privado de Educación Primaria y Secundaria El Prado, 4, Calle de la Costa Brava, Mirasierra, Fuencarral, Fuencarral-El Pardo, Madrid, Comunidad de Madrid, 28034, España",
 "direccion_gps": [
 40.497283,
 -3.702903
@@ -4724,6 +4948,7 @@
 -4.010576
 ],
 "dir_consultada": "CALLE GUADARRAMA 129|Galapagar",
+"direccion_nombre": "Escuela Municipal de Idiomas, 129, Calle de Guadarrama, Los Almendros, Las Columnas, La Navata, Galapagar, Comunidad de Madrid, 28260, España",
 "direccion_gps": [
 40.581902,
 -4.009232
@@ -4749,6 +4974,7 @@
 -3.472499
 ],
 "dir_consultada": "CALLE TURÍN 12|Torrejón De Ardoz",
+"direccion_nombre": "Calle de Turín, Los Villares y Correal, Torrejón de Ardoz, Comunidad de Madrid, 28850, España",
 "direccion_gps": [
 40.465352,
 -3.47259
@@ -4789,6 +5015,7 @@
 -3.885975
 ],
 "dir_consultada": "CAMINO GARZO 79|Las Matas",
+"direccion_nombre": "Camino del Garzo, Las Matas, Las Rozas de Madrid, Comunidad de Madrid, 28290, España",
 "direccion_gps": [
 40.552849,
 -3.888824
@@ -4811,6 +5038,7 @@
 -3.88309
 ],
 "dir_consultada": "AVDA. DE IKER CASILLAS S/N|Móstoles",
+"direccion_nombre": "Avenida de Iker Casillas, Móstoles, Comunidad de Madrid, 28935, España",
 "direccion_gps": [
 40.325694,
 -3.883368
@@ -4833,6 +5061,7 @@
 -3.943613
 ],
 "dir_consultada": "CALLE ÁGUILA REAL S/N|Batres",
+"direccion_nombre": "Calle Águila Real, Urbanización Cotorredondo, Batres, Comunidad de Madrid, 28939, España",
 "direccion_gps": [
 40.247777,
 -3.939841
@@ -4853,6 +5082,7 @@
 -3.607031
 ],
 "dir_consultada": "AVENIDA DE NIZA S/N|Madrid",
+"direccion_nombre": "Avenida de Niza, Rosas, San Blas - Canillejas, Madrid, Comunidad de Madrid, 28022, España",
 "direccion_gps": [
 40.430448,
 -3.607139
@@ -4878,6 +5108,7 @@
 -4.063777
 ],
 "dir_consultada": "AVENIDA DE SEGOVIA S/N|Valdemorillo",
+"direccion_nombre": "Avenida de Segovia, Sexmo de Casarrubios, Comunidad de Ciudad y Tierra de Segovia, Valdemorillo, Comunidad de Madrid, 28212, España",
 "direccion_gps": [
 40.501726,
 -4.06494
@@ -4898,12 +5129,13 @@
 -3.489385
 ],
 "dir_consultada": "CARRETERA A VILLARRUBIA S/N|Villaconejos",
+"direccion_nombre": "Carretera de Titulcia a Villarrubia de Santiago, Villaconejos, Comunidad de Madrid, 28359, España",
 "direccion_gps": [
 40.105617,
 -3.546572
 ],
 "dist_rffm_direccion_km": 4.9,
-"aviso": "Coordenadas de la RFFM a 4.9 km de la dirección (sin confirmar)",
+"aviso": "La dirección queda a 4.9 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
 "instalacion": "Polideportivo Municipal",
 "dist_instalacion_km": 0.02,
 "navegacion": [
@@ -4921,6 +5153,7 @@
 -3.917312
 ],
 "dir_consultada": "CALLE ALEXANDER GRAHAM BELL 2|Villaviciosa De Odón",
+"direccion_nombre": "2, Calle Alexander Graham Bell, Villaviciosa de Odón, Comunidad de Madrid, 28670, España",
 "direccion_gps": [
 40.362481,
 -3.91733
@@ -4973,6 +5206,7 @@
 -3.388398
 ],
 "dir_consultada": "AVDA. DE PASIONISTAS 10|Alcalá De Henares",
+"direccion_nombre": "Centro Privado de Educación Infantil, Primaria y Secundaria San Gabriel, 10, Avenida de las Pasionistas, El Olivar, El Chorrillo, Distrito III, Alcalá de Henares, Comunidad de Madrid, 28806, España",
 "direccion_gps": [
 40.507843,
 -3.38763
@@ -4995,6 +5229,7 @@
 -4.041582
 ],
 "dir_consultada": "PASEO DE LOS ROSALES 65|Collado Mediano",
+"direccion_nombre": "Paseo de los Rosales, Collado Mediano, Comunidad de Madrid, 28459, España",
 "direccion_gps": [
 40.692642,
 -4.038627
@@ -5035,6 +5270,7 @@
 -3.816329
 ],
 "dir_consultada": "AVDA. DE BULARAS S/N|Pozuelo De Alarcón",
+"direccion_nombre": "Centro Docente Extranjero En España Kensington School (britanico), 4, Avenida Bularas, Distrito Municipal I (sin urbanizaciones), Pozuelo Estación, Pozuelo de Alarcón, Comunidad de Madrid, 28224, España",
 "direccion_gps": [
 40.447708,
 -3.812897
@@ -5099,6 +5335,7 @@
 -3.886239
 ],
 "dir_consultada": "CALLE CICLISTA DAVID GEA 3|Móstoles",
+"direccion_nombre": "Calle Ciclista David Gea, Móstoles, Comunidad de Madrid, 28935, España",
 "direccion_gps": [
 40.329273,
 -3.886832
@@ -5121,6 +5358,7 @@
 -3.233946
 ],
 "dir_consultada": "CALLE ISLAS FILIPINAS 5|Villar Del Olmo",
+"direccion_nombre": "Calle Islas Filipinas, Villar del Olmo, Comunidad de Madrid, 28512, España",
 "direccion_gps": [
 40.336322,
 -3.234446
@@ -5143,6 +5381,7 @@
 -3.387384
 ],
 "dir_consultada": "AVDA. DE MADRID 9|Alcalá De Henares",
+"direccion_nombre": "Avenida de Madrid, Reyes Católicos, Distrito II, Alcalá de Henares, Comunidad de Madrid, 28802, España",
 "direccion_gps": [
 40.476602,
 -3.392765
@@ -5165,6 +5404,7 @@
 -3.78215
 ],
 "dir_consultada": "CALLE PARLA 4 B|Leganés",
+"direccion_nombre": "Antanes, 4B, Calle Parla, Los Frailes, Sur, Leganés, Comunidad de Madrid, 28914, España",
 "direccion_gps": [
 40.311539,
 -3.78201
@@ -5203,6 +5443,7 @@
 -4.018331
 ],
 "dir_consultada": "CALLE DEL RIO NALÓN S/N|Navalcarnero",
+"direccion_nombre": "Calle del Río Nalón, Covadonga, Sexmo de Casarrubios, Comunidad de Ciudad y Tierra de Segovia, Navalcarnero, Comunidad de Madrid, 28600, España",
 "direccion_gps": [
 40.285105,
 -4.017567
@@ -5225,6 +5466,7 @@
 -3.638656
 ],
 "dir_consultada": "CALLE ANTONIO MAIRENA 23|Madrid",
+"direccion_nombre": "Calle de Antonio Mairena, Palomeras Sureste, Puente de Vallecas, Madrid, Comunidad de Madrid, 28038, España",
 "direccion_gps": [
 40.392026,
 -3.639496
@@ -5247,6 +5489,7 @@
 -3.576425
 ],
 "dir_consultada": "CALLE GRANDE 1 D|Titulcia",
+"direccion_nombre": "Polideportivo Los Arenales, 1, Calle Grande, Titulcia, Comunidad de Madrid, 28359, España",
 "direccion_gps": [
 40.136658,
 -3.577446
@@ -5269,6 +5512,7 @@
 -3.339076
 ],
 "dir_consultada": "CALLE ESTRELLA S/N|Belmonte De Tajo",
+"direccion_nombre": "Calle Estrella, Belmonte de Tajo, Comunidad de Madrid, 28390, España",
 "direccion_gps": [
 40.13394,
 -3.340606
@@ -5291,16 +5535,19 @@
 -3.78561
 ],
 "dir_consultada": "AVDA. DE JUAN PABLO II 13|Colmenar Viejo",
+"direccion_nombre": "Ciudad Deportiva Juan Antonio Samaranch, 13, Avenida de Juan Pablo II, Navarrosillos-Polígono Sur, Colmenar Viejo, Comunidad de Madrid, 28770, España",
 "direccion_gps": [
 40.646828,
 -3.790326
 ],
 "dist_rffm_direccion_km": 0.4,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.09,
 "navegacion": [
-40.646738,
--3.78561
+40.645979,
+-3.785381
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "363272": {
@@ -5311,6 +5558,7 @@
 -3.59238
 ],
 "dir_consultada": "CALLE DE EUTERPE S/N|Madrid",
+"direccion_nombre": "Calle de Euterpe, Ciudad Pegaso, Rejas, San Blas - Canillejas, Madrid, Comunidad de Madrid, 28042, España",
 "direccion_gps": [
 40.447986,
 -3.59209
@@ -5333,6 +5581,7 @@
 -3.869842
 ],
 "dir_consultada": "CALLE SAN VICENTE DE LA BARQUERA S/N|Boadilla Del Monte",
+"direccion_nombre": "Calle San Vicente de la Barquera, Residencial Siglo XXI, Boadilla del Monte, Comunidad de Madrid, 28660, España",
 "direccion_gps": [
 40.388858,
 -3.883799
@@ -5353,6 +5602,7 @@
 -3.776508
 ],
 "dir_consultada": "AVDA. JOSÉ FERNÁNDEZ SEGOVIA 16|Torrejón De Velasco",
+"direccion_nombre": "Avenida de José Fernández Segovia, Camino de Illescas, Torrejón de Velasco, Comunidad de Madrid, 28990, España",
 "direccion_gps": [
 40.184311,
 -3.777601
@@ -5375,6 +5625,7 @@
 -4.241036
 ],
 "dir_consultada": "CALLE ERAS DEL CRISTO S/N|Robledo De Chavela",
+"direccion_nombre": "Calle Eras del Cristo, Sexmo de Casarrubios, Comunidad de Ciudad y Tierra de Segovia, Robledo de Chavela, Comunidad de Madrid, 28294, España",
 "direccion_gps": [
 40.498185,
 -4.240988
@@ -5397,6 +5648,7 @@
 -3.714132
 ],
 "dir_consultada": "CALLE MARÍA MONTESSORI S/N|Getafe",
+"direccion_nombre": "Calle de María Montessori, Los Espartales, Villaverde Alto, Casco Histórico de Villaverde, Getafe Norte, Getafe, Comunidad de Madrid, 28903, España",
 "direccion_gps": [
 40.324806,
 -3.714191
@@ -5422,6 +5674,7 @@
 -3.708441
 ],
 "dir_consultada": "AVDA. ISLAS FILIPINAS S/N|Madrid",
+"direccion_nombre": "Avenida de Filipinas, Vallehermoso, Chamberí, Madrid, Comunidad de Madrid, 28003, España",
 "direccion_gps": [
 40.441642,
 -3.706041
@@ -5444,6 +5697,7 @@
 -3.700349
 ],
 "dir_consultada": "PASEO TALLERES 1|Madrid",
+"direccion_nombre": "3 P1, Paseo de los Talleres, Villaverde Alto, Casco Histórico de Villaverde, Villaverde, Madrid, Comunidad de Madrid, 28021, España",
 "direccion_gps": [
 40.348218,
 -3.701037
@@ -5466,6 +5720,7 @@
 -3.656073
 ],
 "dir_consultada": "CALLE ALCALDE GARRIDO JUARISTI 17|Madrid",
+"direccion_nombre": "Calle del Alcalde Garrido Juaristi, Media Legua, Moratalaz, Madrid, Comunidad de Madrid, 28030, España",
 "direccion_gps": [
 40.413556,
 -3.653041
@@ -5492,6 +5747,7 @@
 -3.99918
 ],
 "dir_consultada": "CALLE DE LOS ARCOS 1|Brunete",
+"direccion_nombre": "Calle de los Arcos, Brunete, Comunidad de Madrid, 28690, España",
 "direccion_gps": [
 40.405797,
 -4.000258
@@ -5539,16 +5795,23 @@
 -3.517029
 ],
 "dir_consultada": "AVDA. JULIAN SANCHEZ 21|Fuente El Saz De Jarama",
+"direccion_nombre": "Avenida Julián Sánchez, Fuente el Saz de Jarama, Comunidad de Madrid, 28140, España",
 "direccion_gps": [
 40.628532,
 -3.517503
 ],
 "dist_rffm_direccion_km": 0.05,
+"entrada": {
+"barrier": "gate",
+"locked": "no"
+},
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.05,
 "navegacion": [
-40.62826,
--3.517029
+40.629095,
+-3.516611
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1711": {
@@ -5559,6 +5822,7 @@
 -3.526094
 ],
 "dir_consultada": "PASEO DE LOS PINOS S/N|San Fernando De Henares",
+"direccion_nombre": "Paseo de los Pinos, San Fernando de Henares, Comunidad de Madrid, España",
 "direccion_gps": [
 40.431388,
 -3.52451
@@ -5584,6 +5848,7 @@
 -3.627593
 ],
 "dir_consultada": "CALLE DE NICOLÁS SALMERÓN S/N|Madrid",
+"direccion_nombre": "Calle de Nicolás Salmerón, Pueblo Nuevo, Ciudad Lineal, Madrid, Comunidad de Madrid, 28017, España",
 "direccion_gps": [
 40.419615,
 -3.630355
@@ -5606,6 +5871,7 @@
 -3.688185
 ],
 "dir_consultada": "CALLE DE ROCAFORT S/N|Madrid",
+"direccion_nombre": "Calle de Rocafort, San Cristóbal, Villaverde, Madrid, Comunidad de Madrid, 28021, España",
 "direccion_gps": [
 40.341854,
 -3.690668
@@ -5628,6 +5894,7 @@
 -3.617117
 ],
 "dir_consultada": "CALLE PUERTO DE REINOSA 2|Madrid",
+"direccion_nombre": "Calle Puerto de Reinosa, Casco Histórico de Vallecas, Villa de Vallecas, Madrid, Comunidad de Madrid, 28031, España",
 "direccion_gps": [
 40.379019,
 -3.616477
@@ -5650,6 +5917,7 @@
 -3.761338
 ],
 "dir_consultada": "AVDA. DE AMÉRICA S/N|Parla",
+"direccion_nombre": "Avenida de América, Las Américas, Parla, Comunidad de Madrid, 28983, España",
 "direccion_gps": [
 40.228158,
 -3.764095
@@ -5679,6 +5947,7 @@
 -3.488768
 ],
 "dir_consultada": "CALLE DE SAN FERNANDO S/N|Torrejón De Ardoz",
+"direccion_nombre": "Calle de San Fernando, Barrio de Las Fronteras, Torrejón de Ardoz, Comunidad de Madrid, 28850, España",
 "direccion_gps": [
 40.46118,
 -3.490199
@@ -5723,6 +5992,7 @@
 -3.161652
 ],
 "dir_consultada": "Fuentidueña de Tajo|Fuentidueña De Tajo",
+"direccion_nombre": "Fuentidueña de Tajo, Calle Mayor, Fuentidueña de Tajo, Comunidad de Madrid, 28597, España",
 "direccion_gps": [
 40.118735,
 -3.15961
@@ -5761,6 +6031,7 @@
 -3.81366
 ],
 "dir_consultada": "CAMINO DE LAS HUERTAS S/N|Pozuelo De Alarcón",
+"direccion_nombre": "Camino de las Huertas, Distrito Municipal I (sin urbanizaciones), Pozuelo Estación, Pozuelo de Alarcón, Comunidad de Madrid, 28224, España",
 "direccion_gps": [
 40.440845,
 -3.814719
@@ -5808,11 +6079,13 @@
 ],
 "dir_consultada": "CALLE DEL POLIDEPORTIVO S/N|Pedrezuela",
 "sin_geocodificar": true,
+"instalacion": "Polideportivo de Pedrezuela",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.747826,
--3.599842
+40.747768,
+-3.599085
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1101": {
@@ -5823,16 +6096,19 @@
 -3.623702
 ],
 "dir_consultada": "AVDA. TRANSICIÓN ESPAÑOLA, S/N|Alcobendas",
+"direccion_nombre": "Avenida de la Transición Española, La Moraleja, Alcobendas, Comunidad de Madrid, 28703, España",
 "direccion_gps": [
 40.535358,
 -3.621708
 ],
 "dist_rffm_direccion_km": 0.26,
+"instalacion": "Estadio Luis Aragonés",
+"dist_instalacion_km": 0.12,
 "navegacion": [
-40.53719,
--3.623702
+40.537014,
+-3.622279
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "845753": {
@@ -5843,6 +6119,7 @@
 -3.387871
 ],
 "dir_consultada": "CALLE ARTURO SORIA 3|Alcalá De Henares",
+"direccion_nombre": "Calle Arturo Soria, La Garena, Distrito III, Alcalá de Henares, Comunidad de Madrid, 28802, España",
 "direccion_gps": [
 40.480442,
 -3.394971
@@ -5865,6 +6142,7 @@
 -3.47681
 ],
 "dir_consultada": "CALLE MALLORCA S/N|Arganda Del Rey",
+"direccion_nombre": "Calle Mallorca, La Poveda, Arganda del Rey, Comunidad de Madrid, 28500, España",
 "direccion_gps": [
 40.312332,
 -3.476827
@@ -5887,6 +6165,7 @@
 -3.534468
 ],
 "dir_consultada": "AVDA. DE LA TIERRA,4|Rivas-Vaciamadrid",
+"direccion_nombre": "Centro Deportivo Supera Rivas La Luna, 4, Avenida de la Tierra, Barrio de la Luna, Rivas Oeste, Rivas-Vaciamadrid, Comunidad de Madrid, 28523, España",
 "direccion_gps": [
 40.377231,
 -3.538141
@@ -5909,6 +6188,7 @@
 -3.648098
 ],
 "dir_consultada": "AVENIDA DE LAS TRECE ROSAS 2|Madrid",
+"direccion_nombre": "Avenida de las Trece Rosas, La Elipa, Ventas, Ciudad Lineal, Madrid, Comunidad de Madrid, 28017, España",
 "direccion_gps": [
 40.418073,
 -3.649409
@@ -5931,6 +6211,7 @@
 -3.808866
 ],
 "dir_consultada": "PASEO RIAZOR S/N|Fuenlabrada",
+"direccion_nombre": "Paseo de Riazor, El Naranjo, El Naranjo - La Serna, Fuenlabrada, Comunidad de Madrid, 28941, España",
 "direccion_gps": [
 40.301478,
 -3.810868
@@ -5956,6 +6237,7 @@
 -3.861633
 ],
 "dir_consultada": "CALLE CERRO DEL ESPINO S/N|Majadahonda",
+"direccion_nombre": "Calle Cerro del Espino, Majadahonda, Comunidad de Madrid, 28221, España",
 "direccion_gps": [
 40.460643,
 -3.862788
@@ -5990,6 +6272,7 @@
 -3.686161
 ],
 "dir_consultada": "CALLE DEL CONSENSO 5|Madrid",
+"direccion_nombre": "Calle del Consenso, Los Rosales, Villaverde, Madrid, Comunidad de Madrid, 28041, España",
 "direccion_gps": [
 40.358438,
 -3.686188
@@ -6012,6 +6295,7 @@
 -3.917312
 ],
 "dir_consultada": "ALEXANDER GRAHAM BELL, 2|Villaviciosa De Odón",
+"direccion_nombre": "2, Calle Alexander Graham Bell, Villaviciosa de Odón, Comunidad de Madrid, 28670, España",
 "direccion_gps": [
 40.362481,
 -3.91733
@@ -6034,6 +6318,7 @@
 -3.713763
 ],
 "dir_consultada": "CALLE DE JUAN MONTALVO 30|Madrid",
+"direccion_nombre": "Nuestra Señora del Buen Consejo, 30, Calle de Juan Montalvo, Ciudad Universitaria, Moncloa-Aravaca, Madrid, Comunidad de Madrid, 28040, España",
 "direccion_gps": [
 40.447329,
 -3.712369
@@ -6056,6 +6341,7 @@
 -3.523729
 ],
 "dir_consultada": "PASEO DEL RADAR, 37|Paracuellos De Jarama",
+"direccion_nombre": "Paseo del Radar, Paracuellos de Jarama, Comunidad de Madrid, 28860, España",
 "direccion_gps": [
 40.502472,
 -3.524751
@@ -6078,6 +6364,7 @@
 -3.6792
 ],
 "dir_consultada": "CALLE FRÓMISTA 1|Madrid",
+"direccion_nombre": "Colegio Estudiantes Las Tablas, 1, Calle de Frómista, Valverde, Fuencarral, Fuencarral-El Pardo, Madrid, Comunidad de Madrid, 28049, España",
 "direccion_gps": [
 40.509212,
 -3.679083
@@ -6100,6 +6387,7 @@
 -3.872011
 ],
 "dir_consultada": "C/ DE LA COMUNIDAD CANARIA 8|Boadilla Del Monte",
+"direccion_nombre": "Colegio Privado Highlands School Los Fresnos, 8, Calle de la Comunidad Canaria, Boadilla del Monte, Comunidad de Madrid, 28023, España",
 "direccion_gps": [
 40.441366,
 -3.87161
@@ -6122,11 +6410,12 @@
 -3.760004
 ],
 "dir_consultada": "AVDA. DE AMÉRICA S/N|Parla",
+"direccion_nombre": "Avenida de América, Las Américas, Parla, Comunidad de Madrid, 28983, España",
 "direccion_gps": [
-40.22809,
--3.764065
+40.228158,
+-3.764095
 ],
-"dist_rffm_direccion_km": 0.7,
+"dist_rffm_direccion_km": 0.69,
 "instalacion": "Complejo Polideportivo Las Américas",
 "dist_instalacion_km": 0.1,
 "navegacion": [
@@ -6144,6 +6433,7 @@
 -3.845966
 ],
 "dir_consultada": "CALLE ARROYO DE LA SACEDILLA Nº 44|Majadahonda",
+"direccion_nombre": "Calle Arroyo de la Sacedilla, Majadahonda, Comunidad de Madrid, 28221, España",
 "direccion_gps": [
 40.477263,
 -3.844862
@@ -6177,6 +6467,7 @@
 -3.917312
 ],
 "dir_consultada": "CALLE ALEXANDER GRAHAM BELL 2|Villaviciosa De Odón",
+"direccion_nombre": "2, Calle Alexander Graham Bell, Villaviciosa de Odón, Comunidad de Madrid, 28670, España",
 "direccion_gps": [
 40.362481,
 -3.91733
@@ -6199,6 +6490,7 @@
 -3.808866
 ],
 "dir_consultada": "PASEO DE RIAZOR, S/N|Fuenlabrada",
+"direccion_nombre": "Paseo de Riazor, El Naranjo, El Naranjo - La Serna, Fuenlabrada, Comunidad de Madrid, 28941, España",
 "direccion_gps": [
 40.301478,
 -3.810868
@@ -6224,6 +6516,7 @@
 -3.762957
 ],
 "dir_consultada": "CALLE ARQUITECTURA 4|Leganés",
+"direccion_nombre": "Calle Arquitectura, Batallas, San Nicasio, Leganés, Comunidad de Madrid, 28913, España",
 "direccion_gps": [
 40.339599,
 -3.762738
@@ -6246,6 +6539,7 @@
 -3.694854
 ],
 "dir_consultada": "CALLE PABLO PICASSO S/N|Pinto",
+"direccion_nombre": "Calle de Pablo Picasso, Parque Europa, Pinto, Comunidad de Madrid, 28320, España",
 "direccion_gps": [
 40.237141,
 -3.696321
@@ -6268,6 +6562,7 @@
 -3.762764
 ],
 "dir_consultada": "CALLE ARQUITECTURA 4|Leganés",
+"direccion_nombre": "Calle Arquitectura, Batallas, San Nicasio, Leganés, Comunidad de Madrid, 28913, España",
 "direccion_gps": [
 40.339599,
 -3.762738
@@ -6290,6 +6585,7 @@
 -3.723952
 ],
 "dir_consultada": "VIA LUSITANA 5|Madrid",
+"direccion_nombre": "Vía Lusitana, Abrantes, Carabanchel, Madrid, Comunidad de Madrid, 28025, España",
 "direccion_gps": [
 40.383374,
 -3.721521
@@ -6312,6 +6608,7 @@
 -3.744348
 ],
 "dir_consultada": "AVDA. DE LAS ARCAS DEL AGUA S/N|Getafe",
+"direccion_nombre": "Avenida de las Arcas del Agua, Urbanización El Artesón, Buenavista, Sector III, Getafe, Comunidad de Madrid, 28905, España",
 "direccion_gps": [
 40.291955,
 -3.747
@@ -6334,6 +6631,7 @@
 -3.917312
 ],
 "dir_consultada": "CALLE ALEXANDER GRAHAM BELL 2|Villaviciosa De Odón",
+"direccion_nombre": "2, Calle Alexander Graham Bell, Villaviciosa de Odón, Comunidad de Madrid, 28670, España",
 "direccion_gps": [
 40.362481,
 -3.91733
@@ -6356,6 +6654,7 @@
 -3.896471
 ],
 "dir_consultada": "MENENDEZ PIDAL 16|Boadilla Del Monte",
+"direccion_nombre": "Calle Menéndez Pidal, Residencial Siglo XXI, Boadilla del Monte, Comunidad de Madrid, 28660, España",
 "direccion_gps": [
 40.410845,
 -3.895631
@@ -6396,6 +6695,7 @@
 -3.611237
 ],
 "dir_consultada": "CALLE DEL CAMINO ANCHO 10|Alcobendas",
+"direccion_nombre": "Centro Privado de Educación Primaria y Secundaria Base, 10, Calle del Camino Ancho, La Moraleja, Alcobendas, Comunidad de Madrid, 28109, España",
 "direccion_gps": [
 40.509852,
 -3.611249
@@ -6416,12 +6716,13 @@
 -3.411503
 ],
 "dir_consultada": "AVENIDA DE AJALVIR 38|Alcalá De Henares",
+"direccion_nombre": "Avenida de Ajalvir, Toreros, El Chorrillo, Distrito III, Alcalá de Henares, Comunidad de Madrid, 28806, España",
 "direccion_gps": [
-40.48957,
--3.379622
+40.489625,
+-3.376618
 ],
-"dist_rffm_direccion_km": 2.8,
-"aviso": "Coordenadas de la RFFM a 2.8 km de la dirección (sin confirmar)",
+"dist_rffm_direccion_km": 3.04,
+"aviso": "La dirección queda a 3.0 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
 "instalacion": "Polideportivo Coinsa",
 "dist_instalacion_km": 0.14,
 "navegacion": [
@@ -6439,6 +6740,7 @@
 -3.675199
 ],
 "dir_consultada": "CALLE ESTEFANITA 3|Madrid",
+"direccion_nombre": "Polideportivo María de Villota, 3, Calle Estefanita, Butarque, Villaverde, Madrid, Comunidad de Madrid, 28021, España",
 "direccion_gps": [
 40.347317,
 -3.674975
@@ -6461,6 +6763,7 @@
 -3.728841
 ],
 "dir_consultada": "VIA LUSITANA 19|Madrid",
+"direccion_nombre": "Instalación Deportiva Municipal Básica Via Lusitana, 19, Vía Lusitana, Abrantes, Carabanchel, Madrid, Comunidad de Madrid, 28025, España",
 "direccion_gps": [
 40.377018,
 -3.728306
@@ -6483,16 +6786,19 @@
 -3.720395
 ],
 "dir_consultada": "C/ FUEGO Nº 9|Tres Cantos",
+"direccion_nombre": "Calle del Fuego, Tres Cantos, Comunidad de Madrid, 28760, España",
 "direccion_gps": [
-40.613358,
--3.717732
+40.613462,
+-3.718453
 ],
-"dist_rffm_direccion_km": 0.23,
+"dist_rffm_direccion_km": 0.18,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.28,
 "navegacion": [
-40.612872,
--3.720395
+40.611904,
+-3.717396
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "2106": {
@@ -6503,16 +6809,19 @@
 -3.533117
 ],
 "dir_consultada": "CAMINO DE LA SOLEDAD 12|Torrelaguna",
+"direccion_nombre": "Polideportivo Municipal Antonio Martín, 12, Camino de la Soledad, Torrelaguna, Comunidad de Madrid, 28180, España",
 "direccion_gps": [
 40.825966,
 -3.531898
 ],
 "dist_rffm_direccion_km": 0.15,
+"instalacion": "Polideportivo Municipal Antonio Martín",
+"dist_instalacion_km": 0.14,
 "navegacion": [
-40.82693,
--3.533117
+40.825978,
+-3.531994
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "21958252": {
@@ -6523,6 +6832,7 @@
 -3.908243
 ],
 "dir_consultada": "CALLE DE LA GUARDIA 1|Arroyomolinos",
+"direccion_nombre": "Colegio Arenales Arroyomolinos, 1, Calle de la Guardia, Arroyomolinos, Comunidad de Madrid, 28939, España",
 "direccion_gps": [
 40.283155,
 -3.908096
@@ -6539,16 +6849,16 @@
 "nombre": "VILLANUEVA DE LA CAÑADA - COL. ZOLA (H.A.)",
 "localidad": "Villanueva Del Pardillo",
 "rffm": [
-40.465827,
--3.957556
+40.492045,
+-3.965782
 ],
 "dir_consultada": "CALLE VALLE DEL RONCAL 57|Villanueva Del Pardillo",
+"direccion_nombre": "Calle Valle del Roncal, Sanabria, Las Vegas - Santa María, Villanueva del Pardillo, Comunidad de Madrid, 28229, España",
 "direccion_gps": [
 40.492045,
 -3.965782
 ],
-"dist_rffm_direccion_km": 3.0,
-"aviso": "Coordenadas de la RFFM a 3.0 km de la dirección: corregido",
+"dist_rffm_direccion_km": 0.0,
 "instalacion": "pitch",
 "dist_instalacion_km": 0.22,
 "navegacion": [
@@ -6556,7 +6866,7 @@
 -3.96775
 ],
 "tipo": "instalacion",
-"corregido": true
+"corregido": false
 },
 "13372982": {
 "nombre": "CDM EL PRADILLO",
@@ -6566,12 +6876,13 @@
 -3.67158
 ],
 "dir_consultada": "C/ EL PRADILLO, 33|Madrid",
+"direccion_nombre": "Calle Real, Urbanización Albasierra, Albasierra, La Estación, Collado Villalba, Comunidad de Madrid, 28400, España",
 "direccion_gps": [
 40.63212,
 -4.00427
 ],
 "dist_rffm_direccion_km": 34.69,
-"aviso": "Coordenadas de la RFFM a 34.7 km de la dirección (sin confirmar)",
+"aviso": "La dirección queda a 34.7 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
 "entrada": {
 "door": "sliding",
 "entrance": "main",
@@ -6619,6 +6930,7 @@
 -3.694854
 ],
 "dir_consultada": "CALLE PABLO PICASSO|Pinto",
+"direccion_nombre": "Calle de Pablo Picasso, Parque Europa, Pinto, Comunidad de Madrid, 28320, España",
 "direccion_gps": [
 40.237141,
 -3.696321
@@ -6659,6 +6971,7 @@
 -3.660831
 ],
 "dir_consultada": "Avda. Brasilia, 2|Madrid",
+"direccion_nombre": "Avenida de Brasilia, Barrio del Parral, Guindalera, Salamanca, Madrid, Comunidad de Madrid, 28028, España",
 "direccion_gps": [
 40.440667,
 -3.660936
@@ -6699,16 +7012,19 @@
 -3.63141
 ],
 "dir_consultada": "CALLE DE LA SALVIA 48|Alcobendas",
+"direccion_nombre": "Centro Privado de Educación Infantil, Primaria y Secundaria B.r.a.-institucion, 48, Calle de la Salvia, La Moraleja, Alcobendas, Comunidad de Madrid, 28109, España",
 "direccion_gps": [
 40.530029,
 -3.631329
 ],
 "dist_rffm_direccion_km": 0.01,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.06,
 "navegacion": [
-40.529959,
--3.63141
+40.530505,
+-3.631387
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "15185977": {
@@ -6719,16 +7035,19 @@
 -3.626749
 ],
 "dir_consultada": "AVENIDA DE LA DEHESA S/N|San Sebastián De Los Reyes",
+"direccion_nombre": "Avenida de la Dehesa, Dehesa Vieja, Los Tempranales, San Sebastián de los Reyes, Comunidad de Madrid, 28702, España",
 "direccion_gps": [
 40.563119,
 -3.622262
 ],
 "dist_rffm_direccion_km": 0.51,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.08,
 "navegacion": [
-40.56619,
--3.626749
+40.566861,
+-3.627209
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "28821260": {
@@ -6739,6 +7058,7 @@
 -3.841087
 ],
 "dir_consultada": "AVDA. DE ESTEBAN MARQUEZ, S/N|Alcorcón",
+"direccion_nombre": "Avenida de Esteban Márquez, Prado de Santo Domingo, Suroeste, Alcorcón, Comunidad de Madrid, 28922, España",
 "direccion_gps": [
 40.3392,
 -3.842233
@@ -6761,6 +7081,7 @@
 -3.615013
 ],
 "dir_consultada": "AVDA. DE GUADALAJARA 28|Madrid",
+"direccion_nombre": "Colegio Internacional J.H. Newman, 28, Avenida de Guadalajara, Arcos, San Blas - Canillejas, Madrid, Comunidad de Madrid, 28032, España",
 "direccion_gps": [
 40.420836,
 -3.614794
@@ -6783,6 +7104,7 @@
 -3.762957
 ],
 "dir_consultada": "CALLE ARQUITECTURA 4|Leganés",
+"direccion_nombre": "Calle Arquitectura, Batallas, San Nicasio, Leganés, Comunidad de Madrid, 28913, España",
 "direccion_gps": [
 40.339599,
 -3.762738
@@ -6805,6 +7127,7 @@
 -4.127149
 ],
 "dir_consultada": "CALLE LAS POZAS 183|San Lorenzo De El Escorial",
+"direccion_nombre": "Polideportivo Muncipal El Zaburdón, 183, Calle Las Pozas, Zaburdón, San Lorenzo de El Escorial, Comunidad de Madrid, 28200, España",
 "direccion_gps": [
 40.60279,
 -4.126736
@@ -6827,6 +7150,7 @@
 -3.917312
 ],
 "dir_consultada": "ALEXANDER GRAHAM BELL, 2|Villaviciosa De Odón",
+"direccion_nombre": "2, Calle Alexander Graham Bell, Villaviciosa de Odón, Comunidad de Madrid, 28670, España",
 "direccion_gps": [
 40.362481,
 -3.91733
@@ -6867,6 +7191,7 @@
 -4.122518
 ],
 "dir_consultada": "CALLE DE NAVAARMADO S/N|Escorial (El)",
+"direccion_nombre": "Calle de Navaarmado, Sexmo de Casarrubios, Comunidad de Ciudad y Tierra de Segovia, El Escorial, Comunidad de Madrid, 28280, España",
 "direccion_gps": [
 40.581685,
 -4.122516
@@ -6892,6 +7217,7 @@
 -3.739143
 ],
 "dir_consultada": "CALLE GALLUR S/N|Madrid",
+"direccion_nombre": "Calle de Gallur, Los Cármenes, Latina, Madrid, Comunidad de Madrid, 28047, España",
 "direccion_gps": [
 40.398175,
 -3.739595
@@ -6932,6 +7258,7 @@
 -3.705869
 ],
 "dir_consultada": "CALLE DE ANDRES ARTEAGA 1|Madrid",
+"direccion_nombre": "Calle de Andrés Arteaga, Moscardó, Usera, Madrid, Comunidad de Madrid, 28026, España",
 "direccion_gps": [
 40.388865,
 -3.70632
@@ -6953,16 +7280,16 @@
 "nombre": "FUENLABRADA - LA ALDEHUELA 1 (HA)",
 "localidad": "Fuenlabrada",
 "rffm": [
-40.305344,
--3.839784
+40.281214,
+-3.789733
 ],
 "dir_consultada": "CALLE DE LA FUENTE S/N|Fuenlabrada",
+"direccion_nombre": "Calle de la Fuente, El Pinar, Centro - El Arroyo - La Fuente, Fuenlabrada, Comunidad de Madrid, 28944, España",
 "direccion_gps": [
 40.281214,
 -3.789733
 ],
-"dist_rffm_direccion_km": 5.02,
-"aviso": "Coordenadas de la RFFM a 5.0 km de la dirección: corregido",
+"dist_rffm_direccion_km": 0.0,
 "instalacion": "Parque Residencial Fuenlabrada II",
 "dist_instalacion_km": 0.35,
 "navegacion": [
@@ -6970,7 +7297,7 @@
 -3.787994
 ],
 "tipo": "instalacion",
-"corregido": true
+"corregido": false
 },
 "1705": {
 "nombre": "COSLADA - ESTADIO EL OLIVO (HA)",
@@ -6980,6 +7307,7 @@
 -3.572045
 ],
 "dir_consultada": "CALLE DEL MAR CANTÁBRICO S/N|Coslada",
+"direccion_nombre": "Calle del Mar Cantábrico, Barrio del Puerto, Coslada, Comunidad de Madrid, 28821, España",
 "direccion_gps": [
 40.419706,
 -3.570395
@@ -7020,12 +7348,13 @@
 -3.721607
 ],
 "dir_consultada": "CALLE DE LA ISLA DE TABARCA 2|Madrid",
+"direccion_nombre": "Calle de la Isla Tabarca, Humanes de Madrid, Comunidad de Madrid, 28970, España",
 "direccion_gps": [
 40.253581,
 -3.825855
 ],
 "dist_rffm_direccion_km": 26.34,
-"aviso": "Coordenadas de la RFFM a 26.3 km de la dirección (sin confirmar)",
+"aviso": "La dirección queda a 26.3 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
 "entrada": {
 "entrance": "main"
 },
@@ -7046,6 +7375,7 @@
 -3.889595
 ],
 "dir_consultada": "AVDA. NTRA. SRA. DEL RETAMAR 16|Las Rozas De Madrid",
+"direccion_nombre": "Inball padel, 16, Avenida Nuestra Señora del Retamar, La Puentecilla y Los Majuelos, Las Rozas de Madrid, Comunidad de Madrid, 28232, España",
 "direccion_gps": [
 40.506014,
 -3.888515
@@ -7068,6 +7398,7 @@
 -3.691723
 ],
 "dir_consultada": "CALLE DE LA ALIANZA 4|Madrid",
+"direccion_nombre": "Centro Deportivo Municipal Félix Rubio, 4, Calle de la Alianza, Los Rosales, Villaverde, Madrid, Comunidad de Madrid, 28041, España",
 "direccion_gps": [
 40.356972,
 -3.69109
@@ -7101,6 +7432,7 @@
 -3.668638
 ],
 "dir_consultada": "PASEO DEL PRADO, S/N|Valdemoro",
+"direccion_nombre": "Paseo del Prado, El Caracol, Valdemoro, Comunidad de Madrid, 28343, España",
 "direccion_gps": [
 40.191811,
 -3.664319
@@ -7123,6 +7455,7 @@
 -3.716116
 ],
 "dir_consultada": "CALLE DEL ALCALDE MARTIN DE ALZAGA 4|Madrid",
+"direccion_nombre": "Calle del Alcalde Martín de Alzaga, Colonia de la Policía, Valdezarza, Moncloa-Aravaca, Madrid, Comunidad de Madrid, 28039, España",
 "direccion_gps": [
 40.462955,
 -3.716744
@@ -7141,16 +7474,16 @@
 "nombre": "LOS CARMENES 2 (HA)",
 "localidad": "Madrid",
 "rffm": [
-40.396904,
--3.74369
+40.03276,
+-3.58473
 ],
 "dir_consultada": "CALLE ALHAMBRA 37|Madrid",
+"direccion_nombre": "37, Calle Alhambra de Granada, Urbanización Los Faisanes, El Pino, Valdelascasas, Aranjuez, Comunidad de Madrid, 28300, España",
 "direccion_gps": [
 40.03276,
 -3.58473
 ],
-"dist_rffm_direccion_km": 42.68,
-"aviso": "Coordenadas de la RFFM a 42.7 km de la dirección: corregido",
+"dist_rffm_direccion_km": 0.0,
 "instalacion": "sports_centre",
 "dist_instalacion_km": 0.09,
 "navegacion": [
@@ -7158,7 +7491,7 @@
 -3.585772
 ],
 "tipo": "instalacion",
-"corregido": true
+"corregido": false
 },
 "1717": {
 "nombre": "LOS SANTOS DE LA HUMOSA (HA)",
@@ -7168,6 +7501,7 @@
 -3.251794
 ],
 "dir_consultada": "CALLE CANAL DE ISABEL II 60|Santos De La Humosa (Los)",
+"direccion_nombre": "Calle Canal de Isabel II, Los Santos de la Humosa, Comunidad de Madrid, 28817, España",
 "direccion_gps": [
 40.496928,
 -3.252087
@@ -7197,11 +7531,19 @@
 ],
 "dir_consultada": "CALLE DE LAS HUERTAS 55|Colmenar Viejo",
 "sin_geocodificar": true,
+"entrada": {
+"addr:housenumber": "47",
+"addr:postcode": "28770",
+"addr:street": "Calle Huertas",
+"entrance": "yes"
+},
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.04,
 "navegacion": [
-40.653949,
--3.765016
+40.653863,
+-3.765147
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "613": {
@@ -7212,6 +7554,7 @@
 -3.665334
 ],
 "dir_consultada": "AVENIDA DEL PARQUE DE PALOMERAS BAJAS 10|Madrid",
+"direccion_nombre": "10, Avenida del Parque de Palomeras Bajas, Palomeras Bajas, Puente de Vallecas, Madrid, Comunidad de Madrid, 28018, España",
 "direccion_gps": [
 40.380548,
 -3.664289
@@ -7295,6 +7638,7 @@
 -3.707618
 ],
 "dir_consultada": "CALLE DE FERMIN CABALLERO 53|Madrid",
+"direccion_nombre": "Centro Privado de Educación Infantil, Primaria y Secundaria Valdeluz, 53, Calle de Fermín Caballero, Ciudad de los Periodistas, Pilar, Fuencarral, Fuencarral-El Pardo, Madrid, Comunidad de Madrid, 28034, España",
 "direccion_gps": [
 40.482843,
 -3.707196
@@ -7317,6 +7661,7 @@
 -3.648441
 ],
 "dir_consultada": "CALLE DE JOSÉ DEL HIERRO 5|Madrid",
+"direccion_nombre": "Calle de José del Hierro, Concepción, Ciudad Lineal, Madrid, Comunidad de Madrid, 28027, España",
 "direccion_gps": [
 40.440218,
 -3.644
@@ -7342,6 +7687,7 @@
 -3.692804
 ],
 "dir_consultada": "CALLE DOÑA MANOLITA S/N|Pinto",
+"direccion_nombre": "Calle de Doña Manolita, Parque Europa, Pinto, Comunidad de Madrid, 28320, España",
 "direccion_gps": [
 40.249372,
 -3.692892
@@ -7364,6 +7710,7 @@
 -3.352549
 ],
 "dir_consultada": "AVDA. LOPE DE FIGUEROA 27|Alcalá De Henares",
+"direccion_nombre": "Centro Privado de Educación Infantil, Primaria y Secundaria Escuelas Pías, 27, Avenida Lope de Figueroa, Virgen del Val, Distrito V, Alcalá de Henares, Comunidad de Madrid, 28804, España",
 "direccion_gps": [
 40.485207,
 -3.352864
@@ -7386,6 +7733,7 @@
 -3.83306
 ],
 "dir_consultada": "CTRA. DE POZUELO A MAJADAHONDA KM. 1,800|Pozuelo De Alarcón",
+"direccion_nombre": "Carretera de Pozuelo a Majadahonda, Distrito Municipal I (sin urbanizaciones), Urbanización Monte Claro, Pozuelo de Alarcón, Comunidad de Madrid, 28223, España",
 "direccion_gps": [
 40.433656,
 -3.830752
@@ -7408,6 +7756,7 @@
 -3.689885
 ],
 "dir_consultada": "CALLE DEL CORINDÓN 3|Madrid",
+"direccion_nombre": "Instalación Deportiva Municipal Básica La Perla, 3, Calle del Corindón, San Fermín, Usera, Madrid, Comunidad de Madrid, 28041, España",
 "direccion_gps": [
 40.367598,
 -3.689662
@@ -7450,16 +7799,16 @@
 "nombre": "FUENLABRADA - LA ALDEHUELA 2 (HA)",
 "localidad": "Fuenlabrada",
 "rffm": [
-40.305344,
--3.839784
+40.281214,
+-3.789733
 ],
 "dir_consultada": "CALLE DE LA FUENTE S/N|Fuenlabrada",
+"direccion_nombre": "Calle de la Fuente, El Pinar, Centro - El Arroyo - La Fuente, Fuenlabrada, Comunidad de Madrid, 28944, España",
 "direccion_gps": [
 40.281214,
 -3.789733
 ],
-"dist_rffm_direccion_km": 5.02,
-"aviso": "Coordenadas de la RFFM a 5.0 km de la dirección: corregido",
+"dist_rffm_direccion_km": 0.0,
 "instalacion": "Parque Residencial Fuenlabrada II",
 "dist_instalacion_km": 0.35,
 "navegacion": [
@@ -7467,7 +7816,7 @@
 -3.787994
 ],
 "tipo": "instalacion",
-"corregido": true
+"corregido": false
 },
 "716": {
 "nombre": "I.D.B. SAN PASCUAL (HA)",
@@ -7477,6 +7826,7 @@
 -3.654854
 ],
 "dir_consultada": "CALLE DE ESTEBAN MORA S/N|Madrid",
+"direccion_nombre": "Calle de Esteban Mora, San Pascual, Ciudad Lineal, Madrid, Comunidad de Madrid, 28027, España",
 "direccion_gps": [
 40.438911,
 -3.653817
@@ -7499,6 +7849,7 @@
 -3.108818
 ],
 "dir_consultada": "AVD. DEL PAPA JUAN PABLO II|Estremera",
+"direccion_nombre": "Avenida del Papa Juan Pablo II, Estremera, Comunidad de Madrid, 28595, España",
 "direccion_gps": [
 40.189542,
 -3.108634
@@ -7521,6 +7872,7 @@
 -3.715231
 ],
 "dir_consultada": "AVDA. JUAN DE BORBON S/N|Getafe",
+"direccion_nombre": "Avenida Juan de Borbón, El Casar, Getafe Norte, Getafe, Comunidad de Madrid, 28903, España",
 "direccion_gps": [
 40.313558,
 -3.711639
@@ -7539,16 +7891,16 @@
 "nombre": "NAVALCARNERO - EL PINAR 2 (H.A.)",
 "localidad": "Navalcarnero",
 "rffm": [
-40.300861,
--4.008256
+40.299987,
+-3.985217
 ],
 "dir_consultada": "CONIFERAS S/N|Navalcarnero",
+"direccion_nombre": "Calle Coníferas, La Dehesa, Sexmo de Casarrubios, Comunidad de Ciudad y Tierra de Segovia, Navalcarnero, Comunidad de Madrid, 28600, España",
 "direccion_gps": [
 40.299987,
 -3.985217
 ],
-"dist_rffm_direccion_km": 1.96,
-"aviso": "Coordenadas de la RFFM a 2.0 km de la dirección: corregido",
+"dist_rffm_direccion_km": 0.0,
 "instalacion": "pitch",
 "dist_instalacion_km": 0.12,
 "navegacion": [
@@ -7556,7 +7908,7 @@
 -3.984139
 ],
 "tipo": "instalacion",
-"corregido": true
+"corregido": false
 },
 "11043104": {
 "nombre": "ALCALA - ATLETICO DE MADRID C.D. (HA)",
@@ -7566,6 +7918,7 @@
 -3.360855
 ],
 "dir_consultada": "AVDA. GUSTAVO ADOLFO BECQUER 64|Alcalá De Henares",
+"direccion_nombre": "Avenida de Gustavo Adolfo Bécquer, Espartales Sur, Espartales, Distrito IV, Alcalá de Henares, Comunidad de Madrid, 28805, España",
 "direccion_gps": [
 40.5086,
 -3.361426
@@ -7606,6 +7959,7 @@
 -3.714132
 ],
 "dir_consultada": "CALLE MARÍA MONTESSORI S/N|Getafe",
+"direccion_nombre": "Calle de María Montessori, Los Espartales, Villaverde Alto, Casco Histórico de Villaverde, Getafe Norte, Getafe, Comunidad de Madrid, 28903, España",
 "direccion_gps": [
 40.324806,
 -3.714191
@@ -7631,6 +7985,7 @@
 -3.896471
 ],
 "dir_consultada": "MENENDEZ PIDAL 16|Boadilla Del Monte",
+"direccion_nombre": "Calle Menéndez Pidal, Residencial Siglo XXI, Boadilla del Monte, Comunidad de Madrid, 28660, España",
 "direccion_gps": [
 40.410845,
 -3.895631
@@ -7653,6 +8008,7 @@
 -3.925715
 ],
 "dir_consultada": "CALLE PUENTE MADRID 11 (CERCEDA)|Boalo (El)",
+"direccion_nombre": "Calle Puente Madrid, Urbanización Vista Nieve, San Muriel, Cerceda, El Boalo-Cerceda-Mataelpino, Comunidad de Madrid, 28412, España",
 "direccion_gps": [
 40.697707,
 -3.924273
@@ -7696,6 +8052,7 @@
 -3.657919
 ],
 "dir_consultada": "CALLE PUERTO DE BALBARÁN 18|Madrid",
+"direccion_nombre": "Calle del Puerto de Balbarán, San Diego, Puente de Vallecas, Madrid, Comunidad de Madrid, 28018, España",
 "direccion_gps": [
 40.381413,
 -3.667356
@@ -7721,11 +8078,12 @@
 -3.612401
 ],
 "dir_consultada": "CALLE DEL RAYO VALLECANO DE MADRID 2|Madrid",
+"direccion_nombre": "Calle del Rayo Vallecano de Madrid, Ensanche de Vallecas, Villa de Vallecas, Madrid, Comunidad de Madrid, 28031, España",
 "direccion_gps": [
-40.377486,
--3.610768
+40.375193,
+-3.612704
 ],
-"dist_rffm_direccion_km": 0.15,
+"dist_rffm_direccion_km": 0.2,
 "instalacion": "Ciudad Deportiva del Rayo Vallecano",
 "dist_instalacion_km": 0.05,
 "navegacion": [
@@ -7743,6 +8101,7 @@
 -3.805668
 ],
 "dir_consultada": "CAMINO DE CUBAS 2|Torrejón De La Calzada",
+"direccion_nombre": "Camino de Torrejón de la Calzada, Urbanización La Alameda, Cubas de la Sagra, Comunidad de Madrid, 28991, España",
 "direccion_gps": [
 40.196786,
 -3.818138
@@ -7783,11 +8142,13 @@
 -3.447921
 ],
 "dir_consultada": "AVDA. DE LA CONSTITUCIÓN 193|Torrejón De Ardoz",
+"direccion_nombre": "Avenida de la Constitución, Torrejón de Ardoz, Comunidad de Madrid, 28850, España",
 "direccion_gps": [
-40.460485,
--3.458253
+40.455863,
+-3.479129
 ],
-"dist_rffm_direccion_km": 0.93,
+"dist_rffm_direccion_km": 2.77,
+"aviso": "La dirección queda a 2.8 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
 "instalacion": "Campos de Fútbol Municipales J. Mª. Gutiérrez Hernández \"Guti\"",
 "dist_instalacion_km": 0.04,
 "navegacion": [
@@ -7805,6 +8166,7 @@
 -3.63099
 ],
 "dir_consultada": "CALLE NEVADO DEL CUMBAL 2|Madrid",
+"direccion_nombre": "Calle del Nevado del Cumbal, Pinar del Rey, Hortaleza, Madrid, Comunidad de Madrid, 28043, España",
 "direccion_gps": [
 40.470049,
 -3.631118
@@ -7827,11 +8189,12 @@
 -3.770706
 ],
 "dir_consultada": "CALLE DE SOLEDAD CAZORLA 22|Madrid",
+"direccion_nombre": "Calle de Soledad Cazorla, Las Águilas, Latina, Madrid, Comunidad de Madrid, 28044, España",
 "direccion_gps": [
-40.374588,
--3.76614
+40.374211,
+-3.766762
 ],
-"dist_rffm_direccion_km": 0.4,
+"dist_rffm_direccion_km": 0.37,
 "instalacion": "Instalación Deportiva Básica Óscar y Jesús",
 "dist_instalacion_km": 0.07,
 "navegacion": [
@@ -7849,17 +8212,20 @@
 -3.333018
 ],
 "dir_consultada": "CTRA. ALCALÁ DE HENARES S/N|Meco",
+"direccion_nombre": "Carretera de Meco, Distrito IV, Meco, Comunidad de Madrid, 28880, España",
 "direccion_gps": [
 40.531187,
 -3.340448
 ],
 "dist_rffm_direccion_km": 2.14,
-"aviso": "Coordenadas de la RFFM a 2.1 km de la dirección (sin confirmar)",
+"aviso": "La dirección queda a 2.1 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
+"instalacion": "Pabellón de Deportes Villa de Meco",
+"dist_instalacion_km": 0.04,
 "navegacion": [
-40.549583,
--3.333018
+40.54974,
+-3.33346
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "405": {
@@ -7870,6 +8236,7 @@
 -3.723952
 ],
 "dir_consultada": "VIA LUSITANA 5|Madrid",
+"direccion_nombre": "Vía Lusitana, Abrantes, Carabanchel, Madrid, Comunidad de Madrid, 28025, España",
 "direccion_gps": [
 40.383374,
 -3.721521
@@ -7892,6 +8259,7 @@
 -3.895544
 ],
 "dir_consultada": "CALLE CASTILLO DE SIMANCAS 2|Las Rozas De Madrid",
+"direccion_nombre": "Calle del Castillo de Simancas, La Puentecilla y Los Majuelos, Las Rozas de Madrid, Comunidad de Madrid, 28230, España",
 "direccion_gps": [
 40.510239,
 -3.895408
@@ -7914,6 +8282,7 @@
 -3.701542
 ],
 "dir_consultada": "CALLE DEL DR. TOLOSA LATOUR S/N|Madrid",
+"direccion_nombre": "Calle del Doctor Tolosa Latour, Orcasur, Usera, Madrid, Comunidad de Madrid, 28041, España",
 "direccion_gps": [
 40.376525,
 -3.701862
@@ -7936,6 +8305,7 @@
 -3.821827
 ],
 "dir_consultada": "CALLE PARQUE FERIAL 4|Alcorcón",
+"direccion_nombre": "Calle del Parque Ferial, Fuente del Palomar, Suroeste, Alcorcón, Comunidad de Madrid, 28923, España",
 "direccion_gps": [
 40.333919,
 -3.818917
@@ -7958,11 +8328,13 @@
 -3.714873
 ],
 "dir_consultada": "CALLE DE LA MASÓ 80|Madrid",
+"direccion_nombre": "Calle de La Masó, Mirasierra, Fuencarral, Fuencarral-El Pardo, Madrid, Comunidad de Madrid, 28034, España",
 "direccion_gps": [
-40.489639,
--3.714184
+40.496255,
+-3.705734
 ],
-"dist_rffm_direccion_km": 0.62,
+"dist_rffm_direccion_km": 1.56,
+"aviso": "La dirección queda a 1.6 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
 "instalacion": "Centro Deportivo Municipal La Masó",
 "dist_instalacion_km": 0.13,
 "navegacion": [
@@ -7998,6 +8370,7 @@
 -3.762489
 ],
 "dir_consultada": "CALLE DE FELIPE II 19|Parla",
+"direccion_nombre": "Calle de Felipe II, Barrio 2001, Parla, Comunidad de Madrid, 28982, España",
 "direccion_gps": [
 40.237288,
 -3.762538
@@ -8020,11 +8393,12 @@
 -3.819405
 ],
 "dir_consultada": "CALLE VALDEHONDILLO, S/N.|Humanes De Madrid",
+"direccion_nombre": "Calle Valdehondillo, Humanes de Madrid, Comunidad de Madrid, 28970, España",
 "direccion_gps": [
-40.255678,
--3.819807
+40.256666,
+-3.818901
 ],
-"dist_rffm_direccion_km": 0.08,
+"dist_rffm_direccion_km": 0.06,
 "instalacion": "Pabellón Deportivo Campohermoso",
 "dist_instalacion_km": 0.03,
 "navegacion": [
@@ -8042,6 +8416,7 @@
 -3.377626
 ],
 "dir_consultada": "CAMINO DEL MOLINO S/N|Camarma De Esteruelas",
+"direccion_nombre": "Camino del Molino, Camarma de Esteruelas, Comunidad de Madrid, 28816, España",
 "direccion_gps": [
 40.546591,
 -3.377466
@@ -8062,16 +8437,22 @@
 -3.608393
 ],
 "dir_consultada": "CALLE DE LOS DEPORTES 2|Cabrera (La)",
+"direccion_nombre": "Calle de los Deportes, La Cabrera, Comunidad de Madrid, 28751, España",
 "direccion_gps": [
-40.869949,
--3.607451
+40.869783,
+-3.606303
 ],
-"dist_rffm_direccion_km": 0.08,
+"dist_rffm_direccion_km": 0.18,
+"entrada": {
+"barrier": "gate"
+},
+"instalacion": "Centro Deportivo Municipal Julián Berrendero - La Cabrera",
+"dist_instalacion_km": 0.09,
 "navegacion": [
-40.869687,
--3.608393
+40.869822,
+-3.60826
 ],
-"tipo": "rffm",
+"tipo": "entrada",
 "corregido": false
 },
 "1216": {
@@ -8082,6 +8463,7 @@
 -3.864804
 ],
 "dir_consultada": "CALLE SOROLLA 1|Majadahonda",
+"direccion_nombre": "1, Calle Sorolla, Majadahonda, Comunidad de Madrid, 28222, España",
 "direccion_gps": [
 40.456094,
 -3.863397
@@ -8107,6 +8489,7 @@
 -3.738654
 ],
 "dir_consultada": "CALLE BRAOJOS 21|Madrid",
+"direccion_nombre": "Calle de Braojos, Arroyo del Fresno, Fuentelarreina, Fuencarral-El Pardo, Madrid, Comunidad de Madrid, 28035, España",
 "direccion_gps": [
 40.481512,
 -3.738731
@@ -8129,6 +8512,7 @@
 -3.694854
 ],
 "dir_consultada": "CALLE PABLO PICASSO S/N|Pinto",
+"direccion_nombre": "Calle de Pablo Picasso, Parque Europa, Pinto, Comunidad de Madrid, 28320, España",
 "direccion_gps": [
 40.237141,
 -3.696321
@@ -8151,11 +8535,12 @@
 -3.60795
 ],
 "dir_consultada": "CALLE DE LA ESFINGE 76|Madrid",
+"direccion_nombre": "76, Calle de la Esfinge, Canillejas, San Blas - Canillejas, Madrid, Comunidad de Madrid, 28022, España",
 "direccion_gps": [
-40.440267,
--3.60794
+40.439418,
+-3.607828
 ],
-"dist_rffm_direccion_km": 0.01,
+"dist_rffm_direccion_km": 0.09,
 "instalacion": "pitch",
 "dist_instalacion_km": 0.05,
 "navegacion": [
@@ -8173,11 +8558,12 @@
 -3.57932
 ],
 "dir_consultada": "CALLE DE AYERBE S/N|Madrid",
+"direccion_nombre": "Calle de Ayerbe, Aeropuerto, Barajas, Madrid, Comunidad de Madrid, 28042, España",
 "direccion_gps": [
-40.471966,
--3.575926
+40.470333,
+-3.578617
 ],
-"dist_rffm_direccion_km": 0.37,
+"dist_rffm_direccion_km": 0.08,
 "instalacion": "Campo de Deportes Nuestra Señora de la Soledad",
 "dist_instalacion_km": 0.2,
 "navegacion": [
@@ -8204,16 +8590,19 @@
 -3.759945
 ],
 "dir_consultada": "CALLE TOMILLO S/N|Colmenar Viejo",
+"direccion_nombre": "Calle Tomillo, Colmenar Viejo, Comunidad de Madrid, 28770, España",
 "direccion_gps": [
 40.657767,
 -3.759887
 ],
 "dist_rffm_direccion_km": 0.0,
+"instalacion": "Campo Municipal de Deportes Alberto Ruiz",
+"dist_instalacion_km": 0.07,
 "navegacion": [
-40.657767,
--3.759945
+40.657478,
+-3.760685
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1309": {
@@ -8240,16 +8629,19 @@
 -3.709559
 ],
 "dir_consultada": "AVDA DE LA VEGA,S/N|Tres Cantos",
+"direccion_nombre": "Avenida de la Vega, Soto de Viñuelas, Tres Cantos, Comunidad de Madrid, 28760, España",
 "direccion_gps": [
 40.608283,
 -3.709137
 ],
 "dist_rffm_direccion_km": 0.06,
+"instalacion": "Polideportivo Miguel de Cervantes",
+"dist_instalacion_km": 0.07,
 "navegacion": [
-40.607866,
--3.709559
+40.608373,
+-3.710003
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "715": {
@@ -8294,6 +8686,7 @@
 -3.74887
 ],
 "dir_consultada": "CALLE DE CASTROSERNA S/N|Madrid",
+"direccion_nombre": "Calle de Castroserna, Lucero, Latina, Madrid, Comunidad de Madrid, 28047, España",
 "direccion_gps": [
 40.401765,
 -3.748896
@@ -8330,16 +8723,16 @@
 "nombre": "ALCORCON - UNIVERSIDAD REY JUAN CARLOS (H.A.)",
 "localidad": "Alcorcón",
 "rffm": [
-40.530771,
--3.910286
+40.349721,
+-3.842559
 ],
 "dir_consultada": "AVENIDA DE ATENAS S/N|Alcorcón",
+"direccion_nombre": "Avenida de Atenas, Suroeste, Alcorcón, Comunidad de Madrid, 28922, España",
 "direccion_gps": [
 40.349721,
 -3.842559
 ],
-"dist_rffm_direccion_km": 20.93,
-"aviso": "Coordenadas de la RFFM a 20.9 km de la dirección: corregido",
+"dist_rffm_direccion_km": 0.0,
 "instalacion": "pitch",
 "dist_instalacion_km": 0.04,
 "navegacion": [
@@ -8347,7 +8740,7 @@
 -3.842249
 ],
 "tipo": "instalacion",
-"corregido": true
+"corregido": false
 },
 "1726": {
 "nombre": "ALCALA - I.E.S. ANTONIO MACHADO (HA)",
@@ -8357,6 +8750,7 @@
 -3.370435
 ],
 "dir_consultada": "CALLE ALALPARDO 2|Alcalá De Henares",
+"direccion_nombre": "2, Calle Alalpardo, Toreros, Campo del Ángel, Distrito III, Alcalá de Henares, Comunidad de Madrid, 28806, España",
 "direccion_gps": [
 40.490717,
 -3.370431
@@ -8379,6 +8773,7 @@
 -4.144146
 ],
 "dir_consultada": "CALLEJA LARGA,S/N|San Lorenzo De El Escorial",
+"direccion_nombre": "Camino Calleja Larga, Sexmo de Casarrubios, El Tomillar, Comunidad de Ciudad y Tierra de Segovia, El Escorial, Comunidad de Madrid, 28200, España",
 "direccion_gps": [
 40.584158,
 -4.14461
@@ -8401,6 +8796,7 @@
 -3.656168
 ],
 "dir_consultada": "CALLE DE MONÓVAR 8|Madrid",
+"direccion_nombre": "Calle de Monóvar, Apóstol Santiago, Hortaleza, Madrid, Comunidad de Madrid, 28033, España",
 "direccion_gps": [
 40.477884,
 -3.656544
@@ -8423,6 +8819,7 @@
 -3.601247
 ],
 "dir_consultada": "PASEO DEL POLIDEPORTIVO S/N|Madrid",
+"direccion_nombre": "Paseo del Polideportivo, Casco Histórico de Vicálvaro, Vicálvaro, Madrid, Comunidad de Madrid, 28032, España",
 "direccion_gps": [
 40.407511,
 -3.599813
@@ -8445,6 +8842,7 @@
 -3.913541
 ],
 "dir_consultada": "CALLE DE SANTANDER 110|Arroyomolinos",
+"direccion_nombre": "Calle de Santander, Arroyomolinos, Comunidad de Madrid, 28939, España",
 "direccion_gps": [
 40.289614,
 -3.909969
@@ -8467,6 +8865,7 @@
 -3.844003
 ],
 "dir_consultada": "AVDA. DE ESTEBAN MARQUEZ S/N|Alcorcón",
+"direccion_nombre": "Avenida de Esteban Márquez, Prado de Santo Domingo, Suroeste, Alcorcón, Comunidad de Madrid, 28922, España",
 "direccion_gps": [
 40.3392,
 -3.842233
@@ -8492,6 +8891,7 @@
 -3.714132
 ],
 "dir_consultada": "CALLE MARÍA MONTESSORI S/N|Getafe",
+"direccion_nombre": "Calle de María Montessori, Los Espartales, Villaverde Alto, Casco Histórico de Villaverde, Getafe Norte, Getafe, Comunidad de Madrid, 28903, España",
 "direccion_gps": [
 40.324806,
 -3.714191
@@ -8556,6 +8956,7 @@
 -3.74823
 ],
 "dir_consultada": "SENDA DE MAFALDA 2|Getafe",
+"direccion_nombre": "Senda de Mafalda, Buenavista, Sector III, Getafe, Comunidad de Madrid, 28905, España",
 "direccion_gps": [
 40.29338,
 -3.745948
@@ -8578,6 +8979,7 @@
 -3.818637
 ],
 "dir_consultada": "CALLE POLVORANCA S/N|Alcorcón",
+"direccion_nombre": "Calle Polvoranca, Torres Bellas, Casco Antiguo, Alcorcón, Comunidad de Madrid, 28921, España",
 "direccion_gps": [
 40.351372,
 -3.827339
@@ -8600,6 +9002,7 @@
 -3.566284
 ],
 "dir_consultada": "AVDA. ABOGADOS DE ATOCHA 20|San Martín De La Vega",
+"direccion_nombre": "20, Avenida de los Abogados de Atocha, Carretera de Morata, San Martín de la Vega, Comunidad de Madrid, 28330, España",
 "direccion_gps": [
 40.215425,
 -3.566363
@@ -8628,6 +9031,7 @@
 -3.487078
 ],
 "dir_consultada": "CALLE SALVADOR ALLENDE 2|Torrejón De Ardoz",
+"direccion_nombre": "Calle de Salvador Allende, Barrio de Las Fronteras, Torrejón de Ardoz, Comunidad de Madrid, 28850, España",
 "direccion_gps": [
 40.459532,
 -3.486756
@@ -8650,6 +9054,7 @@
 -3.869271
 ],
 "dir_consultada": "CAMINO DE LA DEHESA,S/N|Moraleja De Enmedio",
+"direccion_nombre": "Camino de la Dehesa, Moraleja de Enmedio, Comunidad de Madrid, 28950, España",
 "direccion_gps": [
 40.260389,
 -3.866829
@@ -8672,6 +9077,7 @@
 -3.73028
 ],
 "dir_consultada": "CALLE DE ROSALIA DE CASTRO 77|Madrid",
+"direccion_nombre": "Calle de Rosalía de Castro, Peñagrande, Fuencarral-El Pardo, Madrid, Comunidad de Madrid, 28035, España",
 "direccion_gps": [
 40.48112,
 -3.734493
@@ -8694,6 +9100,7 @@
 -3.486187
 ],
 "dir_consultada": "CALLE OLIVAR 2|Velilla De San Antonio",
+"direccion_nombre": "Calle Olivar, Urbanización Velilla de San Antonio, Velilla de San Antonio, Comunidad de Madrid, 28891, España",
 "direccion_gps": [
 40.370218,
 -3.486716
@@ -8716,16 +9123,19 @@
 -3.630882
 ],
 "dir_consultada": "PASEO DE ALCOBENDAS 3|Alcobendas",
+"direccion_nombre": "Centro Privado de Educación Primaria y Secundaria Aldovea, 3, Paseo de Alcobendas, El Soto de La Moraleja, La Moraleja, Alcobendas, Comunidad de Madrid, 28109, España",
 "direccion_gps": [
 40.526089,
 -3.631445
 ],
 "dist_rffm_direccion_km": 0.08,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.13,
 "navegacion": [
-40.525531,
--3.630882
+40.526571,
+-3.631636
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1318": {
@@ -8736,6 +9146,7 @@
 -3.869877
 ],
 "dir_consultada": "CTRA. DE POZUELO A BOADILLA Km 4,600|Boadilla Del Monte",
+"direccion_nombre": "Carretera de Pozuelo a Boadilla, Viñas Viejas, Boadilla del Monte, Comunidad de Madrid, 28660, España",
 "direccion_gps": [
 40.409473,
 -3.873178
@@ -8758,6 +9169,7 @@
 -4.089747
 ],
 "dir_consultada": "CALLE DE LOS ESCORIALES 13|Guadarrama",
+"direccion_nombre": "Calle de los Escoriales, La Mata, Guadarrama, Comunidad de Madrid, 28440, España",
 "direccion_gps": [
 40.663304,
 -4.091237
@@ -8783,6 +9195,7 @@
 -3.756311
 ],
 "dir_consultada": "CALLE DEL MAESTRO 6|Leganés",
+"direccion_nombre": "Calle del Maestro, Flores, Vereda de los Estudiantes, Leganés, Comunidad de Madrid, 28912, España",
 "direccion_gps": [
 40.326183,
 -3.755337
@@ -8823,16 +9236,19 @@
 -3.640996
 ],
 "dir_consultada": "CALLE PEÑALTA 1|Buitrago Del Lozoya",
+"direccion_nombre": "Calle Peñalta, Buitrago del Lozoya, Comunidad de Madrid, 28730, España",
 "direccion_gps": [
 40.992094,
 -3.639642
 ],
 "dist_rffm_direccion_km": 0.12,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.07,
 "navegacion": [
-40.991642,
--3.640996
+40.991035,
+-3.641094
 ],
-"tipo": "rffm",
+"tipo": "instalacion",
 "corregido": false
 },
 "1501": {
@@ -8861,6 +9277,7 @@
 -3.650443
 ],
 "dir_consultada": "CALLE DE PÍO FELIPE 12|Madrid",
+"direccion_nombre": "Colegio Tajamar, 12, Calle de Pío Felipe, Numancia, Puente de Vallecas, Madrid, Comunidad de Madrid, 28038, España",
 "direccion_gps": [
 40.397453,
 -3.651161
@@ -8899,6 +9316,7 @@
 -3.755897
 ],
 "dir_consultada": "CALLE GÓMEZ DE ARTECHE 28|Madrid",
+"direccion_nombre": "Centro Privado de Educación Infantil, Primaria y Secundaria Amorós, 28, Calle de Gómez de Arteche, Buenavista, Carabanchel, Madrid, Comunidad de Madrid, 28044, España",
 "direccion_gps": [
 40.369174,
 -3.756484
@@ -8921,6 +9339,7 @@
 -3.615398
 ],
 "dir_consultada": "CALLE DE ENRIQUE GARCÍA ÁLVAREZ 65|Madrid",
+"direccion_nombre": "Calle de Enrique García Álvarez, Santa Eugenia, Villa de Vallecas, Madrid, Comunidad de Madrid, 28031, España",
 "direccion_gps": [
 40.380921,
 -3.614162
@@ -8943,6 +9362,7 @@
 -4.022482
 ],
 "dir_consultada": "CALLE CAMILO JOSÉ CELA S/N|Navalcarnero",
+"direccion_nombre": "Calle Camilo José Cela, Señorío - Navalar, Sexmo de Casarrubios, Comunidad de Ciudad y Tierra de Segovia, Navalcarnero, Comunidad de Madrid, 28600, España",
 "direccion_gps": [
 40.284157,
 -4.023369
@@ -8965,6 +9385,7 @@
 -3.757238
 ],
 "dir_consultada": "CALLE DE JOAQUÍN TURINA 39|Madrid",
+"direccion_nombre": "Fundación SM, 39, Calle de Joaquín Turina, Buenavista, Carabanchel, Madrid, Comunidad de Madrid, 28044, España",
 "direccion_gps": [
 40.371555,
 -3.755547
