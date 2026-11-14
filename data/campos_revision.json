@@ -1,0 +1,5751 @@
+{
+"1409": {
+"nombre": "LEGANES - ANEXO ESTADIO BUTARQUE JESUS POLO (HA)",
+"localidad": "Leganés",
+"rffm": [
+40.340418,
+-3.762508
+],
+"direccion_gps": [
+40.339599,
+-3.762738
+],
+"dist_rffm_direccion_km": 0.09,
+"navegacion": [
+40.340418,
+-3.762508
+],
+"tipo": "rffm",
+"corregido": false
+},
+"3095922": {
+"nombre": "CAMPO VALDEBERNARDO 2 (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.400241,
+-3.610898
+],
+"navegacion": [
+40.400241,
+-3.610898
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1610": {
+"nombre": "ARGANDA - CIUDAD DPTVA. PRINCIPE FELIPE (HA)",
+"localidad": "Arganda Del Rey",
+"rffm": [
+40.307198,
+-3.449361
+],
+"direccion_gps": [
+40.307513,
+-3.451333
+],
+"dist_rffm_direccion_km": 0.17,
+"navegacion": [
+40.307198,
+-3.449361
+],
+"tipo": "rffm",
+"corregido": false
+},
+"12296292": {
+"nombre": "GETAFE - ALHONDIGA SECTOR III 2 (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.313722,
+-3.741321
+],
+"direccion_gps": [
+40.36401,
+-3.743432
+],
+"dist_rffm_direccion_km": 5.59,
+"aviso": "Coordenadas de la RFFM a 5.6 km de la dirección (sin confirmar)",
+"navegacion": [
+40.313722,
+-3.741321
+],
+"tipo": "rffm",
+"corregido": false
+},
+"205": {
+"nombre": "EL PARDO - MINGORRUBIO (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.535592,
+-3.784518
+],
+"direccion_gps": [
+40.518514,
+-3.773552
+],
+"dist_rffm_direccion_km": 2.11,
+"aviso": "Coordenadas de la RFFM a 2.1 km de la dirección (sin confirmar)",
+"navegacion": [
+40.535592,
+-3.784518
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1224": {
+"nombre": "MAJADAHONDA - ATLETICO DE MADRID C.D. (HA) CAMPO 3",
+"localidad": "Majadahonda",
+"rffm": [
+40.461527,
+-3.861633
+],
+"direccion_gps": [
+40.460643,
+-3.862788
+],
+"dist_rffm_direccion_km": 0.14,
+"navegacion": [
+40.461527,
+-3.861633
+],
+"tipo": "rffm",
+"corregido": false
+},
+"6780438": {
+"nombre": "LAS ROZAS - EL ABAJON (HA)",
+"localidad": "Las Rozas De Madrid",
+"rffm": [
+40.489437,
+-3.891217
+],
+"direccion_gps": [
+40.489479,
+-3.891201
+],
+"dist_rffm_direccion_km": 0.0,
+"navegacion": [
+40.489437,
+-3.891217
+],
+"tipo": "rffm",
+"corregido": false
+},
+"410": {
+"nombre": "LA MINA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.382241,
+-3.746321
+],
+"direccion_gps": [
+40.381464,
+-3.746696
+],
+"dist_rffm_direccion_km": 0.09,
+"navegacion": [
+40.382241,
+-3.746321
+],
+"tipo": "rffm",
+"corregido": false
+},
+"26415124": {
+"nombre": "LEGANES - CIUDAD DEPORTIVA (HA)",
+"localidad": "Leganés",
+"rffm": [
+40.350103,
+-3.755786
+],
+"navegacion": [
+40.350103,
+-3.755786
+],
+"tipo": "rffm",
+"corregido": false
+},
+"212": {
+"nombre": "ARAVACA - NTRA. SRA. BUEN CAMINO (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.452637,
+-3.779723
+],
+"direccion_gps": [
+40.452472,
+-3.779534
+],
+"dist_rffm_direccion_km": 0.02,
+"navegacion": [
+40.452637,
+-3.779723
+],
+"tipo": "rffm",
+"corregido": false
+},
+"8791605": {
+"nombre": "LEGANES - PVO. LA CANTERA 2 (HA)",
+"localidad": "Leganés",
+"rffm": [
+40.338863,
+-3.76279
+],
+"direccion_gps": [
+40.339599,
+-3.762738
+],
+"dist_rffm_direccion_km": 0.08,
+"navegacion": [
+40.338863,
+-3.76279
+],
+"tipo": "rffm",
+"corregido": false
+},
+"553663": {
+"nombre": "COLEGIO ALAMEDA DE OSUNA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.455293,
+-3.59453
+],
+"direccion_gps": [
+40.334139,
+-3.755152
+],
+"dist_rffm_direccion_km": 19.14,
+"aviso": "Coordenadas de la RFFM a 19.1 km de la dirección (sin confirmar)",
+"navegacion": [
+40.455293,
+-3.59453
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1430": {
+"nombre": "GETAFE - JUAN DE LA CIERVA 2 (HA)",
+"localidad": "Getafe",
+"rffm": [
+40.317834,
+-3.715231
+],
+"direccion_gps": [
+40.316774,
+-3.714362
+],
+"dist_rffm_direccion_km": 0.14,
+"navegacion": [
+40.317834,
+-3.715231
+],
+"tipo": "rffm",
+"corregido": false
+},
+"16700078": {
+"nombre": "CENTRO DEPORTIVO MUNICIPAL ORCASUR",
+"localidad": "Madrid",
+"rffm": [
+40.368105,
+-3.697747
+],
+"direccion_gps": [
+40.368185,
+-3.697334
+],
+"dist_rffm_direccion_km": 0.04,
+"navegacion": [
+40.368105,
+-3.697747
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1752": {
+"nombre": "COSLADA - BARRIO DEL PUERTO (HA)",
+"localidad": "Coslada",
+"rffm": [
+40.41733,
+-3.57545
+],
+"direccion_gps": [
+40.416206,
+-3.576454
+],
+"dist_rffm_direccion_km": 0.15,
+"navegacion": [
+40.41733,
+-3.57545
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1728": {
+"nombre": "MEJORADA - PVO. MPAL. LA DEHESA (HA)",
+"localidad": "Mejorada Del Campo",
+"rffm": [
+40.393495,
+-3.480555
+],
+"navegacion": [
+40.393495,
+-3.480555
+],
+"tipo": "rffm",
+"corregido": false
+},
+"7685149": {
+"nombre": "VEREDA GANAPANES 2 (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.470647,
+-3.713545
+],
+"direccion_gps": [
+40.471461,
+-3.712729
+],
+"dist_rffm_direccion_km": 0.11,
+"navegacion": [
+40.470647,
+-3.713545
+],
+"tipo": "rffm",
+"corregido": false
+},
+"803": {
+"nombre": "PVO. SAN JUAN BAUTISTA - ANTIGÜO GARCIA DE LA MATA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.447059,
+-3.658927
+],
+"direccion_gps": [
+40.448316,
+-3.656978
+],
+"dist_rffm_direccion_km": 0.22,
+"navegacion": [
+40.447059,
+-3.658927
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1740": {
+"nombre": "VILLALBILLA - PVO. MUNICIPAL (HA)",
+"localidad": "Villalbilla",
+"rffm": [
+40.437684,
+-3.297102
+],
+"navegacion": [
+40.437684,
+-3.297102
+],
+"tipo": "rffm",
+"corregido": false
+},
+"15708076": {
+"nombre": "ALCORCON - COLEGIO JUAN PABLO II",
+"localidad": "Alcorcón",
+"rffm": [
+40.357003,
+-3.855351
+],
+"direccion_gps": [
+40.330381,
+-3.821777
+],
+"dist_rffm_direccion_km": 4.11,
+"aviso": "Coordenadas de la RFFM a 4.1 km de la dirección (sin confirmar)",
+"navegacion": [
+40.357003,
+-3.855351
+],
+"tipo": "rffm",
+"corregido": false
+},
+"13397939": {
+"nombre": "FUENLABRADA-LA ALDEHUELA 3( HA)",
+"localidad": "Fuenlabrada",
+"rffm": [
+40.305344,
+-3.839784
+],
+"direccion_gps": [
+40.277714,
+-3.787302
+],
+"dist_rffm_direccion_km": 5.41,
+"aviso": "Coordenadas de la RFFM a 5.4 km de la dirección (sin confirmar)",
+"navegacion": [
+40.305344,
+-3.839784
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1609": {
+"nombre": "VALDILECHA (HA)",
+"localidad": "Valdilecha",
+"rffm": [
+40.316895,
+-3.286032
+],
+"navegacion": [
+40.316895,
+-3.286032
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2101": {
+"nombre": "BECERRIL DE LA SIERRA (HA)",
+"localidad": "Becerril De La Sierra",
+"rffm": [
+40.711312,
+-3.984208
+],
+"direccion_gps": [
+40.710906,
+-3.985317
+],
+"dist_rffm_direccion_km": 0.1,
+"navegacion": [
+40.711312,
+-3.984208
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1319": {
+"nombre": "BOADILLA - PVO. MUNICIPAL ANGEL NIETO 1 (HA)",
+"localidad": "Boadilla Del Monte",
+"rffm": [
+40.412497,
+-3.870621
+],
+"navegacion": [
+40.412497,
+-3.870621
+],
+"tipo": "rffm",
+"corregido": false
+},
+"702": {
+"nombre": "COLEGIO EL SOL (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.42367,
+-3.611926
+],
+"direccion_gps": [
+40.424679,
+-3.613007
+],
+"dist_rffm_direccion_km": 0.14,
+"navegacion": [
+40.42367,
+-3.611926
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1307": {
+"nombre": "VILLANUEVA DE PERALES (HA)",
+"localidad": "Villanueva De Perales",
+"rffm": [
+40.347983,
+-4.097392
+],
+"direccion_gps": [
+40.34751,
+-4.097313
+],
+"dist_rffm_direccion_km": 0.05,
+"navegacion": [
+40.347983,
+-4.097392
+],
+"tipo": "rffm",
+"corregido": false
+},
+"318": {
+"nombre": "INSTALACION DEPORTIVA ELEMENTAL ALONSO EZQUERRA MATAMOROS (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.398577,
+-3.733222
+],
+"navegacion": [
+40.398577,
+-3.733222
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1426": {
+"nombre": "FUENLABRADA - EL ARROYO (HA)",
+"localidad": "Fuenlabrada",
+"rffm": [
+40.276552,
+-3.797696
+],
+"direccion_gps": [
+40.276333,
+-3.798088
+],
+"dist_rffm_direccion_km": 0.04,
+"navegacion": [
+40.276552,
+-3.797696
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2301": {
+"nombre": "ALDEA DEL FRESNO (HA)",
+"localidad": "Aldea Del Fresno",
+"rffm": [
+40.325875,
+-4.203004
+],
+"direccion_gps": [
+40.340592,
+-4.207786
+],
+"dist_rffm_direccion_km": 1.69,
+"aviso": "Coordenadas de la RFFM a 1.7 km de la dirección (sin confirmar)",
+"navegacion": [
+40.325875,
+-4.203004
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1201": {
+"nombre": "ALPEDRETE - PVO. MUNICIPAL (HA)",
+"localidad": "Alpedrete",
+"rffm": [
+40.654445,
+-4.019161
+],
+"navegacion": [
+40.654445,
+-4.019161
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1202": {
+"nombre": "COLMENAREJO - PVO. MUNICIPAL (HA)",
+"localidad": "Colmenarejo",
+"rffm": [
+40.552629,
+-4.012098
+],
+"direccion_gps": [
+40.553599,
+-4.013247
+],
+"dist_rffm_direccion_km": 0.15,
+"navegacion": [
+40.552629,
+-4.012098
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1606": {
+"nombre": "TORRES DE LA ALAMEDA (HA)",
+"localidad": "Torres De La Alameda",
+"rffm": [
+40.397406,
+-3.359422
+],
+"direccion_gps": [
+40.396834,
+-3.359223
+],
+"dist_rffm_direccion_km": 0.07,
+"navegacion": [
+40.397406,
+-3.359422
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1403": {
+"nombre": "GETAFE - PVO. GINER DE LOS RIOS (HA)",
+"localidad": "Getafe",
+"rffm": [
+40.313871,
+-3.739966
+],
+"navegacion": [
+40.313871,
+-3.739966
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1138": {
+"nombre": "ALCOBENDAS - MARIO SUÁREZ 1 (HA)",
+"localidad": "Alcobendas",
+"rffm": [
+40.552895,
+-3.647783
+],
+"navegacion": [
+40.552895,
+-3.647783
+],
+"tipo": "rffm",
+"corregido": false
+},
+"603": {
+"nombre": "PVO. PALOMERAS (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.382405,
+-3.634328
+],
+"direccion_gps": [
+40.382728,
+-3.633565
+],
+"dist_rffm_direccion_km": 0.07,
+"navegacion": [
+40.382405,
+-3.634328
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2610": {
+"nombre": "RIVAS - CERRO TELÉGRAFO (HA)",
+"localidad": "Rivas-Vaciamadrid",
+"rffm": [
+40.379486,
+-3.533474
+],
+"direccion_gps": [
+40.360489,
+-3.542587
+],
+"dist_rffm_direccion_km": 2.25,
+"aviso": "Coordenadas de la RFFM a 2.2 km de la dirección (sin confirmar)",
+"navegacion": [
+40.379486,
+-3.533474
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1207": {
+"nombre": "POZUELO - VALLE DE LAS CAÑAS 1 (HA)",
+"localidad": "Pozuelo De Alarcón",
+"rffm": [
+40.420622,
+-3.819818
+],
+"navegacion": [
+40.420622,
+-3.819818
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1750": {
+"nombre": "SAN FERNANDO - PVO. MUNICIPAL (HA)",
+"localidad": "San Fernando De Henares",
+"rffm": [
+40.43347,
+-3.526094
+],
+"direccion_gps": [
+40.431388,
+-3.52451
+],
+"dist_rffm_direccion_km": 0.27,
+"navegacion": [
+40.43347,
+-3.526094
+],
+"tipo": "rffm",
+"corregido": false
+},
+"304": {
+"nombre": "CAMPAMENTO (T)",
+"localidad": "Madrid",
+"rffm": [
+40.39307,
+-3.77885
+],
+"direccion_gps": [
+40.390923,
+-3.779309
+],
+"dist_rffm_direccion_km": 0.24,
+"navegacion": [
+40.39307,
+-3.77885
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1715": {
+"nombre": "ALALPARDO - PVO. MPAL JUAN ANT. CORBALÁN (HA)",
+"localidad": "Valdeolmos-Alalpardo",
+"rffm": [
+40.626141,
+-3.475603
+],
+"navegacion": [
+40.626141,
+-3.475603
+],
+"tipo": "rffm",
+"corregido": false
+},
+"808": {
+"nombre": "PVO. LUIS ARAGONÉS (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.463899,
+-3.63009
+],
+"direccion_gps": [
+40.46488,
+-3.627923
+],
+"dist_rffm_direccion_km": 0.21,
+"navegacion": [
+40.463899,
+-3.63009
+],
+"tipo": "rffm",
+"corregido": false
+},
+"14242537": {
+"nombre": "POZUELO - VALLE LAS CAÑAS 3 (H.A.)",
+"localidad": "Pozuelo De Alarcón",
+"rffm": [
+40.420622,
+-3.819818
+],
+"navegacion": [
+40.420622,
+-3.819818
+],
+"tipo": "rffm",
+"corregido": false
+},
+"466076": {
+"nombre": "PVO. LAS CRUCES (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.378863,
+-3.756682
+],
+"direccion_gps": [
+40.383735,
+-3.759523
+],
+"dist_rffm_direccion_km": 0.59,
+"navegacion": [
+40.378863,
+-3.756682
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1116": {
+"nombre": "SOTO DEL REAL - MPAL. AMANCIO AMARO (HA)",
+"localidad": "Soto Del Real",
+"rffm": [
+40.747569,
+-3.785143
+],
+"direccion_gps": [
+40.747414,
+-3.785166
+],
+"dist_rffm_direccion_km": 0.02,
+"navegacion": [
+40.747569,
+-3.785143
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1141": {
+"nombre": "S.S. REYES - MATAPIÑONERA (HA)",
+"localidad": "San Sebastián De Los Reyes",
+"rffm": [
+40.544846,
+-3.617188
+],
+"navegacion": [
+40.544846,
+-3.617188
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1611": {
+"nombre": "NUEVO BAZTÁN (HA)",
+"localidad": "Nuevo Baztán",
+"rffm": [
+40.364471,
+-3.246021
+],
+"direccion_gps": [
+40.364561,
+-3.245313
+],
+"dist_rffm_direccion_km": 0.06,
+"navegacion": [
+40.364471,
+-3.246021
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1122": {
+"nombre": "ALCOBENDAS - OSCAR MOLINA (HA)",
+"localidad": "Alcobendas",
+"rffm": [
+40.552869,
+-3.641065
+],
+"direccion_gps": [
+40.552483,
+-3.641091
+],
+"dist_rffm_direccion_km": 0.04,
+"navegacion": [
+40.552869,
+-3.641065
+],
+"tipo": "rffm",
+"corregido": false
+},
+"802": {
+"nombre": "ESPERANZA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.459514,
+-3.643137
+],
+"direccion_gps": [
+40.458964,
+-3.645244
+],
+"dist_rffm_direccion_km": 0.19,
+"navegacion": [
+40.459514,
+-3.643137
+],
+"tipo": "rffm",
+"corregido": false
+},
+"202": {
+"nombre": "I.D. MIRADOR DE LA REINA - ARROYOFRESNO",
+"localidad": "Madrid",
+"rffm": [
+40.487498,
+-3.72695
+],
+"direccion_gps": [
+40.488853,
+-3.725382
+],
+"dist_rffm_direccion_km": 0.2,
+"navegacion": [
+40.487498,
+-3.72695
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1324": {
+"nombre": "ARROYOMOLINOS - PVO. MPAL LA DEHESA (HA)",
+"localidad": "Arroyomolinos",
+"rffm": [
+40.27315,
+-3.913314
+],
+"direccion_gps": [
+40.273231,
+-3.913559
+],
+"dist_rffm_direccion_km": 0.02,
+"navegacion": [
+40.27315,
+-3.913314
+],
+"tipo": "rffm",
+"corregido": false
+},
+"16747271": {
+"nombre": "ALCORCON - PVO. MPAL. SANTO DOMINGO F/7 1",
+"localidad": "Alcorcón",
+"rffm": [
+40.337357,
+-3.844003
+],
+"direccion_gps": [
+40.340481,
+-3.841087
+],
+"dist_rffm_direccion_km": 0.43,
+"navegacion": [
+40.337357,
+-3.844003
+],
+"tipo": "rffm",
+"corregido": false
+},
+"15185976": {
+"nombre": "S.S. REYES - GABRIEL PEDREGAL 2 (HA) ANT. DEHESA VIEJA",
+"localidad": "San Sebastián De Los Reyes",
+"rffm": [
+40.56619,
+-3.626749
+],
+"direccion_gps": [
+40.563119,
+-3.622262
+],
+"dist_rffm_direccion_km": 0.51,
+"navegacion": [
+40.56619,
+-3.626749
+],
+"tipo": "rffm",
+"corregido": false
+},
+"709": {
+"nombre": "MUNICIPAL SAN BLAS 1 (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.419733,
+-3.619244
+],
+"direccion_gps": [
+40.420057,
+-3.618696
+],
+"dist_rffm_direccion_km": 0.06,
+"navegacion": [
+40.419733,
+-3.619244
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1130": {
+"nombre": "ALCOBENDAS - ESTADIO LUIS ARAGONÉS (HA)",
+"localidad": "Alcobendas",
+"rffm": [
+40.535836,
+-3.622151
+],
+"direccion_gps": [
+40.535152,
+-3.621263
+],
+"dist_rffm_direccion_km": 0.11,
+"navegacion": [
+40.535836,
+-3.622151
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1702": {
+"nombre": "ALCALA - J.A. GLEZ. VIVAS (HA)",
+"localidad": "Alcalá De Henares",
+"rffm": [
+40.47498,
+-3.36462
+],
+"navegacion": [
+40.47498,
+-3.36462
+],
+"tipo": "rffm",
+"corregido": false
+},
+"303": {
+"nombre": "ARJONA (H.A.)",
+"localidad": "Madrid",
+"rffm": [
+40.399692,
+-3.748521
+],
+"navegacion": [
+40.399692,
+-3.748521
+],
+"tipo": "rffm",
+"corregido": false
+},
+"807": {
+"nombre": "SPARTAC MANOTERAS (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.48125,
+-3.659015
+],
+"direccion_gps": [
+40.480862,
+-3.65915
+],
+"dist_rffm_direccion_km": 0.04,
+"navegacion": [
+40.48125,
+-3.659015
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2307": {
+"nombre": "SAN MARTIN VALDEIGLESIAS (HA)",
+"localidad": "San Martín De Valdeiglesias",
+"rffm": [
+40.366003,
+-4.399763
+],
+"navegacion": [
+40.366003,
+-4.399763
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2109": {
+"nombre": "RASCAFRÍA (HA)",
+"localidad": "Rascafría",
+"rffm": [
+40.906853,
+-3.884574
+],
+"navegacion": [
+40.906853,
+-3.884574
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1124": {
+"nombre": "TALAMANCA DEL JARAMA - PVO. MUNICIPAL (HA)",
+"localidad": "Talamanca De Jarama",
+"rffm": [
+40.747589,
+-3.511757
+],
+"direccion_gps": [
+40.756561,
+-3.504426
+],
+"dist_rffm_direccion_km": 1.17,
+"navegacion": [
+40.747589,
+-3.511757
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1733": {
+"nombre": "COBEÑA - PVO. MPAL. LA DEHESA (HA)",
+"localidad": "Cobeña",
+"rffm": [
+40.581002,
+-3.507407
+],
+"direccion_gps": [
+40.561266,
+-3.49927
+],
+"dist_rffm_direccion_km": 2.3,
+"aviso": "Coordenadas de la RFFM a 2.3 km de la dirección (sin confirmar)",
+"navegacion": [
+40.581002,
+-3.507407
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1123": {
+"nombre": "PARACUELLOS - PVO. MUNICIPAL (HA)",
+"localidad": "Paracuellos De Jarama",
+"rffm": [
+40.501614,
+-3.522101
+],
+"direccion_gps": [
+40.50035,
+-3.522413
+],
+"dist_rffm_direccion_km": 0.14,
+"navegacion": [
+40.501614,
+-3.522101
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1210": {
+"nombre": "COLLADO VILLALBA (HA)",
+"localidad": "Collado Villalba",
+"rffm": [
+40.639786,
+-4.003571
+],
+"navegacion": [
+40.639786,
+-4.003571
+],
+"tipo": "rffm",
+"corregido": false
+},
+"12280603": {
+"nombre": "FUENLABRADA - EL NARANJO 2 (HA)",
+"localidad": "Fuenlabrada",
+"rffm": [
+40.301091,
+-3.808866
+],
+"direccion_gps": [
+40.301478,
+-3.810868
+],
+"dist_rffm_direccion_km": 0.18,
+"navegacion": [
+40.301091,
+-3.808866
+],
+"tipo": "rffm",
+"corregido": false
+},
+"309": {
+"nombre": "BARRIO GOYA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.404837,
+-3.731351
+],
+"direccion_gps": [
+40.260818,
+-3.699353
+],
+"dist_rffm_direccion_km": 16.24,
+"aviso": "Coordenadas de la RFFM a 16.2 km de la dirección (sin confirmar)",
+"navegacion": [
+40.404837,
+-3.731351
+],
+"tipo": "rffm",
+"corregido": false
+},
+"9562383": {
+"nombre": "S.S. REYES - R.A.C.E. (HA)",
+"localidad": "San Sebastián De Los Reyes",
+"rffm": [
+40.626625,
+-3.597446
+],
+"navegacion": [
+40.626625,
+-3.597446
+],
+"tipo": "rffm",
+"corregido": false
+},
+"21955179": {
+"nombre": "I.D.B. LOS POBLADOS",
+"localidad": "Madrid",
+"rffm": [
+40.373573,
+-3.735171
+],
+"navegacion": [
+40.373573,
+-3.735171
+],
+"tipo": "rffm",
+"corregido": false
+},
+"681029": {
+"nombre": "CIUDAD DPTVA. FUND. RAYO VALLECANO 2 (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.376963,
+-3.612401
+],
+"direccion_gps": [
+40.375193,
+-3.612704
+],
+"dist_rffm_direccion_km": 0.2,
+"navegacion": [
+40.376963,
+-3.612401
+],
+"tipo": "rffm",
+"corregido": false
+},
+"334946": {
+"nombre": "ARGANDA - CIUDAD DEL FUTBOL 1 (HA)",
+"localidad": "Arganda Del Rey",
+"rffm": [
+40.292478,
+-3.429
+],
+"direccion_gps": [
+40.29308,
+-3.430172
+],
+"dist_rffm_direccion_km": 0.12,
+"navegacion": [
+40.292478,
+-3.429
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2588592": {
+"nombre": "UNIVERSIDAD ALFONSO X EL SABIO (HA)",
+"localidad": "Villanueva De La Cañada",
+"rffm": [
+40.455472,
+-3.982931
+],
+"direccion_gps": [
+40.483052,
+-3.937459
+],
+"dist_rffm_direccion_km": 4.92,
+"aviso": "Coordenadas de la RFFM a 4.9 km de la dirección (sin confirmar)",
+"navegacion": [
+40.455472,
+-3.982931
+],
+"tipo": "rffm",
+"corregido": false
+},
+"814": {
+"nombre": "TRIVEMA NAVAL (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.472381,
+-3.657843
+],
+"navegacion": [
+40.472381,
+-3.657843
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1310": {
+"nombre": "ALCORCON - ALFREDO CENARRIAGA 2 (HA)",
+"localidad": "Alcorcón",
+"rffm": [
+40.34223,
+-3.820165
+],
+"navegacion": [
+40.34223,
+-3.820165
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1517": {
+"nombre": "PINTO - PVO. MPAL. PATRICIA CHAMORRO (HA)",
+"localidad": "Pinto",
+"rffm": [
+40.242415,
+-3.693313
+],
+"direccion_gps": [
+40.24242,
+-3.692934
+],
+"dist_rffm_direccion_km": 0.03,
+"navegacion": [
+40.242415,
+-3.693313
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1506": {
+"nombre": "VALDEMORO - ESTADIO MPAL. (HB)",
+"localidad": "Valdemoro",
+"rffm": [
+40.191777,
+-3.663828
+],
+"direccion_gps": [
+40.192065,
+-3.660428
+],
+"dist_rffm_direccion_km": 0.29,
+"navegacion": [
+40.191777,
+-3.663828
+],
+"tipo": "rffm",
+"corregido": false
+},
+"12174145": {
+"nombre": "FUENLABRADA - IRENE FERRERAS (HA)",
+"localidad": "Fuenlabrada",
+"rffm": [
+40.299057,
+-3.830172
+],
+"direccion_gps": [
+40.293216,
+-3.831314
+],
+"dist_rffm_direccion_km": 0.66,
+"navegacion": [
+40.299057,
+-3.830172
+],
+"tipo": "rffm",
+"corregido": false
+},
+"668298": {
+"nombre": "ARANJUEZ - LAS OLIVAS (HA)",
+"localidad": "Aranjuez",
+"rffm": [
+40.02577,
+-3.619801
+],
+"direccion_gps": [
+40.02609,
+-3.619409
+],
+"dist_rffm_direccion_km": 0.05,
+"navegacion": [
+40.02577,
+-3.619801
+],
+"tipo": "rffm",
+"corregido": false
+},
+"308321": {
+"nombre": "LAS ROZAS - PVO. DEHESA DE NAVALCARBON 2 (HA)",
+"localidad": "Las Rozas De Madrid",
+"rffm": [
+40.506998,
+-3.889595
+],
+"direccion_gps": [
+40.506014,
+-3.888515
+],
+"dist_rffm_direccion_km": 0.14,
+"navegacion": [
+40.506998,
+-3.889595
+],
+"tipo": "rffm",
+"corregido": false
+},
+"404": {
+"nombre": "COTORRUELO I (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.381582,
+-3.723952
+],
+"direccion_gps": [
+40.38283,
+-3.723421
+],
+"dist_rffm_direccion_km": 0.15,
+"navegacion": [
+40.381582,
+-3.723952
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2613": {
+"nombre": "RIVAS - CASA GRANDE (HA)",
+"localidad": "Rivas-Vaciamadrid",
+"rffm": [
+40.329768,
+-3.513959
+],
+"direccion_gps": [
+40.328739,
+-3.517027
+],
+"dist_rffm_direccion_km": 0.28,
+"navegacion": [
+40.329768,
+-3.513959
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1439": {
+"nombre": "HUMANES - EMILIO ZAZO 1 (HA)",
+"localidad": "Humanes De Madrid",
+"rffm": [
+40.256842,
+-3.819047
+],
+"direccion_gps": [
+40.256666,
+-3.818901
+],
+"dist_rffm_direccion_km": 0.02,
+"navegacion": [
+40.256842,
+-3.819047
+],
+"tipo": "rffm",
+"corregido": false
+},
+"601": {
+"nombre": "PVO. ENTREVIAS 1 (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.377694,
+-3.673897
+],
+"direccion_gps": [
+40.296547,
+-3.45892
+],
+"dist_rffm_direccion_km": 20.33,
+"aviso": "Coordenadas de la RFFM a 20.3 km de la dirección (sin confirmar)",
+"navegacion": [
+40.377694,
+-3.673897
+],
+"tipo": "rffm",
+"corregido": false
+},
+"12287188": {
+"nombre": "MÓSTOLES - IKER CASILLAS 5 (HA)",
+"localidad": "Móstoles",
+"rffm": [
+40.325675,
+-3.88309
+],
+"direccion_gps": [
+40.326145,
+-3.892784
+],
+"dist_rffm_direccion_km": 0.82,
+"navegacion": [
+40.325675,
+-3.88309
+],
+"tipo": "rffm",
+"corregido": false
+},
+"430": {
+"nombre": "MUNICIPAL LA CHIMENEA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.389264,
+-3.70171
+],
+"navegacion": [
+40.389264,
+-3.70171
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2502": {
+"nombre": "COLMENAR DE OREJA (HA)",
+"localidad": "Colmenar De Oreja",
+"rffm": [
+40.115093,
+-3.393485
+],
+"direccion_gps": [
+40.114539,
+-3.392537
+],
+"dist_rffm_direccion_km": 0.1,
+"navegacion": [
+40.115093,
+-3.393485
+],
+"tipo": "rffm",
+"corregido": false
+},
+"19465125": {
+"nombre": "NAVALAFUENTE",
+"localidad": "Navalafuente",
+"rffm": [
+40.815228,
+-3.675035
+],
+"navegacion": [
+40.815228,
+-3.675035
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1739": {
+"nombre": "ALCALA - ISIDRO CEDIEL (HA)",
+"localidad": "Alcalá De Henares",
+"rffm": [
+40.494527,
+-3.360296
+],
+"navegacion": [
+40.494527,
+-3.360296
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1721": {
+"nombre": "ALCALA - FELIPE DE LUCAS 'PIPE' (HA)",
+"localidad": "Alcalá De Henares",
+"rffm": [
+40.499567,
+-3.333914
+],
+"navegacion": [
+40.499567,
+-3.333914
+],
+"tipo": "rffm",
+"corregido": false
+},
+"108": {
+"nombre": "PVO. RODRIGUEZ SAHAGÚN (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.469134,
+-3.709419
+],
+"navegacion": [
+40.469134,
+-3.709419
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1451": {
+"nombre": "GETAFE - JAVIER CORREDOR (PERALES DEL RIO HA)",
+"localidad": "Getafe",
+"rffm": [
+40.325508,
+-3.653967
+],
+"direccion_gps": [
+40.324006,
+-3.651305
+],
+"dist_rffm_direccion_km": 0.28,
+"navegacion": [
+40.325508,
+-3.653967
+],
+"tipo": "rffm",
+"corregido": false
+},
+"16469021": {
+"nombre": "ALGETE - PVO. DUQUE DE ALGETE SUR (HA)",
+"localidad": "Algete",
+"rffm": [
+40.598164,
+-3.510341
+],
+"navegacion": [
+40.598164,
+-3.510341
+],
+"tipo": "rffm",
+"corregido": false
+},
+"980997": {
+"nombre": "GUADARRAMA - COLEGIO SAN AGUSTÍN LOS NEGRALES (HA)",
+"localidad": "Guadarrama",
+"rffm": [
+40.632831,
+-4.025933
+],
+"direccion_gps": [
+40.631179,
+-4.029607
+],
+"dist_rffm_direccion_km": 0.36,
+"navegacion": [
+40.632831,
+-4.025933
+],
+"tipo": "rffm",
+"corregido": false
+},
+"903": {
+"nombre": "C.D.M. MARQUES DE SAMARANCH (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.407624,
+-3.717364
+],
+"direccion_gps": [
+40.407097,
+-3.718024
+],
+"dist_rffm_direccion_km": 0.08,
+"navegacion": [
+40.407624,
+-3.717364
+],
+"tipo": "rffm",
+"corregido": false
+},
+"615": {
+"nombre": "COLEGIO SANTA MARIA DEL PILAR (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.411754,
+-3.674149
+],
+"direccion_gps": [
+40.384517,
+-4.255207
+],
+"dist_rffm_direccion_km": 49.3,
+"aviso": "Coordenadas de la RFFM a 49.3 km de la dirección (sin confirmar)",
+"navegacion": [
+40.411754,
+-3.674149
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1435": {
+"nombre": "PARLA - ALFREDO DI STEFANO 5 (HA)",
+"localidad": "Parla",
+"rffm": [
+40.233525,
+-3.760004
+],
+"direccion_gps": [
+40.235994,
+-3.75903
+],
+"dist_rffm_direccion_km": 0.29,
+"navegacion": [
+40.233525,
+-3.760004
+],
+"tipo": "rffm",
+"corregido": false
+},
+"427": {
+"nombre": "ESC. FUT. CARABANCHEL 1 (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.377057,
+-3.728841
+],
+"direccion_gps": [
+40.377018,
+-3.728306
+],
+"dist_rffm_direccion_km": 0.05,
+"navegacion": [
+40.377057,
+-3.728841
+],
+"tipo": "rffm",
+"corregido": false
+},
+"816": {
+"nombre": "CANILLAS (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.468831,
+-3.648731
+],
+"direccion_gps": [
+40.469704,
+-3.648376
+],
+"dist_rffm_direccion_km": 0.1,
+"navegacion": [
+40.468831,
+-3.648731
+],
+"tipo": "rffm",
+"corregido": false
+},
+"14988038": {
+"nombre": "BOADILLA (CONDESA CHINCHON 2)",
+"localidad": "Boadilla Del Monte",
+"rffm": [
+40.410906,
+-3.896471
+],
+"direccion_gps": [
+40.410845,
+-3.895631
+],
+"dist_rffm_direccion_km": 0.07,
+"navegacion": [
+40.410906,
+-3.896471
+],
+"tipo": "rffm",
+"corregido": false
+},
+"604": {
+"nombre": "IDB CAMINO DE LA SUERTE - ANTIGUO MAR ABIERTO (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.37582,
+-3.618059
+],
+"direccion_gps": [
+40.375216,
+-3.617936
+],
+"dist_rffm_direccion_km": 0.07,
+"navegacion": [
+40.37582,
+-3.618059
+],
+"tipo": "rffm",
+"corregido": false
+},
+"12286992": {
+"nombre": "BOADILLA - PVO. MUNICIPAL ANGEL NIETO 3 (HA)",
+"localidad": "Boadilla Del Monte",
+"rffm": [
+40.416903,
+-3.861397
+],
+"navegacion": [
+40.416903,
+-3.861397
+],
+"tipo": "rffm",
+"corregido": false
+},
+"302": {
+"nombre": "PVO. DE ALUCHE (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.38272,
+-3.77364
+],
+"direccion_gps": [
+40.38447,
+-3.76759
+],
+"dist_rffm_direccion_km": 0.55,
+"navegacion": [
+40.38272,
+-3.77364
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1725": {
+"nombre": "SERRACINES - MPAL. DAVID MOLINA (HA)",
+"localidad": "Fresno De Torote",
+"rffm": [
+40.621868,
+-3.397366
+],
+"navegacion": [
+40.621868,
+-3.397366
+],
+"tipo": "rffm",
+"corregido": false
+},
+"12287019": {
+"nombre": "GETAFE - CIUDAD DPTVA. 3 (HA)",
+"localidad": "Getafe",
+"rffm": [
+40.324852,
+-3.714132
+],
+"navegacion": [
+40.324852,
+-3.714132
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2302719": {
+"nombre": "CIUDAD DPTVA. FUND. RAYO VALLECANO 1 (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.376963,
+-3.612401
+],
+"direccion_gps": [
+40.375193,
+-3.612704
+],
+"dist_rffm_direccion_km": 0.2,
+"navegacion": [
+40.376963,
+-3.612401
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1302": {
+"nombre": "ALCORCON - ALFREDO CENARRIAGA 1 (HA)",
+"localidad": "Alcorcón",
+"rffm": [
+40.34223,
+-3.820165
+],
+"navegacion": [
+40.34223,
+-3.820165
+],
+"tipo": "rffm",
+"corregido": false
+},
+"609": {
+"nombre": "PVO. MORATALAZ (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.398439,
+-3.632365
+],
+"direccion_gps": [
+40.401238,
+-3.623455
+],
+"dist_rffm_direccion_km": 0.82,
+"navegacion": [
+40.398439,
+-3.632365
+],
+"tipo": "rffm",
+"corregido": false
+},
+"122": {
+"nombre": "RAMON GOMEZ SERNA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.481824,
+-3.726509
+],
+"direccion_gps": [
+40.48246,
+-3.722653
+],
+"dist_rffm_direccion_km": 0.33,
+"navegacion": [
+40.481824,
+-3.726509
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1121": {
+"nombre": "VALDETORRES DEL JARAMA - PVO. MUNICIPAL (HA)",
+"localidad": "Valdetorres De Jarama",
+"rffm": [
+40.695747,
+-3.51754
+],
+"direccion_gps": [
+40.695843,
+-3.518452
+],
+"dist_rffm_direccion_km": 0.08,
+"navegacion": [
+40.695747,
+-3.51754
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1325": {
+"nombre": "QUIJORNA - LA DEHESA (HA)",
+"localidad": "Quijorna",
+"rffm": [
+40.427182,
+-4.051792
+],
+"direccion_gps": [
+40.426962,
+-4.052339
+],
+"dist_rffm_direccion_km": 0.05,
+"navegacion": [
+40.427182,
+-4.051792
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2607": {
+"nombre": "RIVAS - EL VIVERO (HA)",
+"localidad": "Rivas-Vaciamadrid",
+"rffm": [
+40.360093,
+-3.549253
+],
+"navegacion": [
+40.360093,
+-3.549253
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1432": {
+"nombre": "GETAFE - PVO. EL BERCIAL (HA)",
+"localidad": "Getafe",
+"rffm": [
+40.323747,
+-3.739568
+],
+"navegacion": [
+40.323747,
+-3.739568
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1440": {
+"nombre": "HUMANES - COMPLEJO DEP. VICENTE TEMPRADO (HA)",
+"localidad": "Humanes De Madrid",
+"rffm": [
+40.245735,
+-3.816162
+],
+"direccion_gps": [
+40.247565,
+-3.820839
+],
+"dist_rffm_direccion_km": 0.45,
+"navegacion": [
+40.245735,
+-3.816162
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1204": {
+"nombre": "MORALZARZAL - PVO. MUNICIPAL (HA)",
+"localidad": "Moralzarzal",
+"rffm": [
+40.679787,
+-3.957304
+],
+"direccion_gps": [
+40.679674,
+-3.95842
+],
+"dist_rffm_direccion_km": 0.09,
+"navegacion": [
+40.679787,
+-3.957304
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1102": {
+"nombre": "ALCOBENDAS - PARQUE DE NAVARRA (HA)",
+"localidad": "Alcobendas",
+"rffm": [
+40.545938,
+-3.634197
+],
+"direccion_gps": [
+40.543441,
+-3.628166
+],
+"dist_rffm_direccion_km": 0.58,
+"navegacion": [
+40.545938,
+-3.634197
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1128": {
+"nombre": "TRES CANTOS - LA LUZ (HA)",
+"localidad": "Tres Cantos",
+"rffm": [
+40.603126,
+-3.707901
+],
+"direccion_gps": [
+40.603898,
+-3.707107
+],
+"dist_rffm_direccion_km": 0.11,
+"navegacion": [
+40.603126,
+-3.707901
+],
+"tipo": "rffm",
+"corregido": false
+},
+"728029": {
+"nombre": "ALCOBENDAS - FUENTELUCHA (HA)",
+"localidad": "Alcobendas",
+"rffm": [
+40.549834,
+-3.659114
+],
+"navegacion": [
+40.549834,
+-3.659114
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1738": {
+"nombre": "COSLADA - MEJICO (HA)",
+"localidad": "Coslada",
+"rffm": [
+40.422256,
+-3.547582
+],
+"direccion_gps": [
+40.422205,
+-3.54736
+],
+"dist_rffm_direccion_km": 0.02,
+"navegacion": [
+40.422256,
+-3.547582
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1126": {
+"nombre": "EL VELLON - MUNICIPAL LA NAVA (HA)",
+"localidad": "Vellón (El)",
+"rffm": [
+40.769442,
+-3.585982
+],
+"direccion_gps": [
+40.769161,
+-3.586059
+],
+"dist_rffm_direccion_km": 0.03,
+"navegacion": [
+40.769442,
+-3.585982
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2105": {
+"nombre": "MIRAFLORES DE LA SIERRA - MPAL. LA DEHESILLA (HA)",
+"localidad": "Miraflores De La Sierra",
+"rffm": [
+40.810691,
+-3.75948
+],
+"direccion_gps": [
+40.81151,
+-3.760274
+],
+"dist_rffm_direccion_km": 0.11,
+"navegacion": [
+40.810691,
+-3.75948
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2602": {
+"nombre": "RIVAS - POLÍGONO SANTA ANA (HA)",
+"localidad": "Rivas-Vaciamadrid",
+"rffm": [
+40.347143,
+-3.54259
+],
+"direccion_gps": [
+40.343586,
+-3.538545
+],
+"dist_rffm_direccion_km": 0.52,
+"navegacion": [
+40.347143,
+-3.54259
+],
+"tipo": "rffm",
+"corregido": false
+},
+"314": {
+"nombre": "LOS YEBENES - EUSTASIO CASALLO (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.393813,
+-3.750517
+],
+"direccion_gps": [
+40.39389,
+-3.750525
+],
+"dist_rffm_direccion_km": 0.01,
+"navegacion": [
+40.393813,
+-3.750517
+],
+"tipo": "rffm",
+"corregido": false
+},
+"13376989": {
+"nombre": "TORRELODONES (ANTONIO MARTIN)",
+"localidad": "Torrelodones",
+"rffm": [
+40.568259,
+-3.920265
+],
+"direccion_gps": [
+40.564822,
+-3.922376
+],
+"dist_rffm_direccion_km": 0.42,
+"navegacion": [
+40.568259,
+-3.920265
+],
+"tipo": "rffm",
+"corregido": false
+},
+"12296265": {
+"nombre": "CIUDAD REAL MADRID 5 (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.472653,
+-3.611889
+],
+"navegacion": [
+40.472653,
+-3.611889
+],
+"tipo": "rffm",
+"corregido": false
+},
+"315": {
+"nombre": "GABRIEL FERNANDEZ (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.396613,
+-3.752245
+],
+"direccion_gps": [
+40.395493,
+-3.74867
+],
+"dist_rffm_direccion_km": 0.33,
+"navegacion": [
+40.396613,
+-3.752245
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1412": {
+"nombre": "LEGANES - PVO. EL CARRASCAL (HA)",
+"localidad": "Leganés",
+"rffm": [
+40.331739,
+-3.745423
+],
+"direccion_gps": [
+40.331373,
+-3.744064
+],
+"dist_rffm_direccion_km": 0.12,
+"navegacion": [
+40.331739,
+-3.745423
+],
+"tipo": "rffm",
+"corregido": false
+},
+"608": {
+"nombre": "PVO. LILI ALVAREZ (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.406002,
+-3.63016
+],
+"navegacion": [
+40.406002,
+-3.63016
+],
+"tipo": "rffm",
+"corregido": false
+},
+"305": {
+"nombre": "LOS CARMENES 1 (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.396904,
+-3.74369
+],
+"direccion_gps": [
+40.03276,
+-3.58473
+],
+"dist_rffm_direccion_km": 42.68,
+"aviso": "Coordenadas de la RFFM a 42.7 km de la dirección (sin confirmar)",
+"navegacion": [
+40.396904,
+-3.74369
+],
+"tipo": "rffm",
+"corregido": false
+},
+"504": {
+"nombre": "CDM. ORCASITAS 1 (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.375626,
+-3.712616
+],
+"direccion_gps": [
+40.376188,
+-3.713598
+],
+"dist_rffm_direccion_km": 0.1,
+"navegacion": [
+40.375626,
+-3.712616
+],
+"tipo": "rffm",
+"corregido": false
+},
+"12292303": {
+"nombre": "CIUDAD DPTVA. FUND. RAYO VALLECANO 4 (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.376963,
+-3.612401
+],
+"direccion_gps": [
+40.375193,
+-3.612704
+],
+"dist_rffm_direccion_km": 0.2,
+"navegacion": [
+40.376963,
+-3.612401
+],
+"tipo": "rffm",
+"corregido": false
+},
+"13187593": {
+"nombre": "PARACUELLOS - ESTADIO MUNICIPAL (HA)",
+"localidad": "Paracuellos De Jarama",
+"rffm": [
+40.501614,
+-3.522101
+],
+"direccion_gps": [
+40.50035,
+-3.522413
+],
+"dist_rffm_direccion_km": 0.14,
+"navegacion": [
+40.501614,
+-3.522101
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1607": {
+"nombre": "CAMPO REAL (HA)",
+"localidad": "Campo Real",
+"rffm": [
+40.339879,
+-3.372746
+],
+"direccion_gps": [
+40.34005,
+-3.372532
+],
+"dist_rffm_direccion_km": 0.03,
+"navegacion": [
+40.339879,
+-3.372746
+],
+"tipo": "rffm",
+"corregido": false
+},
+"12178064": {
+"nombre": "OÑA - SANCHINARRO (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.490651,
+-3.659851
+],
+"direccion_gps": [
+40.494586,
+-3.665614
+],
+"dist_rffm_direccion_km": 0.65,
+"navegacion": [
+40.490651,
+-3.659851
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1406": {
+"nombre": "GRIÑON - MUNICIPAL LA MINA (HA)",
+"localidad": "Griñón",
+"rffm": [
+40.219823,
+-3.840085
+],
+"navegacion": [
+40.219823,
+-3.840085
+],
+"tipo": "rffm",
+"corregido": false
+},
+"16419728": {
+"nombre": "ALCOBENDAS (J. CABALLERO 3)",
+"localidad": "Alcobendas",
+"rffm": [
+40.53719,
+-3.623702
+],
+"direccion_gps": [
+40.535152,
+-3.621263
+],
+"dist_rffm_direccion_km": 0.31,
+"navegacion": [
+40.53719,
+-3.623702
+],
+"tipo": "rffm",
+"corregido": false
+},
+"15557644": {
+"nombre": "VILLANUEVA DEL PARDILLO 2 (MUNICIPAL JUAN MANUEL ANGELINA)(HA)",
+"localidad": "Villanueva Del Pardillo",
+"rffm": [
+40.482844,
+-3.97202
+],
+"navegacion": [
+40.482844,
+-3.97202
+],
+"tipo": "rffm",
+"corregido": false
+},
+"513": {
+"nombre": "PRADOLONGO - DAVID GLEZ. RUBIO (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.377067,
+-3.701542
+],
+"direccion_gps": [
+40.376525,
+-3.701862
+],
+"dist_rffm_direccion_km": 0.07,
+"navegacion": [
+40.377067,
+-3.701542
+],
+"tipo": "rffm",
+"corregido": false
+},
+"802174": {
+"nombre": "PIQUEÑAS (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.36088,
+-3.768645
+],
+"navegacion": [
+40.36088,
+-3.768645
+],
+"tipo": "rffm",
+"corregido": false
+},
+"801": {
+"nombre": "MUNICIPAL ALAMEDA DE OSUNA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.454366,
+-3.599631
+],
+"direccion_gps": [
+40.459593,
+-3.587689
+],
+"dist_rffm_direccion_km": 1.17,
+"navegacion": [
+40.454366,
+-3.599631
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1113": {
+"nombre": "SAN AGUSTIN DE GUADALIX - PVO. MUNICIPAL (HA)",
+"localidad": "San Agustín Del Guadalix",
+"rffm": [
+40.680749,
+-3.619361
+],
+"direccion_gps": [
+40.682126,
+-3.619488
+],
+"dist_rffm_direccion_km": 0.15,
+"navegacion": [
+40.680749,
+-3.619361
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1107": {
+"nombre": "MANZANARES EL REAL (HA)",
+"localidad": "Manzanares El Real",
+"rffm": [
+40.728718,
+-3.859705
+],
+"direccion_gps": [
+40.727138,
+-3.8639
+],
+"dist_rffm_direccion_km": 0.39,
+"navegacion": [
+40.728718,
+-3.859705
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1491": {
+"nombre": "FUENLABRADA - LA AVANZADA JESÚS HUERTA (HA)",
+"localidad": "Fuenlabrada",
+"rffm": [
+40.292545,
+-3.783149
+],
+"navegacion": [
+40.292545,
+-3.783149
+],
+"tipo": "rffm",
+"corregido": false
+},
+"128": {
+"nombre": "ANDRES NAVARRETE (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.494729,
+-3.695032
+],
+"direccion_gps": [
+40.313279,
+-3.72169
+],
+"dist_rffm_direccion_km": 20.3,
+"aviso": "Coordenadas de la RFFM a 20.3 km de la dirección (sin confirmar)",
+"navegacion": [
+40.494729,
+-3.695032
+],
+"tipo": "rffm",
+"corregido": false
+},
+"8791578": {
+"nombre": "LEGANES - MERCACENTRO PVO. JULIAN MONTERO 2 (HA)",
+"localidad": "Leganés",
+"rffm": [
+40.326183,
+-3.756311
+],
+"direccion_gps": [
+40.326183,
+-3.755337
+],
+"dist_rffm_direccion_km": 0.08,
+"navegacion": [
+40.326183,
+-3.756311
+],
+"tipo": "rffm",
+"corregido": false
+},
+"12287126": {
+"nombre": "MÓSTOLES - IKER CASILLAS 3 (HA)",
+"localidad": "Móstoles",
+"rffm": [
+40.325675,
+-3.88309
+],
+"direccion_gps": [
+40.326145,
+-3.892784
+],
+"dist_rffm_direccion_km": 0.82,
+"navegacion": [
+40.325675,
+-3.88309
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2202": {
+"nombre": "CERCEDILLA (HA)",
+"localidad": "Cercedilla",
+"rffm": [
+40.733626,
+-4.041299
+],
+"direccion_gps": [
+40.737356,
+-4.057174
+],
+"dist_rffm_direccion_km": 1.4,
+"navegacion": [
+40.733626,
+-4.041299
+],
+"tipo": "rffm",
+"corregido": false
+},
+"16792697": {
+"nombre": "NAVALCARNERO - EL PINAR 1 (H.A.)",
+"localidad": "Navalcarnero",
+"rffm": [
+40.300615,
+-3.983239
+],
+"direccion_gps": [
+40.299987,
+-3.985217
+],
+"dist_rffm_direccion_km": 0.18,
+"navegacion": [
+40.300615,
+-3.983239
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1333": {
+"nombre": "VILLAVICIOSA DE ODÓN 2 (HA)",
+"localidad": "Villaviciosa De Odón",
+"rffm": [
+40.362519,
+-3.917312
+],
+"direccion_gps": [
+40.362481,
+-3.91733
+],
+"dist_rffm_direccion_km": 0.0,
+"navegacion": [
+40.362519,
+-3.917312
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2408": {
+"nombre": "VILLAMANTILLA (HA)",
+"localidad": "Villamantilla",
+"rffm": [
+40.344501,
+-4.127729
+],
+"direccion_gps": [
+40.343728,
+-4.12785
+],
+"dist_rffm_direccion_km": 0.09,
+"navegacion": [
+40.344501,
+-4.127729
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1416": {
+"nombre": "SERRANILLOS DEL VALLE - PVO. ADOLFO SUÁREZ (HA)",
+"localidad": "Serranillos Del Valle",
+"rffm": [
+40.203842,
+-3.871123
+],
+"direccion_gps": [
+40.207149,
+-3.869964
+],
+"dist_rffm_direccion_km": 0.38,
+"navegacion": [
+40.203842,
+-3.871123
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1234": {
+"nombre": "POZUELO - VALLE DE LAS CAÑAS 2 (HA)",
+"localidad": "Pozuelo De Alarcón",
+"rffm": [
+40.420622,
+-3.819818
+],
+"navegacion": [
+40.420622,
+-3.819818
+],
+"tipo": "rffm",
+"corregido": false
+},
+"11110216": {
+"nombre": "VALDEMORO (ANEXO ESTADIO - BOLITAS-1 H.A.)",
+"localidad": "Valdemoro",
+"rffm": [
+40.193381,
+-3.656767
+],
+"direccion_gps": [
+40.191811,
+-3.664319
+],
+"dist_rffm_direccion_km": 0.66,
+"navegacion": [
+40.193381,
+-3.656767
+],
+"tipo": "rffm",
+"corregido": false
+},
+"116": {
+"nombre": "C.D.M. VICENTE DEL BOSQUE (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.478712,
+-3.69334
+],
+"direccion_gps": [
+40.478951,
+-3.693494
+],
+"dist_rffm_direccion_km": 0.03,
+"navegacion": [
+40.478712,
+-3.69334
+],
+"tipo": "rffm",
+"corregido": false
+},
+"515": {
+"nombre": "PUERTO RICO (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.368476,
+-3.717463
+],
+"direccion_gps": [
+40.372341,
+-3.718546
+],
+"dist_rffm_direccion_km": 0.44,
+"navegacion": [
+40.368476,
+-3.717463
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1321": {
+"nombre": "BOADILLA - PVO. MUNICIPAL ANGEL NIETO 2 (HA)",
+"localidad": "Boadilla Del Monte",
+"rffm": [
+40.416771,
+-3.858569
+],
+"navegacion": [
+40.416771,
+-3.858569
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2601": {
+"nombre": "VILLAREJO DE SALVANES - JUSTO DÍAZ (HA)",
+"localidad": "Villarejo De Salvanés",
+"rffm": [
+40.168881,
+-3.285933
+],
+"direccion_gps": [
+40.169107,
+-3.284346
+],
+"dist_rffm_direccion_km": 0.14,
+"navegacion": [
+40.168881,
+-3.285933
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1708": {
+"nombre": "LOECHES (HA)",
+"localidad": "Loeches",
+"rffm": [
+40.391981,
+-3.412905
+],
+"direccion_gps": [
+40.387212,
+-3.41367
+],
+"dist_rffm_direccion_km": 0.53,
+"navegacion": [
+40.391981,
+-3.412905
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1215": {
+"nombre": "HOYO DE MANZANARES (HA)",
+"localidad": "Hoyo De Manzanares",
+"rffm": [
+40.624135,
+-3.906618
+],
+"direccion_gps": [
+40.624124,
+-3.906078
+],
+"dist_rffm_direccion_km": 0.05,
+"navegacion": [
+40.624135,
+-3.906618
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1314": {
+"nombre": "EL ALAMO - ESTADIO FACUNDO RIVAS (HA)",
+"localidad": "Álamo (El)",
+"rffm": [
+40.229554,
+-3.987293
+],
+"direccion_gps": [
+40.230273,
+-3.987271
+],
+"dist_rffm_direccion_km": 0.08,
+"navegacion": [
+40.229554,
+-3.987293
+],
+"tipo": "rffm",
+"corregido": false
+},
+"14963243": {
+"nombre": "PINTO-PPES. ASTURIAS 1",
+"localidad": "Pinto",
+"rffm": [
+40.237944,
+-3.694854
+],
+"direccion_gps": [
+40.237141,
+-3.696321
+],
+"dist_rffm_direccion_km": 0.15,
+"navegacion": [
+40.237944,
+-3.694854
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1323": {
+"nombre": "MÓSTOLES - IKER CASILLAS 1 (HA)",
+"localidad": "Móstoles",
+"rffm": [
+40.325675,
+-3.88309
+],
+"direccion_gps": [
+40.326145,
+-3.892784
+],
+"dist_rffm_direccion_km": 0.82,
+"navegacion": [
+40.325675,
+-3.88309
+],
+"tipo": "rffm",
+"corregido": false
+},
+"857504": {
+"nombre": "MADRID RIO (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.397359,
+-3.705583
+],
+"direccion_gps": [
+40.397349,
+-3.705374
+],
+"dist_rffm_direccion_km": 0.02,
+"navegacion": [
+40.397359,
+-3.705583
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1716": {
+"nombre": "AJALVIR (HA)",
+"localidad": "Ajalvir",
+"rffm": [
+40.545629,
+-3.486726
+],
+"direccion_gps": [
+40.53819,
+-3.485262
+],
+"dist_rffm_direccion_km": 0.84,
+"navegacion": [
+40.545629,
+-3.486726
+],
+"tipo": "rffm",
+"corregido": false
+},
+"622": {
+"nombre": "SAN LAMBERTO - Bº. LA ELIPA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.420491,
+-3.651595
+],
+"direccion_gps": [
+40.420784,
+-3.651524
+],
+"dist_rffm_direccion_km": 0.03,
+"navegacion": [
+40.420491,
+-3.651595
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1605": {
+"nombre": "TIELMES (HA)",
+"localidad": "Tielmes",
+"rffm": [
+40.241488,
+-3.295268
+],
+"navegacion": [
+40.241488,
+-3.295268
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1499": {
+"nombre": "LEGANES - PTE. DETERMINAR POR AYUNTAMIENTO",
+"localidad": "Leganés",
+"rffm": [
+40.328043,
+-3.767636
+],
+"direccion_gps": [
+40.329212,
+-3.771111
+],
+"dist_rffm_direccion_km": 0.32,
+"navegacion": [
+40.328043,
+-3.767636
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1775": {
+"nombre": "ALCALA - CIUDAD DPTVA. EL VAL 1 (HA)",
+"localidad": "Alcalá De Henares",
+"rffm": [
+40.483514,
+-3.346672
+],
+"direccion_gps": [
+40.483088,
+-3.349478
+],
+"dist_rffm_direccion_km": 0.24,
+"navegacion": [
+40.483514,
+-3.346672
+],
+"tipo": "rffm",
+"corregido": false
+},
+"201": {
+"nombre": "ARAVACA - ANTONIO SANFIZ (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.458308,
+-3.777119
+],
+"direccion_gps": [
+40.455104,
+-3.767914
+],
+"dist_rffm_direccion_km": 0.86,
+"navegacion": [
+40.458308,
+-3.777119
+],
+"tipo": "rffm",
+"corregido": false
+},
+"624": {
+"nombre": "PVO. VALDEBERNARDO (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.404431,
+-3.623205
+],
+"navegacion": [
+40.404431,
+-3.623205
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1495": {
+"nombre": "GETAFE - PTE. DETERMINAR POR AYUNTAMIENTO",
+"localidad": "Getafe",
+"rffm": [
+40.311434,
+-3.729546
+],
+"direccion_gps": [
+40.321052,
+-3.72835
+],
+"dist_rffm_direccion_km": 1.07,
+"navegacion": [
+40.311434,
+-3.729546
+],
+"tipo": "rffm",
+"corregido": false
+},
+"16419677": {
+"nombre": "ALCOBENDAS (J.CABALLERO 2)",
+"localidad": "Alcobendas",
+"rffm": [
+40.53719,
+-3.623702
+],
+"direccion_gps": [
+40.535152,
+-3.621263
+],
+"dist_rffm_direccion_km": 0.31,
+"navegacion": [
+40.53719,
+-3.623702
+],
+"tipo": "rffm",
+"corregido": false
+},
+"118": {
+"nombre": "PVO. LA CABRERA - Bº DEL PILAR (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.471949,
+-3.717611
+],
+"direccion_gps": [
+40.471917,
+-3.717504
+],
+"dist_rffm_direccion_km": 0.01,
+"navegacion": [
+40.471949,
+-3.717611
+],
+"tipo": "rffm",
+"corregido": false
+},
+"301404": {
+"nombre": "COLLADO VILLALBA - CIUDAD DEPORTIVA (HA)",
+"localidad": "Collado Villalba",
+"rffm": [
+40.642793,
+-4.000293
+],
+"navegacion": [
+40.642793,
+-4.000293
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1301": {
+"nombre": "ALCORCON - LA CANALEJA (HA)",
+"localidad": "Alcorcón",
+"rffm": [
+40.350469,
+-3.825665
+],
+"navegacion": [
+40.350469,
+-3.825665
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1443": {
+"nombre": "LEGANES - PVO. LA CANTERA 1 (HA)",
+"localidad": "Leganés",
+"rffm": [
+40.338863,
+-3.76279
+],
+"direccion_gps": [
+40.339599,
+-3.762738
+],
+"dist_rffm_direccion_km": 0.08,
+"navegacion": [
+40.338863,
+-3.76279
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1502": {
+"nombre": "VALDEMORO - PVO. EL RESTÓN (HA)",
+"localidad": "Valdemoro",
+"rffm": [
+40.182015,
+-3.686422
+],
+"direccion_gps": [
+40.181326,
+-3.684813
+],
+"dist_rffm_direccion_km": 0.16,
+"navegacion": [
+40.182015,
+-3.686422
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2508": {
+"nombre": "ARANJUEZ - ENRIQUE MORENO LALO",
+"localidad": "Aranjuez",
+"rffm": [
+40.025252,
+-3.612006
+],
+"direccion_gps": [
+40.022752,
+-3.627537
+],
+"dist_rffm_direccion_km": 1.35,
+"navegacion": [
+40.025252,
+-3.612006
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1436": {
+"nombre": "FUENLABRADA - EL NARANJO 3 (HA)",
+"localidad": "Fuenlabrada",
+"rffm": [
+40.301091,
+-3.808866
+],
+"direccion_gps": [
+40.301478,
+-3.810868
+],
+"dist_rffm_direccion_km": 0.18,
+"navegacion": [
+40.301091,
+-3.808866
+],
+"tipo": "rffm",
+"corregido": false
+},
+"406": {
+"nombre": "COTORRUELO III (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.381582,
+-3.723952
+],
+"direccion_gps": [
+40.370498,
+-3.737712
+],
+"dist_rffm_direccion_km": 1.7,
+"aviso": "Coordenadas de la RFFM a 1.7 km de la dirección (sin confirmar)",
+"navegacion": [
+40.381582,
+-3.723952
+],
+"tipo": "rffm",
+"corregido": false
+},
+"117": {
+"nombre": "COLEGIO NTRA. SRA. DEL RECUERDO (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.469085,
+-3.677923
+],
+"navegacion": [
+40.469085,
+-3.677923
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1608": {
+"nombre": "MORATA DE TAJUÑA (HA)",
+"localidad": "Morata De Tajuña",
+"rffm": [
+40.235708,
+-3.433833
+],
+"direccion_gps": [
+40.23427,
+-3.434767
+],
+"dist_rffm_direccion_km": 0.18,
+"navegacion": [
+40.235708,
+-3.433833
+],
+"tipo": "rffm",
+"corregido": false
+},
+"611": {
+"nombre": "PVO. ALBERTO GARCIA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.371916,
+-3.657161
+],
+"direccion_gps": [
+40.371642,
+-3.656227
+],
+"dist_rffm_direccion_km": 0.08,
+"navegacion": [
+40.371916,
+-3.657161
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1433": {
+"nombre": "PARLA - ALFREDO DI STEFANO 3 (HA)",
+"localidad": "Parla",
+"rffm": [
+40.233525,
+-3.760004
+],
+"direccion_gps": [
+40.235994,
+-3.75903
+],
+"dist_rffm_direccion_km": 0.29,
+"navegacion": [
+40.233525,
+-3.760004
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1313": {
+"nombre": "ALCORCON - PVO. MPAL. SANTO DOMINGO (HB)",
+"localidad": "Alcorcón",
+"rffm": [
+40.337357,
+-3.844003
+],
+"direccion_gps": [
+40.340481,
+-3.841087
+],
+"dist_rffm_direccion_km": 0.43,
+"navegacion": [
+40.337357,
+-3.844003
+],
+"tipo": "rffm",
+"corregido": false
+},
+"12287110": {
+"nombre": "MÓSTOLES - IKER CASILLAS 2 (HA)",
+"localidad": "Móstoles",
+"rffm": [
+40.325675,
+-3.88309
+],
+"direccion_gps": [
+40.326145,
+-3.892784
+],
+"dist_rffm_direccion_km": 0.82,
+"navegacion": [
+40.325675,
+-3.88309
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1415": {
+"nombre": "PARLA - ESTADIO DE LOS PRADOS (HA))",
+"localidad": "Parla",
+"rffm": [
+40.233025,
+-3.748587
+],
+"navegacion": [
+40.233025,
+-3.748587
+],
+"tipo": "rffm",
+"corregido": false
+},
+"678429": {
+"nombre": "PARLA - JAVIER CAMUÑAS (HA)",
+"localidad": "Parla",
+"rffm": [
+40.232237,
+-3.761837
+],
+"direccion_gps": [
+40.235994,
+-3.75903
+],
+"dist_rffm_direccion_km": 0.48,
+"navegacion": [
+40.232237,
+-3.761837
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2306310": {
+"nombre": "NAVALAGAMELLA - JUAN ANTONIO GUTIÉRREZ 'JAIPI' (HA)",
+"localidad": "Navalagamella",
+"rffm": [
+40.468521,
+-4.123289
+],
+"direccion_gps": [
+40.461514,
+-4.129723
+],
+"dist_rffm_direccion_km": 0.95,
+"navegacion": [
+40.468521,
+-4.123289
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1442": {
+"nombre": "FUENLABRADA - UNIVERSIDAD (HA)",
+"localidad": "Fuenlabrada",
+"rffm": [
+40.280124,
+-3.820701
+],
+"direccion_gps": [
+40.286228,
+-3.821317
+],
+"dist_rffm_direccion_km": 0.68,
+"navegacion": [
+40.280124,
+-3.820701
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1221": {
+"nombre": "POZUELO - COLEGIO RETAMAR (HA)",
+"localidad": "Pozuelo De Alarcón",
+"rffm": [
+40.426111,
+-3.806097
+],
+"navegacion": [
+40.426111,
+-3.806097
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1427": {
+"nombre": "FUENLABRADA - LORANCA (HA)",
+"localidad": "Fuenlabrada",
+"rffm": [
+40.29623,
+-3.830663
+],
+"direccion_gps": [
+40.300225,
+-3.82927
+],
+"dist_rffm_direccion_km": 0.46,
+"navegacion": [
+40.29623,
+-3.830663
+],
+"tipo": "rffm",
+"corregido": false
+},
+"300178": {
+"nombre": "ALCALA - ESPARTALES (HA)",
+"localidad": "Alcalá De Henares",
+"rffm": [
+40.503016,
+-3.373271
+],
+"navegacion": [
+40.503016,
+-3.373271
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1747": {
+"nombre": "TORREJÓN DE ARDOZ - PVO. MPAL. JOAQUÍN BLUME (HA)",
+"localidad": "Torrejón De Ardoz",
+"rffm": [
+40.44275,
+-3.47012
+],
+"direccion_gps": [
+40.447168,
+-3.469117
+],
+"dist_rffm_direccion_km": 0.5,
+"navegacion": [
+40.44275,
+-3.47012
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1735": {
+"nombre": "ALCALA - RECINTO FERIAL (HA)",
+"localidad": "Alcalá De Henares",
+"rffm": [
+40.480667,
+-3.358245
+],
+"navegacion": [
+40.480667,
+-3.358245
+],
+"tipo": "rffm",
+"corregido": false
+},
+"614": {
+"nombre": "SANTA EUGENIA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.382523,
+-3.602869
+],
+"direccion_gps": [
+40.386403,
+-3.605668
+],
+"dist_rffm_direccion_km": 0.49,
+"navegacion": [
+40.382523,
+-3.602869
+],
+"tipo": "rffm",
+"corregido": false
+},
+"20852561": {
+"nombre": "ARANJUEZ - PVO. LA MONTAÑA (H.A.)",
+"localidad": "Aranjuez",
+"rffm": [
+40.065766,
+-3.597543
+],
+"direccion_gps": [
+40.066394,
+-3.604048
+],
+"dist_rffm_direccion_km": 0.56,
+"navegacion": [
+40.065766,
+-3.597543
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2306": {
+"nombre": "PELAYOS DE LA PRESA (HA)",
+"localidad": "Pelayos De La Presa",
+"rffm": [
+40.363217,
+-4.326391
+],
+"navegacion": [
+40.363217,
+-4.326391
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1419": {
+"nombre": "CUBAS DE LA SAGRA - FEDERICO ZARZA NÚÑEZ (HA)",
+"localidad": "Cubas De La Sagra",
+"rffm": [
+40.187646,
+-3.838697
+],
+"direccion_gps": [
+40.187788,
+-3.838665
+],
+"dist_rffm_direccion_km": 0.02,
+"navegacion": [
+40.187646,
+-3.838697
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2107": {
+"nombre": "BUSTARVIEJO (HA)",
+"localidad": "Bustarviejo",
+"rffm": [
+40.857703,
+-3.718947
+],
+"direccion_gps": [
+40.857865,
+-3.709545
+],
+"dist_rffm_direccion_km": 0.79,
+"navegacion": [
+40.857703,
+-3.718947
+],
+"tipo": "rffm",
+"corregido": false
+},
+"505": {
+"nombre": "IDB PARQUE LINEAL DEL MANZANARES - VICTORIANO GONZALEZ (H.A.)",
+"localidad": "Madrid",
+"rffm": [
+40.368832,
+-3.684441
+],
+"navegacion": [
+40.368832,
+-3.684441
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1799": {
+"nombre": "TORREJÓN DE ARDOZ - PTE. DETERMINAR POR AYUNTAMIENTO",
+"localidad": "Torrejón De Ardoz",
+"rffm": [
+40.471568,
+-3.449835
+],
+"direccion_gps": [
+40.454616,
+-3.479601
+],
+"dist_rffm_direccion_km": 3.15,
+"aviso": "Coordenadas de la RFFM a 3.1 km de la dirección (sin confirmar)",
+"navegacion": [
+40.471568,
+-3.449835
+],
+"tipo": "rffm",
+"corregido": false
+},
+"711": {
+"nombre": "COLEGIO SANTO DOMINGO SAVIO (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.430426,
+-3.634229
+],
+"direccion_gps": [
+40.430141,
+-3.633647
+],
+"dist_rffm_direccion_km": 0.06,
+"navegacion": [
+40.430426,
+-3.634229
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2103": {
+"nombre": "GUADALIX DE LA SIERRA (HA)",
+"localidad": "Guadalix De La Sierra",
+"rffm": [
+40.786636,
+-3.686605
+],
+"navegacion": [
+40.786636,
+-3.686605
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1718": {
+"nombre": "DAGANZO - FRANCISCO JAVIER LOPEZ (HA)",
+"localidad": "Daganzo De Arriba",
+"rffm": [
+40.550238,
+-3.453152
+],
+"navegacion": [
+40.550238,
+-3.453152
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1511": {
+"nombre": "PINTO - RAFAEL MENDOZA (HA)",
+"localidad": "Pinto",
+"rffm": [
+40.236288,
+-3.699086
+],
+"direccion_gps": [
+40.236384,
+-3.69794
+],
+"dist_rffm_direccion_km": 0.1,
+"navegacion": [
+40.236288,
+-3.699086
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2302": {
+"nombre": "CADALSO DE LOS VIDRIOS (HA)",
+"localidad": "Cadalso De Los Vidrios",
+"rffm": [
+40.301877,
+-4.450366
+],
+"navegacion": [
+40.301877,
+-4.450366
+],
+"tipo": "rffm",
+"corregido": false
+},
+"103": {
+"nombre": "CANAL ISABEL II (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.446535,
+-3.708331
+],
+"direccion_gps": [
+40.298542,
+-3.841635
+],
+"dist_rffm_direccion_km": 19.96,
+"aviso": "Coordenadas de la RFFM a 20.0 km de la dirección (sin confirmar)",
+"navegacion": [
+40.446535,
+-3.708331
+],
+"tipo": "rffm",
+"corregido": false
+},
+"309493": {
+"nombre": "S.S. REYES - GABRIEL PEDREGAL 1 (HA) ANT. DEHESA VIEJA",
+"localidad": "San Sebastián De Los Reyes",
+"rffm": [
+40.56619,
+-3.626749
+],
+"direccion_gps": [
+40.563119,
+-3.622262
+],
+"dist_rffm_direccion_km": 0.51,
+"navegacion": [
+40.56619,
+-3.626749
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1203": {
+"nombre": "MAJADAHONDA - ATLETICO DE MADRID C.D. (HA) CAMPO 2",
+"localidad": "Majadahonda",
+"rffm": [
+40.461527,
+-3.861633
+],
+"direccion_gps": [
+40.460643,
+-3.862788
+],
+"dist_rffm_direccion_km": 0.14,
+"navegacion": [
+40.461527,
+-3.861633
+],
+"tipo": "rffm",
+"corregido": false
+},
+"16468916": {
+"nombre": "ALGETE - PVO. DUQUE DE ALGETE NORTE (HA)",
+"localidad": "Algete",
+"rffm": [
+40.598164,
+-3.510341
+],
+"navegacion": [
+40.598164,
+-3.510341
+],
+"tipo": "rffm",
+"corregido": false
+},
+"12292591": {
+"nombre": "CIUDAD REAL MADRID 3 (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.472653,
+-3.611889
+],
+"navegacion": [
+40.472653,
+-3.611889
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1105": {
+"nombre": "ALGETE - PVO. DUQUE DE ALGETE (HA)",
+"localidad": "Algete",
+"rffm": [
+40.598164,
+-3.510341
+],
+"navegacion": [
+40.598164,
+-3.510341
+],
+"tipo": "rffm",
+"corregido": false
+},
+"11932690": {
+"nombre": "GALAPAGAR - EL CHOPO 2A (HA)",
+"localidad": "Galapagar",
+"rffm": [
+40.582799,
+-4.010576
+],
+"direccion_gps": [
+40.581902,
+-4.009232
+],
+"dist_rffm_direccion_km": 0.15,
+"navegacion": [
+40.582799,
+-4.010576
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1114": {
+"nombre": "TRES CANTOS - JAIME MATA (HA)",
+"localidad": "Tres Cantos",
+"rffm": [
+40.607866,
+-3.709559
+],
+"direccion_gps": [
+40.611693,
+-3.705839
+],
+"dist_rffm_direccion_km": 0.53,
+"navegacion": [
+40.607866,
+-3.709559
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1136": {
+"nombre": "ALCOBENDAS - CIUDAD DPTVA. VALDELASFUENTES (HA)",
+"localidad": "Alcobendas",
+"rffm": [
+40.55147,
+-3.650154
+],
+"navegacion": [
+40.55147,
+-3.650154
+],
+"tipo": "rffm",
+"corregido": false
+},
+"8368576": {
+"nombre": "C.E.S. HORTALEZA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.471646,
+-3.639829
+],
+"direccion_gps": [
+40.471841,
+-3.641353
+],
+"dist_rffm_direccion_km": 0.13,
+"navegacion": [
+40.471646,
+-3.639829
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1402": {
+"nombre": "GETAFE - PVO. ROSALIA DE CASTRO (HA)",
+"localidad": "Getafe",
+"rffm": [
+40.301752,
+-3.742183
+],
+"direccion_gps": [
+40.301891,
+-3.742221
+],
+"dist_rffm_direccion_km": 0.02,
+"navegacion": [
+40.301752,
+-3.742183
+],
+"tipo": "rffm",
+"corregido": false
+},
+"104": {
+"nombre": "CIUDAD REAL MADRID 2 (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.472653,
+-3.611889
+],
+"navegacion": [
+40.472653,
+-3.611889
+],
+"tipo": "rffm",
+"corregido": false
+},
+"10359085": {
+"nombre": "PARLA - ALFREDO DI STEFANO MARIANO ARRIBAS (HA)",
+"localidad": "Parla",
+"rffm": [
+40.229813,
+-3.761338
+],
+"direccion_gps": [
+40.235994,
+-3.75903
+],
+"dist_rffm_direccion_km": 0.71,
+"navegacion": [
+40.229813,
+-3.761338
+],
+"tipo": "rffm",
+"corregido": false
+},
+"805": {
+"nombre": "COLEGIO SAN JOSE DEL PARQUE (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.452366,
+-3.637626
+],
+"direccion_gps": [
+40.45243,
+-3.637408
+],
+"dist_rffm_direccion_km": 0.02,
+"navegacion": [
+40.452366,
+-3.637626
+],
+"tipo": "rffm",
+"corregido": false
+},
+"621": {
+"nombre": "ASOC. VEC. DEL POZO (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.371324,
+-3.658124
+],
+"direccion_gps": [
+40.370496,
+-3.65765
+],
+"dist_rffm_direccion_km": 0.1,
+"navegacion": [
+40.371324,
+-3.658124
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1110": {
+"nombre": "S.S. REYES - RAFAEL DELGADO ROSA - DEHESA BOYAL 1 (HA)",
+"localidad": "San Sebastián De Los Reyes",
+"rffm": [
+40.557004,
+-3.627463
+],
+"direccion_gps": [
+40.5665,
+-3.631579
+],
+"dist_rffm_direccion_km": 1.11,
+"navegacion": [
+40.557004,
+-3.627463
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1516": {
+"nombre": "PINTO - PTE. DETERMINAR POR AYUNTAMIENTO",
+"localidad": "Pinto",
+"rffm": [
+40.237505,
+-3.696772
+],
+"direccion_gps": [
+40.242992,
+-3.703836
+],
+"dist_rffm_direccion_km": 0.86,
+"navegacion": [
+40.237505,
+-3.696772
+],
+"tipo": "rffm",
+"corregido": false
+},
+"300436": {
+"nombre": "CANODROMO (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.397452,
+-3.735794
+],
+"direccion_gps": [
+40.397033,
+-3.735667
+],
+"dist_rffm_direccion_km": 0.05,
+"navegacion": [
+40.397452,
+-3.735794
+],
+"tipo": "rffm",
+"corregido": false
+},
+"346757": {
+"nombre": "IDB DAVID DIEZ DE LA CRUZ (ANTES CC LOS ROSALES - HA)",
+"localidad": "Madrid",
+"rffm": [
+40.351262,
+-3.676473
+],
+"direccion_gps": [
+40.351021,
+-3.676666
+],
+"dist_rffm_direccion_km": 0.03,
+"navegacion": [
+40.351262,
+-3.676473
+],
+"tipo": "rffm",
+"corregido": false
+},
+"121": {
+"nombre": "COLEGIO EL PRADO (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.496165,
+-3.702179
+],
+"direccion_gps": [
+40.497283,
+-3.702903
+],
+"dist_rffm_direccion_km": 0.14,
+"navegacion": [
+40.496165,
+-3.702179
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1212": {
+"nombre": "GALAPAGAR - EL CHOPO (HA)",
+"localidad": "Galapagar",
+"rffm": [
+40.582799,
+-4.010576
+],
+"direccion_gps": [
+40.581902,
+-4.009232
+],
+"dist_rffm_direccion_km": 0.15,
+"navegacion": [
+40.582799,
+-4.010576
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1713": {
+"nombre": "TORREJÓN DE ARDOZ - EST. MPAL. LAS VEREDILLAS (HA)",
+"localidad": "Torrejón De Ardoz",
+"rffm": [
+40.465706,
+-3.472499
+],
+"direccion_gps": [
+40.465352,
+-3.47259
+],
+"dist_rffm_direccion_km": 0.04,
+"navegacion": [
+40.465706,
+-3.472499
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2305": {
+"nombre": "NAVAS DEL REY - LA CHOPERA (HA)",
+"localidad": "Navas Del Rey",
+"rffm": [
+40.389892,
+-4.248324
+],
+"navegacion": [
+40.389892,
+-4.248324
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1213": {
+"nombre": "LAS MATAS - PVO. MUNICIPAL SAN JOSE (HA)",
+"localidad": "Las Matas",
+"rffm": [
+40.554531,
+-3.885975
+],
+"direccion_gps": [
+40.552849,
+-3.888824
+],
+"dist_rffm_direccion_km": 0.3,
+"navegacion": [
+40.554531,
+-3.885975
+],
+"tipo": "rffm",
+"corregido": false
+},
+"12287187": {
+"nombre": "MÓSTOLES - IKER CASILLAS 4 (HA)",
+"localidad": "Móstoles",
+"rffm": [
+40.325675,
+-3.88309
+],
+"direccion_gps": [
+40.326145,
+-3.892784
+],
+"dist_rffm_direccion_km": 0.82,
+"navegacion": [
+40.325675,
+-3.88309
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1444": {
+"nombre": "BATRES (HA)",
+"localidad": "Batres",
+"rffm": [
+40.247587,
+-3.943613
+],
+"direccion_gps": [
+40.247926,
+-3.949028
+],
+"dist_rffm_direccion_km": 0.46,
+"navegacion": [
+40.247587,
+-3.943613
+],
+"tipo": "rffm",
+"corregido": false
+},
+"857499": {
+"nombre": "CENTRO DEP. MUN. PEPU HERNANDEZ (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.430021,
+-3.607031
+],
+"direccion_gps": [
+40.430448,
+-3.607139
+],
+"dist_rffm_direccion_km": 0.05,
+"navegacion": [
+40.430021,
+-3.607031
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1209": {
+"nombre": "VALDEMORILLO - PVO. MPAL. DEHESA ALGODONALES (HA)",
+"localidad": "Valdemorillo",
+"rffm": [
+40.502177,
+-4.063777
+],
+"direccion_gps": [
+40.501726,
+-4.06494
+],
+"dist_rffm_direccion_km": 0.11,
+"navegacion": [
+40.502177,
+-4.063777
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2503": {
+"nombre": "VILLACONEJOS (HA)",
+"localidad": "Villaconejos",
+"rffm": [
+40.100457,
+-3.489385
+],
+"direccion_gps": [
+40.105617,
+-3.546572
+],
+"dist_rffm_direccion_km": 4.9,
+"aviso": "Coordenadas de la RFFM a 4.9 km de la dirección (sin confirmar)",
+"navegacion": [
+40.100457,
+-3.489385
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1320": {
+"nombre": "VILLAVICIOSA DE ODÓN 1 (HA)",
+"localidad": "Villaviciosa De Odón",
+"rffm": [
+40.362519,
+-3.917312
+],
+"direccion_gps": [
+40.362481,
+-3.91733
+],
+"dist_rffm_direccion_km": 0.0,
+"navegacion": [
+40.362519,
+-3.917312
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1230": {
+"nombre": "LAS ROZAS - PTE. DETERMINAR POR AYUNTAMIENTO",
+"localidad": "Las Rozas De Madrid",
+"rffm": [
+40.512814,
+-3.911363
+],
+"direccion_gps": [
+40.494294,
+-3.867936
+],
+"dist_rffm_direccion_km": 4.21,
+"aviso": "Coordenadas de la RFFM a 4.2 km de la dirección (sin confirmar)",
+"navegacion": [
+40.512814,
+-3.911363
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1422": {
+"nombre": "GETAFE - ALHONDIGA SECTOR III 1 (HA)",
+"localidad": "Getafe",
+"rffm": [
+40.313722,
+-3.741321
+],
+"navegacion": [
+40.313722,
+-3.741321
+],
+"tipo": "rffm",
+"corregido": false
+},
+"3592915": {
+"nombre": "ALCALA - COLEGIO SAN GABRIEL (HA)",
+"localidad": "Alcalá De Henares",
+"rffm": [
+40.508323,
+-3.388398
+],
+"direccion_gps": [
+40.507843,
+-3.38763
+],
+"dist_rffm_direccion_km": 0.08,
+"navegacion": [
+40.508323,
+-3.388398
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2203": {
+"nombre": "COLLADO MEDIANO (HA)",
+"localidad": "Collado Mediano",
+"rffm": [
+40.692095,
+-4.041582
+],
+"direccion_gps": [
+40.691902,
+-4.047448
+],
+"dist_rffm_direccion_km": 0.5,
+"navegacion": [
+40.692095,
+-4.041582
+],
+"tipo": "rffm",
+"corregido": false
+},
+"111": {
+"nombre": "COLEGIO SAN AGUSTIN (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.455461,
+-3.686491
+],
+"navegacion": [
+40.455461,
+-3.686491
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1206": {
+"nombre": "POZUELO - COLEGIO ESCOLAPIOS (HA)",
+"localidad": "Pozuelo De Alarcón",
+"rffm": [
+40.445672,
+-3.816329
+],
+"direccion_gps": [
+40.447708,
+-3.812897
+],
+"dist_rffm_direccion_km": 0.37,
+"navegacion": [
+40.445672,
+-3.816329
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1": {
+"nombre": "DEHESA MORATALAZ (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.411206,
+-3.642062
+],
+"navegacion": [
+40.411206,
+-3.642062
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1208": {
+"nombre": "TORRELODONES - JULIÁN ARIZA (HA)",
+"localidad": "Torrelodones",
+"rffm": [
+40.57257,
+-3.92347
+],
+"navegacion": [
+40.57257,
+-3.92347
+],
+"tipo": "rffm",
+"corregido": false
+},
+"316158": {
+"nombre": "MÓSTOLES - ANDRÉS TORREJÓN (HA)",
+"localidad": "Móstoles",
+"rffm": [
+40.327137,
+-3.886239
+],
+"direccion_gps": [
+40.329273,
+-3.886832
+],
+"dist_rffm_direccion_km": 0.24,
+"navegacion": [
+40.327137,
+-3.886239
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1604": {
+"nombre": "VILLAR DEL OLMO (HA)",
+"localidad": "Villar Del Olmo",
+"rffm": [
+40.336138,
+-3.233946
+],
+"direccion_gps": [
+40.336322,
+-3.234446
+],
+"dist_rffm_direccion_km": 0.05,
+"navegacion": [
+40.336138,
+-3.233946
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1732": {
+"nombre": "ALCALA - CIUDAD DPTVA. EL JUNCAL (HA)",
+"localidad": "Alcalá De Henares",
+"rffm": [
+40.47834,
+-3.387384
+],
+"direccion_gps": [
+40.476602,
+-3.392765
+],
+"dist_rffm_direccion_km": 0.49,
+"navegacion": [
+40.47834,
+-3.387384
+],
+"tipo": "rffm",
+"corregido": false
+},
+"4305754": {
+"nombre": "LEGANES - COLEGIO ANTANES (HA)",
+"localidad": "Leganés",
+"rffm": [
+40.31154,
+-3.78215
+],
+"direccion_gps": [
+40.311539,
+-3.78201
+],
+"dist_rffm_direccion_km": 0.01,
+"navegacion": [
+40.31154,
+-3.78215
+],
+"tipo": "rffm",
+"corregido": false
+},
+"4196765": {
+"nombre": "ALGETE - URBANIZ. STO. DOMINGO (HA)",
+"localidad": "Algete",
+"rffm": [
+40.628559,
+-3.582941
+],
+"navegacion": [
+40.628559,
+-3.582941
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1311": {
+"nombre": "NAVALCARNERO - ESTADIO MARIANO GONZALEZ (HA)",
+"localidad": "Navalcarnero",
+"rffm": [
+40.284673,
+-4.018331
+],
+"direccion_gps": [
+40.284548,
+-4.018539
+],
+"dist_rffm_direccion_km": 0.02,
+"navegacion": [
+40.284673,
+-4.018331
+],
+"tipo": "rffm",
+"corregido": false
+},
+"626": {
+"nombre": "COLEGIO ARAGON (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.392062,
+-3.638656
+],
+"direccion_gps": [
+40.391133,
+-3.639061
+],
+"dist_rffm_direccion_km": 0.11,
+"navegacion": [
+40.392062,
+-3.638656
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1505": {
+"nombre": "TITULCIA - PVO. LOS ARENALES (HA)",
+"localidad": "Titulcia",
+"rffm": [
+40.137414,
+-3.576425
+],
+"direccion_gps": [
+40.136658,
+-3.577446
+],
+"dist_rffm_direccion_km": 0.12,
+"navegacion": [
+40.137414,
+-3.576425
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2611": {
+"nombre": "BELMONTE DE TAJO - COMPLEJO MPAL. ALEJANDRO GARCÍA (HA)",
+"localidad": "Belmonte De Tajo",
+"rffm": [
+40.129264,
+-3.339076
+],
+"direccion_gps": [
+40.13394,
+-3.340606
+],
+"dist_rffm_direccion_km": 0.54,
+"navegacion": [
+40.129264,
+-3.339076
+],
+"tipo": "rffm",
+"corregido": false
+},
+"680981": {
+"nombre": "COLMENAR VIEJO - CIUDAD DPTVA. J. A. SAMARANCH (HA)",
+"localidad": "Colmenar Viejo",
+"rffm": [
+40.646738,
+-3.78561
+],
+"direccion_gps": [
+40.646828,
+-3.790326
+],
+"dist_rffm_direccion_km": 0.4,
+"navegacion": [
+40.646738,
+-3.78561
+],
+"tipo": "rffm",
+"corregido": false
+},
+"363272": {
+"nombre": "EUTERPE (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.446105,
+-3.59238
+],
+"direccion_gps": [
+40.447986,
+-3.59209
+],
+"dist_rffm_direccion_km": 0.21,
+"navegacion": [
+40.446105,
+-3.59238
+],
+"tipo": "rffm",
+"corregido": false
+},
+"16222737": {
+"nombre": "BOADILLA (Cdad.Financiera SANTANDER)",
+"localidad": "Boadilla Del Monte",
+"rffm": [
+40.394309,
+-3.869842
+],
+"direccion_gps": [
+40.389772,
+-3.881376
+],
+"dist_rffm_direccion_km": 1.1,
+"navegacion": [
+40.394309,
+-3.869842
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1418": {
+"nombre": "TORREJÓN DE VELASCO - PVO. MPAL. JOSÉ FDEZ. SEGOVIA (HA)",
+"localidad": "Torrejón De Velasco",
+"rffm": [
+40.183227,
+-3.776508
+],
+"direccion_gps": [
+40.184311,
+-3.777601
+],
+"dist_rffm_direccion_km": 0.15,
+"navegacion": [
+40.183227,
+-3.776508
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2207": {
+"nombre": "ROBLEDO DE CHAVELA (HA)",
+"localidad": "Robledo De Chavela",
+"rffm": [
+40.498232,
+-4.241036
+],
+"direccion_gps": [
+40.498185,
+-4.240988
+],
+"dist_rffm_direccion_km": 0.01,
+"navegacion": [
+40.498232,
+-4.241036
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1413": {
+"nombre": "GETAFE - CIUDAD DPTVA. 2 (HA)",
+"localidad": "Getafe",
+"rffm": [
+40.324852,
+-3.714132
+],
+"direccion_gps": [
+40.324806,
+-3.714191
+],
+"dist_rffm_direccion_km": 0.01,
+"navegacion": [
+40.324852,
+-3.714132
+],
+"tipo": "rffm",
+"corregido": false
+},
+"3923632": {
+"nombre": "OCIO Y DEPORTE CANAL - PARQUE SANTANDER (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.440687,
+-3.708441
+],
+"direccion_gps": [
+40.44171,
+-3.705637
+],
+"dist_rffm_direccion_km": 0.26,
+"navegacion": [
+40.440687,
+-3.708441
+],
+"tipo": "rffm",
+"corregido": false
+},
+"501": {
+"nombre": "BOETTICHER (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.348715,
+-3.700349
+],
+"direccion_gps": [
+40.348218,
+-3.701037
+],
+"dist_rffm_direccion_km": 0.08,
+"navegacion": [
+40.348715,
+-3.700349
+],
+"tipo": "rffm",
+"corregido": false
+},
+"606": {
+"nombre": "PVO. LA ELIPA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.416033,
+-3.656073
+],
+"direccion_gps": [
+40.413556,
+-3.653041
+],
+"dist_rffm_direccion_km": 0.38,
+"navegacion": [
+40.416033,
+-3.656073
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1308": {
+"nombre": "BRUNETE - LOS ARCOS (HA)",
+"localidad": "Brunete",
+"rffm": [
+40.406508,
+-3.99918
+],
+"direccion_gps": [
+40.405797,
+-4.000258
+],
+"dist_rffm_direccion_km": 0.12,
+"navegacion": [
+40.406508,
+-3.99918
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1736": {
+"nombre": "ALCALA - PTE. DETERMINAR POR AYUNTAMIENTO",
+"localidad": "Alcalá De Henares",
+"rffm": [
+40.51343,
+-3.409463
+],
+"direccion_gps": [
+40.48906,
+-3.366189
+],
+"dist_rffm_direccion_km": 4.55,
+"aviso": "Coordenadas de la RFFM a 4.6 km de la dirección (sin confirmar)",
+"navegacion": [
+40.51343,
+-3.409463
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1315": {
+"nombre": "SEVILLA LA NUEVA - POL. MPAL. HÉCTOR VALERO (HA)",
+"localidad": "Sevilla La Nueva",
+"rffm": [
+40.355398,
+-4.008062
+],
+"navegacion": [
+40.355398,
+-4.008062
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1106": {
+"nombre": "FUENTE EL SAZ - PVO. MUNICIPAL ALICIA GOMEZ PRADA",
+"localidad": "Fuente El Saz De Jarama",
+"rffm": [
+40.62826,
+-3.517029
+],
+"direccion_gps": [
+40.628532,
+-3.517503
+],
+"dist_rffm_direccion_km": 0.05,
+"navegacion": [
+40.62826,
+-3.517029
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1711": {
+"nombre": "SAN FERNANDO - SANTIAGO DEL PINO (HA)",
+"localidad": "San Fernando De Henares",
+"rffm": [
+40.43347,
+-3.526094
+],
+"direccion_gps": [
+40.431388,
+-3.52451
+],
+"dist_rffm_direccion_km": 0.27,
+"navegacion": [
+40.43347,
+-3.526094
+],
+"tipo": "rffm",
+"corregido": false
+},
+"701": {
+"nombre": "LA ALMUDENA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.418148,
+-3.627593
+],
+"direccion_gps": [
+40.419615,
+-3.630355
+],
+"dist_rffm_direccion_km": 0.29,
+"navegacion": [
+40.418148,
+-3.627593
+],
+"tipo": "rffm",
+"corregido": false
+},
+"506": {
+"nombre": "SAN CRISTOBAL (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.34155,
+-3.688185
+],
+"direccion_gps": [
+40.341854,
+-3.690668
+],
+"dist_rffm_direccion_km": 0.21,
+"navegacion": [
+40.34155,
+-3.688185
+],
+"tipo": "rffm",
+"corregido": false
+},
+"610": {
+"nombre": "NTRA. SRA. DE LA TORRE (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.378361,
+-3.617117
+],
+"direccion_gps": [
+40.379019,
+-3.616477
+],
+"dist_rffm_direccion_km": 0.09,
+"navegacion": [
+40.378361,
+-3.617117
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1411": {
+"nombre": "PARLA - ALFREDO DI STEFANO (HA)",
+"localidad": "Parla",
+"rffm": [
+40.229813,
+-3.761338
+],
+"direccion_gps": [
+40.235994,
+-3.75903
+],
+"dist_rffm_direccion_km": 0.71,
+"navegacion": [
+40.229813,
+-3.761338
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1712": {
+"nombre": "TORREJÓN DE ARDOZ - ESTADIO J.A. SAMARANCH (HA)",
+"localidad": "Torrejón De Ardoz",
+"rffm": [
+40.461434,
+-3.488768
+],
+"direccion_gps": [
+40.46165,
+-3.487012
+],
+"dist_rffm_direccion_km": 0.15,
+"navegacion": [
+40.461434,
+-3.488768
+],
+"tipo": "rffm",
+"corregido": false
+},
+"720": {
+"nombre": "VICALVARADA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.410082,
+-3.607104
+],
+"navegacion": [
+40.410082,
+-3.607104
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2606": {
+"nombre": "FUENTIDUEÑA DE TAJO (HA)",
+"localidad": "Fuentidueña De Tajo",
+"rffm": [
+40.118897,
+-3.161652
+],
+"direccion_gps": [
+40.118735,
+-3.15961
+],
+"dist_rffm_direccion_km": 0.17,
+"navegacion": [
+40.118897,
+-3.161652
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2308": {
+"nombre": "VILLA DEL PRADO - ALCALDE CARLOS GLEZ. REDONDO (HA)",
+"localidad": "Villa Del Prado",
+"rffm": [
+40.273598,
+-4.30478
+],
+"navegacion": [
+40.273598,
+-4.30478
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1222": {
+"nombre": "POZUELO - PVO. EL PRADILLO (HA)",
+"localidad": "Pozuelo De Alarcón",
+"rffm": [
+40.442847,
+-3.81366
+],
+"direccion_gps": [
+40.447251,
+-3.808088
+],
+"dist_rffm_direccion_km": 0.68,
+"navegacion": [
+40.442847,
+-3.81366
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1312": {
+"nombre": "VILLAMANTA (HA)",
+"localidad": "Villamanta",
+"rffm": [
+40.296724,
+-4.10872
+],
+"navegacion": [
+40.296724,
+-4.10872
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1117": {
+"nombre": "PEDREZUELA - PVO. MUNICIPAL (HA)",
+"localidad": "Pedrezuela",
+"rffm": [
+40.747826,
+-3.599842
+],
+"navegacion": [
+40.747826,
+-3.599842
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1101": {
+"nombre": "ALCOBENDAS - PVO. JOSÉ CABALLERO (HA)",
+"localidad": "Alcobendas",
+"rffm": [
+40.53719,
+-3.623702
+],
+"direccion_gps": [
+40.535152,
+-3.621263
+],
+"dist_rffm_direccion_km": 0.31,
+"navegacion": [
+40.53719,
+-3.623702
+],
+"tipo": "rffm",
+"corregido": false
+},
+"845753": {
+"nombre": "ALCALA - LA GARENA (HA)",
+"localidad": "Alcalá De Henares",
+"rffm": [
+40.483343,
+-3.387871
+],
+"direccion_gps": [
+40.480442,
+-3.394971
+],
+"dist_rffm_direccion_km": 0.68,
+"navegacion": [
+40.483343,
+-3.387871
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1603": {
+"nombre": "ARGANDA - LA POVEDA (HA)",
+"localidad": "Arganda Del Rey",
+"rffm": [
+40.312456,
+-3.47681
+],
+"direccion_gps": [
+40.312332,
+-3.476827
+],
+"dist_rffm_direccion_km": 0.01,
+"navegacion": [
+40.312456,
+-3.47681
+],
+"tipo": "rffm",
+"corregido": false
+},
+"13073299": {
+"nombre": "RIVAS VACIAMADRID-SUPERA (H.A.)",
+"localidad": "Rivas-Vaciamadrid",
+"rffm": [
+40.378366,
+-3.534468
+],
+"direccion_gps": [
+40.377231,
+-3.538141
+],
+"dist_rffm_direccion_km": 0.34,
+"navegacion": [
+40.378366,
+-3.534468
+],
+"tipo": "rffm",
+"corregido": false
+},
+"560057": {
+"nombre": "ARROYO MEDIA LEGUA (Trece Rosas) - (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.422101,
+-3.648098
+],
+"direccion_gps": [
+40.422897,
+-3.647934
+],
+"dist_rffm_direccion_km": 0.09,
+"navegacion": [
+40.422101,
+-3.648098
+],
+"tipo": "rffm",
+"corregido": false
+},
+"12280618": {
+"nombre": "FUENLABRADA - EL NARANJO 1 (HA)",
+"localidad": "Fuenlabrada",
+"rffm": [
+40.301091,
+-3.808866
+],
+"direccion_gps": [
+40.301478,
+-3.810868
+],
+"dist_rffm_direccion_km": 0.18,
+"navegacion": [
+40.301091,
+-3.808866
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1225": {
+"nombre": "MAJADAHONDA - ESTADIO ATLETICO DE MADRID C.D. (HB)",
+"localidad": "Majadahonda",
+"rffm": [
+40.461527,
+-3.861633
+],
+"direccion_gps": [
+40.460643,
+-3.862788
+],
+"dist_rffm_direccion_km": 0.14,
+"navegacion": [
+40.461527,
+-3.861633
+],
+"tipo": "rffm",
+"corregido": false
+},
+"502": {
+"nombre": "PVO. EL ESPINILLO (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.360689,
+-3.686161
+],
+"direccion_gps": [
+40.359595,
+-3.686259
+],
+"dist_rffm_direccion_km": 0.12,
+"navegacion": [
+40.360689,
+-3.686161
+],
+"tipo": "rffm",
+"corregido": false
+},
+"13212199": {
+"nombre": "VILLAVICIOSA DE ODÓN F7 C-2 (HA)",
+"localidad": "Villaviciosa De Odón",
+"rffm": [
+40.362519,
+-3.917312
+],
+"direccion_gps": [
+40.362481,
+-3.91733
+],
+"dist_rffm_direccion_km": 0.0,
+"navegacion": [
+40.362519,
+-3.917312
+],
+"tipo": "rffm",
+"corregido": false
+},
+"14630139": {
+"nombre": "NTRA. SRA. BUEN CONSEJO F-7 (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.446962,
+-3.713763
+],
+"direccion_gps": [
+40.447329,
+-3.712369
+],
+"dist_rffm_direccion_km": 0.12,
+"navegacion": [
+40.446962,
+-3.713763
+],
+"tipo": "rffm",
+"corregido": false
+},
+"20521303": {
+"nombre": "PARACUELLOS (CIUDAD DEL RUGBY)",
+"localidad": "Paracuellos De Jarama",
+"rffm": [
+40.498071,
+-3.523729
+],
+"direccion_gps": [
+40.500307,
+-3.523607
+],
+"dist_rffm_direccion_km": 0.25,
+"navegacion": [
+40.498071,
+-3.523729
+],
+"tipo": "rffm",
+"corregido": false
+},
+"4532747": {
+"nombre": "COLEGIO ESTUDIANTES LAS TABLAS (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.509069,
+-3.6792
+],
+"direccion_gps": [
+40.509212,
+-3.679083
+],
+"dist_rffm_direccion_km": 0.02,
+"navegacion": [
+40.509069,
+-3.6792
+],
+"tipo": "rffm",
+"corregido": false
+},
+"16802001": {
+"nombre": "BOADILLA - COLEGIO HIGHLANDS LOS FRESNOS (H.A.)",
+"localidad": "Boadilla Del Monte",
+"rffm": [
+40.442542,
+-3.872011
+],
+"direccion_gps": [
+40.441366,
+-3.87161
+],
+"dist_rffm_direccion_km": 0.14,
+"navegacion": [
+40.442542,
+-3.872011
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1437": {
+"nombre": "PARLA - ALFREDO DI STEFANO 6 (HA)",
+"localidad": "Parla",
+"rffm": [
+40.233525,
+-3.760004
+],
+"direccion_gps": [
+40.235994,
+-3.75903
+],
+"dist_rffm_direccion_km": 0.29,
+"navegacion": [
+40.233525,
+-3.760004
+],
+"tipo": "rffm",
+"corregido": false
+},
+"17138323": {
+"nombre": "MAJADAHONDA (LA SACEDILLA)",
+"localidad": "Majadahonda",
+"rffm": [
+40.477509,
+-3.845966
+],
+"direccion_gps": [
+40.477263,
+-3.844862
+],
+"dist_rffm_direccion_km": 0.1,
+"navegacion": [
+40.477509,
+-3.845966
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1316": {
+"nombre": "VILLAVICIOSA DE ODÓN F7 C-1 (HA)",
+"localidad": "Villaviciosa De Odón",
+"rffm": [
+40.362519,
+-3.917312
+],
+"direccion_gps": [
+40.362481,
+-3.91733
+],
+"dist_rffm_direccion_km": 0.0,
+"navegacion": [
+40.362519,
+-3.917312
+],
+"tipo": "rffm",
+"corregido": false
+},
+"13195819": {
+"nombre": "FUENLABRADA - EL NARANJO 4 F/7",
+"localidad": "Fuenlabrada",
+"rffm": [
+40.301091,
+-3.808866
+],
+"direccion_gps": [
+40.301478,
+-3.810868
+],
+"dist_rffm_direccion_km": 0.18,
+"navegacion": [
+40.301091,
+-3.808866
+],
+"tipo": "rffm",
+"corregido": false
+},
+"13372745": {
+"nombre": "LEGANES - CANTERA F7 - 1",
+"localidad": "Leganés",
+"rffm": [
+40.339514,
+-3.762957
+],
+"direccion_gps": [
+40.339599,
+-3.762738
+],
+"dist_rffm_direccion_km": 0.02,
+"navegacion": [
+40.339514,
+-3.762957
+],
+"tipo": "rffm",
+"corregido": false
+},
+"14963247": {
+"nombre": "PINTO-PPES. ASTURIAS 3",
+"localidad": "Pinto",
+"rffm": [
+40.237944,
+-3.694854
+],
+"direccion_gps": [
+40.237141,
+-3.696321
+],
+"dist_rffm_direccion_km": 0.15,
+"navegacion": [
+40.237944,
+-3.694854
+],
+"tipo": "rffm",
+"corregido": false
+},
+"16540235": {
+"nombre": "LEGANES - CANTERA F7 - 3",
+"localidad": "Leganés",
+"rffm": [
+40.338901,
+-3.762764
+],
+"direccion_gps": [
+40.339599,
+-3.762738
+],
+"dist_rffm_direccion_km": 0.08,
+"navegacion": [
+40.338901,
+-3.762764
+],
+"tipo": "rffm",
+"corregido": false
+},
+"3361189": {
+"nombre": "COTORRUELO 1-A",
+"localidad": "Madrid",
+"rffm": [
+40.381582,
+-3.723952
+],
+"direccion_gps": [
+40.370498,
+-3.737712
+],
+"dist_rffm_direccion_km": 1.7,
+"aviso": "Coordenadas de la RFFM a 1.7 km de la dirección (sin confirmar)",
+"navegacion": [
+40.381582,
+-3.723952
+],
+"tipo": "rffm",
+"corregido": false
+},
+"11789343": {
+"nombre": "GETAFE - PVO. CERRO BUENAVISTA (HA)",
+"localidad": "Getafe",
+"rffm": [
+40.295245,
+-3.744348
+],
+"direccion_gps": [
+40.291955,
+-3.747
+],
+"dist_rffm_direccion_km": 0.43,
+"navegacion": [
+40.295245,
+-3.744348
+],
+"tipo": "rffm",
+"corregido": false
+},
+"14970010": {
+"nombre": "VILLAVICIOSA DE ODON",
+"localidad": "Villaviciosa De Odón",
+"rffm": [
+40.362519,
+-3.917312
+],
+"direccion_gps": [
+40.362481,
+-3.91733
+],
+"dist_rffm_direccion_km": 0.0,
+"navegacion": [
+40.362519,
+-3.917312
+],
+"tipo": "rffm",
+"corregido": false
+},
+"14988040": {
+"nombre": "BOADILLA (CONDESA CHINCHON 3 -F7-)",
+"localidad": "Boadilla Del Monte",
+"rffm": [
+40.410906,
+-3.896471
+],
+"direccion_gps": [
+40.410845,
+-3.895631
+],
+"dist_rffm_direccion_km": 0.07,
+"navegacion": [
+40.410906,
+-3.896471
+],
+"tipo": "rffm",
+"corregido": false
+},
+"13213186": {
+"nombre": "COLLADO VILLALBA F7 (HA)",
+"localidad": "Collado Villalba",
+"rffm": [
+40.639786,
+-4.003571
+],
+"navegacion": [
+40.639786,
+-4.003571
+],
+"tipo": "rffm",
+"corregido": false
+},
+"11406548": {
+"nombre": "ALCOBENDAS - COLEGIO BASE (HA)",
+"localidad": "Alcobendas",
+"rffm": [
+40.509816,
+-3.611237
+],
+"direccion_gps": [
+40.509852,
+-3.611249
+],
+"dist_rffm_direccion_km": 0.0,
+"navegacion": [
+40.509816,
+-3.611237
+],
+"tipo": "rffm",
+"corregido": false
+},
+"27367395": {
+"nombre": "ALCALA - PUNTA CHICA (H.A.)",
+"localidad": "Alcalá De Henares",
+"rffm": [
+40.496289,
+-3.411503
+],
+"direccion_gps": [
+40.48957,
+-3.379622
+],
+"dist_rffm_direccion_km": 2.8,
+"aviso": "Coordenadas de la RFFM a 2.8 km de la dirección (sin confirmar)",
+"navegacion": [
+40.496289,
+-3.411503
+],
+"tipo": "rffm",
+"corregido": false
+},
+"4532771": {
+"nombre": "POLIDEPORTIVO MARIA DE VILLOTA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.34761,
+-3.675199
+],
+"direccion_gps": [
+40.347317,
+-3.674975
+],
+"dist_rffm_direccion_km": 0.04,
+"navegacion": [
+40.34761,
+-3.675199
+],
+"tipo": "rffm",
+"corregido": false
+},
+"8852174": {
+"nombre": "ESC. FUT. CARABANCHEL 2 (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.377057,
+-3.728841
+],
+"direccion_gps": [
+40.377018,
+-3.728306
+],
+"dist_rffm_direccion_km": 0.05,
+"navegacion": [
+40.377057,
+-3.728841
+],
+"tipo": "rffm",
+"corregido": false
+},
+"22271641": {
+"nombre": "TRES CANTOS - COLEGIO LA MERCED",
+"localidad": "Tres Cantos",
+"rffm": [
+40.612872,
+-3.720395
+],
+"direccion_gps": [
+40.613408,
+-3.718514
+],
+"dist_rffm_direccion_km": 0.17,
+"navegacion": [
+40.612872,
+-3.720395
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2106": {
+"nombre": "TORRELAGUNA - PVO. MPAL ANTONIO MARTÍN F7(HA)",
+"localidad": "Torrelaguna",
+"rffm": [
+40.82693,
+-3.533117
+],
+"direccion_gps": [
+40.825966,
+-3.531898
+],
+"dist_rffm_direccion_km": 0.15,
+"navegacion": [
+40.82693,
+-3.533117
+],
+"tipo": "rffm",
+"corregido": false
+},
+"21958252": {
+"nombre": "ARROYOMOLINOS - COLEGIO ARENALES",
+"localidad": "Arroyomolinos",
+"rffm": [
+40.283587,
+-3.908243
+],
+"direccion_gps": [
+40.283155,
+-3.908096
+],
+"dist_rffm_direccion_km": 0.05,
+"navegacion": [
+40.283587,
+-3.908243
+],
+"tipo": "rffm",
+"corregido": false
+},
+"26885526": {
+"nombre": "VILLANUEVA DE LA CAÑADA - COL. ZOLA (H.A.)",
+"localidad": "Villanueva Del Pardillo",
+"rffm": [
+40.465827,
+-3.957556
+],
+"direccion_gps": [
+40.492045,
+-3.965782
+],
+"dist_rffm_direccion_km": 3.0,
+"aviso": "Coordenadas de la RFFM a 3.0 km de la dirección (sin confirmar)",
+"navegacion": [
+40.465827,
+-3.957556
+],
+"tipo": "rffm",
+"corregido": false
+},
+"13372982": {
+"nombre": "CDM EL PRADILLO",
+"localidad": "Madrid",
+"rffm": [
+40.449371,
+-3.67158
+],
+"direccion_gps": [
+40.63212,
+-4.00427
+],
+"dist_rffm_direccion_km": 34.69,
+"aviso": "Coordenadas de la RFFM a 34.7 km de la dirección (sin confirmar)",
+"navegacion": [
+40.449371,
+-3.67158
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1101152": {
+"nombre": "I.D.M. TORRESPAÑA (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.421093,
+-3.661096
+],
+"navegacion": [
+40.421093,
+-3.661096
+],
+"tipo": "rffm",
+"corregido": false
+},
+"14963246": {
+"nombre": "PINTO-PPES. ASTURIAS 2",
+"localidad": "Pinto",
+"rffm": [
+40.237944,
+-3.694854
+],
+"direccion_gps": [
+40.237141,
+-3.696321
+],
+"dist_rffm_direccion_km": 0.15,
+"navegacion": [
+40.237944,
+-3.694854
+],
+"tipo": "rffm",
+"corregido": false
+},
+"13195552": {
+"nombre": "BOADILLA - PVO. MUNICIPAL ANGEL NIETO 4 - F/7",
+"localidad": "Boadilla Del Monte",
+"rffm": [
+40.412434,
+-3.897136
+],
+"navegacion": [
+40.412434,
+-3.897136
+],
+"tipo": "rffm",
+"corregido": false
+},
+"18613498": {
+"nombre": "I.B.M. BREOGÁN",
+"localidad": "Madrid",
+"rffm": [
+40.437124,
+-3.660831
+],
+"direccion_gps": [
+40.440667,
+-3.660936
+],
+"dist_rffm_direccion_km": 0.39,
+"navegacion": [
+40.437124,
+-3.660831
+],
+"tipo": "rffm",
+"corregido": false
+},
+"899064": {
+"nombre": "EL PAULAR-MONTECARMELO- (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.499623,
+-3.700324
+],
+"navegacion": [
+40.499623,
+-3.700324
+],
+"tipo": "rffm",
+"corregido": false
+},
+"8802579": {
+"nombre": "ALCOBENDAS - COLEGIO BRAINS (HA)",
+"localidad": "Alcobendas",
+"rffm": [
+40.529959,
+-3.63141
+],
+"direccion_gps": [
+40.530029,
+-3.631329
+],
+"dist_rffm_direccion_km": 0.01,
+"navegacion": [
+40.529959,
+-3.63141
+],
+"tipo": "rffm",
+"corregido": false
+},
+"15185977": {
+"nombre": "S.S. REYES - GABRIEL PEDREGAL F7 (HA) ANT. DEHESA VIEJA",
+"localidad": "San Sebastián De Los Reyes",
+"rffm": [
+40.56619,
+-3.626749
+],
+"direccion_gps": [
+40.563119,
+-3.622262
+],
+"dist_rffm_direccion_km": 0.51,
+"navegacion": [
+40.56619,
+-3.626749
+],
+"tipo": "rffm",
+"corregido": false
+},
+"28821260": {
+"nombre": "ALCORCON - PVO. MPAL. SANTO DOMINGO F/7 2",
+"localidad": "Alcorcón",
+"rffm": null,
+"direccion_gps": [
+40.340481,
+-3.841087
+],
+"aviso": "La RFFM no da coordenadas: se usa la dirección",
+"navegacion": [
+40.340481,
+-3.841087
+],
+"tipo": "direccion",
+"corregido": true
+},
+"4532965": {
+"nombre": "COLEGIO J.H. NEWMAN (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.421188,
+-3.615013
+],
+"direccion_gps": [
+40.420836,
+-3.614794
+],
+"dist_rffm_direccion_km": 0.04,
+"navegacion": [
+40.421188,
+-3.615013
+],
+"tipo": "rffm",
+"corregido": false
+},
+"13372746": {
+"nombre": "LEGANES - CANTERA F7 - 2",
+"localidad": "Leganés",
+"rffm": [
+40.339514,
+-3.762957
+],
+"direccion_gps": [
+40.339599,
+-3.762738
+],
+"dist_rffm_direccion_km": 0.02,
+"navegacion": [
+40.339514,
+-3.762957
+],
+"tipo": "rffm",
+"corregido": false
+},
+"10225607": {
+"nombre": "SAN LORENZO DE EL ESCORIAL - PVO. EL ZABURDÓN (HA)",
+"localidad": "San Lorenzo De El Escorial",
+"rffm": [
+40.602314,
+-4.127149
+],
+"direccion_gps": [
+40.60279,
+-4.126736
+],
+"dist_rffm_direccion_km": 0.06,
+"navegacion": [
+40.602314,
+-4.127149
+],
+"tipo": "rffm",
+"corregido": false
+},
+"13212606": {
+"nombre": "VILLAVICIOSA DE ODÓN F7 C-4 (HA)",
+"localidad": "Villaviciosa De Odón",
+"rffm": [
+40.362519,
+-3.917312
+],
+"direccion_gps": [
+40.362481,
+-3.91733
+],
+"dist_rffm_direccion_km": 0.0,
+"navegacion": [
+40.362519,
+-3.917312
+],
+"tipo": "rffm",
+"corregido": false
+}
+}
