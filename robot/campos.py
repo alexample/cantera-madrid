@@ -222,7 +222,7 @@ def main():
         info = {"nombre": nombre, "localidad": loc, "rffm": [la, lo] if la is not None else None}
         if re.search(r"PENDIENTE|PTE\.? ?DETERMINAR|SIN ASIGNAR", (nombre or "").upper()):
             info["aviso"] = "Campo pendiente de asignar"
-            campos[cid] = v[:5] + [None, None, "sin_campo"]
+            campos[cid] = list(v[:5]) + [None, None, "sin_campo"]
             rev[cid] = info
             continue
         previo = rev.get(cid, {})
@@ -266,7 +266,7 @@ def main():
                         info["aviso"] = (f"La dirección queda a {d:.1f} km, pero se mantiene la ubicación de la RFFM"
                                          + (" (hay una instalación deportiva en ese punto)" if hay_en_rffm else ""))
         if base[0] is None:
-            campos[cid] = v[:5] + [None, None, "sin_ubicacion"]
+            campos[cid] = list(v[:5]) + [None, None, "sin_ubicacion"]
             info["aviso"] = "Sin coordenadas ni dirección localizable"
             rev[cid] = info
             continue
@@ -282,10 +282,8 @@ def main():
         if f:
             info["instalacion"] = f.get("tags", {}).get("name") or f.get("tags", {}).get("leisure")
             info["dist_instalacion_km"] = round(km(base[0], base[1], f["center"]["lat"], f["center"]["lon"]), 2)
-        nueva = list(v[:5])
-        if corregido:
-            nueva[3], nueva[4] = round(base[0], 6), round(base[1], 6)
-        campos[cid] = nueva + [round(nav[0], 6), round(nav[1], 6), tipo]
+        # Las coordenadas de la RFFM (posiciones 3 y 4) no se tocan nunca: la corrección va solo al punto de navegación
+        campos[cid] = list(v[:5]) + [round(nav[0], 6), round(nav[1], 6), tipo]
         info.update({"navegacion": [round(nav[0], 6), round(nav[1], 6)], "tipo": tipo, "corregido": corregido})
         rev[cid] = info
         if i % 10 == 0:
