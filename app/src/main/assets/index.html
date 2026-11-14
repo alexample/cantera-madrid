@@ -823,15 +823,16 @@ function previaHTML(t,m){
   <div class="small" style="opacity:.75">El local, con sus números en casa; el visitante, con los de fuera.</div>
   ${iaDisponible()?`<button class="btn" style="margin-top:8px" data-previa="${esc(firma(m))}">🤖 Previa de la IA</button><textarea hidden class="pv-datos">${esc(datos)}</textarea>`:""}`;
 }
+try{localStorage.removeItem("cm_previas")}catch(e){}
 async function previaIA(datos){
   const hoy=new Date().toISOString().slice(0,10);const c=store.get("previa_cupo",{d:"",n:0});if(c.d!==hoy){c.d=hoy;c.n=0}
-  const cache=store.get("previas",{});if(cache[datos])return cache[datos];
+  const cache=store.get("previas2",{});if(cache[datos])return cache[datos];
   if(c.n>=15)return "Has pedido muchas previas hoy. Mañana podrás pedir más.";
   const ctl=new AbortController();const tm=setTimeout(()=>ctl.abort(),25000);
   try{const r=await fetch(IA_URL.replace("/cantera-ia","/cantera-previa"),{method:"POST",headers:{"Content-Type":"application/json"},signal:ctl.signal,body:JSON.stringify({datos})});
     const j=await r.json();if(!r.ok||!j.respuesta)return j.error||"La IA no ha podido hacer la previa ahora mismo.";
     if(!j.guardada){c.n++;store.set("previa_cupo",c)}
-    const ks=Object.keys(cache);if(ks.length>60)delete cache[ks[0]];cache[datos]=j.respuesta;store.set("previas",cache);return j.respuesta}
+    const ks=Object.keys(cache);if(ks.length>60)delete cache[ks[0]];cache[datos]=j.respuesta;store.set("previas2",cache);return j.respuesta}
   catch(e){return "Sin conexión con la IA ahora mismo."}finally{clearTimeout(tm)}
 }
 function fichaPartidoMsgs(t,m){
