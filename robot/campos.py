@@ -74,22 +74,55 @@ def geocodificar(direccion, loc):
     return (float(r[0]["lat"]), float(r[0]["lon"]), r[0].get("display_name", "")) if r else None
 
 
-def overpass(lat, lon, radio=400):
-    q = f"""[out:json][timeout:25];
-(way(around:{radio},{lat},{lon})[leisure~"^(sports_centre|stadium|pitch)$"];
- relation(around:{radio},{lat},{lon})[leisure~"^(sports_centre|stadium)$"];);
+_OSM = None
+_REJILLA = {}
+
+
+def _celda(la, lo):
+    return (int(la * 100), int(lo * 100))
+
+
+def cargar_osm():
+    """Una sola consulta: instalaciones deportivas y entradas/puertas de toda la Comunidad de Madrid."""
+    global _OSM
+    if _OSM is not None:
+        return
+    q = """[out:json][timeout:300][bbox:39.85,-4.6,41.17,-3.05];
+(way[leisure~"^(sports_centre|stadium)$"];relation[leisure~"^(sports_centre|stadium)$"];way[leisure=pitch][sport~"soccer"];);
 out tags center bb;
-(node(around:{radio + 60},{lat},{lon})[entrance];
- node(around:{radio + 60},{lat},{lon})[barrier~"^(gate|entrance|lift_gate|turnstile)$"];);
+(node[entrance];node[barrier~"^(gate|entrance|lift_gate|turnstile)$"];);
 out;"""
     data = urllib.parse.urlencode({"data": q}).encode()
     for url in OVERPASS:
         try:
-            time.sleep(1.0)
-            return get(url, data=data, intentos=2).get("elements", [])
-        except Exception:
+            _OSM = get(url, data=data, intentos=3).get("elements", [])
+            break
+        except Exception as e:
+            print("Overpass falló en", url, e, flush=True)
+    _OSM = _OSM or []
+    for e in _OSM:
+        la = e.get("lat", e.get("center", {}).get("lat"))
+        lo = e.get("lon", e.get("center", {}).get("lon"))
+        if la is None:
             continue
-    return []
+        _REJILLA.setdefault(_celda(la, lo), []).append(e)
+    print(len(_OSM), "elementos de OpenStreetMap", flush=True)
+
+
+def overpass(lat, lon, radio=400):
+    """Elementos (instalaciones y entradas) alrededor del punto, a partir de la descarga única."""
+    cargar_osm()
+    a, b = _celda(lat, lon)
+    out = []
+    for da in (-1, 0, 1):
+        for db in (-1, 0, 1):
+            for e in _REJILLA.get((a + da, b + db), []):
+                la = e.get("lat", e.get("center", {}).get("lat"))
+                lo = e.get("lon", e.get("center", {}).get("lon"))
+                lim = radio + (60 if e["type"] == "node" else 0)
+                if km(lat, lon, la, lo) * 1000 <= lim:
+                    out.append(e)
+    return out
 
 
 def elegir(lat, lon, elems):
@@ -132,15 +165,31 @@ def elegir(lat, lon, elems):
     return f, entrada
 
 
+def guardar(campos, rev):
+    json.dump(campos, open(os.path.join(DATA, "campos.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+    ruta_ix = os.path.join(DATA, "indice.json")
+    if os.path.exists(ruta_ix):
+        ix = json.load(open(ruta_ix, encoding="utf-8"))
+        for k in ix.get("campos", {}):
+            if k in campos:
+                ix["campos"][k] = campos[k]
+        json.dump(ix, open(ruta_ix, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+    json.dump(rev, open(os.path.join(DATA, "campos_revision.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=0)
+
+
 def main():
     todos = "--todos" in sys.argv
+    limite = time.time() + 50 * 60  # se para a los 45 min y guarda; la siguiente pasada sigue donde lo dejó
     ruta = os.path.join(DATA, "campos.json")
     campos = json.load(open(ruta, encoding="utf-8"))
     ruta_rev = os.path.join(DATA, "campos_revision.json")
-    rev = json.load(open(ruta_rev, encoding="utf-8")) if os.path.exists(ruta_rev) and not todos else {}
+    rev = json.load(open(ruta_rev, encoding="utf-8")) if os.path.exists(ruta_rev) else {}
     pend = [k for k, v in campos.items() if todos or len(v) < 8]
     print(len(pend), "campos por revisar de", len(campos), flush=True)
     for i, cid in enumerate(pend, 1):
+        if time.time() > limite:
+            print("Tiempo agotado: se guardan", i - 1, "campos; el resto en la siguiente pasada", flush=True)
+            break
         v = campos[cid]
         nombre, direccion, loc, la, lo = v[0], v[1], v[2], v[3], v[4]
         info = {"nombre": nombre, "localidad": loc, "rffm": [la, lo] if la is not None else None}
@@ -194,20 +243,11 @@ def main():
         campos[cid] = nueva + [round(nav[0], 6), round(nav[1], 6), tipo]
         info.update({"navegacion": [round(nav[0], 6), round(nav[1], 6)], "tipo": tipo, "corregido": corregido})
         rev[cid] = info
-        if i % 20 == 0:
+        if i % 10 == 0:
             print(f"  {i}/{len(pend)}", flush=True)
-            json.dump(campos, open(ruta, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+            guardar(campos, rev)
 
-    json.dump(campos, open(ruta, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
-    # El índice de la app lleva los campos que usa
-    ruta_ix = os.path.join(DATA, "indice.json")
-    if os.path.exists(ruta_ix):
-        ix = json.load(open(ruta_ix, encoding="utf-8"))
-        for k in ix.get("campos", {}):
-            if k in campos:
-                ix["campos"][k] = campos[k]
-        json.dump(ix, open(ruta_ix, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
-    json.dump(rev, open(ruta_rev, "w", encoding="utf-8"), ensure_ascii=False, indent=0)
+    guardar(campos, rev)
     from collections import Counter
     c = Counter(r.get("tipo", "otro") for r in rev.values())
     avisos = [f"{k}: {r['nombre']} ({r['localidad']}) — {r['aviso']}" for k, r in rev.items() if r.get("aviso")]

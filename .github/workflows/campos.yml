@@ -9,7 +9,7 @@ on:
       - "robot/campos.py"
       - ".github/workflows/campos.yml"
   schedule:
-    - cron: "40 3 * * 1"
+    - cron: "40 3 * * *"
   workflow_dispatch:
 
 permissions:
@@ -22,14 +22,15 @@ concurrency:
 jobs:
   campos:
     runs-on: ubuntu-24.04
-    timeout-minutes: 90
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Verificar todos los campos
-        run: python robot/campos.py --todos | tee campos.log
+      - name: Verificar los campos pendientes
+        # Para repasarlos todos de nuevo: añadir --todos (se hace por tandas de 45 min)
+        run: python robot/campos.py | tee campos.log
       - name: Guardar cambios
         if: always()
         run: |
