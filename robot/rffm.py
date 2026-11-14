@@ -337,6 +337,29 @@ def main():
         sys.exit(1)
 
 
+def agenda():
+    """data/agenda.json: partidos de ayer a +7 días agrupados por campo, para «¿Qué se juega aquí?» en la app.
+    {campoId: [[fechaISO, hora, grupoId, localId, local, visitId, visitante, gl, gv], ...]}"""
+    import glob
+    hoy = dt.datetime.now(dt.timezone(dt.timedelta(hours=1))).date()
+    desde, hasta = (hoy - dt.timedelta(days=1)).isoformat(), (hoy + dt.timedelta(days=7)).isoformat()
+    por_campo = {}
+    for f in glob.glob(os.path.join(DATA, "g", "*.json")):
+        try:
+            g = json.load(open(f, encoding="utf-8"))
+        except Exception:
+            continue
+        for p in g.get("part", []):
+            if len(p) < 11 or not p[9] or not p[1] or not (desde <= p[1] <= hasta):
+                continue
+            por_campo.setdefault(str(p[9]), []).append([p[1], p[2] or "", g["id"], p[3], p[4], p[5], p[6], p[7], p[8]])
+    for v in por_campo.values():
+        v.sort(key=lambda x: (x[0], x[1] or "99"))
+    json.dump({"act": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"), "campos": por_campo},
+              open(os.path.join(DATA, "agenda.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+    print("agenda:", len(por_campo), "campos,", sum(len(v) for v in por_campo.values()), "partidos")
+
+
 def rapido(a):
     """Actualiza solo los grupos con partidos hoy o ayer. Reutiliza el índice existente."""
     t0 = time.time()
@@ -409,6 +432,7 @@ def rapido(a):
 if __name__ == "__main__":
     try:
         main()
+        agenda()
     except Exception as e:  # deja constancia del fallo en data/estado.json
         os.makedirs(DATA, exist_ok=True)
         json.dump({"act": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"), "fallo": repr(e)[:500],

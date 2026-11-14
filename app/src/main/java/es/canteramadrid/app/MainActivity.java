@@ -7,7 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.webkit.GeolocationPermissions;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -96,6 +98,19 @@ public class MainActivity extends Activity {
                 // Enlaces externos (mapas) en su app o en el navegador.
                 try { startActivity(new Intent(Intent.ACTION_VIEW, u)); } catch (Exception ignored) { }
                 return true;
+            }
+        });
+
+        // Ubicación para «¿Qué se juega aquí?»: solo cuando el usuario lo pide, con el permiso de Android
+        s.setGeolocationEnabled(true);
+        web.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+                boolean concedido = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                        || checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+                if (concedido) { callback.invoke(origin, true, false); return; }
+                geoOrigen = origin; geoCallback = callback;
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 8);
             }
         });
 
@@ -215,6 +230,20 @@ public class MainActivity extends Activity {
             return out.toString("UTF-8");
         } finally {
             con.disconnect();
+        }
+    }
+
+    private String geoOrigen;
+    private GeolocationPermissions.Callback geoCallback;
+
+    @Override
+    public void onRequestPermissionsResult(int code, String[] permisos, int[] res) {
+        super.onRequestPermissionsResult(code, permisos, res);
+        if (code == 8 && geoCallback != null) {
+            boolean ok = false;
+            for (int r : res) if (r == PackageManager.PERMISSION_GRANTED) ok = true;
+            geoCallback.invoke(geoOrigen, ok, false);
+            geoCallback = null;
         }
     }
 

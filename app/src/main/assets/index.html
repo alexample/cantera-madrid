@@ -153,6 +153,8 @@ html[data-theme="estadio"] .carr-fijo{background:#070b16;border-bottom-color:#1e
 .vivo-box.off .vivo-dot{animation:none;opacity:.5}.vivo-box.off .vivo-t{color:var(--muted)}
 .mc.vivo{border-color:#e5352b;box-shadow:0 0 0 2px rgba(229,53,43,.35)}
 @media (prefers-reduced-motion:reduce){.vivo-dot{animation:none}}
+.aq{border:1px solid var(--line);border-radius:12px;padding:8px 10px;margin-top:8px}.aq.on{border-color:#e5352b;box-shadow:0 0 0 2px rgba(229,53,43,.25)}
+.aq-top{display:flex;justify-content:space-between;align-items:center;gap:6px}.aq-top .vivo-box{white-space:nowrap;flex:none}.aq-eq{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:6px}.aq-res{font-size:16px}.aq-ya{margin-top:10px}.aq-ya summary{cursor:pointer;color:var(--muted);font-size:13px}
 .mc-bot{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;min-height:32px}
 .mc-bot .btn{text-decoration:none;font-size:12.5px;padding:7px 11px}
 .carr-hint{text-align:center;opacity:.7;margin-top:2px}
@@ -361,7 +363,8 @@ function enJuego(t,m,ahora=Date.now()){
 }
 const vivoAttr=(t,m)=>`data-vivo="${esc(t.id)}|${esc(firma(m))}"`;
 // Actualiza cada 30 s los marcadores «en juego» que haya en pantalla
-setInterval(()=>{for(const el of document.querySelectorAll("[data-vivo]")){const p=el.dataset.vivo.split("|"),tid=p[0],f=p.slice(1).join("|");
+setInterval(()=>{for(const el of document.querySelectorAll("[data-vh]")){const[tid,ms,hora,cat]=el.dataset.vh.split("|");const v=enJuego(TEAM.get(tid)||{cat},{date:new Date(+ms),time:hora});el.textContent=v?v.txt:"";el.closest(".vivo-box")?.classList.toggle("off",!v||v.f==="fin")}
+  for(const el of document.querySelectorAll("[data-vivo]")){const p=el.dataset.vivo.split("|"),tid=p[0],f=p.slice(1).join("|");
   const t=TEAM.get(tid);const m=t&&teamMatches(t).find(x=>firma(x)===f);const v=enJuego(t,m);
   el.textContent=v?(el.dataset.corto?v.corto:v.txt):"";el.closest(".vivo-box")?.classList.toggle("off",!v||v.f==="fin")}},30000);
 const nextMatch=t=>{const ms=teamMatches(t).filter(m=>!m.played);return ms.find(m=>m.date&&m.date>=TODAY)||ms.find(m=>!m.date)};
@@ -1036,7 +1039,48 @@ async function preguntaSobreEquipo(text,it){
   return `¿De qué club?`+opts(clubs.slice(0,12).map(t=>({l:`${t.club} (${res.filter(x=>x.clubKey===t.clubKey).length})`,v:`qc:${it.id}:${t.clubKey}:${cat}`})))+(clubs.length>12?`<div class="small" style="margin-top:6px">Y ${clubs.length-12} clubes más: escribe el nombre del club para afinar.</div>`:"");
 }
 /* ---------- chat principal ---------- */
-const MENU=[{ic:"🔍",l:"Buscar un equipo"},{ic:"👤",l:"Buscar un jugador"},{ic:"🧭",l:"Ayúdame a encontrar un equipo"},{ic:"🏆",l:"Ver clasificaciones"}];
+const MENU=[{ic:"📍",l:"¿Qué se juega aquí?"},{ic:"🔍",l:"Buscar un equipo"},{ic:"👤",l:"Buscar un jugador"},{ic:"🧭",l:"Ayúdame a encontrar un equipo"},{ic:"🏆",l:"Ver clasificaciones"}];
+/* ---------- ¿Qué se juega aquí? (ubicación del móvil → campo más cercano → partidos de hoy) ---------- */
+let AGENDA=null,AGENDA_T=0;
+async function cargarAgenda(){if(!AGENDA||Date.now()-AGENDA_T>10*60e3){AGENDA=(await getJSON("agenda.json",{fresh:true})).campos||{};AGENDA_T=Date.now()}return AGENDA}
+function miPosicion(){return new Promise((res,rej)=>{if(!navigator.geolocation)return rej({code:9});
+  navigator.geolocation.getCurrentPosition(p=>res(p.coords),e=>rej(e),{enableHighAccuracy:true,timeout:15000,maximumAge:60000})})}
+const isoHoy=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`};
+function distCampo(c,p){const a=[p.latitude,p.longitude];const ds=[c.ll,c.nav].filter(x=>x&&x[0]!=null).map(x=>km(a,x));return ds.length?Math.min(...ds):Infinity}
+const fmtDist=d=>d<1?Math.round(d*100)*10+" m":d.toFixed(1).replace(".",",")+" km";
+async function aquiHTML(){
+  let pos;try{pos=await miPosicion()}catch(e){
+    if(e&&e.code===1)return `No tengo permiso para ver tu ubicación. Actívalo en <b>Ajustes del móvil → Aplicaciones → Cantera Madrid → Permisos → Ubicación</b> y vuelve a probar.`;
+    return `No he podido saber dónde estás. Comprueba que la ubicación del móvil está activada y vuelve a probar.`}
+  let ag;try{ag=await cargarAgenda()}catch(e){return "No he podido cargar los partidos ahora mismo."}
+  const cerca=Object.entries(CAMPOS).map(([id,c])=>({id,c,d:distCampo(c,pos)})).filter(x=>isFinite(x.d)).sort((a,b)=>a.d-b.d);
+  if(!cerca.length)return "No tengo la ubicación de los campos.";
+  const radio=Math.max(0.35,(pos.accuracy||0)/1000+0.15);
+  if(cerca[0].d<=radio)return aquiCampoHTML(cerca[0].id,cerca[0].d);
+  const hoy=isoHoy();const top=cerca.slice(0,4);
+  return `No estás en ningún campo de la federación (el más cercano está a ${fmtDist(cerca[0].d)}). Los más cercanos:
+  <div class="plist">${top.map(x=>{const n=(ag[x.id]||[]).filter(p=>p[0]===hoy).length;
+    return `<button class="pick" data-ask="aqui:${esc(x.id)}"><div class="grow"><b>${esc(x.c.name)}</b><div class="small">${fmtDist(x.d)} · ${esc(x.c.loc||"")} · ${n?n+" partido"+(n===1?"":"s")+" hoy":"sin partidos hoy"}</div></div><span>›</span></button>`}).join("")}</div>`;
+}
+function partidoAgenda(p){const[y,mo,d]=p[0].split("-").map(Number);return {iso:p[0],date:new Date(y,mo-1,d),time:p[1],gid:p[2],home:p[3],homeN:p[4],away:p[5],awayN:p[6],hg:p[7],ag:p[8],played:p[7]!=null&&p[8]!=null}}
+async function aquiCampoHTML(cid,dist){
+  const c=CAMPOS[cid];if(!c)return "No encuentro ese campo.";
+  let ag;try{ag=await cargarAgenda()}catch(e){return "No he podido cargar los partidos ahora mismo."}
+  const hoy=isoHoy();const todos=(ag[cid]||[]).map(partidoAgenda);
+  const fase=m=>{if(m.played)return 3;const v=enJuego(TEAM.get(m.home)||TEAM.get(m.away)||{cat:(grupo(m.gid)||{}).cat},m);return !v?1:v.f==="fin"?2:0};
+  const deHoy=todos.filter(m=>m.iso===hoy).sort((a,b)=>fase(a)-fase(b)||(fase(a)>=2?(b.time||"").localeCompare(a.time||""):(a.time||"").localeCompare(b.time||"")));
+  const fila=m=>{const t=TEAM.get(m.home)||TEAM.get(m.away)||{cat:(grupo(m.gid)||{}).cat};const v=enJuego(t,m);const g=grupo(m.gid);
+    const est=m.played?`<b class="aq-res">${m.hg}–${m.ag}</b>`:v&&v.f!=="fin"?`<span class="vivo-box"><span class="badge vivo-b"><i class="vivo-dot"></i>En juego</span> <span class="vivo-t" data-vh="${esc(t.id||"")}|${m.date.getTime()}|${esc(m.time)}|${esc(t.cat||"")}">${v.txt}</span></span>`:v?`<span class="badge D">Terminado</span>`:`<b>${esc(m.time||"--:--")}</b>`;
+    return `<div class="aq${v&&v.f!=="fin"?" on":""}"><div class="aq-top"><span class="small">${esc(m.time||"")}${g?" · "+esc(CATN[g.cat]||"")+" · "+esc(g.comp):""}</span>${est}</div>
+      <div class="aq-eq">${L(m.home,m.homeN)}<span class="small">vs</span>${L(m.away,m.awayN)}</div></div>`};
+  let h=`${dist!=null?`📍 Estás en <b>${esc(c.name)}</b>`:`<b>${esc(c.name)}</b>`}<div class="small">${esc([c.addr,c.loc].filter(Boolean).join(", "))}${dist!=null?` · a ${fmtDist(dist)}`:""}</div>${dist==null?mapLink(c):""}`;
+  if(deHoy.length){const nv=deHoy.filter(m=>{const v=enJuego(TEAM.get(m.home)||TEAM.get(m.away)||{},m);return v&&v.f!=="fin"}).length;
+    h+=`<div style="margin:10px 0 2px"><b>${nv?`Ahora se ${nv>1?"juegan "+nv+" partidos":"juega 1 partido"}`:"Partidos de hoy aquí"}</b></div>${(()=>{const yaJ=deHoy.filter(m=>fase(m)>=2),resto=deHoy.filter(m=>fase(m)<2);
+      return resto.map(fila).join("")+(yaJ.length?(resto.length?`<details class="aq-ya"><summary>${yaJ.length} partido${yaJ.length===1?"":"s"} ya terminado${yaJ.length===1?"":"s"} hoy</summary>${yaJ.map(fila).join("")}</details>`:yaJ.map(fila).join("")):"")})()}`}
+  else{const prox=todos.filter(m=>!m.played&&m.date>=TODAY).slice(0,6);
+    h+=`<div style="margin-top:8px">Hoy no hay partidos de la federación en este campo.</div>${prox.length?`<div style="margin:10px 0 2px"><b>Próximos aquí</b></div>${prox.map(m=>`<div class="small" style="margin-top:6px">${fdate(m.date)}</div>${fila(m)}`).join("")}`:""}`}
+  return h+`<div class="small" style="margin-top:8px;opacity:.75">Toca un equipo para ver su ficha.</div>`;
+}
 const welcomeMain=()=>`¡Hola! ¿Qué quieres hacer?${opts(MENU)}<div class="small" style="margin-top:8px">También puedes escribir directamente, por ejemplo «cadete Alcorcón».</div>`;
 const more=()=>`<div class="small" style="margin-top:10px">¿Algo más?</div>${opts([{l:"Volver al menú",v:"Menú"},{l:"Buscar otro equipo",v:"Buscar un equipo"}])}`;
 const HELP_MAIN="No he encontrado nada con eso. Prueba con el nombre del club o del municipio («Alcorcón», «Carabanchel»), añade la categoría («cadete Getafe») o deja que te ayude paso a paso.";
@@ -1091,6 +1135,8 @@ function pickCompetition(cat){
 }
 async function handleMain(text){
   const q=norm(text);
+  if(/^aqui:/.test(text))return aquiCampoHTML(text.slice(5));
+  if(/(que se juega|quien juega|quien esta jugando|que partidos? hay) aqui|donde estoy|este campo|campos? (mas )?cerca|cerca de mi|^aqui$/.test(q))return aquiHTML();
   if(/^(menu|inicio|empezar|hola|cancelar|salir|volver al menu)$/.test(q)){state.flow=null;return welcomeMain()}
   if(/^buscar (un )?equipo$/.test(q)){startFlow("team");return "¿Cómo se llama el club o en qué municipio o barrio juega? Si sabes la categoría, añádela (por ejemplo «cadete Alcorcón»)."}
   if(/^buscar (un |a un )?jugador$/.test(q)){if(!state.verified){state.flow=null;return verifyMsg()}startFlow("player");return "Escribe el <b>nombre y apellidos</b> del jugador."}
@@ -1312,6 +1358,7 @@ function renderHome(app){
     <button class="iconbtn" id="gear" aria-label="Ajustes">${icons.gear}</button></div></header>
   <main>
     <button class="maincta" id="openMain"><div class="ic">${icons.chat}</div><div><b>Chat principal</b><span>Busca equipos, jugadores y clasificaciones</span></div></button>
+    <button class="maincta" id="openAqui"><div class="ic" style="background:#1f7a4d">📍</div><div><b>¿Qué se juega aquí?</b><span>Los partidos del campo donde estás</span></div></button>
     <div class="section-t">Mis equipos</div>
     ${followed.length>1?`<div class="orden"><span class="small">Ordenar:</span>${ORDENES.map(([k,l])=>`<button class="chip${state.orden===k?" on":""}" data-orden="${k}">${l}</button>`).join("")}</div>`:""}
     <div id="mine" class="${state.orden==="manual"?"":"no-drag"}">${listaMine(followed)}</div>
@@ -1321,6 +1368,7 @@ function renderHome(app){
   </main>`;
   $("#gear").onclick=openSettings;
   $("#openMain").onclick=()=>{state.view="main";render()};
+  $("#openAqui").onclick=()=>{state.view="main";render();setTimeout(()=>window.__preguntar&&window.__preguntar("¿Qué se juega aquí?"),50)};
   $("#addTeam").onclick=()=>{state.view="main";state.chats._main=null;render();setTimeout(()=>window.__ask&&window.__ask("Buscar un equipo"),50)};
   // delegación: sigue funcionando aunque la lista se repinte al cargar resultados
   $("#mine").onclick=e=>{
@@ -1390,9 +1438,10 @@ function renderChat(app,t){
   if(cronoInicial)cargarCrono(cronoInicial);
   if(t)colocarCarrusel(t);
   progresoChat=txt=>{const msgs=state.chats[key];const u=msgs&&msgs[msgs.length-1];if(!u||!u.h.includes("typing"))return;u.h=`<span class="typing"><i></i><i></i><i></i></span> <span class="small">${esc(txt)}</span>`;if(state.view===(t?"team":"main")){const sc=$("#scroll"),st=sc.scrollTop;draw();sc.scrollTop=st}};
+  window.__preguntar=t?null:text=>ask(text);
   const ask=text=>{
     if(!text.trim())return;
-    const shown=text.startsWith("ia:")?"🤖 Preguntar a la IA":text.startsWith("q:")||text.startsWith("qc:")?((document.querySelector(`[data-ask="${CSS.escape(text)}"]`)||{}).textContent||"Ese equipo"):text.startsWith("clubteams:")?"Ver equipos de "+((TEAMS.find(t=>t.clubKey===text.split(":")[1])||{}).club||"club"):text.startsWith("comp:")||text.startsWith("grupo:")||text.startsWith("club:")?(document.querySelector(`[data-ask="${CSS.escape(text)}"]`)||{}).textContent||text:text;
+    const shown=text.startsWith("aqui:")?"📍 "+((CAMPOS[text.slice(5)]||{}).name||"Campo"):text.startsWith("ia:")?"🤖 Preguntar a la IA":text.startsWith("q:")||text.startsWith("qc:")?((document.querySelector(`[data-ask="${CSS.escape(text)}"]`)||{}).textContent||"Ese equipo"):text.startsWith("clubteams:")?"Ver equipos de "+((TEAMS.find(t=>t.clubKey===text.split(":")[1])||{}).club||"club"):text.startsWith("comp:")||text.startsWith("grupo:")||text.startsWith("club:")?(document.querySelector(`[data-ask="${CSS.escape(text)}"]`)||{}).textContent||text:text;
     state.chats[key].push({r:"u",h:esc(shown)});state.chats[key].push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span>'});draw();
     setTimeout(async()=>{let h;
       try{
@@ -1400,7 +1449,9 @@ function renderChat(app,t){
         else{h=t?await answerTeam(t,text):await handleMain(text);
           if(h==null)h=noEntiendo(text,t)}}
       catch(e){h="Ha fallado algo al consultar los datos. Inténtalo otra vez."}
-      state.chats[key].pop();state.chats[key].push({r:"b",h});if(state.view===(t?"team":"main"))draw()},250);
+      state.chats[key].pop();state.chats[key].push({r:"b",h});if(state.view===(t?"team":"main")){draw();
+        // Respuestas largas (p. ej. los partidos de un campo): se ve desde el principio de la respuesta
+        if(typeof h==="string"&&h.includes('class="aq')){const ms=chat.querySelectorAll(".msg"),el=ms[ms.length-2];if(el){const sc=$("#scroll");sc.scrollTop+=el.getBoundingClientRect().top-sc.getBoundingClientRect().top-8}}}},250);
   };
   window.__ask=ask;
   $("#f").onsubmit=e=>{e.preventDefault();const v=$("#q").value;$("#q").value="";ask(v)};
