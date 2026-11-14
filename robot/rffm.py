@@ -120,6 +120,53 @@ def jornada_num(j):
 
 
 # ---------------------------------------------------------------- transformación
+def deducir_resultados(partidos, clas):
+    """La RFFM actualiza la clasificación en cuanto se mete el resultado, pero el calendario no enseña el marcador
+    hasta que se cierra el acta (a veces días después). Si a un equipo le falta exactamente un partido en el
+    calendario, la diferencia de goles a favor/en contra entre la clasificación y lo ya publicado es el marcador
+    de ese partido. Solo se usa si cuadra para los dos equipos (goles y G/E/P). Se marca como provisional (p[12]=1)."""
+    hoy = dt.datetime.now(dt.timezone(dt.timedelta(hours=1))).date().isoformat()
+    suma = {}
+    for p in partidos:
+        if p[7] is None or p[8] is None:
+            continue
+        for tid, f, c in ((p[3], p[7], p[8]), (p[5], p[8], p[7])):
+            s_ = suma.setdefault(tid, [0, 0, 0, 0, 0, 0])  # pj, gf, gc, g, e, p
+            s_[0] += 1; s_[1] += f; s_[2] += c
+            s_[3 if f > c else 4 if f == c else 5] += 1
+    fila = {r[1]: r for r in clas if r[1]}
+    pendientes = {}
+    for p in partidos:
+        if (p[7] is None or p[8] is None) and p[1] and p[1] <= hoy and p[3] and p[5]:
+            for tid in (p[3], p[5]):
+                pendientes.setdefault(tid, []).append(p)
+    def delta(tid):
+        r = fila.get(tid)
+        if not r or None in (r[3], r[7], r[8], r[4], r[5], r[6]):
+            return None
+        s_ = suma.get(tid, [0] * 6)
+        return [r[3] - s_[0], r[7] - s_[1], r[8] - s_[2], r[4] - s_[3], r[5] - s_[4], r[6] - s_[5]]
+    for p in partidos:
+        if p[7] is not None or not p[1] or p[1] > hoy or not p[3] or not p[5]:
+            continue
+        dl, dv = delta(p[3]), delta(p[5])
+        if not dl or not dv or dl[0] != 1 or dv[0] != 1:
+            continue
+        if len(pendientes.get(p[3], [])) != 1 or len(pendientes.get(p[5], [])) != 1:
+            continue
+        gl, gv = dl[1], dv[1]
+        if gl < 0 or gv < 0 or dl[2] != gv or dv[2] != gl:
+            continue
+        res_l = [1, 0, 0] if gl > gv else [0, 1, 0] if gl == gv else [0, 0, 1]
+        res_v = [res_l[2], res_l[1], res_l[0]]
+        if dl[3:] != res_l or dv[3:] != res_v:
+            continue
+        p[7], p[8] = gl, gv
+        while len(p) < 13:
+            p.append("")
+        p[12] = 1
+
+
 def transformar_grupo(meta, calendar, standings, scorers):
     """pageProps (calendar, standings, scorers) -> archivo compacto del grupo."""
     partidos = []
@@ -147,6 +194,7 @@ def transformar_grupo(meta, calendar, standings, scorers):
                      entero(e.get("perdidos")), entero(e.get("goles_a_favor")), entero(e.get("goles_en_contra")),
                      entero(e.get("puntos"))])
     clas.sort(key=lambda r: (r[0] is None, r[0] or 0))
+    deducir_resultados(partidos, clas)
     gol = []
     for e in (scorers or {}).get("goles", []) or []:
         g = entero(e.get("goles"))
@@ -370,7 +418,8 @@ def rapido(a):
 
     def pendiente(p):
         # Partido sin resultado que ya debería haber terminado (empezó hace más de 75 min, hoy o ayer)
-        if p[7] is not None or not p[1]:
+        provisional = len(p) > 12 and p[12] == 1  # deducido de la clasificación: se sigue mirando hasta que salga el oficial
+        if (p[7] is not None and not provisional) or not p[1]:
             return False
         try:
             ini = dt.datetime.fromisoformat(p[1] + "T" + (p[2] or "00:00"))

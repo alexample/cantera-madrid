@@ -339,7 +339,7 @@ async function loadGroup(gid,fresh){
   return GD[gid];
 }
 function prep(d){
-  d.matches=(d.part||[]).map(p=>({j:p[0],date:p[1]?new Date(p[1]+"T00:00:00"):null,time:p[2]||"",home:p[3],homeN:bonito(p[4]),away:p[5],awayN:bonito(p[6]),hg:p[7],ag:p[8],campo:p[9],campoN:p[10],acta:p[11]||"",gid:d.id,played:p[7]!=null&&p[8]!=null}));
+  d.matches=(d.part||[]).map(p=>({j:p[0],date:p[1]?new Date(p[1]+"T00:00:00"):null,time:p[2]||"",home:p[3],homeN:bonito(p[4]),away:p[5],awayN:bonito(p[6]),hg:p[7],ag:p[8],campo:p[9],campoN:p[10],acta:p[11]||"",prov:p[12]===1,gid:d.id,played:p[7]!=null&&p[8]!=null}));
   d.matches.sort((a,b)=>(a.j||0)-(b.j||0)||((a.date||0)-(b.date||0)));
   if(d.clas&&d.clas.length)d.table=d.clas.map(r=>({pos:r[0],id:r[1],name:bonito(r[2]),pj:r[3]||0,g:r[4]||0,e:r[5]||0,p:r[6]||0,gf:r[7]||0,gc:r[8]||0,pts:r[9]||0}));
   else{const tab={};const add=(id,n)=>tab[id]||(tab[id]={id,name:n,pj:0,g:0,e:0,p:0,gf:0,gc:0,pts:0});
@@ -939,7 +939,7 @@ function tarjetaPartido(t,m,esProx){
   const fecha=m.date?`${DIAS_C[m.date.getDay()]} ${m.date.getDate()} ${MESES[m.date.getMonth()]}`:"Fecha por confirmar";
   const r=m.played?outcome(m,t.id):null;const vivo=enJuego(t,m);
   const estado=vivo&&vivo.f!=="fin"?`<span class="badge vivo-b"><i class="vivo-dot"></i>En juego</span>`:vivo?`<span class="badge D">Terminado</span>`:m.played?`<span class="badge ${r}">${{W:"Victoria",D:"Empate",L:"Derrota"}[r]}</span>`:esProx?`<span class="badge" style="background:var(--accent)">Próximo</span>`:`<span class="badge D">Pendiente</span>`;
-  const centro=m.played?`<div class="mc-res">${m.hg}<span>–</span>${m.ag}</div>`:vivo?`<div class="mc-hora vivo-box${vivo.f==="fin"?" off":""}"><div style="font-size:12px;opacity:.8">${m.time}</div><div class="vivo-t" ${vivoAttr(t,m)}>${vivo.txt}</div></div>`:`<div class="mc-hora">${m.time||"--:--"}</div>`;
+  const centro=m.played?`<div class="mc-res">${m.hg}<span>–</span>${m.ag}</div>${m.prov?`<div class="small" style="opacity:.75;text-align:center">provisional</div>`:""}`:vivo?`<div class="mc-hora vivo-box${vivo.f==="fin"?" off":""}"><div style="font-size:12px;opacity:.8">${m.time}</div><div class="vivo-t" ${vivoAttr(t,m)}>${vivo.txt}</div></div>`:`<div class="mc-hora">${m.time||"--:--"}</div>`;
   const nom=(id,n)=>id===t.id?`<div class="mc-yo">${crest(t,26)}<b>${esc(n)}</b></div>`:L(id,n);
   const bot=m.played
     ?`<button class="btn" data-fp="${esc(m.gid)}|${m.j}|${esc(m.home)}">📋 Ver partido</button>${m.acta?`<a class="btn ghost" href="${urlActaRFFM(m)}" target="_blank" rel="noopener">📄 Acta</a>`:""}`

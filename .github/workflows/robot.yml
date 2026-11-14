@@ -13,6 +13,8 @@ on:
     types: [robot]
   schedule:
     - cron: "20 4 * * *"
+    # Red de seguridad para fines de semana si no llegan los avisos del worker (GitHub los retrasa, pero algo es algo)
+    - cron: "*/30 9-22 * * 6,0"
   push:
     branches: [main]
     paths:
@@ -45,6 +47,7 @@ jobs:
           MODO: ${{ github.event.client_payload.modo || github.event.inputs.modo || 'completo' }}
         run: |
           echo "Modo: $MODO"
+          if [ "${{ github.event.schedule }}" = "*/30 9-22 * * 6,0" ]; then MODO=rapido; fi
           if [ "$MODO" = "rapido" ]; then python robot/rffm.py --rapido; else python robot/rffm.py && python robot/campos.py; fi
       - name: Guardar cambios
         if: always()
@@ -54,5 +57,5 @@ jobs:
           git add data
           if git diff --cached --quiet; then echo "Sin cambios"; exit 0; fi
           git commit -m "Datos RFFM $(date -u +'%Y-%m-%d %H:%M') (robot)"
-          git pull --rebase origin main
+          git pull --rebase -X theirs origin main || { git rebase --abort; git reset --hard origin/main; echo "Conflicto: se deja para la próxima pasada"; exit 0; }
           git push
