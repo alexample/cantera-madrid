@@ -144,6 +144,8 @@ html[data-theme="estadio"] .carr-fijo{background:#070b16;border-bottom-color:#1e
 .jf-cab{display:flex;gap:12px;align-items:center;margin-bottom:10px}.jf-dor{flex:none;width:44px;height:44px;border-radius:50%;background:var(--pitch2);color:#fff;display:grid;place-items:center;font:700 19px "Barlow Condensed",sans-serif}
 .jf-st{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}.jf-st div{background:var(--bg);border-radius:10px;padding:8px 4px;text-align:center}.jf-st b{display:block;font-size:20px}.jf-st span{font-size:11px;color:var(--muted)}
 .jp{padding:7px 0;border-top:1px solid var(--line);cursor:pointer}.jp:active{opacity:.6}
+.pv{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}.pv td{text-align:center;padding:6px 2px;width:34%}.pv th{font-weight:500;color:var(--muted);font-size:11.5px;padding:6px 2px}
+.pv tr+tr{border-top:1px solid var(--line)}.pv td.pv-b{font-weight:800;color:var(--pitch2)}
 .mc-bot{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;min-height:32px}
 .mc-bot .btn{text-decoration:none;font-size:12.5px;padding:7px 11px}
 .carr-hint{text-align:center;opacity:.7;margin-top:2px}
@@ -530,7 +532,7 @@ function nearestClubs(ll,cat,limit=5,fem=null){
    1) se normaliza el texto y se corrigen faltas contra un vocabulario de palabras clave
    2) se busca la intención por reglas, de la más concreta a la más general
    3) se responde con los datos del grupo                                            */
-const KW="evolucion grafica convocados titulares tiempo llover lluvia llueve frio calor temperatura prevision viento clima proximo proxima siguiente cuando hora horario donde campo direccion llegar llego ubicacion mapa juega jugamos juegan jugais juego toca rival contra quien quedo quedamos quedaron resultado resultados gano ganamos ganaron perdio perdimos perdieron empato empatamos marcador ultimo ultima clasificacion tabla posicion puesto lider primero colista ascenso descenso puntos goleador goleadores pichichi marco marcaron goles gol racha forma estadisticas balance calendario partidos quedan jornada plantilla jugadores convocatoria alineacion arbitro equipacion entrenador casa fuera visitante local semana sabado domingo manana hoy finde pasado victorias derrotas empates encajado metido diferencia ayuda hola gracias".split(" ");
+const KW="previa analisis pronostico favorito evolucion grafica convocados titulares tiempo llover lluvia llueve frio calor temperatura prevision viento clima proximo proxima siguiente cuando hora horario donde campo direccion llegar llego ubicacion mapa juega jugamos juegan jugais juego toca rival contra quien quedo quedamos quedaron resultado resultados gano ganamos ganaron perdio perdimos perdieron empato empatamos marcador ultimo ultima clasificacion tabla posicion puesto lider primero colista ascenso descenso puntos goleador goleadores pichichi marco marcaron goles gol racha forma estadisticas balance calendario partidos quedan jornada plantilla jugadores convocatoria alineacion arbitro equipacion entrenador casa fuera visitante local semana sabado domingo manana hoy finde pasado victorias derrotas empates encajado metido diferencia ayuda hola gracias".split(" ");
 // Palabras corrientes que no se deben "corregir" y abreviaturas típicas de móvil
 const PROTEGIDAS=new Set("cuantos cuantas cuanto bajamos subimos ganados perdidos empatados partido partidos ultimos ultimas puedo preguntar llevamos llevan lleva tal que como esta estan estamos vamos van tenemos hemos habeis donde cuando quien quienes sabes sabe dime hace hacen nuestro nuestra equipo liga grupo semana dias campo campos hijo hija mismo todo todos".split(" "));
 const ABREV={q:"que",k:"que",ke:"que",dnd:"donde",dnde:"donde",dond:"donde",ora:"hora",hra:"hora",hr:"hora",xq:"porque",pq:"porque",tb:"tambien",mñn:"manana",mnn:"manana",kdamos:"quedamos",kedamos:"quedamos",keda:"queda",kien:"quien",qien:"quien",cuado:"cuando",cnd:"cuando",cdo:"cuando",prox:"proximo",clasi:"clasificacion",clasif:"clasificacion",resul:"resultado",finde:"finde",jor:"jornada"};
@@ -545,6 +547,7 @@ const INTENCIONES=[
   ["tiempo",R(/(tiempo|llover|llovera|lluvia|llueve|frio|calor|temperatura|meteo|prevision|viento|nieve|clima|abrigo|chubasquero|paraguas|sol\b)/)],
   ["resumen",R(/^(resumen|todo|info|informacion|ficha|datos|como va el equipo|como esta el equipo)$/)],
   ["jornada",R(/\b(jornada|j)\s*\d+\b/)],
+  ["previa",R(/(previa|como llegan|como llegamos|analisis|analiza|pronostico|quien es favorito|favorito|como pinta)/)],
   ["jugadores",R(/(jugadores|plantilla|convocatoria|convocados|convocado|alineacion|alineaciones|titular|titulares|quien juega|quien ha jugado|quienes juegan|estadisticas? de (los )?jugador)/)],
   ["noDato",R(/(jugadores|ficha de|fichas|hay que (ir|llegar|estar)|a que hora (hay que|tenemos que|quedamos para)|arbitro|arbitra|equipacion|camiseta|entrenador|mister|convocatoria|convocados|alineacion|titular|plantilla|lesion|entradas|precio|hora de llegada|hay que estar|quedada|bus|autobus)/)],
   ["proxCasa",R(/(proximo|siguiente|cuando)\b.*\b(en casa|como local)|\b(en casa|como local)\b.*(proximo|siguiente|cuando)/)],
@@ -759,9 +762,75 @@ function fichaProxMsgs(t,m){
   <div class="next"><div class="when">${cuando}</div>
   ${c?`<div>${esc(c.name)}</div><div class="small">${esc([c.addr,c.loc].filter(Boolean).join(", "))}</div>${mapLink(c)}`:m.campoN?`<div>${esc(m.campoN)}</div>`:`<div class="small">Campo por confirmar</div>`}</div>${meteoPH(m)}`}];
   const prev=teamMatches(t).filter(x=>x.played&&(x.home===riv.id||x.away===riv.id));
+  const pv=previaHTML(t,m);if(pv)msgs.push({r:"b",h:pv});
   if(prev.length)msgs.push({r:"b",h:ansVs(t,riv.id)});
   msgs.push({r:"b",h:ansTable(t)});
   return msgs;
+}
+/* ---------- previa del partido: números en el móvil (gratis) + texto de la IA a petición (compartido y guardado) ---------- */
+function perfilEquipo(d,id){
+  const ms=d.matches.filter(m=>m.played&&(m.home===id||m.away===id)).sort((a,b)=>(a.j??0)-(b.j??0));
+  const blk=arr=>{const r={pj:arr.length,g:0,e:0,p:0,gf:0,gc:0,pts:0};for(const m of arr){const yo=m.home===id;const f=yo?m.hg:m.ag,c=yo?m.ag:m.hg;r.gf+=f;r.gc+=c;if(f>c){r.g++;r.pts+=3}else if(f<c)r.p++;else{r.e++;r.pts++}}
+    r.ppp=r.pj?r.pts/r.pj:0;r.gfp=r.pj?r.gf/r.pj:0;r.gcp=r.pj?r.gc/r.pj:0;return r};
+  const tot=blk(ms),casa=blk(ms.filter(m=>m.home===id)),fuera=blk(ms.filter(m=>m.away===id));
+  const ult=ms.slice(-5).map(m=>outcome(m,id));
+  const ptsSeq=ms.map(m=>({W:3,D:1,L:0})[outcome(m,id)]);const media=ptsSeq.reduce((a,b)=>a+b,0)/(ptsSeq.length||1);
+  const desv=Math.sqrt(ptsSeq.reduce((a,b)=>a+(b-media)**2,0)/(ptsSeq.length||1));
+  const gfSeq=ms.map(m=>m.home===id?m.hg:m.ag);const sinMarcar=gfSeq.filter(x=>x===0).length;const porteria0=ms.filter(m=>(m.home===id?m.ag:m.hg)===0).length;
+  let racha=0,tipo="";for(let i=ult.length-1;i>=0;i--){if(!tipo)tipo=ult[i];if(ult[i]===tipo)racha++;else break}
+  const js=[...new Set(d.matches.filter(m=>m.played&&m.j!=null).map(m=>m.j))].sort((a,b)=>a-b);
+  const posis=js.map(j=>(tablaHasta(d,j).table.find(r=>r.id===id)||{}).pos).filter(Boolean);
+  const fila=d.table.find(r=>r.id===id)||{};
+  const reg=ms.length<3?"pocos datos":desv<0.9?"muy regular":desv<1.25?"bastante regular":"irregular";
+  return {id,pos:fila.pos,pts:fila.pts,tot,casa,fuera,ult,racha,tipoRacha:tipo,desv,reg,sinMarcar,porteria0,posis,ms};
+}
+const f1=x=>x.toFixed(1).replace(".",",");
+const recTxt=r=>`${r.g}G ${r.e}E ${r.p}P`;
+function previaDatosTexto(d,m,H,A){
+  const nombre=id=>(d.table.find(r=>r.id===id)||{}).name||"";
+  const lin=(P,rol)=>{const b=rol==="LOCAL"?P.casa:P.fuera,dn=rol==="LOCAL"?"en casa":"fuera";
+    return `${rol}: ${nombre(P.id)} — ${P.pos}º con ${P.pts} puntos en ${P.tot.pj} partidos (${recTxt(P.tot)}, goles ${P.tot.gf}-${P.tot.gc}).
+  ${dn[0].toUpperCase()+dn.slice(1)}: ${b.pj} partidos, ${recTxt(b)}, ${f1(b.ppp)} puntos/partido, marca ${f1(b.gfp)} y encaja ${f1(b.gcp)} por partido.
+  Últimos ${P.ult.length}: ${P.ult.map(x=>({W:"V",D:"E",L:"D"})[x]).join(" ")} (racha actual: ${P.racha} ${(P.racha===1?{W:"victoria",D:"empate",L:"derrota"}:{W:"victorias seguidas",D:"empates seguidos",L:"derrotas seguidas"})[P.tipoRacha]||""}).
+  Evolución del puesto por jornada: ${P.posis.join(", ")}. Regularidad: ${P.reg}. Partidos sin marcar: ${P.sinMarcar}. Porterías a cero: ${P.porteria0}.`};
+  const ida=d.matches.find(x=>x.played&&x!==m&&((x.home===m.home&&x.away===m.away)||(x.home===m.away&&x.away===m.home)));
+  return `${grupoNombre(d.id)} · Jornada ${m.j} · ${d.table.length} equipos
+${lin(H,"LOCAL")}
+${lin(A,"VISITANTE")}${ida?`
+Ya se enfrentaron esta temporada (J${ida.j}): ${ida.homeN} ${ida.hg}-${ida.ag} ${ida.awayN}.`:""}`;
+}
+function previaHTML(t,m){
+  const d=GD[m.gid]||teamGroup(t);if(!m.home||!m.away)return "";
+  const H=perfilEquipo(d,m.home),A=perfilEquipo(d,m.away);if(!H.tot.pj&&!A.tot.pj)return "";
+  const nombre=id=>(d.table.find(r=>r.id===id)||{}).name||"";
+  const badges=P=>P.ult.map(x=>`<span class="badge ${x}" style="padding:1px 5px;margin:0 1px">${({W:"G",D:"E",L:"P"})[x]}</span>`).join("")||"—";
+  const mejor=(a,b,mayor=true)=>a===b?["",""]:(mayor?a>b:a<b)?[' class="pv-b"',""]:["",' class="pv-b"'];
+  const fila=(et,a,b,va,vb,mayor=true)=>{const[ca,cb]=va==null?["",""]:mejor(va,vb,mayor);return `<tr><td${ca}>${a}</td><th>${et}</th><td${cb}>${b}</td></tr>`};
+  const datos=previaDatosTexto(d,m,H,A);
+  return `<b>Previa</b> · cómo llega cada uno
+  <table class="pv"><tr><td><b>${esc(nombre(m.home))}</b><div class="small">local</div></td><th></th><td><b>${esc(nombre(m.away))}</b><div class="small">visitante</div></td></tr>
+  ${fila("Puesto",H.pos+"º",A.pos+"º",H.pos,A.pos,false)}
+  ${fila("Puntos",H.pts,A.pts,H.pts,A.pts)}
+  ${fila("En casa / fuera",recTxt(H.casa),recTxt(A.fuera))}
+  ${fila("Puntos por partido",f1(H.casa.ppp),f1(A.fuera.ppp),H.casa.ppp,A.fuera.ppp)}
+  ${fila("Goles a favor / partido",f1(H.casa.gfp),f1(A.fuera.gfp),H.casa.gfp,A.fuera.gfp)}
+  ${fila("Goles en contra / partido",f1(H.casa.gcp),f1(A.fuera.gcp),H.casa.gcp,A.fuera.gcp,false)}
+  ${fila("Últimos partidos",badges(H),badges(A))}
+  ${fila("Regularidad",H.reg,A.reg)}
+  ${fila("Porterías a cero",H.porteria0,A.porteria0,H.porteria0,A.porteria0)}</table>
+  <div class="small" style="opacity:.75">El local, con sus números en casa; el visitante, con los de fuera.</div>
+  ${iaDisponible()?`<button class="btn" style="margin-top:8px" data-previa="${esc(firma(m))}">🤖 Previa de la IA</button><textarea hidden class="pv-datos">${esc(datos)}</textarea>`:""}`;
+}
+async function previaIA(datos){
+  const hoy=new Date().toISOString().slice(0,10);const c=store.get("previa_cupo",{d:"",n:0});if(c.d!==hoy){c.d=hoy;c.n=0}
+  const cache=store.get("previas",{});if(cache[datos])return cache[datos];
+  if(c.n>=15)return "Has pedido muchas previas hoy. Mañana podrás pedir más.";
+  const ctl=new AbortController();const tm=setTimeout(()=>ctl.abort(),25000);
+  try{const r=await fetch(IA_URL.replace("/cantera-ia","/cantera-previa"),{method:"POST",headers:{"Content-Type":"application/json"},signal:ctl.signal,body:JSON.stringify({datos})});
+    const j=await r.json();if(!r.ok||!j.respuesta)return j.error||"La IA no ha podido hacer la previa ahora mismo.";
+    if(!j.guardada){c.n++;store.set("previa_cupo",c)}
+    const ks=Object.keys(cache);if(ks.length>60)delete cache[ks[0]];cache[datos]=j.respuesta;store.set("previas",cache);return j.respuesta}
+  catch(e){return "Sin conexión con la IA ahora mismo."}finally{clearTimeout(tm)}
 }
 function fichaPartidoMsgs(t,m){
   const d=GD[m.gid]||teamGroup(t);const msgs=[];
@@ -868,7 +937,7 @@ function colocarCarrusel(t){
 
 const NO_DATO="La federación no publica ese dato (plantillas, alineaciones, árbitros, equipaciones u horarios de llegada). Esa información la da el club o el entrenador.";
 const HELP_TEAM="Puedo contarte el último resultado, el próximo partido con hora y campo, la clasificación y los puntos, los goleadores, la racha, las estadísticas, los partidos que quedan, una jornada («jornada 3») o cómo os fue contra un rival («contra Alcorcón»).";
-const CHIPS_TEAM=["Resumen","¿Cómo quedó el último partido?","¿Cuándo y dónde es el próximo?","¿Qué tiempo hará?","Clasificación","Evolución","Goleadores","Racha","Jugadores"];
+const CHIPS_TEAM=["Resumen","¿Cómo quedó el último partido?","¿Cuándo y dónde es el próximo?","Previa","¿Qué tiempo hará?","Clasificación","Evolución","Goleadores","Racha","Jugadores"];
 function responderEquipo(t,id,q,text){
   switch(id){
     case "saludo":return `¡Hola! ${HELP_TEAM}`;
@@ -877,6 +946,7 @@ function responderEquipo(t,id,q,text){
     case "resumen":return ansResumen(t);
     case "tiempo":return ansTiempo(t);
     case "jornada":return ansJornada(t,+(q.match(/(\d+)/)[1]));
+    case "previa":{const m=nextMatch(t);if(!m)return "No quedan partidos en el calendario.";return previaHTML(t,m)||"Todavía no hay partidos jugados para hacer la previa."}
     case "jugadores":if(ANDROID)return ansJugadores(t);return `Las estadísticas de los jugadores se calculan con las actas, y eso solo funciona en la app del móvil.<div>${linkRFFM(urlEquipoRFFM(t),"Plantilla en la RFFM")}</div>`;
     case "noDato":return /(plantilla|jugador|convoca|alineacion|titular)/.test(q)?`La plantilla y las fichas de los jugadores están en la web oficial de la federación:<div>${linkRFFM(urlEquipoRFFM(t),"Ver plantilla en la RFFM")}</div><div class="small" style="margin-top:6px">Se abre en el navegador. Las convocatorias y alineaciones de cada partido las da el club.</div>`:NO_DATO;
     case "proxCasa":return ansProxDonde(t,"casa");
@@ -1256,6 +1326,7 @@ function renderChat(app,t){
       if(f.m.acta&&ANDROID){msgs.push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span> <span class="small">Cargando la cronología…</span>'});cronoInicial=f.m}
     }else if(f){
       msgs.push({r:"b",h:`<b>${esc(t.name)}</b>${etiqueta(t)?` · <span class="tag">⭐ ${esc(etiqueta(t))}</span>`:""}<br>`+ansNext(t)+tip});
+      const pv=previaHTML(t,f.m);if(pv)msgs.push({r:"b",h:pv});
     }else msgs.push({r:"b",h:`No hay partidos en el calendario de este equipo.`+tip});
     state.chats[key]=msgs;
   }
@@ -1302,6 +1373,9 @@ function renderChat(app,t){
   $("#f").onsubmit=e=>{e.preventDefault();const v=$("#q").value;$("#q").value="";ask(v)};
   app.onclick=e=>{
     const a=e.target.closest("[data-ask]");if(a){ask(a.dataset.ask);return}
+    const pb=e.target.closest("[data-previa]");if(pb){const datos=pb.parentElement.querySelector(".pv-datos").value;
+      state.chats[key].push({r:"u",h:"🤖 Previa de la IA"});state.chats[key].push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span> <span class="small">Preparando la previa…</span>'});draw();
+      previaIA(datos).then(txt=>{const msgs=state.chats[key];msgs.pop();msgs.push({r:"b",h:`<b>🤖 Previa</b><div style="margin-top:4px">${fmtIA(txt)}</div><div class="small" style="opacity:.7;margin-top:6px">Texto de la IA a partir de los números de arriba; puede equivocarse.</div>`});if(state.view===(t?"team":"main"))draw()});return}
     const jg=e.target.closest("[data-jug]");if(jg){const[eid,k]=jg.dataset.jug.split("|");const eq=TEAM.get(eid);if(!eq)return;
       state.chats[key].push({r:"u",h:"👤 "+esc(jg.textContent.replace("›","").trim())});state.chats[key].push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span>'});draw();
       actasEquipo(eq,(n,tot)=>progresoChat(`Leyendo las actas de ${eq.name} ${n}/${tot}…`)).then(lista=>{const st=statsJugadores(eq,lista);const p=st.find(x=>x.k===k);
