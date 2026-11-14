@@ -94,7 +94,7 @@ def cargar_osm():
     for (s_, w_, n_, e_) in zonas:
         q = f"""[out:json][timeout:180][bbox:{s_},{w_},{n_},{e_}];
 (way[leisure~"^(sports_centre|stadium)$"];relation[leisure~"^(sports_centre|stadium)$"];way[leisure=pitch][sport~"soccer"];)->.f;
-.f out tags center bb;
+.f out tags bb;
 (way.f;way(r.f);)->.w;
 node(w.w)->.n;
 (node.n[entrance];node.n[barrier];);
@@ -109,6 +109,14 @@ out;"""
             except Exception as ex:
                 print("  Overpass falló en", url, ex, flush=True)
         time.sleep(5)
+    tipos = {}
+    for e in _OSM:
+        # Las instalaciones vienen con sus límites (bounds): su centro es el punto medio
+        if e["type"] != "node" and "center" not in e and "bounds" in e:
+            b = e["bounds"]
+            e["center"] = {"lat": (b["minlat"] + b["maxlat"]) / 2, "lon": (b["minlon"] + b["maxlon"]) / 2}
+        tipos[e["type"]] = tipos.get(e["type"], 0) + 1
+    print("  por tipo:", tipos, flush=True)
     for e in _OSM:
         la = e.get("lat", e.get("center", {}).get("lat"))
         lo = e.get("lon", e.get("center", {}).get("lon"))
@@ -270,7 +278,11 @@ def main():
             guardar(campos, rev)
 
     guardar(campos, rev)
-    json.dump({"osm_elementos": len(_OSM or []), "revisados": len(rev), "act": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())},
+    tipos = {}
+    for e in _OSM or []:
+        k = e["type"] + ("_con_centro" if "center" in e else "")
+        tipos[k] = tipos.get(k, 0) + 1
+    json.dump({"osm_elementos": len(_OSM or []), "osm_tipos": tipos, "revisados": len(rev), "act": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())},
               open(os.path.join(DATA, "campos_estado.json"), "w"), indent=1)
     from collections import Counter
     c = Counter(r.get("tipo", "otro") for r in rev.values())
