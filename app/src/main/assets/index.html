@@ -135,7 +135,10 @@ html[data-theme="estadio"] .carr-fijo{background:#070b16;border-bottom-color:#1e
 .mc-res span{opacity:.5;margin:0 3px}
 .mc-hora{font-family:"Barlow Condensed",system-ui,sans-serif;font-size:26px;font-weight:700;padding:2px 10px;border-radius:10px;border:1.5px dashed var(--line)}
 .mc-campo{font-size:12px;color:var(--muted);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mc.jugado{cursor:pointer}.mc.jugado:active{transform:scale(.985)}
+.mc{cursor:pointer}.mc:active{transform:scale(.985)}.mc.sel{border:2px solid var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 25%,transparent)}
+.evo svg{display:block;overflow:visible}.evo-g{stroke:var(--line);stroke-width:1}.evo-t{font-size:10px;fill:var(--muted,#888)}
+.evo-l{fill:none;stroke:var(--pitch2);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.evo-p{fill:var(--pitch2);stroke:var(--card);stroke-width:2}.evo-p.on{fill:var(--accent)}.evo-v{font-size:12px;font-weight:700;fill:var(--ink)}.evo-det{margin-top:2px}
 .mc-bot{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;min-height:32px}
 .mc-bot .btn{text-decoration:none;font-size:12.5px;padding:7px 11px}
 .carr-hint{text-align:center;opacity:.7;margin-top:2px}
@@ -338,7 +341,7 @@ const fin=s=>/\.$/.test(s)?"":".";
 const rivalOf=(m,id)=>m.home===id?{id:m.away,n:m.awayN}:{id:m.home,n:m.homeN};
 
 /* ---------- estado ---------- */
-const state={orden:store.get("orden","manual"),pila:[],etq:store.get("etiquetas",{}),avEq:store.get("avEq",{}),tema:store.get("tema","clasico"),follows:store.get("follows",[]).filter(Boolean),verified:store.get("verified",false),chats:{},iah:{},flow:null,view:"home",team:null};
+const state={foco:{},orden:store.get("orden","manual"),pila:[],etq:store.get("etiquetas",{}),avEq:store.get("avEq",{}),tema:store.get("tema","clasico"),follows:store.get("follows",[]).filter(Boolean),verified:store.get("verified",false),chats:{},iah:{},flow:null,view:"home",team:null};
 const ANDROID=typeof window.AndroidApp!=="undefined";
 // Pasa a Android los equipos seguidos (para los avisos en segundo plano)
 function syncAndroid(){if(!ANDROID||!IDX)return;try{AndroidApp.guardarEquipos(JSON.stringify(state.follows.map(id=>TEAM.get(id)).filter(Boolean).map(t=>({id:t.id,g:t.grupos[0],n:t.name,e:state.etq[t.id]||"",av:state.avEq[t.id]||null}))))}catch(e){}}
@@ -407,11 +410,34 @@ function tableHTML(d,hl){
   return `<table class="st"><tr><th>#</th><th style="text-align:left">Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>DG</th><th>Pts</th></tr>
   ${d.table.map(r=>{const tap=TEAM.get(r.id)&&r.id!==hl;return `<tr class="${r.id===hl?"me":tap?"tap":""}"${tap?` data-ver="${r.id}"`:""}><td>${r.pos??""}</td><td class="n">${TEAM.get(r.id)&&r.id!==hl?`<span class="tl-row">${esc(r.name)}</span>`:esc(r.name)}</td><td>${r.pj}</td><td>${r.g}</td><td>${r.e}</td><td>${r.p}</td><td>${r.gf-r.gc>0?"+":""}${r.gf-r.gc}</td><td class="p">${r.pts}</td></tr>`}).join("")}</table>`;
 }
-function ansTable(t){
+// Gráfica de evolución: puesto del equipo tras cada jornada (1º arriba)
+function evolucionHTML(t,jSel){
+  const d=teamGroup(t);if(!d||!d.table||!d.table.find(r=>r.id===t.id))return "";
+  const js=[...new Set(d.matches.filter(m=>m.played&&m.j!=null).map(m=>m.j))].sort((a,b)=>a-b);
+  if(js.length<2)return "";
+  const pts=js.map(j=>{const th=tablaHasta(d,j);const r=th.table.find(x=>x.id===t.id);return {j,pos:r.pos,pts:r.pts,pj:r.pj}});
+  const N=d.table.length,W=330,H=170,ml=26,mr=12,mt=12,mb=24,iw=W-ml-mr,ih=H-mt-mb;
+  const x=i=>ml+(js.length===1?iw/2:i*iw/(js.length-1)),y=p=>mt+(N===1?0:(p-1)*ih/(N-1));
+  const guias=[1,Math.ceil(N/2),N].filter((v,i,a)=>a.indexOf(v)===i);
+  const paso=Math.ceil(js.length/8);
+  const linea=pts.map((p,i)=>`${i?"L":"M"}${x(i).toFixed(1)},${y(p.pos).toFixed(1)}`).join("");
+  const det=p=>`Jornada ${p.j}: ${p.pos}º con ${p.pts} punto${p.pts===1?"":"s"} (${p.pj} jugado${p.pj===1?"":"s"})`;
+  const sel=pts.find(p=>p.j===jSel)||pts[pts.length-1];
+  const ult=pts[pts.length-1];
+  return `<div class="evo"><div class="small" style="margin:10px 0 2px"><b>Evolución en la clasificación</b></div>
+  <svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Puesto por jornada: ${pts.map(p=>"J"+p.j+" "+p.pos+"º").join(", ")}">
+   ${guias.map(g=>`<line x1="${ml}" x2="${W-mr}" y1="${y(g)}" y2="${y(g)}" class="evo-g"/><text x="${ml-6}" y="${y(g)+4}" text-anchor="end" class="evo-t">${g}º</text>`).join("")}
+   ${pts.map((p,i)=>i%paso&&i!==pts.length-1?"":`<text x="${x(i)}" y="${H-6}" text-anchor="middle" class="evo-t">J${p.j}</text>`).join("")}
+   <path d="${linea}" class="evo-l"/>
+   ${pts.map((p,i)=>`<g data-evp="${esc(det(p))}"><rect x="${x(i)-iw/js.length/2}" y="${mt-8}" width="${iw/js.length+1}" height="${ih+16}" fill="transparent"/><circle cx="${x(i)}" cy="${y(p.pos)}" r="${p===sel?6:4}" class="evo-p${p===sel?" on":""}"/></g>`).join("")}
+   <text x="${Math.min(x(pts.length-1),W-mr)}" y="${y(ult.pos)+(ult.pos<=2?18:-10)}" text-anchor="end" class="evo-v">${ult.pos}º</text>
+  </svg><div class="small evo-det">${det(sel)} · toca la gráfica para ver cada jornada</div></div>`;
+}
+function ansTable(t,jSel){
   const d=teamGroup(t);const me=d.table.find(r=>r.id===t.id);
   if(!me)return `Clasificación de ${esc(grupoNombre(d.id))}:${tableHTML(d,t.id)}`;
   const lider=d.table[0];
-  return `Va <b>${me.pos}º</b> con <b>${me.pts} puntos</b>${me.pos>1?` a ${lider.pts-me.pts} del líder`:", líder del grupo"}.<div class="small">${esc(grupoNombre(d.id))}</div>${tableHTML(d,t.id)}<div style="margin-top:6px">${linkRFFM(urlGrupoRFFM(d.id),"Ver en la RFFM")}</div>`;
+  return `Va <b>${me.pos}º</b> con <b>${me.pts} puntos</b>${me.pos>1?` a ${lider.pts-me.pts} del líder`:", líder del grupo"}.<div class="small">${esc(grupoNombre(d.id))}</div>${tableHTML(d,t.id)}${evolucionHTML(t,jSel)}<div style="margin-top:6px">${linkRFFM(urlGrupoRFFM(d.id),"Ver en la RFFM")}</div>`;
 }
 function ansScorers(t){
   const d=teamGroup(t);const pl=(d.gol||[]).filter(g=>g[1]===t.id).slice(0,8);
@@ -498,7 +524,7 @@ function nearestClubs(ll,cat,limit=5,fem=null){
    1) se normaliza el texto y se corrigen faltas contra un vocabulario de palabras clave
    2) se busca la intención por reglas, de la más concreta a la más general
    3) se responde con los datos del grupo                                            */
-const KW="tiempo llover lluvia llueve frio calor temperatura prevision viento clima proximo proxima siguiente cuando hora horario donde campo direccion llegar llego ubicacion mapa juega jugamos juegan jugais juego toca rival contra quien quedo quedamos quedaron resultado resultados gano ganamos ganaron perdio perdimos perdieron empato empatamos marcador ultimo ultima clasificacion tabla posicion puesto lider primero colista ascenso descenso puntos goleador goleadores pichichi marco marcaron goles gol racha forma estadisticas balance calendario partidos quedan jornada plantilla jugadores convocatoria alineacion arbitro equipacion entrenador casa fuera visitante local semana sabado domingo manana hoy finde pasado victorias derrotas empates encajado metido diferencia ayuda hola gracias".split(" ");
+const KW="evolucion grafica tiempo llover lluvia llueve frio calor temperatura prevision viento clima proximo proxima siguiente cuando hora horario donde campo direccion llegar llego ubicacion mapa juega jugamos juegan jugais juego toca rival contra quien quedo quedamos quedaron resultado resultados gano ganamos ganaron perdio perdimos perdieron empato empatamos marcador ultimo ultima clasificacion tabla posicion puesto lider primero colista ascenso descenso puntos goleador goleadores pichichi marco marcaron goles gol racha forma estadisticas balance calendario partidos quedan jornada plantilla jugadores convocatoria alineacion arbitro equipacion entrenador casa fuera visitante local semana sabado domingo manana hoy finde pasado victorias derrotas empates encajado metido diferencia ayuda hola gracias".split(" ");
 // Palabras corrientes que no se deben "corregir" y abreviaturas típicas de móvil
 const PROTEGIDAS=new Set("cuantos cuantas cuanto bajamos subimos ganados perdidos empatados partido partidos ultimos ultimas puedo preguntar llevamos llevan lleva tal que como esta estan estamos vamos van tenemos hemos habeis donde cuando quien quienes sabes sabe dime hace hacen nuestro nuestra equipo liga grupo semana dias campo campos hijo hija mismo todo todos".split(" "));
 const ABREV={q:"que",k:"que",ke:"que",dnd:"donde",dnde:"donde",dond:"donde",ora:"hora",hra:"hora",hr:"hora",xq:"porque",pq:"porque",tb:"tambien",mñn:"manana",mnn:"manana",kdamos:"quedamos",kedamos:"quedamos",keda:"queda",kien:"quien",qien:"quien",cuado:"cuando",cnd:"cuando",cdo:"cuando",prox:"proximo",clasi:"clasificacion",clasif:"clasificacion",resul:"resultado",finde:"finde",jor:"jornada"};
@@ -520,7 +546,7 @@ const INTENCIONES=[
   ["resultados",R(/(todos los resultados|resultados de la temporada|historial|partidos jugados|como (nos )?ha ido|temporada entera)/)],
   ["estad",R(/(cuantos goles|goles (a favor|en contra|metidos|encajados)|hemos (metido|marcado|encajado)|estadistica|balance|victorias|derrotas|empates|ganados|perdidos|empatados|diferencia de goles|cuantos partidos)/)],
   ["puntos",R(/(cuantos puntos|a cuantos puntos|a cuanto (del|de)|puntos (del|de) (lider|primero)|ascenso|descenso|bajamos|subimos|colista|ultimo de la tabla|nos salvamos|salvacion|playoff)/)],
-  ["clasif",R(/(clasificacion|tabla|posicion|puesto|lider|primero|vamos|van|estamos|como esta el grupo|ranking)/)],
+  ["clasif",R(/(clasificacion|tabla|evolucion|grafica|progreso|posicion|puesto|lider|primero|vamos|van|estamos|como esta el grupo|ranking)/)],
   ["goleadores",R(/(goleador|pichichi|quien (ha )?marco|quienes (han )?marcado|quien marca|mas goles|quien lleva mas)/)],
   ["racha",R(/(racha|ultimos partidos|forma|como venimos|como vienen|dinamica)/)],
   ["ultimo",R(/(quedo|quedamos|quedaron|quedasteis|resultado|gano|ganamos|ganaron|perdio|perdimos|perdieron|empato|empatamos|marcador|como fue|como salio|ultimo partido|ayer|finde pasado|fin de semana pasado|sabado pasado|domingo pasado|que tal (el )?partido|que tal (jug|fue|salio|quedo))/)],
@@ -715,6 +741,19 @@ function tablaHasta(d,j){
   const t=[...T.values()].sort((x,y)=>y.pts-x.pts||(y.gf-y.gc)-(x.gf-x.gc)||y.gf-x.gf||x.name.localeCompare(y.name));
   t.forEach((r,i)=>r.pos=i+1);return {id:d.id,table:t};
 }
+const firma=m=>`${m.gid}|${m.j}|${m.home}`;
+function fichaProxMsgs(t,m){
+  const home=m.home===t.id;const c=CAMPOS[m.campo];const riv=rivalOf(m,t.id);const r=m.date&&rel(m.date);
+  const cuando=m.date?`${r?r[0].toUpperCase()+r.slice(1)+" "+m.date.getDate()+" "+MESES[m.date.getMonth()]:fdate(m.date)}${m.time?" · "+m.time:" · hora por confirmar"}`:"Fecha por confirmar";
+  const d=GD[m.gid]||teamGroup(t);const pr=d.table.find(x=>x.id===riv.id),yo=d.table.find(x=>x.id===t.id);
+  const msgs=[{r:"b",h:`Jornada ${m.j??"?"}: <b>${home?"en casa":"fuera"}</b> contra <b>${L(riv.id,riv.n)}</b>${pr&&yo?`<div class="small">Ellos van ${pr.pos}º con ${pr.pts} puntos · vosotros ${yo.pos}º con ${yo.pts}</div>`:""}
+  <div class="next"><div class="when">${cuando}</div>
+  ${c?`<div>${esc(c.name)}</div><div class="small">${esc([c.addr,c.loc].filter(Boolean).join(", "))}</div>${mapLink(c)}`:m.campoN?`<div>${esc(m.campoN)}</div>`:`<div class="small">Campo por confirmar</div>`}</div>${meteoPH(m)}`}];
+  const prev=teamMatches(t).filter(x=>x.played&&(x.home===riv.id||x.away===riv.id));
+  if(prev.length)msgs.push({r:"b",h:ansVs(t,riv.id)});
+  msgs.push({r:"b",h:ansTable(t)});
+  return msgs;
+}
 function fichaPartidoMsgs(t,m){
   const d=GD[m.gid]||teamGroup(t);const msgs=[];
   const o=outcome(m,t.id);
@@ -722,8 +761,8 @@ function fichaPartidoMsgs(t,m){
   const ultJ=Math.max(...d.matches.filter(x=>x.played&&x.j!=null).map(x=>x.j));
   if(m.j!=null&&m.j<ultJ){const th=tablaHasta(d,m.j);const me=th.table.find(r=>r.id===t.id);
     msgs.push({r:"b",h:`Clasificación tras la <b>jornada ${m.j}</b>${me?`: iba <b>${me.pos}º</b> con ${me.pts} puntos`:""}.${tableHTML(th,t.id)}<div class="small" style="opacity:.75">Calculada con los resultados hasta esa jornada.</div>`});
-    msgs.push({r:"b",h:"Clasificación actual: "+ansTable(t)});
-  } else msgs.push({r:"b",h:ansTable(t)});
+    msgs.push({r:"b",h:"Clasificación actual: "+ansTable(t,m.j)});
+  } else msgs.push({r:"b",h:ansTable(t,m.j)});
   if(m.acta){if(ANDROID)msgs.push({r:"b",h:'<span class="typing">…</span> Cargando cronología y convocados…'});
     else msgs.push({r:"b",h:`La cronología y los convocados están en el acta:<div>${linkRFFM(urlActaRFFM(m),"Acta en la RFFM")}</div>`})}
   else msgs.push({r:"b",h:`<span class="small">La federación aún no ha publicado el acta de este partido.</span>`});
@@ -744,7 +783,7 @@ function tarjetaPartido(t,m,esProx){
   const bot=m.played
     ?`<button class="btn" data-fp="${esc(m.gid)}|${m.j}|${esc(m.home)}">📋 Ver partido</button>${m.acta?`<a class="btn ghost" href="${urlActaRFFM(m)}" target="_blank" rel="noopener">📄 Acta</a>`:""}`
     :`${c?`<a class="btn ghost" href="${navUrl(c)}" target="_blank" rel="noopener">📍 Cómo llegar</a>`:""}${esProx?`<button class="btn ghost" data-ask="¿Qué tiempo hará?">🌦️ Tiempo</button>`:""}`;
-  return `<div class="mc${m.played?" jugado":" fut"}${esProx?" prox":""}" data-j="${m.j}"${m.played?` data-fp="${esc(m.gid)}|${m.j}|${esc(m.home)}"`:""}>
+  return `<div class="mc${m.played?" jugado":" fut"}${esProx?" prox":""}" data-j="${m.j}" data-fp="${esc(m.gid)}|${m.j}|${esc(m.home)}">
     <div class="mc-top"><span>J${m.j??"?"} · ${fecha}</span>${estado}</div>
     <div class="mc-eq"><div>${nom(m.home,m.homeN)}</div>${centro}<div>${nom(m.away,m.awayN)}</div></div>
     <div class="mc-campo">${home?"🏠 En casa":"✈️ Fuera"}${c?` · ${esc(c.name)}`:m.campoN?` · ${esc(m.campoN)}`:""}</div>
@@ -763,13 +802,15 @@ function focoPartido(t){const ult=lastMatch(t),prox=nextMatch(t);
   if(prox)return{m:prox,tipo:"proximo"};if(ult)return{m:ult,tipo:"resultado"};return null}
 function colocarCarrusel(t){
   const el=$("#carr");if(!el)return;const ms=[...el.children];
-  const f=focoPartido(t);let i=f?ms.findIndex(c=>+c.dataset.j===f.m.j):0;if(i<0)i=0;
+  const sel=state.foco[t.id];const f=focoPartido(t);
+  let i=sel?ms.findIndex(c=>c.dataset.fp===sel):-1;if(i<0)i=f?ms.findIndex(c=>c.dataset.fp===firma(f.m)):0;if(i<0)i=0;
+  ms.forEach((c,k)=>c.classList.toggle("sel",k===i));
   el.scrollLeft=ms[i].offsetLeft-el.offsetLeft-12;
 }
 
 const NO_DATO="La federación no publica ese dato (plantillas, alineaciones, árbitros, equipaciones u horarios de llegada). Esa información la da el club o el entrenador.";
 const HELP_TEAM="Puedo contarte el último resultado, el próximo partido con hora y campo, la clasificación y los puntos, los goleadores, la racha, las estadísticas, los partidos que quedan, una jornada («jornada 3») o cómo os fue contra un rival («contra Alcorcón»).";
-const CHIPS_TEAM=["Resumen","¿Cómo quedó el último partido?","¿Cuándo y dónde es el próximo?","¿Qué tiempo hará?","Clasificación","Goleadores","Racha","Plantilla"];
+const CHIPS_TEAM=["Resumen","¿Cómo quedó el último partido?","¿Cuándo y dónde es el próximo?","¿Qué tiempo hará?","Clasificación","Evolución","Goleadores","Racha","Plantilla"];
 function responderEquipo(t,id,q,text){
   switch(id){
     case "saludo":return `¡Hola! ${HELP_TEAM}`;
@@ -1196,18 +1237,20 @@ function renderChat(app,t){
   $("#f").onsubmit=e=>{e.preventDefault();const v=$("#q").value;$("#q").value="";ask(v)};
   app.onclick=e=>{
     const a=e.target.closest("[data-ask]");if(a){ask(a.dataset.ask);return}
-    const fp=!e.target.closest("a,[data-ver],[data-ask]")&&e.target.closest("[data-fp]");if(fp&&t){const[gid,j,home]=fp.dataset.fp.split("|");
-      const m=teamMatches(t).find(x=>String(x.gid)===gid&&String(x.j)===j&&String(x.home)===home);if(!m||!m.played)return;
-      state.chats[key].push({r:"u",h:`📋 J${m.j} · ${esc(m.homeN)} ${m.hg}–${m.ag} ${esc(m.awayN)}`});
-      const ini=state.chats[key].length;state.chats[key].push(...fichaPartidoMsgs(t,m));draw();
-      const el=chat.querySelectorAll(".msg")[ini-1],sc=$("#scroll"),cw=document.querySelector(".carr-wrap");
-      if(el){const tope=sc.getBoundingClientRect().top;sc.scrollTop+=el.getBoundingClientRect().top-tope-30}
-      if(m.acta&&ANDROID)cargarCrono(m);return}
+    const fp=!e.target.closest("a,[data-ver],[data-ask]")&&e.target.closest("[data-fp]");if(fp&&t){
+      const m=teamMatches(t).find(x=>firma(x)===fp.dataset.fp);if(!m)return;
+      state.foco[t.id]=firma(m);
+      const cab=m.played?`📋 J${m.j} · ${esc(m.homeN)} ${m.hg}–${m.ag} ${esc(m.awayN)}`:`📋 J${m.j??"?"} · ${esc(m.homeN)} – ${esc(m.awayN)}`;
+      state.chats[key]=[{r:"u",h:cab},...(m.played?fichaPartidoMsgs(t,m):fichaProxMsgs(t,m))];
+      document.querySelectorAll("#carr .mc").forEach(c=>c.classList.toggle("sel",c===fp));
+      draw();$("#scroll").scrollTop=0;
+      if(m.played&&m.acta&&ANDROID)cargarCrono(m);return}
     const cr=e.target.closest("[data-crono]");if(cr){const m=buscarPartido(cr.dataset.crono);if(!m)return;
       state.chats[key].push({r:"u",h:"⏱️ Cronología del partido"});state.chats[key].push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span>'});draw();
       cargarCrono(m);return}
     const cp=e.target.closest("[data-copiar]");if(cp){const a=ACTAS[cp.dataset.copiar];const mm=buscarPartido(cp.dataset.copiar);if(!a||!mm)return;const txt=resumenTexto(mm,a.game);
       (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>toast("Acta copiada"),()=>{const ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");toast("Acta copiada")}catch(_){toast("No se ha podido copiar")}ta.remove()});return}
+    const ep=e.target.closest("[data-evp]");if(ep){const box=ep.closest(".evo");box.querySelector(".evo-det").textContent=ep.dataset.evp;box.querySelectorAll(".evo-p").forEach(c=>{c.classList.remove("on");c.setAttribute("r",4)});const c=ep.querySelector("circle");c.classList.add("on");c.setAttribute("r",6);return}
     const mh=e.target.closest("[data-mh]");if(mh){const box=mh.closest(".meteo");const det=box.querySelector(".mt-det");det.textContent=JSON.parse(det.dataset.dets)[+mh.dataset.mh];box.querySelectorAll(".mt-band").forEach(b=>b.setAttribute("x",(+mh.dataset.mh)*50+1));return}
     const vr=e.target.closest("[data-ver]");if(vr){const id=vr.dataset.ver;if(id===state.team&&state.view==="team")return;state.pila.push({view:state.view,team:state.team});state.resumen=id;state.view="team";state.team=id;render();return}
     const o=e.target.closest("[data-open]");if(o){follow(o.dataset.open);state.view="team";state.team=o.dataset.open;render();return}
