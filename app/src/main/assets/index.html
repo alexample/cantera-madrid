@@ -364,6 +364,53 @@ html[data-theme="noche"] .toast{background:#fff;color:#2a1f70}
 .mute-k{position:absolute;right:-4px;bottom:-4px;background:var(--card);border-radius:50%;padding:1px;display:grid}.mute-k .ico{width:12px;height:12px;color:#e03131}
 .msg.u .ico{vertical-align:-.2em}
 .tag .ico{width:.95em;height:.95em}
+
+/* ===== Noche, ajuste fino: barras finas, esquinas casi rectas y sombra plana como en el diseño de referencia ===== */
+html[data-theme="noche"]{--radius:9px}
+html[data-theme="noche"] .maincta{border-radius:9px;padding:10px 12px;gap:12px;box-shadow:0 4px 0 rgba(9,5,34,.55)}
+html[data-theme="noche"] .maincta .ic{width:34px;height:34px;border-radius:7px}
+html[data-theme="noche"] .maincta .ic .ico{width:19px;height:19px}
+html[data-theme="noche"] .maincta b{font-size:14px;letter-spacing:1.2px}
+html[data-theme="noche"] .maincta span{font-size:12.5px}
+html[data-theme="noche"] .team{border-radius:9px;padding:8px 10px 8px 12px;gap:10px;margin-bottom:8px;box-shadow:0 4px 0 rgba(9,5,34,.55)}
+html[data-theme="noche"] .team[style*="--eq"]{border-left:none!important;padding-left:12px;box-shadow:inset 4px 0 0 var(--eq),0 4px 0 rgba(9,5,34,.55)}
+html[data-theme="noche"] .team .crest{width:36px;height:36px;font-size:13px}
+html[data-theme="noche"] .team[style*="--eq"] .crest{box-shadow:0 0 0 2px var(--eq)}
+html[data-theme="noche"] .team .nm{font-size:14.5px}
+html[data-theme="noche"] .team .meta{font-size:12px;margin-top:1px}
+html[data-theme="noche"] .team .side{font-size:11px}
+html[data-theme="noche"] .team .side b{font-size:19px;line-height:1}
+html[data-theme="noche"] .team .badge{border-radius:4px;padding:1px 6px}
+html[data-theme="noche"] .tag{border-radius:4px;padding:1px 7px;font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;background:#7b6cf0}
+html[data-theme="noche"] .bellbtn{width:30px;height:30px;border-radius:7px;background:transparent;color:#cfc6ff}
+html[data-theme="noche"] .bellbtn svg{width:19px;height:19px}
+html[data-theme="noche"] .bellbtn.off{border:none;color:#8f86c9}
+html[data-theme="noche"] .drag{opacity:.45}
+html[data-theme="noche"] .iconbtn{width:36px;height:36px;border-radius:8px}
+html[data-theme="noche"] .iconbtn svg{width:19px;height:19px}
+html[data-theme="noche"] .orden .chip,html[data-theme="noche"] .chips .chip{border-radius:7px;padding:5px 10px;font-size:12px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+html[data-theme="noche"] .addbtn{border-radius:9px;padding:10px;text-transform:uppercase;letter-spacing:1px;font-size:13px}
+html[data-theme="noche"] .section-t{font-size:13px;margin:16px 2px 8px}
+html[data-theme="noche"] .demo-note{border-radius:9px}
+/* fichas y chat */
+html[data-theme="noche"] main#scroll{border-radius:18px 18px 0 0}
+html[data-theme="noche"] .msg{border-radius:10px}
+html[data-theme="noche"] .msg.u{border-bottom-right-radius:3px}html[data-theme="noche"] .msg.b{border-bottom-left-radius:3px}
+html[data-theme="noche"] .blq{border-radius:8px;margin-top:6px;box-shadow:0 3px 0 #dcd6fb}
+html[data-theme="noche"] .blq>summary{padding:8px 10px;gap:10px}
+html[data-theme="noche"] .blq[open]>summary{border-radius:8px 8px 0 0}
+html[data-theme="noche"] .blq-i{width:28px;height:28px;border-radius:6px}
+html[data-theme="noche"] .blq-i .ico{width:17px;height:17px}
+html[data-theme="noche"] .blq>summary b{font-size:12.5px}
+html[data-theme="noche"] .blq-t .small{font-size:12px}
+html[data-theme="noche"] .btn{border-radius:7px;padding:7px 12px}
+html[data-theme="noche"] form.inp input{border-radius:8px}
+html[data-theme="noche"] form.inp button,html[data-theme="noche"] .composer .iconbtn{border-radius:8px}
+html[data-theme="noche"] .mc{border-radius:9px}
+html[data-theme="noche"] .mc-top .badge{border-radius:4px}
+html[data-theme="noche"] .mc .tl,html[data-theme="noche"] .tl{border-radius:7px}
+html[data-theme="noche"] .badge{border-radius:4px}
+html[data-theme="noche"] .sheet{border-radius:16px 16px 0 0}
 </style>
 </head>
 <body>
