@@ -138,7 +138,9 @@ html[data-theme="estadio"] .carr-fijo{background:#070b16;border-bottom-color:#1e
 .mc{cursor:pointer}.mc:active{transform:scale(.985)}.mc.sel{border:2px solid var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 25%,transparent)}
 .evo svg{display:block;overflow:visible}.evo-g{stroke:var(--line);stroke-width:1}.evo-t{font-size:10px;fill:var(--muted,#888)}
 .evo-l{fill:none;stroke:var(--pitch2);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
-.evo-p{fill:var(--pitch2);stroke:var(--card);stroke-width:2}.evo-p.on{fill:var(--accent)}.evo-v{font-size:12px;font-weight:700;fill:var(--ink)}.evo-det{margin-top:2px}
+.evo-p{stroke:var(--card);stroke-width:2}.evo-p.on{stroke:var(--ink);stroke-width:2}.evo-pb{stroke:var(--card);stroke-width:1.5}.sin-riv .evo-riv{display:none}
+.evo-ley{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 2px;font-size:12.5px}.evo-k{display:inline-flex;align-items:center;gap:6px;color:var(--ink);font-weight:600}.evo-k i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.evo-tog{border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--card)}.evo-x{font-weight:500;color:var(--muted);margin-left:2px}.sin-riv .evo-tog{opacity:.65}.sin-riv .evo-tog i{opacity:.35}.evo-v{font-size:12px;font-weight:700;fill:var(--ink)}.evo-det{margin-top:2px}
 .jl{cursor:pointer;color:var(--ink)}.jl:active{opacity:.6}
 .jt td{padding:7px 4px}.jt th{padding:6px 4px}
 .jf-cab{display:flex;gap:12px;align-items:center;margin-bottom:10px}.jf-dor{flex:none;width:44px;height:44px;border-radius:50%;background:var(--pitch2);color:#fff;display:grid;place-items:center;font:700 19px "Barlow Condensed",sans-serif}
@@ -448,7 +450,7 @@ const fin=s=>/\.$/.test(s)?"":".";
 const rivalOf=(m,id)=>m.home===id?{id:m.away,n:m.awayN}:{id:m.home,n:m.homeN};
 
 /* ---------- estado ---------- */
-const state={abiertos:{},col:store.get("colores",{}),auto:{},foco:{},orden:store.get("orden","manual"),pila:[],etq:store.get("etiquetas",{}),avEq:store.get("avEq",{}),tema:store.get("tema_noche_v1",false)?store.get("tema","noche"):(store.set("tema_noche_v1",true),store.set("tema","noche"),"noche"),follows:store.get("follows",[]).filter(Boolean),verified:store.get("verified",false),chats:{},iah:{},flow:null,view:"home",team:null};
+const state={evoSinRival:store.get("evo_sin_rival",false),abiertos:{},col:store.get("colores",{}),auto:{},foco:{},orden:store.get("orden","manual"),pila:[],etq:store.get("etiquetas",{}),avEq:store.get("avEq",{}),tema:store.get("tema_noche_v1",false)?store.get("tema","noche"):(store.set("tema_noche_v1",true),store.set("tema","noche"),"noche"),follows:store.get("follows",[]).filter(Boolean),verified:store.get("verified",false),chats:{},iah:{},flow:null,view:"home",team:null};
 const ANDROID=typeof window.AndroidApp!=="undefined";
 // Pasa a Android los equipos seguidos (para los avisos en segundo plano)
 function syncAndroid(){if(!ANDROID||!IDX)return;try{AndroidApp.guardarEquipos(JSON.stringify(state.follows.map(id=>TEAM.get(id)).filter(Boolean).map(t=>({id:t.id,g:t.grupos[0],n:t.name,e:state.etq[t.id]||"",av:state.avEq[t.id]||null}))))}catch(e){}}
@@ -523,28 +525,42 @@ function tableHTML(d,hl){
   ${d.table.map(r=>{const tap=TEAM.get(r.id)&&r.id!==hl;return `<tr class="${r.id===hl?"me":tap?"tap":""}"${tap?` data-ver="${r.id}"`:""}><td>${r.pos??""}</td><td class="n">${TEAM.get(r.id)&&r.id!==hl?`<span class="tl-row">${esc(r.name)}</span>`:esc(r.name)}</td><td>${r.pj}</td><td>${r.g}</td><td>${r.e}</td><td>${r.p}</td><td>${r.gf-r.gc>0?"+":""}${r.gf-r.gc}</td><td class="p">${r.pts}</td></tr>`}).join("")}</table>`;
 }
 // Gráfica de evolución: puesto del equipo tras cada jornada (1º arriba)
-function evolucionHTML(t,jSel){
+// Gráfica de evolución: puesto tras cada jornada (1º arriba). Si se pasa un rival del mismo grupo, se dibuja también
+// y se puede quitar/poner con su botón de la leyenda.
+function evolucionHTML(t,jSel,rivId){
   const d=teamGroup(t);if(!d||!d.table||!d.table.find(r=>r.id===t.id))return "";
   const js=[...new Set(d.matches.filter(m=>m.played&&m.j!=null).map(m=>m.j))].sort((a,b)=>a-b);
   if(js.length<2)return "";
+  const riv=rivId&&rivId!==t.id&&d.table.find(r=>r.id===rivId)?d.table.find(r=>r.id===rivId):null;
   const mios=teamMatches(t).filter(m=>m.gid===d.id);
-  const pts=js.map(j=>{const th=tablaHasta(d,j);const r=th.table.find(x=>x.id===t.id);const m=mios.find(x=>x.j===j);return {j,pos:r.pos,pts:r.pts,pj:r.pj,fp:m?firma(m):""}});
-  const N=d.table.length,W=330,H=170,ml=26,mr=12,mt=12,mb=24,iw=W-ml-mr,ih=H-mt-mb;
+  const tablas=js.map(j=>tablaHasta(d,j));
+  const serie=id=>js.map((j,i)=>{const r=tablas[i].table.find(x=>x.id===id)||{};const m=mios.find(x=>x.j===j);return {j,pos:r.pos,pts:r.pts,pj:r.pj,fp:m?firma(m):""}});
+  const A=serie(t.id),B=riv?serie(riv.id):null;
+  const colA=colorEquipo(t)||"#2a78d6",colB=colA.toLowerCase()==="#eb6834"?"#2a78d6":"#eb6834";
+  const N=d.table.length,W=330,H=170,ml=26,mr=34,mt=12,mb=24,iw=W-ml-mr,ih=H-mt-mb;
   const x=i=>ml+(js.length===1?iw/2:i*iw/(js.length-1)),y=p=>mt+(N===1?0:(p-1)*ih/(N-1));
   const guias=[1,Math.ceil(N/2),N].filter((v,i,a)=>a.indexOf(v)===i);
   const paso=Math.ceil(js.length/8);
-  const linea=pts.map((p,i)=>`${i?"L":"M"}${x(i).toFixed(1)},${y(p.pos).toFixed(1)}`).join("");
-  const det=p=>`Jornada ${p.j}: ${p.pos}º con ${p.pts} punto${p.pts===1?"":"s"} (${p.pj} jugado${p.pj===1?"":"s"})`;
-  const sel=pts.find(p=>p.j===jSel)||pts[pts.length-1];
-  const ult=pts[pts.length-1];
-  return `<div class="evo"><div class="small" style="margin:10px 0 2px"><b>Evolución en la clasificación</b></div>
-  <svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Puesto por jornada: ${pts.map(p=>"J"+p.j+" "+p.pos+"º").join(", ")}">
+  const linea=S=>S.map((p,i)=>`${i?"L":"M"}${x(i).toFixed(1)},${y(p.pos).toFixed(1)}`).join("");
+  const nc=n=>{n=String(n||"").replace(/^(C\.?D\.?E?|E\.?D\.?|A\.?D\.?|C\.?F\.?|R\.?S\.?D\.?|U\.?D\.?|S\.?A\.?D\.?|CDE|ESC\.? de FUT\.?)\s+/i,"");return n.length>22?n.slice(0,21)+"…":n};
+  const nA=nc(t.name),nB=riv?nc(riv.name):"";
+  const det=i=>{const a=A[i],b=B&&B[i];return `Jornada ${a.j}: ${esc(nA)} ${a.pos}º (${a.pts} pts)${b?` · ${esc(nB)} ${b.pos}º (${b.pts} pts)`:""}`};
+  const iSel=Math.max(0,A.findIndex(p=>p.j===jSel));const sel=jSel!=null&&iSel>=0&&A[iSel].j===jSel?iSel:A.length-1;
+  const ult=A.length-1;
+  // etiquetas finales sin pisarse
+  let yA=y(A[ult].pos)+4,yB=B?y(B[ult].pos)+4:0;if(B&&Math.abs(yA-yB)<12){if(yA<=yB)yB=yA+12;else yA=yB+12}
+  const oculto=B&&state.evoSinRival;
+  return `<div class="evo${oculto?" sin-riv":""}">
+  ${B?`<div class="evo-ley"><span class="evo-k"><i style="background:${colA}"></i>${esc(nA)}</span><button class="evo-k evo-tog" data-evo-tog aria-pressed="${!oculto}"><i style="background:${colB}"></i>${esc(nB)}<span class="evo-x">${oculto?"＋ mostrar":"✕ quitar"}</span></button></div>`:""}
+  <svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Puesto por jornada de ${esc(nA)}: ${A.map(p=>"J"+p.j+" "+p.pos+"º").join(", ")}${B?`; de ${esc(nB)}: ${B.map(p=>"J"+p.j+" "+p.pos+"º").join(", ")}`:""}">
    ${guias.map(g=>`<line x1="${ml}" x2="${W-mr}" y1="${y(g)}" y2="${y(g)}" class="evo-g"/><text x="${ml-6}" y="${y(g)+4}" text-anchor="end" class="evo-t">${g}º</text>`).join("")}
-   ${pts.map((p,i)=>i%paso&&i!==pts.length-1?"":`<text x="${x(i)}" y="${H-6}" text-anchor="middle" class="evo-t">J${p.j}</text>`).join("")}
-   <path d="${linea}" class="evo-l"/>
-   ${pts.map((p,i)=>`<g data-evp="${esc(det(p))}"${p.fp?` data-fp="${esc(p.fp)}"`:""}><rect x="${x(i)-iw/js.length/2}" y="${mt-8}" width="${iw/js.length+1}" height="${ih+16}" fill="transparent"/><circle cx="${x(i)}" cy="${y(p.pos)}" r="${p===sel?6:4}" class="evo-p${p===sel?" on":""}"/></g>`).join("")}
-   <text x="${Math.min(x(pts.length-1),W-mr)}" y="${y(ult.pos)+(ult.pos<=2?18:-10)}" text-anchor="end" class="evo-v">${ult.pos}º</text>
-  </svg><div class="small evo-det">${det(sel)} · toca una jornada para abrirla</div></div>`;
+   ${A.map((p,i)=>i%paso&&i!==ult?"":`<text x="${x(i)}" y="${H-6}" text-anchor="middle" class="evo-t">J${p.j}</text>`).join("")}
+   ${B?`<g class="evo-riv"><path d="${linea(B)}" class="evo-l" style="stroke:${colB};stroke-dasharray:5 4"/>${B.map((p,i)=>`<circle cx="${x(i)}" cy="${y(p.pos)}" r="${i===sel?5:3.5}" style="fill:${colB}" class="evo-pb"/>`).join("")}
+     <text x="${x(ult)+8}" y="${yB}" class="evo-v">${B[ult].pos}º</text></g>`:""}
+   <path d="${linea(A)}" class="evo-l" style="stroke:${colA}"/>
+   ${A.map((p,i)=>`<g data-evp="${det(i)}"${p.fp?` data-fp="${esc(p.fp)}"`:""}><rect x="${x(i)-iw/js.length/2}" y="${mt-8}" width="${iw/js.length+1}" height="${ih+16}" fill="transparent"/><circle cx="${x(i)}" cy="${y(p.pos)}" r="${i===sel?6:4}" class="evo-p${i===sel?" on":""}" style="fill:${colA}"/></g>`).join("")}
+   <text x="${x(ult)+8}" y="${yA}" class="evo-v">${A[ult].pos}º</text>
+  </svg><div class="small evo-det">${det(sel)}</div><div class="small" style="opacity:.7">Toca una jornada para abrir ese partido.</div></div>`;
 }
 // Bloque desplegable de la ficha: título + resumen de una línea; el contenido se abre al tocarlo
 const bloque=(id,icono,titulo,resumen,html,abierto)=>`<details class="blq" data-b="${id}"${abierto?" open":""}><summary><span class="blq-i">${icono}</span><span class="blq-t"><b>${titulo}</b>${resumen?`<span class="small">${resumen}</span>`:""}</span><span class="blq-f">›</span></summary><div class="blq-c">${html}</div></details>`;
@@ -558,7 +574,7 @@ function fichaInicialHTML(t,f){
   if(nm){const riv=rivalOf(nm,t.id);
     B.prox=bloque("prox","📅","Próximo partido",`${corto(nm)}${nm.time?" · "+nm.time:""} · ${nm.home===t.id?"en casa":"fuera"} vs ${esc(riv.n)}`,ansNext(t),f&&f.tipo!=="resultado");
     const pv=previaHTML(t,nm);if(pv)B.previa=bloque("previa","🔎","Previa del próximo partido","cómo llega cada equipo · análisis de la IA",pv,false)}
-  if(me){const[bc,be]=bloquesTabla(t,null);B.clas=bc.replace("Clasificación actual","Clasificación");B.evo=be}
+  if(me){const rf=f&&f.tipo==="resultado"?lm:(nm||lm);const[bc,be]=bloquesTabla(t,null,rf?rivalOf(rf,t.id).id:null);B.clas=bc.replace("Clasificación actual","Clasificación");B.evo=be}
   const orden=f&&f.tipo==="resultado"?["ult","clas","evo","crono","prox","previa"]:["prox","previa","ult","clas","evo","crono"];
   return orden.filter(k=>B[k]).map(k=>B[k]).join("");
 }
@@ -891,14 +907,14 @@ function fichaProxMsgs(t,m){
   const B=[bloque("p-partido",vv&&vv.f!=="fin"?"🔴":"📅",vv&&vv.f!=="fin"?"En juego":"El partido",`${m.date?DIAS_C[m.date.getDay()]+" "+m.date.getDate()+" "+MESES[m.date.getMonth()].slice(0,3):"fecha por confirmar"}${m.time?" · "+m.time:""} · ${home?"en casa":"fuera"}${c?" · "+esc(c.name):""}`,partidoH,true)];
   const pv=previaHTML(t,m);if(pv)B.push(bloque("p-previa","🔎","Previa",pr&&yo?`ellos ${pr.pos}º (${pr.pts} pts) · vosotros ${yo.pos}º (${yo.pts} pts)`:"cómo llega cada equipo",pv,false));
   if(prev.length)B.push(bloque("p-vs","🤝",`Contra ${esc(riv.n)}`,`${prev.length} partido${prev.length===1?"":"s"} esta temporada`,ansVs(t,riv.id),false));
-  B.push(...bloquesTabla(t,null));
+  B.push(...bloquesTabla(t,null,riv.id));
   return [{r:"b",h:`<b>J${m.j??"?"} · ${esc(m.homeN)} – ${esc(m.awayN)}</b><div class="blqs">${B.join("")}</div>`}];
 }
 // Clasificación y evolución como apartados (se usan en todas las fichas)
-function bloquesTabla(t,jSel){
+function bloquesTabla(t,jSel,rivId){
   const d=teamGroup(t),me=d&&d.table.find(r=>r.id===t.id);if(!me)return d?[bloque("clas","📊","Clasificación",esc(grupoNombre(d.id)),ansTable(t,null,true),false)]:[];
   const B=[bloque("clas","📊","Clasificación actual",`${me.pos}º con ${me.pts} punto${me.pts===1?"":"s"} · ${esc(grupoNombre(d.id))}`,ansTable(t,null,true),false)];
-  const ev=evolucionHTML(t,jSel);
+  const ev=evolucionHTML(t,jSel,rivId);
   if(ev){const js=[...new Set(d.matches.filter(m=>m.played&&m.j!=null).map(m=>m.j))].sort((a,b)=>a-b);const pos=j=>(tablaHasta(d,j).table.find(r=>r.id===t.id)||{}).pos;
     B.push(bloque("evo","📈","Evolución en la clasificación",jSel!=null&&js.includes(jSel)?`J${jSel}: ${pos(jSel)}º · hoy ${me.pos}º`:`J${js[0]}: ${pos(js[0])}º → J${js[js.length-1]}: ${me.pos}º`,ev,false))}
   return B;
@@ -978,7 +994,7 @@ function fichaPartidoMsgs(t,m){
   const ultJ=Math.max(...d.matches.filter(x=>x.played&&x.j!=null).map(x=>x.j));
   if(m.j!=null&&m.j<ultJ){const th=tablaHasta(d,m.j);const me=th.table.find(r=>r.id===t.id);
     B.push(bloque("p-clasj","📊",`Clasificación tras la jornada ${m.j}`,me?`iba ${me.pos}º con ${me.pts} punto${me.pts===1?"":"s"}`:"",`${tableHTML(th,t.id)}<div class="small" style="opacity:.75">Calculada con los resultados hasta esa jornada.</div>`,false))}
-  B.push(...bloquesTabla(t,m.j));
+  B.push(...bloquesTabla(t,m.j,riv.id));
   B.push(bloque("crono","⏱️","Cronología y convocados",m.acta?"goles, tarjetas, cambios y convocados":"acta aún no publicada",
     m.acta?(ANDROID?`<div data-slot="crono"><span class="typing"><i></i><i></i><i></i></span> <span class="small">Cargando la cronología…</span></div><!--/slot-->`:`La cronología y los convocados están en el acta:<div>${linkRFFM(urlActaRFFM(m),"Acta en la RFFM")}</div>`)
       :`<span class="small">La federación aún no ha publicado el acta de este partido.</span>`,false));
@@ -1515,7 +1531,7 @@ function renderChat(app,t){
   const nuevo=!state.chats[key]&&t;
   if(!state.chats[key]&&t){
     const f=focoPartido(t);
-    const tip=`<div class="small" style="margin-top:10px">Toca cada apartado para desplegarlo · desliza los partidos de arriba · toca un equipo con › para ver su ficha${state.follows.includes(t.id)&&!etiqueta(t)?" · 🔔 para etiquetarlo y elegir avisos":""}. ${linkRFFM(urlEquipoRFFM(t),"Ficha RFFM")}</div>`;
+    const tip=`<div class="small" style="margin-top:10px">Toca cada apartado para desplegarlo · desliza los partidos de arriba · toca un equipo con › para ver su ficha${state.follows.includes(t.id)&&!etiqueta(t)?" · ⚙️ para etiquetarlo, elegir avisos y color":""}. ${linkRFFM(urlEquipoRFFM(t),"Ficha RFFM")}</div>`;
     const msgs=[];
     if(lastMatch(t)||nextMatch(t)){
       msgs.push({r:"b",h:`<b>${esc(t.name)}</b>${etiqueta(t)?` · <span class="tag">⭐ ${esc(etiqueta(t))}</span>`:""}<div class="blqs">${fichaInicialHTML(t,f)}</div>${tip}`});
@@ -1529,7 +1545,7 @@ function renderChat(app,t){
   const colT=t&&colorEquipo(t);
   app.innerHTML=`<header class="top${colT?" eqcol":""}"${colT?` style="--eq:${colT}"`:""}><div class="toprow"><button class="iconbtn" id="back" aria-label="Volver">${icons.back}</button>
     ${t?crest(t,40):""}<div class="grow">${t&&etiqueta(t)?`<span class="tag">⭐ ${esc(etiqueta(t))}</span>`:""}<h1 class="tn" style="font-size:21px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(t.name):"Chat principal"}</h1><div class="sub" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(grupoNombre(t.grupos[0])):"Equipos y jugadores de Madrid"}</div></div>
-    ${t?(state.follows.includes(t.id)?`<button class="iconbtn" id="tset" aria-label="Ajustes del equipo">${silenciado(t)?icons.bellOff:icons.bell}</button>`:`<button class="btn" id="tfol" style="flex:none">Seguir</button>`):""}</div></header>
+    ${t?(state.follows.includes(t.id)?`<button class="iconbtn" id="tset" aria-label="Configuración del equipo">${icons.gear}</button>`:`<button class="btn" id="tfol" style="flex:none">Seguir</button>`):""}</div></header>
   ${t?`<div class="carr-fijo">${carruselHTML(t)}</div>`:""}
   <main id="scroll"><div class="chat" id="chat"></div></main>
   <div class="composer">
@@ -1596,6 +1612,8 @@ function renderChat(app,t){
       cargarCrono(m);return}
     const cp=e.target.closest("[data-copiar]");if(cp){const a=ACTAS[cp.dataset.copiar];const mm=buscarPartido(cp.dataset.copiar);if(!a||!mm)return;const txt=resumenTexto(mm,a.game);
       (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>toast("Acta copiada"),()=>{const ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");toast("Acta copiada")}catch(_){toast("No se ha podido copiar")}ta.remove()});return}
+    const tg=e.target.closest("[data-evo-tog]");if(tg){state.evoSinRival=!state.evoSinRival;store.set("evo_sin_rival",state.evoSinRival);
+      document.querySelectorAll(".evo").forEach(ev=>{if(!ev.querySelector("[data-evo-tog]"))return;ev.classList.toggle("sin-riv",state.evoSinRival);const b=ev.querySelector("[data-evo-tog]");b.setAttribute("aria-pressed",String(!state.evoSinRival));b.querySelector(".evo-x").textContent=state.evoSinRival?"＋ mostrar":"✕ quitar"});return}
     const ep=e.target.closest("[data-evp]");if(ep){const box=ep.closest(".evo");box.querySelector(".evo-det").textContent=ep.dataset.evp;box.querySelectorAll(".evo-p").forEach(c=>{c.classList.remove("on");c.setAttribute("r",4)});const c=ep.querySelector("circle");c.classList.add("on");c.setAttribute("r",6);return}
     const mh=e.target.closest("[data-mh]");if(mh){const box=mh.closest(".meteo");const det=box.querySelector(".mt-det");det.textContent=JSON.parse(det.dataset.dets)[+mh.dataset.mh];box.querySelectorAll(".mt-band").forEach(b=>b.setAttribute("x",(+mh.dataset.mh)*50+1));return}
     const vr=e.target.closest("[data-ver]");if(vr){const id=vr.dataset.ver;if(id===state.team&&state.view==="team")return;state.pila.push({view:state.view,team:state.team});state.resumen=id;state.view="team";state.team=id;render();return}
