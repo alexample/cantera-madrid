@@ -1217,7 +1217,7 @@ async function datosMeteo(lat,lon,iso,hora){
 function meteoHTML(d,hora){
   const H=+hora.split(":")[0];const h=d.hourly;const ini=Math.max(0,Math.min(18,H-2));const idx=[...Array(6).keys()].map(i=>ini+i);
   const T=idx.map(i=>h.temperature_2m[i]),P=idx.map(i=>h.precipitation_probability[i]??0),C=idx.map(i=>h.weather_code[i]),V=idx.map(i=>h.wind_speed_10m[i]),MM=idx.map(i=>h.precipitation[i]??0);
-  const k=H-ini;const [ic,txt]=WMO(C[k]);
+  const k=H-ini;const [icT,txt]=WMO(C[k]);
   const W=300,col=W/6,pad=6;
   // temperatura: escala propia con margen
   const tmin=Math.floor(Math.min(...T))-1,tmax=Math.ceil(Math.max(...T))+1;const yT=v=>8+(1-(v-tmin)/(tmax-tmin||1))*44;
@@ -1240,7 +1240,7 @@ function meteoHTML(d,hora){
   </svg>`;
   const det=i=>`${String(idx[i]).padStart(2,"0")}:00 · ${WMO(C[i])[1]} · ${Math.round(T[i])}° · lluvia ${P[i]}% (${MM[i]} mm) · viento ${Math.round(V[i])} km/h`;
   const mal=[];if(C[k]>=95)mal.push("tormenta");else if((C[k]>=71&&C[k]<=77)||C[k]===85||C[k]===86)mal.push("nieve");else if(P[k]>=50||MM[k]>=0.5)mal.push("lluvia");if(V[k]>=35)mal.push("viento fuerte");
-  return `${mal.length?`<div class="mt-alerta">${ic("aviso")} Atención: ${mal.join(" y ")} a la hora del partido</div>`:""}<div class="mt-head"><span class="mt-ic">${ic}</span><div><b>${txt} · ${Math.round(T[k])}°</b><div class="small">A la hora del partido: lluvia ${P[k]}% · viento ${Math.round(V[k])} km/h</div></div></div>
+  return `${mal.length?`<div class="mt-alerta">${ic("aviso")} Atención: ${mal.join(" y ")} a la hora del partido</div>`:""}<div class="mt-head"><span class="mt-ic">${icT}</span><div><b>${txt} · ${Math.round(T[k])}°</b><div class="small">A la hora del partido: lluvia ${P[k]}% · viento ${Math.round(V[k])} km/h</div></div></div>
    <div class="mt-icons">${C.map((c,i)=>`<span class="${i===k?"on":""}">${WMO(c)[0]}</span>`).join("")}</div>${svg}
    <div class="small mt-det" data-dets='${esc(JSON.stringify(idx.map((_,i)=>det(i))))}'>${det(k)}</div>
    <div class="small" style="opacity:.7">Toca una hora para ver el detalle · ${d.fuente==="AEMET"?`Fuente: AEMET${d.municipio?" ("+esc(d.municipio)+")":""}`:"Fuente: Open-Meteo"}</div>`;
