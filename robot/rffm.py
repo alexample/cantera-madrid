@@ -188,11 +188,16 @@ def transformar_grupo(meta, calendar, standings, scorers):
                 str(p.get("codacta") or ""),  # código del acta (para enlazar a la web de la RFFM)
             ])
     clas = []
+    # Zonas de la clasificación (ascenso, promoción, descenso…) tal como las colorea la RFFM
+    zonas = [[str(z.get("nombre_promocion") or "").strip().capitalize(), str(z.get("color_promocion") or "").upper()]
+             for z in sorted((standings or {}).get("promociones") or [], key=lambda z: entero(z.get("orden")) or 0)]
+    color_zona = {c: i for i, (_, c) in enumerate(zonas)}
     for e in (standings or {}).get("clasificacion", []) or []:
         clas.append([entero(e.get("posicion")), str(e.get("codequipo") or ""), limpiar_nombre(e.get("nombre")),
                      entero(e.get("jugados")), entero(e.get("ganados")), entero(e.get("empatados")),
                      entero(e.get("perdidos")), entero(e.get("goles_a_favor")), entero(e.get("goles_en_contra")),
-                     entero(e.get("puntos"))])
+                     entero(e.get("puntos")), color_zona.get(str(e.get("color") or "").upper(), -1),
+                     entero(e.get("puntos_sancion")) or 0])
     clas.sort(key=lambda r: (r[0] is None, r[0] or 0))
     deducir_resultados(partidos, clas)
     gol = []
@@ -201,7 +206,7 @@ def transformar_grupo(meta, calendar, standings, scorers):
         if g:
             gol.append([limpiar_nombre(e.get("jugador")).title(), str(e.get("codigo_equipo") or ""), g])
     gol.sort(key=lambda r: -r[2])
-    return {**meta, "clas": clas, "part": partidos, "gol": gol, "esc": escudos}
+    return {**meta, "clas": clas, "zonas": zonas, "part": partidos, "gol": gol, "esc": escudos}
 
 
 # ---------------------------------------------------------------- recorrido
@@ -466,7 +471,7 @@ def rapido(a):
                 continue
             if not n.get("esc"):
                 n["esc"] = d.get("esc", {})
-            if (n["part"], n["clas"], n["gol"]) != (d["part"], d["clas"], d["gol"]):
+            if (n["part"], n["clas"], n["gol"], n.get("zonas")) != (d["part"], d["clas"], d["gol"], d.get("zonas")):
                 n["act"] = ahora
                 json.dump(n, open(os.path.join(DATA, "g", d["id"] + ".json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
                 cambios += 1

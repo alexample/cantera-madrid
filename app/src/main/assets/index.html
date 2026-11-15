@@ -411,6 +411,14 @@ html[data-theme="noche"] .mc-top .badge{border-radius:4px}
 html[data-theme="noche"] .mc .tl,html[data-theme="noche"] .tl{border-radius:7px}
 html[data-theme="noche"] .badge{border-radius:4px}
 html[data-theme="noche"] .sheet{border-radius:16px 16px 0 0}
+
+.pr-aviso{background:color-mix(in srgb,#f08c00 12%,transparent);border-radius:8px;padding:7px 9px;font-size:12.5px;margin-bottom:8px}
+.pr-cab{margin-bottom:8px;line-height:1.45}
+.pr-z{margin:8px 0}.pr-zt{display:flex;align-items:center;gap:6px}.pr-v{margin-left:auto;font-weight:700}
+.pr-dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+.pr-bar{height:7px;border-radius:4px;background:var(--chalk);margin-top:4px;overflow:hidden}.pr-bar i{display:block;height:100%;border-radius:4px}
+.pr-ok{color:#2b8a3e}.pr-no{color:var(--muted);font-weight:600}
+td.zn{box-shadow:inset 3px 0 0 var(--zc)}
 </style>
 </head>
 <body>
@@ -485,7 +493,7 @@ async function loadGroup(gid,fresh){
 function prep(d){
   d.matches=(d.part||[]).map(p=>({j:p[0],date:p[1]?new Date(p[1]+"T00:00:00"):null,time:p[2]||"",home:p[3],homeN:bonito(p[4]),away:p[5],awayN:bonito(p[6]),hg:p[7],ag:p[8],campo:p[9],campoN:p[10],acta:p[11]||"",prov:p[12]===1,gid:d.id,played:p[7]!=null&&p[8]!=null}));
   d.matches.sort((a,b)=>(a.j||0)-(b.j||0)||((a.date||0)-(b.date||0)));
-  if(d.clas&&d.clas.length)d.table=d.clas.map(r=>({pos:r[0],id:r[1],name:bonito(r[2]),pj:r[3]||0,g:r[4]||0,e:r[5]||0,p:r[6]||0,gf:r[7]||0,gc:r[8]||0,pts:r[9]||0}));
+  if(d.clas&&d.clas.length)d.table=d.clas.map(r=>({pos:r[0],id:r[1],name:bonito(r[2]),pj:r[3]||0,g:r[4]||0,e:r[5]||0,p:r[6]||0,gf:r[7]||0,gc:r[8]||0,pts:r[9]||0,zona:r[10]??-1}));
   else{const tab={};const add=(id,n)=>tab[id]||(tab[id]={id,name:n,pj:0,g:0,e:0,p:0,gf:0,gc:0,pts:0});
     d.matches.forEach(m=>{if(!m.home||!m.away)return;const h=add(m.home,m.homeN),a=add(m.away,m.awayN);if(!m.played)return;h.pj++;a.pj++;h.gf+=m.hg;h.gc+=m.ag;a.gf+=m.ag;a.gc+=m.hg;if(m.hg>m.ag){h.g++;a.p++;h.pts+=3}else if(m.hg<m.ag){a.g++;h.p++;a.pts+=3}else{h.e++;a.e++;h.pts++;a.pts++}});
     d.table=Object.values(tab).sort((x,y)=>y.pts-x.pts||(y.gf-y.gc)-(x.gf-x.gc)).map((r,i)=>({...r,pos:i+1}))}
@@ -632,7 +640,7 @@ function ansNext(t){
 }
 function tableHTML(d,hl,riv){
   return `<table class="st"><tr><th>#</th><th style="text-align:left">Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>DG</th><th>Pts</th></tr>
-  ${d.table.map(r=>{const tap=TEAM.get(r.id)&&r.id!==hl;return `<tr class="${r.id===hl?"me":r.id===riv?"riv":""}${tap?" tap":""}"${tap?` data-ver="${r.id}"`:""}><td>${r.pos??""}</td><td class="n">${TEAM.get(r.id)&&r.id!==hl?`<span class="tl-row">${esc(r.name)}</span>`:esc(r.name)}</td><td>${r.pj}</td><td>${r.g}</td><td>${r.e}</td><td>${r.p}</td><td>${r.gf-r.gc>0?"+":""}${r.gf-r.gc}</td><td class="p">${r.pts}</td></tr>`}).join("")}</table>`;
+  ${d.table.map(r=>{const tap=TEAM.get(r.id)&&r.id!==hl;return `<tr class="${r.id===hl?"me":r.id===riv?"riv":""}${tap?" tap":""}"${tap?` data-ver="${r.id}"`:""}><td${d.zonas&&r.zona>=0&&d.zonas[r.zona]?` class="zn" style="--zc:${esc(d.zonas[r.zona][1])}" title="${esc(d.zonas[r.zona][0])}"`:""}>${r.pos??""}</td><td class="n">${TEAM.get(r.id)&&r.id!==hl?`<span class="tl-row">${esc(r.name)}</span>`:esc(r.name)}</td><td>${r.pj}</td><td>${r.g}</td><td>${r.e}</td><td>${r.p}</td><td>${r.gf-r.gc>0?"+":""}${r.gf-r.gc}</td><td class="p">${r.pts}</td></tr>`}).join("")}</table>`;
 }
 // Gráfica de evolución: puesto del equipo tras cada jornada (1º arriba)
 // Gráfica de evolución: puesto tras cada jornada (1º arriba). Si se pasa un rival del mismo grupo, se dibuja también
@@ -674,6 +682,113 @@ function evolucionHTML(t,jSel,rivId){
 }
 // Bloque desplegable de la ficha: título + resumen de una línea; el contenido se abre al tocarlo
 const bloque=(id,icono,titulo,resumen,html,abierto)=>`<details class="blq" data-b="${id}"${abierto?" open":""}><summary><span class="blq-i">${IC[icono]?ic(icono):icono}</span><span class="blq-t"><b>${titulo}</b>${resumen?`<span class="small">${resumen}</span>`:""}</span><span class="blq-f">›</span></summary><div class="blq-c">${html}</div></details>`;
+
+/* ---------- Pronóstico de final de liga ----------
+   Lo calcula el código, no la IA (los modelos de lenguaje se equivocan con las cuentas):
+   1) Matemática exacta: qué está ya asegurado o ya es imposible con los puntos que quedan.
+   2) Simulación: se juegan 5.000 veces los partidos que faltan con un modelo de goles (Poisson) según el nivel
+      de cada equipo (goles a favor y en contra, con ventaja de jugar en casa) y se cuenta en qué puesto acaba cada uno.
+   La IA, si se le pide, solo explica estos números con palabras. */
+const PRON={};
+function azar(sem){let a=sem>>>0;return()=>{a=(a+0x6D2B79F5)>>>0;let t=a;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
+function poisson(l,r){const L=Math.exp(-l);let k=0,p=1;do{k++;p*=r()}while(p>L&&k<15);return k-1}
+function zonasGrupo(d){
+  const nombres=(d.zonas||[]).map(z=>z[0]);const Z=[];
+  d.table.forEach(r=>{if(r.zona>=0&&nombres[r.zona]!=null){let z=Z.find(x=>x.i===r.zona);if(!z)Z.push(z={i:r.zona,n:nombres[r.zona],c:(d.zonas[r.zona]||[])[1]||"#999",pos:[]});z.pos.push(r.pos)}});
+  // Las zonas van por puesto: las de arriba se apilan desde el 1º y las de abajo desde el último
+  const N=d.table.length;let arriba=1,abajo=N;
+  Z.forEach(z=>z.m=z.pos.reduce((a,b)=>a+b,0)/z.pos.length);
+  Z.filter(z=>z.m<=N/2).sort((a,b)=>a.m-b.m).forEach(z=>{z.desde=arriba;z.hasta=arriba+z.pos.length-1;arriba=z.hasta+1});
+  Z.filter(z=>z.m>N/2).sort((a,b)=>b.m-a.m).forEach(z=>{z.hasta=abajo;z.desde=abajo-z.pos.length+1;abajo=z.desde-1});
+  return Z.sort((a,b)=>a.desde-b.desde);
+}
+function pronosticoGrupo(d){
+  const clave=d.id+"|"+(IDX.act||"");if(PRON[clave])return PRON[clave];
+  const T=d.table.filter(r=>r.id);const N=T.length;const idx=new Map(T.map((r,i)=>[r.id,i]));
+  const quedan=d.matches.filter(m=>!m.played&&idx.has(m.home)&&idx.has(m.away));
+  const jugados=d.matches.filter(m=>m.played&&idx.has(m.home)&&idx.has(m.away));
+  if(!N)return null;
+  // nivel de cada equipo (con prudencia al principio: se acerca a la media)
+  const gl=jugados.reduce((a,m)=>a+m.hg,0),gv=jugados.reduce((a,m)=>a+m.ag,0);
+  const mu=jugados.length?(gl+gv)/(2*jugados.length):1.4;const casa=jugados.length>10?Math.min(1.45,Math.max(1,(gl+.5)/(gv+.5))):1.15;
+  const fuerza=T.map(r=>{const w=r.pj/(r.pj+4);const at=r.pj?(r.gf/r.pj)/mu:1,de=r.pj?(r.gc/r.pj)/mu:1;return {at:1+w*(at-1),de:1+w*(de-1)}});
+  const restan=T.map(()=>0);quedan.forEach(m=>{restan[idx.get(m.home)]++;restan[idx.get(m.away)]++});
+  const SIMS=5000;const r=azar(([...String(d.id)].reduce((a,c)=>a*31+c.charCodeAt(0),7)^quedan.length*977)>>>0);
+  const cuenta=T.map(()=>new Array(N).fill(0));const ptsFin=T.map(()=>[]);
+  const pts=new Array(N),dg=new Array(N),gf=new Array(N),ord=[...Array(N).keys()],des=new Array(N);
+  for(let s=0;s<SIMS;s++){
+    for(let i=0;i<N;i++){pts[i]=T[i].pts;dg[i]=T[i].gf-T[i].gc;gf[i]=T[i].gf;des[i]=r()}
+    for(const m of quedan){const h=idx.get(m.home),a=idx.get(m.away);
+      const lh=Math.max(.15,mu*fuerza[h].at*fuerza[a].de*Math.sqrt(casa)),la=Math.max(.15,mu*fuerza[a].at*fuerza[h].de/Math.sqrt(casa));
+      const x=poisson(lh,r),y=poisson(la,r);dg[h]+=x-y;dg[a]+=y-x;gf[h]+=x;gf[a]+=y;
+      if(x>y)pts[h]+=3;else if(x<y)pts[a]+=3;else{pts[h]++;pts[a]++}}
+    ord.sort((i,j)=>pts[j]-pts[i]||dg[j]-dg[i]||gf[j]-gf[i]||des[j]-des[i]);
+    ord.forEach((i,k)=>cuenta[i][k]++);
+    if(s%10===0)for(let i=0;i<N;i++)ptsFin[i].push(pts[i]);
+  }
+  const res={N,quedan:quedan.length,jornadasQuedan:new Set(quedan.map(m=>m.j)).size,jugadas:new Set(jugados.map(m=>m.j)).size,SIMS,
+    equipos:T.map((t,i)=>({id:t.id,name:t.name,pts:t.pts,pos:t.pos,max:t.pts+3*restan[i],restan:restan[i],prob:cuenta[i].map(c=>c/SIMS),
+      media:ptsFin[i].reduce((a,b)=>a+b,0)/ptsFin[i].length})),zonas:zonasGrupo(d)};
+  PRON[clave]=res;return res;
+}
+// Certezas matemáticas para un equipo y una zona (sin contar desempates: si hay empate posible, no se da por hecho)
+function certeza(res,id,z){
+  const E=res.equipos,yo=E.find(e=>e.id===id),otros=E.filter(e=>e.id!==id);
+  const porEncimaSeguro=otros.filter(e=>e.pts>yo.max).length;   // acabarán delante pase lo que pase
+  const porDebajoSeguro=otros.filter(e=>e.max<yo.pts).length;    // acabarán detrás pase lo que pase
+  const mejor=1+porEncimaSeguro,peor=res.N-porDebajoSeguro;       // mejor y peor puesto posibles
+  if(mejor>=z.desde&&peor<=z.hasta)return "seguro";
+  if(peor<z.desde||mejor>z.hasta)return "imposible";
+  return null;
+}
+// Texto de una certeza según sea zona de arriba (ascenso…) o de abajo (descenso…)
+const certTxt=(z,N)=>{const abajo=z.desde>N/2;return z.cert==="seguro"?(abajo?"descenso matemático":"asegurado"):z.cert==="imposible"?(abajo?"salvado":"ya no es posible"):null};
+const pct=x=>x>=.995?"más del 99 %":x<.005&&x>0?"menos del 1 %":Math.round(x*100)+" %";
+function pronosticoEquipo(t){
+  const d=teamGroup(t);if(!d||!d.table||!d.table.find(r=>r.id===t.id))return null;
+  const res=pronosticoGrupo(d);if(!res)return null;const e=res.equipos.find(x=>x.id===t.id);
+  const zonas=res.zonas.map(z=>({...z,p:e.prob.slice(z.desde-1,z.hasta).reduce((a,b)=>a+b,0),cert:certeza(res,t.id,z)}));
+  const masProb=e.prob.indexOf(Math.max(...e.prob))+1;
+  // intervalo que concentra el 80 % de los finales
+  let acc=0,lo=1,hi=res.N;const cum=e.prob.map(p=>acc+=p);lo=cum.findIndex(c=>c>=.1)+1;hi=cum.findIndex(c=>c>=.9)+1;
+  const mejor=1+res.equipos.filter(o=>o.id!==t.id&&o.pts>e.max).length,peor=res.N-res.equipos.filter(o=>o.id!==t.id&&o.max<e.pts).length;
+  return {res,e,zonas,masProb,lo,hi,mejor,peor};
+}
+function pronosticoResumen(P){
+  if(!P)return "";const z=P.zonas;const partes=[];
+  for(const x of z)partes.push(`${x.n.toLowerCase()} ${certTxt(x,P.res.N)||pct(x.p)}`);
+  return partes.length?partes.join(" · "):`lo más probable: ${P.masProb}º`;
+}
+function pronosticoHTML(t){
+  const P=pronosticoEquipo(t);if(!P)return `Todavía no hay datos suficientes para hacer el pronóstico.`;
+  const {res,e,zonas}=P;
+  if(res.quedan===0)return `La liga ya ha terminado: <b>${esc(t.name)}</b> acaba <b>${e.pos}º</b> con ${e.pts} puntos.`;
+  const fiable=res.jugadas>=res.jornadasQuedan;
+  const barra=(p,c)=>`<div class="pr-bar"><i style="width:${Math.max(p>0?2:0,Math.round(p*100))}%;background:${c}"></i></div>`;
+  const zonaHTML=zonas.map(z=>`<div class="pr-z"><div class="pr-zt"><span class="pr-dot" style="background:${esc(z.c)}"></span><b>${esc(z.n)}</b> <span class="small">(${z.desde===z.hasta?z.desde+"º":z.desde+"º–"+z.hasta+"º"})</span>
+     <span class="pr-v">${z.cert?`<span class="${(z.cert==="seguro")!==(z.desde>res.N/2)?"pr-ok":"pr-no"}">${certTxt(z,res.N)[0].toUpperCase()+certTxt(z,res.N).slice(1)}</span>`:pct(z.p)}</span></div>${z.cert?"":barra(z.p,z.c)}</div>`).join("");
+  const W=320,H=90,bw=W/res.N;const zc=pos=>{const z=zonas.find(z=>pos>=z.desde&&pos<=z.hasta);return z?z.c:"var(--pitch2)"};const mx=Math.max(...e.prob,.01);
+  const dist=`<svg viewBox="0 0 ${W} ${H+16}" width="100%" class="pr-dist" role="img" aria-label="Probabilidad de cada puesto final">
+    ${e.prob.map((p,i)=>`<rect x="${i*bw+1}" y="${H-Math.round(p/mx*(H-4))}" width="${bw-2}" height="${Math.round(p/mx*(H-4))}" rx="2" fill="${zc(i+1)}" opacity="${i+1===P.masProb?1:.7}"><title>${i+1}º: ${pct(p)}</title></rect>
+      ${res.N<=20||i%2===0?`<text x="${i*bw+bw/2}" y="${H+12}" text-anchor="middle" class="evo-t">${i+1}</text>`:""}`).join("")}</svg>`;
+  return `<div class="pr">${fiable?"":`<div class="pr-aviso">${ic("aviso","sm")} Quedan ${res.jornadasQuedan} jornadas: a estas alturas el pronóstico es orientativo. Ganará precisión al final de la temporada.</div>`}
+   <div class="pr-cab">Con <b>${res.jornadasQuedan} jornada${res.jornadasQuedan===1?"":"s"}</b> por jugar, ${esc(t.name)} puede acabar entre el <b>${P.mejor}º</b> y el <b>${P.peor}º</b>. Lo más probable: <b>${P.masProb}º</b> (${pct(e.prob[P.masProb-1])}); en 8 de cada 10 finales acaba entre el ${P.lo}º y el ${P.hi}º.</div>
+   ${zonaHTML||`<div class="small">La federación no marca zonas de ascenso o descenso en este grupo.</div>`}
+   <div class="small" style="margin:10px 0 2px"><b>Probabilidad de cada puesto final</b></div>${dist}
+   <div class="small">Puntos ahora: ${e.pts} · máximo posible: ${e.max} · previsión: unos ${Math.round(e.media)}.</div>
+   <div class="small" style="opacity:.7;margin-top:6px">Cálculo: ${res.SIMS.toLocaleString("es-ES")} simulaciones de los ${res.quedan} partidos que faltan según el nivel de cada equipo (goles a favor y en contra, en casa y fuera). «Asegurado» e «imposible» son cuentas exactas con los puntos que quedan. El desempate oficial (enfrentamientos directos) puede mover algún puesto.</div>
+   ${iaDisponible()?`<button class="btn ghost" style="margin-top:8px" data-pron="${esc(t.id)}">${ic("ia")} Explícamelo</button>`:""}</div>`;
+}
+function pronosticoTexto(t){
+  const P=pronosticoEquipo(t);if(!P)return "";const {res,e,zonas}=P;
+  const otros=res.zonas.length?res.equipos.slice().sort((a,b)=>a.pos-b.pos).map(o=>`${o.pos}º ${o.name}: ${o.pts} pts, máximo ${o.max}`).join("\n"):"";
+  return `${grupoNombre(teamGroup(t).id)}. Quedan ${res.jornadasQuedan} jornadas (${res.quedan} partidos).
+EQUIPO: ${t.name}. Ahora ${e.pos}º con ${e.pts} puntos. Puede acabar entre ${P.mejor}º y ${P.peor}º. Puesto más probable ${P.masProb}º (${pct(e.prob[P.masProb-1])}). En el 80 % de las simulaciones acaba entre ${P.lo}º y ${P.hi}º. Previsión de puntos finales: ${Math.round(e.media)}.
+ZONAS: ${zonas.map(z=>`${z.n} (${z.desde}º-${z.hasta}º): ${z.cert?certTxt(z,res.N).toUpperCase()+" (seguro, cuenta exacta)":pct(z.p)+" de probabilidad"}`).join("; ")||"sin zonas marcadas"}.
+CLASIFICACIÓN (puntos y máximo posible):
+${otros}`;
+}
+
 function fichaInicialHTML(t,f){
   const lm=lastMatch(t),nm=nextMatch(t),d=teamGroup(t),me=d&&d.table.find(r=>r.id===t.id);
   const corto=m=>m&&m.date?`${DIAS_C[m.date.getDay()]} ${m.date.getDate()} ${MESES[m.date.getMonth()].slice(0,3)}`:"";
@@ -684,8 +799,9 @@ function fichaInicialHTML(t,f){
   if(nm){const riv=rivalOf(nm,t.id);
     B.prox=bloque("prox","cal","Próximo partido",`${corto(nm)}${nm.time?" · "+nm.time:""} · ${nm.home===t.id?"en casa":"fuera"} vs ${esc(riv.n)}`,ansNext(t),f&&f.tipo!=="resultado");
     const pv=previaHTML(t,nm);if(pv)B.previa=bloque("previa","lupa","Previa del próximo partido","cómo llega cada equipo · análisis de la IA",pv,false)}
-  if(me){const rf=f&&f.tipo==="resultado"?lm:(nm||lm);const[bc,be]=bloquesTabla(t,null,rf?rivalOf(rf,t.id).id:null);B.clas=bc.replace("Clasificación actual","Clasificación");B.evo=be}
-  const orden=f&&f.tipo==="resultado"?["ult","clas","evo","crono","prox","previa"]:["prox","previa","ult","clas","evo","crono"];
+  if(me){const rf=f&&f.tipo==="resultado"?lm:(nm||lm);const[bc,be]=bloquesTabla(t,null,rf?rivalOf(rf,t.id).id:null);B.clas=bc.replace("Clasificación actual","Clasificación");B.evo=be;
+    const P=pronosticoEquipo(t);if(P&&P.res.quedan)B.pron=bloque("pron","copa","Pronóstico de final de liga",pronosticoResumen(P),pronosticoHTML(t),false)}
+  const orden=f&&f.tipo==="resultado"?["ult","clas","evo","pron","crono","prox","previa"]:["prox","previa","ult","clas","evo","pron","crono"];
   return orden.filter(k=>B[k]).map(k=>B[k]).join("");
 }
 function ansTable(t,jSel,sinEvo,rivId){
@@ -779,7 +895,7 @@ function nearestClubs(ll,cat,limit=5,fem=null){
    1) se normaliza el texto y se corrigen faltas contra un vocabulario de palabras clave
    2) se busca la intención por reglas, de la más concreta a la más general
    3) se responde con los datos del grupo                                            */
-const KW="previa analisis pronostico favorito evolucion grafica convocados titulares tiempo llover lluvia llueve frio calor temperatura prevision viento clima proximo proxima siguiente cuando hora horario donde campo direccion llegar llego ubicacion mapa juega jugamos juegan jugais juego toca rival contra quien quedo quedamos quedaron resultado resultados gano ganamos ganaron perdio perdimos perdieron empato empatamos marcador ultimo ultima clasificacion tabla posicion puesto lider primero colista ascenso descenso puntos goleador goleadores pichichi marco marcaron goles gol racha forma estadisticas balance calendario partidos quedan jornada plantilla jugadores convocatoria alineacion arbitro equipacion entrenador casa fuera visitante local semana sabado domingo manana hoy finde pasado victorias derrotas empates encajado metido diferencia ayuda hola gracias".split(" ");
+const KW="ascender ascenso descender descenso salvarse pronostico campeon promocion previa analisis pronostico favorito evolucion grafica convocados titulares tiempo llover lluvia llueve frio calor temperatura prevision viento clima proximo proxima siguiente cuando hora horario donde campo direccion llegar llego ubicacion mapa juega jugamos juegan jugais juego toca rival contra quien quedo quedamos quedaron resultado resultados gano ganamos ganaron perdio perdimos perdieron empato empatamos marcador ultimo ultima clasificacion tabla posicion puesto lider primero colista ascenso descenso puntos goleador goleadores pichichi marco marcaron goles gol racha forma estadisticas balance calendario partidos quedan jornada plantilla jugadores convocatoria alineacion arbitro equipacion entrenador casa fuera visitante local semana sabado domingo manana hoy finde pasado victorias derrotas empates encajado metido diferencia ayuda hola gracias".split(" ");
 // Palabras corrientes que no se deben "corregir" y abreviaturas típicas de móvil
 const PROTEGIDAS=new Set("cuantos cuantas cuanto bajamos subimos ganados perdidos empatados partido partidos ultimos ultimas puedo preguntar llevamos llevan lleva tal que como esta estan estamos vamos van tenemos hemos habeis donde cuando quien quienes sabes sabe dime hace hacen nuestro nuestra equipo liga grupo semana dias campo campos hijo hija mismo todo todos".split(" "));
 const ABREV={q:"que",k:"que",ke:"que",dnd:"donde",dnde:"donde",dond:"donde",ora:"hora",hra:"hora",hr:"hora",xq:"porque",pq:"porque",tb:"tambien",mñn:"manana",mnn:"manana",kdamos:"quedamos",kedamos:"quedamos",keda:"queda",kien:"quien",qien:"quien",cuado:"cuando",cnd:"cuando",cdo:"cuando",prox:"proximo",clasi:"clasificacion",clasif:"clasificacion",resul:"resultado",finde:"finde",jor:"jornada"};
@@ -794,7 +910,8 @@ const INTENCIONES=[
   ["tiempo",R(/(tiempo|llover|llovera|lluvia|llueve|frio|calor|temperatura|meteo|prevision|viento|nieve|clima|abrigo|chubasquero|paraguas|sol\b)/)],
   ["resumen",R(/^(resumen|todo|info|informacion|ficha|datos|como va el equipo|como esta el equipo)$/)],
   ["jornada",R(/\b(jornada|j)\s*\d+\b/)],
-  ["previa",R(/(previa|como llegan|como llegamos|analisis|analiza|pronostico|quien es favorito|favorito|como pinta)/)],
+  ["pronostico",R(/(ascen|asciende|subir|sube de categoria|descen|desciende|bajar de categoria|baja de categoria|se salva|salvacion|salvarse|quedara|acabara|terminara|va a quedar|puesto final|campeon|ganar la liga|gana la liga|matematica|pronostico|probabilidad|opciones|promocion|fin de liga|final de liga)/)],
+  ["previa",R(/(previa|como llegan|como llegamos|analisis|analiza|quien es favorito|favorito|como pinta)/)],
   ["jugadores",R(/(jugadores|plantilla|convocatoria|convocados|convocado|alineacion|alineaciones|titular|titulares|quien juega|quien ha jugado|quienes juegan|estadisticas? de (los )?jugador)/)],
   ["noDato",R(/(jugadores|ficha de|fichas|hay que (ir|llegar|estar)|a que hora (hay que|tenemos que|quedamos para)|arbitro|arbitra|equipacion|camiseta|entrenador|mister|convocatoria|convocados|alineacion|titular|plantilla|lesion|entradas|precio|hora de llegada|hay que estar|quedada|bus|autobus)/)],
   ["proxCasa",R(/(proximo|siguiente|cuando)\b.*\b(en casa|como local)|\b(en casa|como local)\b.*(proximo|siguiente|cuando)/)],
@@ -1087,15 +1204,15 @@ function previaHTML(t,m){
   ${iaDisponible()?`<button class="btn" style="margin-top:8px" data-previa="${esc(firma(m))}">${ic("ia")} Previa de la IA</button><textarea hidden class="pv-datos">${esc(datos)}</textarea>`:""}`;
 }
 try{localStorage.removeItem("cm_previas");localStorage.removeItem("cm_previas2")}catch(e){}
-async function previaIA(datos){
+async function previaIA(datos,tipo){
   const hoy=new Date().toISOString().slice(0,10);const c=store.get("previa_cupo",{d:"",n:0});if(c.d!==hoy){c.d=hoy;c.n=0}
-  const cache=store.get("previas3",{});if(cache[datos])return cache[datos];
+  const cache=store.get("previas3",{});const ck=(tipo||"")+datos;if(cache[ck])return cache[ck];
   if(c.n>=15)return "Has pedido muchas previas hoy. Mañana podrás pedir más.";
   const ctl=new AbortController();const tm=setTimeout(()=>ctl.abort(),25000);
-  try{const r=await fetch(IA_URL.replace("/cantera-ia","/cantera-previa"),{method:"POST",headers:{"Content-Type":"application/json"},signal:ctl.signal,body:JSON.stringify({datos})});
+  try{const r=await fetch(IA_URL.replace("/cantera-ia","/cantera-previa"),{method:"POST",headers:{"Content-Type":"application/json"},signal:ctl.signal,body:JSON.stringify({datos,tipo:tipo||"previa"})});
     const j=await r.json();if(!r.ok||!j.respuesta)return j.error||"La IA no ha podido hacer la previa ahora mismo.";
     if(!j.guardada){c.n++;store.set("previa_cupo",c)}
-    const ks=Object.keys(cache);if(ks.length>60)delete cache[ks[0]];cache[datos]=j.respuesta;store.set("previas3",cache);return j.respuesta}
+    const ks=Object.keys(cache);if(ks.length>60)delete cache[ks[0]];cache[ck]=j.respuesta;store.set("previas3",cache);return j.respuesta}
   catch(e){return "Sin conexión con la IA ahora mismo."}finally{clearTimeout(tm)}
 }
 function fichaPartidoMsgs(t,m){
@@ -1202,7 +1319,7 @@ function colocarCarrusel(t){
 
 const NO_DATO="La federación no publica ese dato (plantillas, alineaciones, árbitros, equipaciones u horarios de llegada). Esa información la da el club o el entrenador.";
 const HELP_TEAM="Puedo contarte el último resultado, el próximo partido con hora y campo, la clasificación y los puntos, los goleadores, la racha, las estadísticas, los partidos que quedan, una jornada («jornada 3») o cómo os fue contra un rival («contra Alcorcón»).";
-const CHIPS_TEAM=["Resumen","¿Cómo quedó el último partido?","¿Cuándo y dónde es el próximo?","Previa","¿Qué tiempo hará?","Clasificación","Evolución","Goleadores","Racha","Jugadores"];
+const CHIPS_TEAM=["¿Puede ascender o descender?","Resumen","¿Cómo quedó el último partido?","¿Cuándo y dónde es el próximo?","Previa","¿Qué tiempo hará?","Clasificación","Evolución","Goleadores","Racha","Jugadores"];
 function responderEquipo(t,id,q,text){
   switch(id){
     case "saludo":return `¡Hola! ${HELP_TEAM}`;
@@ -1211,6 +1328,7 @@ function responderEquipo(t,id,q,text){
     case "resumen":return ansResumen(t);
     case "tiempo":return ansTiempo(t);
     case "jornada":return ansJornada(t,+(q.match(/(\d+)/)[1]));
+    case "pronostico":return pronosticoHTML(t);
     case "previa":{const m=nextMatch(t);if(!m)return "No quedan partidos en el calendario.";return previaHTML(t,m)||"Todavía no hay partidos jugados para hacer la previa."}
     case "jugadores":if(ANDROID)return ansJugadores(t);return `Las estadísticas de los jugadores se calculan con las actas, y eso solo funciona en la app del móvil.<div>${linkRFFM(urlEquipoRFFM(t),"Plantilla en la RFFM")}</div>`;
     case "noDato":return /(plantilla|jugador|convoca|alineacion|titular)/.test(q)?`La plantilla y las fichas de los jugadores están en la web oficial de la federación:<div>${linkRFFM(urlEquipoRFFM(t),"Ver plantilla en la RFFM")}</div><div class="small" style="margin-top:6px">Se abre en el navegador. Las convocatorias y alineaciones de cada partido las da el club.</div>`:NO_DATO;
@@ -1703,6 +1821,9 @@ function renderChat(app,t){
   $("#f").onsubmit=e=>{e.preventDefault();const v=$("#q").value;$("#q").value="";ask(v)};
   app.onclick=e=>{
     const a=e.target.closest("[data-ask]");if(a){ask(a.dataset.ask);return}
+    const pnb=e.target.closest("[data-pron]");if(pnb){const eq=TEAM.get(pnb.dataset.pron);const datos=pronosticoTexto(eq);
+      state.chats[key].push({r:"u",h:ic("ia")+" Explícame el pronóstico"});state.chats[key].push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span> <span class="small">Preparando la explicación…</span>'});draw();
+      previaIA(datos,"pronostico").then(txt=>{const msgs=state.chats[key];msgs.pop();msgs.push({r:"b",h:`<b>${ic("ia")} Pronóstico explicado</b><div style="margin-top:4px">${fmtIA(txt)}</div><div class="small" style="opacity:.7;margin-top:6px">La IA solo explica los números calculados por la app; no hace cuentas propias.</div>`});if(state.view===(t?"team":"main"))draw()});return}
     const pb=e.target.closest("[data-previa]");if(pb){const datos=pb.parentElement.querySelector(".pv-datos").value;
       state.chats[key].push({r:"u",h:ic("ia")+" Previa de la IA"});state.chats[key].push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span> <span class="small">Preparando la previa…</span>'});draw();
       previaIA(datos).then(txt=>{const msgs=state.chats[key];msgs.pop();msgs.push({r:"b",h:`<b>${ic("ia")} Previa</b><div style="margin-top:4px">${fmtIA(txt)}</div><div class="small" style="opacity:.7;margin-top:6px">Texto de la IA a partir de los números de arriba; puede equivocarse.</div>`});if(state.view===(t?"team":"main"))draw()});return}
