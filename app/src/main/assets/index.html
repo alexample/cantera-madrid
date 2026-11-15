@@ -485,8 +485,13 @@ const icons={
   trash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>'
 };
 // «Cómo llegar»: navegación hasta la entrada verificada del campo (o su ubicación si no hay entrada en el mapa)
-function navUrl(c){const p=c.nav||c.ll;return p?`https://www.google.com/maps/dir/?api=1&destination=${p[0]},${p[1]}&travelmode=driving`:`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.name+", "+c.addr+", "+c.loc)}`}
-function mapLink(c,label){if(!c)return"";return `<a class="map" href="${navUrl(c)}" target="_blank" rel="noopener">${icons.pin} ${label||"Cómo llegar"}</a>${c.tipo==="entrada"?`<span class="small" style="margin-left:6px;opacity:.75">· te lleva a la entrada</span>`:""}`}
+// «Cómo llegar»: Google Maps busca el campo por su nombre y dirección y elige su propia ficha (como si lo buscaras tú)
+function nombreCampoGoogle(n){return String(n||"").replace(/\([^)]*\)/g," ").replace(/\bF-?7\b|\bF-?11\b/gi," ").replace(/\s+\d+\s*$/,"")
+  .replace(/\bPVO\.?\s*/gi,"Polideportivo ").replace(/\bPOLID(\.\s*|\s+)/gi,"Polideportivo ").replace(/\bC\.?\s?D\.?\s?M\.?\s/gi,"Centro Deportivo Municipal ").replace(/\bI\.?\s?D\.?\s?M\.?\s/gi,"Instalación Deportiva Municipal ")
+  .replace(/\bC\.?\s?F\.?\s/gi,"Campo de Fútbol ").replace(/\bMPAL\.?\s/gi,"Municipal ").replace(/\s*-\s*/g," ").replace(/\s+/g," ").trim()}
+function consultaCampo(c){const n=nombreCampoGoogle(c.name);return [/campo|estadio|polideportivo|ciudad deportiva|centro deportivo|instalaci/i.test(n)?n:(n?"Campo de fútbol "+n:""),c.addr,c.loc].filter(Boolean).join(", ")}
+function navUrl(c){return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(consultaCampo(c))}&travelmode=driving`}
+function mapLink(c,label){if(!c)return"";return `<a class="map" href="${navUrl(c)}" target="_blank" rel="noopener">${icons.pin} ${label||"Cómo llegar"}</a>`}
 const opts=list=>`<div class="opts">${list.map(o=>`<button class="opt" data-ask="${esc(o.v||o.l||o)}">${o.ic?`<span>${o.ic}</span>`:""}${esc(o.l||o)}</button>`).join("")}</div>`;
 function teamRow(t,extra){const f=state.follows.includes(t.id);return `<div class="prow">${crest(t,34)}<div class="grow"><b>${esc(t.name)}</b><div class="small">${extra??esc(grupoNombre(t.grupos[0]))}</div></div><button class="btn ${f?"ghost":""}" data-open="${t.id}">${f?"Abrir":"Seguir"}</button></div>`}
 const teamCards=(ts,ll)=>`<div class="plist">${ts.map(t=>{const d=km(ll,t.ll);return teamRow(t,`${esc(CATN[t.cat])}${t.fem?" fem.":""} · ${esc(t.town||"")}${d!=null?` · a ${d<1?"menos de 1":Math.round(d)} km`:""}<br>${esc(grupoNombre(t.grupos[0]))}`)}).join("")}</div>`;

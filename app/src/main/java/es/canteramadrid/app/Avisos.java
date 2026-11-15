@@ -432,17 +432,21 @@ public class Avisos extends Worker {
         return m.optString(10);
     }
 
+    // «Cómo llegar»: Google Maps busca el campo por nombre y dirección y elige su propia ficha
     private static String mapaUri(JSONObject campos, JSONArray m) {
         JSONArray cp = campos.optJSONArray(m.optString(9));
-        // Punto de navegación verificado (entrada del campo), si lo hay
-        if (cp != null && cp.length() > 6 && !cp.isNull(5) && !cp.isNull(6))
-            return "https://www.google.com/maps/dir/?api=1&destination=" + cp.optDouble(5) + "," + cp.optDouble(6) + "&travelmode=driving";
-        if (cp != null && !cp.isNull(3) && !cp.isNull(4)) {
-            String ll = cp.optDouble(3) + "," + cp.optDouble(4);
-            return "geo:" + ll + "?q=" + ll + "(" + Uri.encode(cp.optString(0)) + ")";
+        String nombre = cp != null ? cp.optString(0) : m.optString(10);
+        String n = nombre.replaceAll("\\([^)]*\\)", " ").replaceAll("(?i)\\bF-?(7|11)\\b", " ").replaceAll("\\s+\\d+\\s*$", "")
+                .replaceAll("(?i)\\bPVO\\.?\\s*", "Polideportivo ").replaceAll("(?i)\\bPOLID(\\.\\s*|\\s+)", "Polideportivo ")
+                .replaceAll("\\s*-\\s*", " ").replaceAll("\\s+", " ").trim();
+        if (!n.toLowerCase().matches(".*(campo|estadio|polideportivo|ciudad deportiva|centro deportivo|instalaci).*") && !n.isEmpty()) n = "Campo de fútbol " + n;
+        StringBuilder q = new StringBuilder(n);
+        if (cp != null) for (int i = 1; i <= 2; i++) { String x = cp.optString(i); if (!x.isEmpty() && !x.equals("null")) q.append(", ").append(x); }
+        try {
+            return "https://www.google.com/maps/dir/?api=1&destination=" + java.net.URLEncoder.encode(q.toString(), "UTF-8") + "&travelmode=driving";
+        } catch (Exception e) {
+            return "https://www.google.com/maps/search/?api=1&query=" + q;
         }
-        String txt = campoTexto(campos, m);
-        return txt.isEmpty() ? "" : "geo:0,0?q=" + Uri.encode(txt);
     }
 
     private static NotificationCompat.Action accionMapa(Context c, JSONObject campos, JSONArray m, int n) {
