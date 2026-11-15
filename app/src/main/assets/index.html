@@ -920,15 +920,21 @@ function divisionBloques(d){
   // tarjetas y porteros: necesitan las actas (se leen en el móvil, a petición)
   const conActa=d.matches.filter(m=>m.played&&m.acta).length;
   B.actas=bloque("d-actas","hoja","Tarjetas, porteros y jugadores",ANDROID?`Zamora por minutos, tarjetas y minutos jugados · ${conActa} actas`:"solo en la app del móvil",
-    ANDROID?(DIVACTAS[d.id]?divActasHTML(d,DIVACTAS[d.id]):`<div class="small">Para las tarjetas, el Zamora (porteros) y los jugadores más utilizados hay que leer las actas de los ${conActa} partidos del grupo. Tarda un poco la primera vez; después se guardan en el móvil.</div><button class="btn" style="margin-top:8px" data-divactas="${esc(d.id)}">${ic("hoja")} Leer las actas y calcular</button>`)
+    ANDROID?(DIVACTAS[d.id]?divActasHTML(d,DIVACTAS[d.id]):`<div class="small">Para las tarjetas, el Zamora (porteros) y los jugadores más utilizados hacen falta las actas de los ${conActa} partidos del grupo. Primero se descargan las que ya han compartido otros usuarios y solo se piden a la federación las que falten.</div><button class="btn" style="margin-top:8px" data-divactas="${esc(d.id)}">${ic("hoja")} Leer las actas y calcular</button>`)
       :`<div class="small">Las tarjetas y los porteros salen de las actas, que solo se leen desde la app del móvil.</div>`,false);
   return B;
 }
 const DIVACTAS={};
 async function leerActasGrupo(d,progreso){
-  const ms=d.matches.filter(m=>m.played&&m.acta);let n=0;
-  for(const m of ms){if(!ACTAS[m.acta]){await leerActa(m);await new Promise(r=>setTimeout(r,250))}n++;progreso&&progreso(n,ms.length)}
-  return ms.filter(m=>ACTAS[m.acta]).map(m=>({m,g:ACTAS[m.acta].game}));
+  const ms=d.matches.filter(m=>m.played&&m.acta);
+  const srv=await actasDelServidor(d.id);for(const[k,v]of Object.entries(srv))if(!ANON[k])ANON[k]=v;guardarAnon();
+  const faltan=ms.filter(m=>!ANON[m.acta]&&!ACTAS[m.acta]);let n=ms.length-faltan.length,fallos=0;progreso&&progreso(n,ms.length);
+  for(const m of faltan){const a=await leerActa(m);n++;progreso&&progreso(n,ms.length);
+    if(!a){if(++fallos>=4)break;await new Promise(r=>setTimeout(r,1500*fallos))}else{fallos=0;await new Promise(r=>setTimeout(r,300))}}  // si la federación falla, se espera más y se para
+  // nombres: equipos de los que llegan datos sin nombre conocido -> su plantilla (una vez cada 30 días)
+  const sinNombre=new Set();for(const m of ms){const a=ANON[m.acta];if(!a)continue;for(const[lado,tid]of[["l",m.home],["v",m.away]])if((a[lado].jug||[]).some(j=>!(NOMBRES[tid]||{})[j[0]]))sinNombre.add(tid)}
+  for(const tid of sinNombre)if(!PLANT[tid]||Date.now()-PLANT[tid]>30*864e5){progreso&&progreso(n,ms.length,"nombres");await leerPlantilla(tid);await new Promise(r=>setTimeout(r,300))}
+  return ms.map(m=>({m,g:juegoDe(m)})).filter(x=>x.g);
 }
 // Minutos de cada jugador en un partido a partir del acta: el titular juega desde el 0' hasta que sale; el que entra,
 // desde su minuto hasta el final o hasta que sale. Sin cambios en el acta, el titular juega el partido entero.
@@ -1073,7 +1079,7 @@ function renderDiv(app,gid){
       const vr=e.target.closest("[data-ver]");if(vr){state.pila.push({view:"div",div:gid});state.resumen=vr.dataset.ver;state.view="team";state.team=vr.dataset.ver;render();return}
       const a=e.target.closest("[data-ask]");if(a){ask(a.dataset.ask);return}
       const da=e.target.closest("[data-divactas]");if(da){da.disabled=true;
-        leerActasGrupo(d,(n,t)=>{da.innerHTML=`${ic("hoja")} Leyendo actas ${n}/${t}…`}).then(lista=>{DIVACTAS[gid]=statsActasGrupo(d,lista);
+        leerActasGrupo(d,(n,t,f)=>{da.innerHTML=f?`${ic("persona")} Poniendo nombres…`:`${ic("hoja")} Actas ${n}/${t}…`}).then(lista=>{DIVACTAS[gid]=statsActasGrupo(d,lista);
           for(const m of state.chats[key])if(m.h.includes('data-divactas'))m.h=m.h.replace(/<div class="small">Para las tarjetas[\s\S]*?<\/button>/,divActasHTML(d,DIVACTAS[gid]));
           (state.abiertos[key]=state.abiertos[key]||{})["d-actas"]=true;const sc=$("#scroll"),st=sc.scrollTop;draw();sc.scrollTop=st});return}
     };
@@ -1344,12 +1350,68 @@ function ansTiempo(t){
 const ACTAS=store.get("actas",{});const ESPERA_ACTA={};
 function guardarActas(){const ks=Object.keys(ACTAS);if(ks.length>200)ks.slice(0,ks.length-200).forEach(k=>delete ACTAS[k]);store.set("actas",ACTAS)}
 window.__acta=(cb,json)=>{const f=ESPERA_ACTA[cb];if(f){delete ESPERA_ACTA[cb];f(json?JSON.parse(json):null)}};
+/* ---------- actas compartidas: sin nombres en el servidor; los nombres los pone cada móvil ---------- */
+const ANON=store.get("actas_anon",{});           // codacta -> {l,v} (lo mismo que hay en el servidor)
+const NOMBRES=store.get("nombres",{});           // equipo -> {clave de jugador -> nombre}
+const NOACTA=store.get("noacta",{});             // codacta -> hora del último intento sin acta publicada
+const PLANT=store.get("plantillas",{});          // equipo -> hora en que se leyó su plantilla
+const guardarAnon=()=>{const ks=Object.keys(ANON);if(ks.length>3000)ks.slice(0,ks.length-3000).forEach(k=>delete ANON[k]);store.set("actas_anon",ANON)};
+const claveAnon=(x,i)=>{const c=String(codJ(x)||"");return /^\d{1,12}$/.test(c)?"c"+c:(x.dorsal!=null&&/^\d{1,3}$/.test(String(x.dorsal))?"d"+x.dorsal:"x"+i)};
+function anonimizar(m,g){
+  const out={};
+  for(const[lado,suf,tid]of[["l","local",m.home],["v","visitante",m.away]]){
+    const js=g["jugadores_equipo_"+suf]||[];const porNom=new Map();const nb=NOMBRES[tid]||(NOMBRES[tid]={});
+    const jug=js.map((x,i)=>{const k=claveAnon(x,i);porNom.set(norm(x.nombre_jugador||""),k);if(x.nombre_jugador)nb[k]=x.nombre_jugador;return [k,x.dorsal!=null&&/^\d{1,3}$/.test(String(x.dorsal))?+x.dorsal:null,siNo(x.titular)?1:0,siNo(x.portero)?1:0,siNo(x.capitan)?1:0]});
+    const ref=x=>{const c=String(codJ(x)||"");return /^\d{1,12}$/.test(c)?"c"+c:porNom.get(norm(x.nombre_jugador||""))||null};
+    const gol=(g["goles_equipo_"+suf]||[]).map(x=>[ref(x),minuto(x),siNo(x.propia_puerta)?1:0]);
+    const tar=(g["tarjetas_equipo_"+suf]||[]).map(x=>{const c=String(x.codigo_tipo_amonestacion||"");return [ref(x),minuto(x),c==="102"||siNo(x.segunda_amarilla)?"d":c==="101"?"r":"a"]}).filter(t=>t[0]);
+    const cam=cambiosActa(g,suf).map(c=>[c.min,c.ent?porNom.get(c.ent)||null:null,c.sal?porNom.get(c.sal)||null:null]);
+    out[lado]={jug,gol,tar,cam}}
+  store.set("nombres",NOMBRES);return out;
+}
+function nombreClave(tid,k){const n=(NOMBRES[tid]||{})[k];if(n)return n;const e=(TEAM.get(tid)||{}).name||"";return k[0]==="d"?`Dorsal ${k.slice(1)}${e?" ("+e+")":""}`:`Jugador ${k.slice(1)}`}
+function reconstruir(m,a){
+  const g={};
+  for(const[lado,suf,tid]of[["l","local",m.home],["v","visitante",m.away]]){const L=a[lado]||{jug:[],gol:[],tar:[],cam:[]};
+    const cj=k=>k&&k[0]==="c"?k.slice(1):undefined,nm=k=>k?nombreClave(tid,k):"";
+    g["jugadores_equipo_"+suf]=L.jug.map(j=>({codjugador:cj(j[0])||(tid+"-"+j[0]),nombre_jugador:nm(j[0]),dorsal:j[1],titular:j[2]?"1":"0",portero:j[3]?"1":"0",capitan:j[4]?"1":"0"}));
+    g["goles_equipo_"+suf]=L.gol.map(x=>({codjugador:x[0]?(cj(x[0])||(tid+"-"+x[0])):undefined,nombre_jugador:nm(x[0]),minuto:x[1],propia_puerta:x[2]?"1":"0"}));
+    g["tarjetas_equipo_"+suf]=L.tar.map(x=>({codjugador:cj(x[0])||(tid+"-"+x[0]),nombre_jugador:nm(x[0]),minuto:x[1],codigo_tipo_amonestacion:x[2]==="a"?"100":x[2]==="r"?"101":"102"}));
+    g["sustituciones_equipo_"+suf]=L.cam.map(x=>({minuto:x[0],nombre_jugador_entra:x[1]?nm(x[1]):null,nombre_jugador_sale:x[2]?nm(x[2]):null}))}
+  return g;
+}
+const SRV=()=>IA_URL.replace("/cantera-ia","");
+// Siempre se calcula sobre la versión sin nombres + los nombres conocidos, para que un jugador tenga la misma clave venga de donde venga
+function juegoDe(m){if(!ANON[m.acta]&&ACTAS[m.acta]){ANON[m.acta]=anonimizar(m,ACTAS[m.acta].game);guardarAnon()}return ANON[m.acta]?reconstruir(m,ANON[m.acta]):null}
+function subirActa(m,g){
+  try{const a=anonimizar(m,g);ANON[m.acta]=a;guardarAnon();if(!iaDisponible())return;
+    fetch(SRV()+"/cantera-actas",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({codacta:String(m.acta),gid:String(m.gid),...a})}).catch(()=>{});
+    if(!store.get("esq_acta",false)){const esq=o=>Array.isArray(o)?(o.length?[esq(o[0])]:[]):o&&typeof o==="object"?Object.fromEntries(Object.keys(o).slice(0,40).map(k=>[k,esq(o[k])])):o===null?"null":typeof o;
+      fetch(SRV()+"/cantera-esquema",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({clave:"acta",contenido:JSON.stringify(esq(g))})}).then(r=>r.ok&&store.set("esq_acta",true)).catch(()=>{})}
+  }catch(e){}
+}
+async function actasDelServidor(gid){
+  if(!iaDisponible())return {};
+  try{const r=await fetch(SRV()+"/cantera-actas?gid="+encodeURIComponent(gid));const j=await r.json();return j.actas||{}}catch(e){return {}}
+}
+const ESPERA_PL={};window.__plantilla=(cb,json)=>{const f=ESPERA_PL[cb];if(f){delete ESPERA_PL[cb];f(json?JSON.parse(json):null)}};
+function leerPlantilla(tid){
+  return new Promise(res=>{if(!ANDROID||!AndroidApp.plantilla)return res(null);const cb="p"+Date.now()+Math.random().toString(36).slice(2,6);
+    const to=setTimeout(()=>{delete ESPERA_PL[cb];res(null)},20000);
+    ESPERA_PL[cb]=d=>{clearTimeout(to);if(d&&d.jug){const nb=NOMBRES[tid]||(NOMBRES[tid]={});for(const[c,n,dor]of d.jug){nb["c"+c]=n;if(dor!=null&&/^\d{1,3}$/.test(String(dor))&&!nb["d"+dor])nb["d"+dor]=n}
+      store.set("nombres",NOMBRES);PLANT[tid]=Date.now();store.set("plantillas",PLANT);
+      if(d.esquema&&!store.get("esq_plant",false))fetch(SRV()+"/cantera-esquema",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({clave:"plantilla",contenido:JSON.stringify(d.esquema).slice(0,6000)})}).then(r=>r.ok&&store.set("esq_plant",true)).catch(()=>{})}
+      res(d)};
+    try{AndroidApp.plantilla(String(tid),cb)}catch(e){clearTimeout(to);res(null)}});
+}
 function leerActa(m){
   if(ACTAS[m.acta])return Promise.resolve(ACTAS[m.acta]);
+  if(NOACTA[m.acta]&&Date.now()-NOACTA[m.acta]<6*36e5)return Promise.resolve(null);   // no insistir: se reintenta a las 6 h
   const g=grupo(m.gid);const q=g?`temporada=${g.temp}&competicion=${g.compId}&grupo=${m.gid}`:"";
   return new Promise(res=>{const cb="a"+Date.now()+Math.random().toString(36).slice(2,6);
     const to=setTimeout(()=>{delete ESPERA_ACTA[cb];res(null)},25000);
-    ESPERA_ACTA[cb]=d=>{clearTimeout(to);if(d){d={game:d.game||d};ACTAS[m.acta]=d;guardarActas()}res(d)};
+    ESPERA_ACTA[cb]=d=>{clearTimeout(to);if(d){d={game:d.game||d};ACTAS[m.acta]=d;guardarActas();subirActa(m,d.game);if(NOACTA[m.acta]){delete NOACTA[m.acta];store.set("noacta",NOACTA)}}
+      else{NOACTA[m.acta]=Date.now();store.set("noacta",NOACTA)}res(d)};
     try{AndroidApp.acta(String(m.acta),q,cb)}catch(e){clearTimeout(to);res(null)}});
 }
 const siNo=v=>v===true||v===1||v==="1"||v==="S"||v==="s"||v==="true";
@@ -1525,8 +1587,10 @@ const codJ=x=>x&&(x.codjugador||x.cod_jugador||x.codigo_jugador||x.id_jugador||x
 const claveJ=x=>String(codJ(x)||norm(x.nombre_jugador||x.nombre||""));
 async function actasEquipo(t,progreso){
   const ms=teamMatches(t).filter(m=>m.played&&m.acta).sort((a,b)=>(a.date||0)-(b.date||0));
-  let n=0;for(const m of ms){if(!ACTAS[m.acta]){await leerActa(m);await new Promise(r=>setTimeout(r,250))}n++;progreso&&progreso(n,ms.length)}
-  return ms.filter(m=>ACTAS[m.acta]).map(m=>({m,g:ACTAS[m.acta].game}));
+  if(ms.some(m=>!ACTAS[m.acta]&&!ANON[m.acta])){const gids=[...new Set(ms.map(m=>m.gid))];for(const gid of gids){const srv=await actasDelServidor(gid);for(const[k,v]of Object.entries(srv))if(!ANON[k])ANON[k]=v}guardarAnon()}
+  let n=0;for(const m of ms){if(!ACTAS[m.acta]&&!ANON[m.acta]){await leerActa(m);await new Promise(r=>setTimeout(r,300))}n++;progreso&&progreso(n,ms.length)}
+  if(ms.some(m=>ANON[m.acta]&&(ANON[m.acta][m.home===t.id?"l":"v"].jug||[]).some(j=>!(NOMBRES[t.id]||{})[j[0]]))&&(!PLANT[t.id]||Date.now()-PLANT[t.id]>30*864e5))await leerPlantilla(t.id);
+  return ms.map(m=>({m,g:juegoDe(m)})).filter(x=>x.g);
 }
 function statsJugadores(t,lista){
   const J=new Map();

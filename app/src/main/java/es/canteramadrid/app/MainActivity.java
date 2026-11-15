@@ -26,6 +26,7 @@ import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.webkit.WebViewAssetLoader;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -186,6 +187,33 @@ public class MainActivity extends Activity {
             }).start();
         }
         /** Color de fondo detrás de las barras del sistema (según el tema de la app). */
+        /** Plantilla de un equipo desde su ficha de la RFFM: solo [código, nombre, dorsal] de cada jugador, para poner
+         *  nombre a los datos de las actas compartidas (que van sin nombres). Lo pide el usuario al abrir estadísticas. */
+        @JavascriptInterface
+        public void plantilla(String equipo, String cb) {
+            if (equipo == null || !equipo.matches("\\d{1,12}")) return;
+            new Thread(() -> {
+                String res = null;
+                try {
+                    String html = leer("https://www.rffm.es/fichaequipo/" + equipo);
+                    Matcher m = Pattern.compile("<script id=\"__NEXT_DATA__\"[^>]*>(.*?)</script>", Pattern.DOTALL).matcher(html);
+                    if (m.find()) {
+                        JSONObject pp = new JSONObject(m.group(1)).getJSONObject("props").getJSONObject("pageProps");
+                        JSONArray jug = new JSONArray();
+                        java.util.Set<String> vistos = new java.util.HashSet<>();
+                        buscarJugadores(pp, jug, vistos, 0);
+                        JSONObject r = new JSONObject();
+                        r.put("jug", jug);
+                        r.put("esquema", esquema(pp, 0));
+                        res = r.toString();
+                    }
+                } catch (Exception ignored) { }
+                final String r = res;
+                runOnUiThread(() -> web.evaluateJavascript("window.__plantilla && window.__plantilla(" + JSONObject.quote(cb) + ","
+                        + (r == null ? "null" : JSONObject.quote(r)) + ")", null));
+            }).start();
+        }
+
         @JavascriptInterface
         public void colorBarras(String hex) {
             runOnUiThread(() -> {
@@ -214,6 +242,51 @@ public class MainActivity extends Activity {
                 } catch (Exception ignored) { }
             });
         }
+    }
+
+    // Recorre la página buscando objetos que parezcan jugadores (con código y nombre)
+    private static void buscarJugadores(Object o, JSONArray out, java.util.Set<String> vistos, int prof) {
+        if (prof > 8 || o == null) return;
+        if (o instanceof JSONArray) {
+            JSONArray a = (JSONArray) o;
+            for (int i = 0; i < a.length() && i < 400; i++) buscarJugadores(a.opt(i), out, vistos, prof + 1);
+        } else if (o instanceof JSONObject) {
+            JSONObject j = (JSONObject) o;
+            String cod = null, nom = null, dor = null;
+            java.util.Iterator<String> it = j.keys();
+            while (it.hasNext()) {
+                String k = it.next(), kl = k.toLowerCase();
+                Object v = j.opt(k);
+                if (v instanceof JSONObject || v instanceof JSONArray) { buscarJugadores(v, out, vistos, prof + 1); continue; }
+                String sv = String.valueOf(v);
+                if (cod == null && kl.matches("cod_?jugador|codigo_?jugador|id_?jugador|codjugador")) cod = sv;
+                else if (nom == null && kl.matches("nombre_?jugador|nombre|jugador|nombre_completo")) nom = sv;
+                else if (dor == null && kl.matches("dorsal|numero|num_dorsal")) dor = sv;
+            }
+            if (cod != null && nom != null && cod.matches("\\d{1,12}") && vistos.add(cod)) {
+                JSONArray f = new JSONArray(); f.put(cod); f.put(nom); f.put(dor == null ? JSONObject.NULL : dor); out.put(f);
+            }
+        }
+    }
+
+    // Solo los nombres de los campos (sin valores) para saber cómo es la página
+    private static Object esquema(Object o, int prof) {
+        try {
+            if (prof > 5) return "…";
+            if (o instanceof JSONObject) {
+                JSONObject j = (JSONObject) o, r = new JSONObject();
+                java.util.Iterator<String> it = j.keys();
+                int n = 0;
+                while (it.hasNext() && n++ < 40) { String k = it.next(); r.put(k, esquema(j.opt(k), prof + 1)); }
+                return r;
+            }
+            if (o instanceof JSONArray) {
+                JSONArray a = (JSONArray) o, r = new JSONArray();
+                if (a.length() > 0) r.put(esquema(a.opt(0), prof + 1));
+                return r;
+            }
+            return o == null || o == JSONObject.NULL ? "null" : o instanceof Number ? "num" : o instanceof Boolean ? "bool" : "txt";
+        } catch (Exception e) { return "?"; }
     }
 
     private String leer(String url) throws Exception {
