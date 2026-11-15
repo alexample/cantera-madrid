@@ -200,7 +200,7 @@ html[data-theme="estadio"] .meteo{background:#0d1629;border-color:#1e2a45}
 html[data-theme="estadio"] .mt-band{fill:#16223d}
 html[data-theme="estadio"] .mt-line{stroke:#e2702f}html[data-theme="estadio"] .mt-dot{fill:#e2702f;stroke:#0d1629}html[data-theme="estadio"] .mt-dot.on{fill:#e2702f}
 html[data-theme="estadio"] .mt-bar{fill:#2f5a99}html[data-theme="estadio"] .mt-bar.on{fill:#4a86e8}
-@media (prefers-color-scheme: dark){html:not([data-theme="estadio"]) .mt-bar{fill:#2f5a99}html:not([data-theme="estadio"]) .mt-bar.on{fill:#4a86e8}html:not([data-theme="estadio"]) .mt-line{stroke:#e2702f}html:not([data-theme="estadio"]) .mt-dot{fill:#e2702f}}
+@media (prefers-color-scheme: dark){html:not([data-theme="estadio"]):not([data-theme="noche"]) .mt-bar{fill:#2f5a99}html:not([data-theme="estadio"]):not([data-theme="noche"]) .mt-bar.on{fill:#4a86e8}html:not([data-theme="estadio"]):not([data-theme="noche"]) .mt-line{stroke:#e2702f}html:not([data-theme="estadio"]):not([data-theme="noche"]) .mt-dot{fill:#e2702f}}
 .sug{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 6px}
 .sug .chip{font-size:13.5px;padding:8px 13px}
 .tl{display:inline-block;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;vertical-align:middle;background:var(--chalk);border:1px solid var(--line);border-radius:999px;padding:2px 9px 2px 3px;color:var(--ink);font-weight:600;text-decoration:none;cursor:pointer;-webkit-box-decoration-break:clone;box-decoration-break:clone;line-height:1.9;white-space:normal;transition:background .12s,transform .12s}
@@ -278,6 +278,69 @@ html[data-theme="estadio"] .tag{background:linear-gradient(135deg,#ff5a36,#ff9a3
 .opt{display:flex;align-items:center;gap:10px;text-align:left;padding:11px 14px;border-radius:12px;background:var(--chalk);border:1px solid var(--line);font-weight:600;color:var(--pitch2)}
 @media (prefers-color-scheme: dark){.opt{color:#8ce0b0}}
 .opt span{font-size:18px}
+
+/* ===== Tema «Noche»: cielo violeta con estrellas y montañas, contenido en hoja clara con tarjetas tipo billete ===== */
+html[data-theme="noche"]{--bg:#150f3d;--card:#2a1f6e;--ink:#ffffff;--muted:#bdb5f0;--line:#3d3192;--pitch:#150f3d;--pitch2:#6c5ce7;--chalk:#33277f;--accent:#ff7aa8;--bubble:#33277f;--radius:20px}
+html[data-theme="noche"] body{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300' preserveAspectRatio='none'%3E%3Cpath d='M0 300V170l60-50 40 30 70-90 60 70 40-40 70 60 60-40v190z' fill='%232b1f74' opacity='.55'/%3E%3Cpath d='M0 300V220l80-40 50 30 60-70 70 60 50-30 90 50v100z' fill='%23362890' opacity='.6'/%3E%3C/svg%3E") bottom/100% 55% no-repeat fixed,
+  radial-gradient(circle,rgba(255,255,255,.55) 1px,transparent 1.7px) 0 0/97px 113px,
+  radial-gradient(circle,rgba(206,190,255,.6) 1.3px,transparent 2.2px) 41px 57px/149px 171px,
+  radial-gradient(circle,rgba(255,170,230,.45) 1.5px,transparent 2.4px) 77px 23px/211px 197px,
+  linear-gradient(180deg,#0e0930 0%,#1b1350 55%,#2a1e6e 100%) fixed;color:var(--ink)}
+html[data-theme="noche"] header.top{background:transparent;border-bottom:none}
+html[data-theme="noche"] .top h1{text-transform:uppercase;letter-spacing:2.5px;font-weight:700}
+html[data-theme="noche"] .top h1.tn{letter-spacing:.6px}
+html[data-theme="noche"] .top .sub{color:#cfc6ff;opacity:1}
+html[data-theme="noche"] .iconbtn{background:#fff;color:#2a1f70;border-radius:14px}
+html[data-theme="noche"] .section-t{color:#fff;letter-spacing:2px;font-size:15px}
+html[data-theme="noche"] .maincta{background:rgba(52,39,140,.85);border:none;border-radius:18px;box-shadow:0 8px 20px rgba(8,4,30,.35)}
+html[data-theme="noche"] .maincta b{text-transform:uppercase;letter-spacing:1px}
+html[data-theme="noche"] .maincta span{color:#cfc6ff}
+html[data-theme="noche"] .maincta .ic{background:#fff!important;color:#2a1f70;border-radius:14px}
+html[data-theme="noche"] .team{background:rgba(52,39,140,.85);border:none;border-radius:18px;box-shadow:0 8px 20px rgba(8,4,30,.3)}
+html[data-theme="noche"] .team .side b{color:#fff;font-size:24px}
+html[data-theme="noche"] .team .meta{color:#cfc6ff}
+html[data-theme="noche"] .crest{border:none;box-shadow:0 0 0 2px #fff}
+html[data-theme="noche"] .addbtn{border-color:#6c5ce7;color:#fff;border-radius:18px}
+html[data-theme="noche"] .orden .chip,html[data-theme="noche"] .chips .chip{background:rgba(255,255,255,.08);color:#fff;border-color:#4b3dab;border-radius:999px}
+html[data-theme="noche"] .orden .chip.on{background:#fff;color:#2a1f70}
+html[data-theme="noche"] .tag{background:linear-gradient(135deg,#ff7aa8,#a98bff)}
+html[data-theme="noche"] .demo-note{background:rgba(255,255,255,.06);border:1px solid #3d3192}
+/* hoja clara (chat, ajustes) */
+html[data-theme="noche"] main#scroll,html[data-theme="noche"] .sheet{--bg:#f5f3ff;--card:#ffffff;--ink:#1d1650;--muted:#6d66a8;--line:#e3defd;--chalk:#eeebff;--bubble:#eeebff;--pitch2:#5b4bd6;--accent:#e2557f;color:#1d1650}
+html[data-theme="noche"] main#scroll{background:#f5f3ff;border-radius:28px 28px 0 0;margin-top:6px;box-shadow:0 -10px 30px rgba(8,4,30,.35)}
+html[data-theme="noche"] main#scroll::before{content:"";display:block;width:56px;height:5px;border-radius:3px;background:#d6d0fa;margin:-6px auto 10px}
+html[data-theme="noche"] .msg.u{background:#5b4bd6;color:#fff}
+html[data-theme="noche"] .msg.b{background:#fff;border-color:#e3defd;color:#1d1650}
+html[data-theme="noche"] .blq{background:#f1eeff;border:none;border-radius:16px;box-shadow:0 2px 0 #ddd7fb}
+html[data-theme="noche"] .blq>summary b{text-transform:uppercase;letter-spacing:.6px;font-size:13.5px}
+html[data-theme="noche"] .blq[open]>summary{background:#5b4bd6;color:#fff;border-radius:16px 16px 0 0}
+html[data-theme="noche"] .blq[open]>summary .small,html[data-theme="noche"] .blq[open]>summary .blq-f{color:#e4dfff}
+html[data-theme="noche"] .blq-c{background:#fff;padding-top:10px}
+html[data-theme="noche"] .composer{background:#f5f3ff;border-top-color:#e3defd}
+html[data-theme="noche"] form.inp input{background:#fff;border-color:#e3defd;color:#1d1650;border-radius:999px}
+html[data-theme="noche"] form.inp button{background:#5b4bd6;color:#fff}
+html[data-theme="noche"] .btn{background:#5b4bd6;color:#fff;border-radius:999px}
+html[data-theme="noche"] .btn.ghost{background:#eeebff;color:#4a3cc4}
+html[data-theme="noche"] .sw.on{background:#5b4bd6}
+/* carrusel: billetes lavanda con barra violeta */
+html[data-theme="noche"] .carr-fijo{background:transparent;border-bottom:none;box-shadow:none}
+html[data-theme="noche"] .carr-hint{color:#cfc6ff}
+html[data-theme="noche"] .mc{--ink:#1d1650;--muted:#6d66a8;--line:#d6d0fa;--chalk:#e9e5ff;--card:#e9e5ff;background:#e9e5ff;color:#1d1650;border:none;border-radius:16px;box-shadow:0 10px 24px rgba(8,4,30,.35);overflow:hidden}
+html[data-theme="noche"] .mc.fut{background:#e9e5ff}
+html[data-theme="noche"] .mc-top{color:#4a3cc4;text-transform:uppercase;letter-spacing:.5px}
+html[data-theme="noche"] .mc-eq{position:relative}
+html[data-theme="noche"] .mc-eq::before{content:"";position:absolute;left:24%;right:24%;top:50%;border-top:2px dashed #9d92e6;z-index:0}
+html[data-theme="noche"] .mc-eq>*{position:relative;z-index:1}
+html[data-theme="noche"] .mc-res,html[data-theme="noche"] .mc-hora{background:#e9e5ff;color:#1d1650;border:none}
+html[data-theme="noche"] .mc-campo{color:#6d66a8}
+html[data-theme="noche"] .mc{padding-bottom:0!important}html[data-theme="noche"] .mc-bot{background:#5b4bd6;margin:auto -12px 0;padding:10px 14px;justify-content:space-between}
+html[data-theme="noche"] .mc-bot .btn{background:transparent;color:#fff;padding:4px 2px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+html[data-theme="noche"] .mc-bot .btn.ghost{color:#e4dfff}
+html[data-theme="noche"] .mc.prox{box-shadow:0 0 0 3px #ff7aa8,0 10px 24px rgba(8,4,30,.35)}
+html[data-theme="noche"] .mc.sel{box-shadow:0 0 0 3px #fff,0 10px 24px rgba(8,4,30,.35);border:none}
+html[data-theme="noche"] .mc .tl{background:#fff;color:#1d1650;border-color:#d6d0fa}
+html[data-theme="noche"] .mc-yo b{color:#1d1650}
+html[data-theme="noche"] .toast{background:#fff;color:#2a1f70}
 </style>
 </head>
 <body>
@@ -385,7 +448,7 @@ const fin=s=>/\.$/.test(s)?"":".";
 const rivalOf=(m,id)=>m.home===id?{id:m.away,n:m.awayN}:{id:m.home,n:m.homeN};
 
 /* ---------- estado ---------- */
-const state={abiertos:{},col:store.get("colores",{}),auto:{},foco:{},orden:store.get("orden","manual"),pila:[],etq:store.get("etiquetas",{}),avEq:store.get("avEq",{}),tema:store.get("tema","clasico"),follows:store.get("follows",[]).filter(Boolean),verified:store.get("verified",false),chats:{},iah:{},flow:null,view:"home",team:null};
+const state={abiertos:{},col:store.get("colores",{}),auto:{},foco:{},orden:store.get("orden","manual"),pila:[],etq:store.get("etiquetas",{}),avEq:store.get("avEq",{}),tema:store.get("tema_noche_v1",false)?store.get("tema","noche"):(store.set("tema_noche_v1",true),store.set("tema","noche"),"noche"),follows:store.get("follows",[]).filter(Boolean),verified:store.get("verified",false),chats:{},iah:{},flow:null,view:"home",team:null};
 const ANDROID=typeof window.AndroidApp!=="undefined";
 // Pasa a Android los equipos seguidos (para los avisos en segundo plano)
 function syncAndroid(){if(!ANDROID||!IDX)return;try{AndroidApp.guardarEquipos(JSON.stringify(state.follows.map(id=>TEAM.get(id)).filter(Boolean).map(t=>({id:t.id,g:t.grupos[0],n:t.name,e:state.etq[t.id]||"",av:state.avEq[t.id]||null}))))}catch(e){}}
@@ -399,7 +462,7 @@ function silenciar(t,on){
 }
 const tagHTML=t=>etiqueta(t)?`<span class="tag">⭐ ${esc(etiqueta(t))}</span><br>`:"";
 /* Tema */
-const TEMAS={clasico:{n:"Clásico",barra:"#0F5132"},estadio:{n:"Estadio",barra:"#0A1328"}};
+const TEMAS={noche:{n:"Noche",barra:"#0E0930"},clasico:{n:"Clásico",barra:"#0F5132"},estadio:{n:"Estadio",barra:"#0A1328"}};
 function aplicarTema(){const k=TEMAS[state.tema]?state.tema:"clasico";document.documentElement.dataset.theme=k;if(ANDROID)try{AndroidApp.colorBarras(TEMAS[k].barra)}catch(e){}}
 function follow(id){if(!state.follows.includes(id)){state.follows.push(id);store.set("follows",state.follows);syncAndroid();if(ANDROID&&state.follows.length===1)try{AndroidApp.pedirPermiso()}catch(e){}}}
 function unfollow(id){state.follows=state.follows.filter(x=>x!==id);store.set("follows",state.follows);syncAndroid()}
@@ -1606,6 +1669,7 @@ function openSettings(){
    <div class="tog"><div class="grow"><b>¿Cuánto antes?</b></div><div class="chips" style="padding:0">${[1,2,3,4,6].map(h=>`<button class="chip" data-h="${h}" style="${av.horas===h?"background:var(--pitch2);color:#fff":""}">${h} h</button>`).join("")}</div></div>
    <div class="section-t">Apariencia</div>
    <div class="themes">
+    <button class="theme ${state.tema==="noche"?"on":""}" data-tema="noche"><div class="pv" style="background:radial-gradient(circle,rgba(255,255,255,.6) 1px,transparent 1.6px) 0 0/23px 19px,linear-gradient(180deg,#0e0930,#2a1e6e)"><div style="position:absolute;left:8px;right:8px;bottom:8px;height:18px;border-radius:6px;background:#e9e5ff;box-shadow:inset 0 -6px 0 #5b4bd6"></div></div><b>Noche</b><div class="small">Violeta, billetes</div></button>
     <button class="theme ${state.tema==="clasico"?"on":""}" data-tema="clasico"><div class="pv" style="background:repeating-linear-gradient(90deg,#0f5132 0 16px,#14603d 16px 32px)"><div style="position:absolute;left:8px;right:8px;bottom:8px;height:18px;border-radius:6px;background:#f3f1ea"></div></div><b>Clásico</b><div class="small">Verde césped, claro</div></button>
     <button class="theme ${state.tema==="estadio"?"on":""}" data-tema="estadio"><div class="pv" style="background:radial-gradient(60px 30px at 15% 0,rgba(255,255,255,.35),transparent),radial-gradient(60px 30px at 85% 0,rgba(255,255,255,.35),transparent),linear-gradient(165deg,#15275a,#070b16)"><div style="position:absolute;left:8px;right:8px;bottom:8px;height:18px;border-radius:6px;background:linear-gradient(135deg,#b8f53d,#5ee6a8)"></div></div><b>Estadio</b><div class="small">Noche de partido</div></button>
    </div>
