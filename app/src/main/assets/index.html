@@ -163,6 +163,10 @@ html[data-theme="estadio"] .carr-fijo{background:#070b16;border-bottom-color:#1e
 .colbt.on{border-color:var(--ink);box-shadow:0 0 0 2px var(--card) inset}
 .top.eqcol{border-bottom:4px solid var(--eq)!important}.top.eqcol .crest{box-shadow:0 0 0 3px var(--eq)}
 .blqs{margin-top:8px}
+.bellbtn{position:relative}.mute-k{position:absolute;right:-2px;bottom:-2px;font-size:12px}
+table.st tr.riv td{background:rgba(235,104,52,.13);font-weight:700}table.st tr.riv td:first-child{box-shadow:inset 3px 0 0 #eb6834}
+table.st tr.me td:first-child{box-shadow:inset 3px 0 0 var(--pitch2)}
+.st-ley{display:flex;align-items:center;gap:6px;margin:4px 0 2px}.st-ley span{width:10px;height:10px;border-radius:2px;display:inline-block}.st-ley .me-k{background:var(--pitch2)}.st-ley .riv-k{background:#eb6834;margin-left:8px}
 .blq{border:1px solid var(--line);border-radius:12px;margin-top:8px;background:color-mix(in srgb,var(--card) 92%,var(--ink) 8%);overflow:hidden}
 .blq>summary{list-style:none;display:flex;align-items:center;gap:10px;padding:11px 12px;cursor:pointer}.blq>summary::-webkit-details-marker{display:none}
 .blq-i{font-size:18px;flex:none}.blq-t{flex:1;min-width:0;display:flex;flex-direction:column}.blq-t .small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -520,9 +524,9 @@ function ansNext(t){
   ${c?`<div>${esc(c.name)}</div><div class="small">${esc([c.addr,c.loc].filter(Boolean).join(", "))}</div>${mapLink(c)}`:m.campoN?`<div>${esc(m.campoN)}</div>`:`<div class="small">Campo por confirmar</div>`}</div>
   <div class="small">Jornada ${m.j??"?"} · ${esc(grupoNombre(t.grupos[0]))}</div>${meteoPH(m)}`;
 }
-function tableHTML(d,hl){
+function tableHTML(d,hl,riv){
   return `<table class="st"><tr><th>#</th><th style="text-align:left">Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>DG</th><th>Pts</th></tr>
-  ${d.table.map(r=>{const tap=TEAM.get(r.id)&&r.id!==hl;return `<tr class="${r.id===hl?"me":tap?"tap":""}"${tap?` data-ver="${r.id}"`:""}><td>${r.pos??""}</td><td class="n">${TEAM.get(r.id)&&r.id!==hl?`<span class="tl-row">${esc(r.name)}</span>`:esc(r.name)}</td><td>${r.pj}</td><td>${r.g}</td><td>${r.e}</td><td>${r.p}</td><td>${r.gf-r.gc>0?"+":""}${r.gf-r.gc}</td><td class="p">${r.pts}</td></tr>`}).join("")}</table>`;
+  ${d.table.map(r=>{const tap=TEAM.get(r.id)&&r.id!==hl;return `<tr class="${r.id===hl?"me":r.id===riv?"riv":""}${tap?" tap":""}"${tap?` data-ver="${r.id}"`:""}><td>${r.pos??""}</td><td class="n">${TEAM.get(r.id)&&r.id!==hl?`<span class="tl-row">${esc(r.name)}</span>`:esc(r.name)}</td><td>${r.pj}</td><td>${r.g}</td><td>${r.e}</td><td>${r.p}</td><td>${r.gf-r.gc>0?"+":""}${r.gf-r.gc}</td><td class="p">${r.pts}</td></tr>`}).join("")}</table>`;
 }
 // Gráfica de evolución: puesto del equipo tras cada jornada (1º arriba)
 // Gráfica de evolución: puesto tras cada jornada (1º arriba). Si se pasa un rival del mismo grupo, se dibuja también
@@ -578,11 +582,11 @@ function fichaInicialHTML(t,f){
   const orden=f&&f.tipo==="resultado"?["ult","clas","evo","crono","prox","previa"]:["prox","previa","ult","clas","evo","crono"];
   return orden.filter(k=>B[k]).map(k=>B[k]).join("");
 }
-function ansTable(t,jSel,sinEvo){
+function ansTable(t,jSel,sinEvo,rivId){
   const d=teamGroup(t);const me=d.table.find(r=>r.id===t.id);
-  if(!me)return `Clasificación de ${esc(grupoNombre(d.id))}:${tableHTML(d,t.id)}`;
+  if(!me)return `Clasificación de ${esc(grupoNombre(d.id))}:${tableHTML(d,t.id,rivId)}`;
   const lider=d.table[0];
-  return `Va <b>${me.pos}º</b> con <b>${me.pts} puntos</b>${me.pos>1?` a ${lider.pts-me.pts} del líder`:", líder del grupo"}.<div class="small">${esc(grupoNombre(d.id))}</div>${tableHTML(d,t.id)}${sinEvo?"":evolucionHTML(t,jSel)}<div style="margin-top:6px">${linkRFFM(urlGrupoRFFM(d.id),"Ver en la RFFM")}</div>`;
+  return `Va <b>${me.pos}º</b> con <b>${me.pts} puntos</b>${me.pos>1?` a ${lider.pts-me.pts} del líder`:", líder del grupo"}.<div class="small">${esc(grupoNombre(d.id))}</div>${rivId&&d.table.find(r=>r.id===rivId)?`<div class="small st-ley"><span class="me-k"></span>${esc(t.name)} <span class="riv-k"></span>${esc(d.table.find(r=>r.id===rivId).name)}</div>`:""}${tableHTML(d,t.id,rivId)}${sinEvo?"":evolucionHTML(t,jSel,rivId)}<div style="margin-top:6px">${linkRFFM(urlGrupoRFFM(d.id),"Ver en la RFFM")}</div>`;
 }
 function ansScorers(t){
   const d=teamGroup(t);const pl=(d.gol||[]).filter(g=>g[1]===t.id).slice(0,8);
@@ -912,8 +916,9 @@ function fichaProxMsgs(t,m){
 }
 // Clasificación y evolución como apartados (se usan en todas las fichas)
 function bloquesTabla(t,jSel,rivId){
-  const d=teamGroup(t),me=d&&d.table.find(r=>r.id===t.id);if(!me)return d?[bloque("clas","📊","Clasificación",esc(grupoNombre(d.id)),ansTable(t,null,true),false)]:[];
-  const B=[bloque("clas","📊","Clasificación actual",`${me.pos}º con ${me.pts} punto${me.pts===1?"":"s"} · ${esc(grupoNombre(d.id))}`,ansTable(t,null,true),false)];
+  const d=teamGroup(t),me=d&&d.table.find(r=>r.id===t.id);if(!me)return d?[bloque("clas","📊","Clasificación",esc(grupoNombre(d.id)),ansTable(t,null,true,rivId),false)]:[];
+  const rv=rivId&&d.table.find(r=>r.id===rivId);
+  const B=[bloque("clas","📊","Clasificación actual",`${me.pos}º con ${me.pts} punto${me.pts===1?"":"s"}${rv?` · rival ${rv.pos}º con ${rv.pts}`:` · ${esc(grupoNombre(d.id))}`}`,ansTable(t,null,true,rivId),false)];
   const ev=evolucionHTML(t,jSel,rivId);
   if(ev){const js=[...new Set(d.matches.filter(m=>m.played&&m.j!=null).map(m=>m.j))].sort((a,b)=>a-b);const pos=j=>(tablaHasta(d,j).table.find(r=>r.id===t.id)||{}).pos;
     B.push(bloque("evo","📈","Evolución en la clasificación",jSel!=null&&js.includes(jSel)?`J${jSel}: ${pos(jSel)}º · hoy ${me.pos}º`:`J${js[0]}: ${pos(js[0])}º → J${js[js.length-1]}: ${me.pos}º`,ev,false))}
@@ -993,7 +998,7 @@ function fichaPartidoMsgs(t,m){
     scoreCard(m).replace(/<div style="display:flex;gap:8px;justify-content:center[\s\S]*$/,""),true)];
   const ultJ=Math.max(...d.matches.filter(x=>x.played&&x.j!=null).map(x=>x.j));
   if(m.j!=null&&m.j<ultJ){const th=tablaHasta(d,m.j);const me=th.table.find(r=>r.id===t.id);
-    B.push(bloque("p-clasj","📊",`Clasificación tras la jornada ${m.j}`,me?`iba ${me.pos}º con ${me.pts} punto${me.pts===1?"":"s"}`:"",`${tableHTML(th,t.id)}<div class="small" style="opacity:.75">Calculada con los resultados hasta esa jornada.</div>`,false))}
+    B.push(bloque("p-clasj","📊",`Clasificación tras la jornada ${m.j}`,me?`iba ${me.pos}º con ${me.pts} punto${me.pts===1?"":"s"}`:"",`${tableHTML(th,t.id,riv.id)}<div class="small" style="opacity:.75">Calculada con los resultados hasta esa jornada.</div>`,false))}
   B.push(...bloquesTabla(t,m.j,riv.id));
   B.push(bloque("crono","⏱️","Cronología y convocados",m.acta?"goles, tarjetas, cambios y convocados":"acta aún no publicada",
     m.acta?(ANDROID?`<div data-slot="crono"><span class="typing"><i></i><i></i><i></i></span> <span class="small">Cargando la cronología…</span></div><!--/slot-->`:`La cronología y los convocados están en el acta:<div>${linkRFFM(urlActaRFFM(m),"Acta en la RFFM")}</div>`)
@@ -1413,7 +1418,7 @@ function homeRow(t){
       :` · ${lm?`<span class="badge ${outcome(lm,t.id)}">${lm.hg}-${lm.ag}</span>`:""}${nm&&nm.date?" · próx. "+fdate(nm.date).split(" ").slice(0,2).join(" "):""}`}
   const mute=silenciado(t);
   const col=colorEquipo(t);
-  return `<div class="team${mute?" mute":""}" data-team="${t.id}" role="button" tabindex="0"${col?` style="--eq:${col}"`:""}><div class="drag" data-drag aria-label="Arrastrar para ordenar">${icons.grip}</div>${crest(t)}<div class="info">${tagHTML(t)}<div class="nm">${esc(t.name)}</div><div class="meta">${meta}</div></div><div class="side">${side}</div><button class="bellbtn${mute?" off":""}" data-bell="${t.id}" aria-label="${mute?"Activar avisos":"Silenciar avisos"}">${mute?icons.bellOff:icons.bell}</button></div>`;
+  return `<div class="team${mute?" mute":""}" data-team="${t.id}" role="button" tabindex="0"${col?` style="--eq:${col}"`:""}><div class="drag" data-drag aria-label="Arrastrar para ordenar">${icons.grip}</div>${crest(t)}<div class="info">${tagHTML(t)}<div class="nm">${esc(t.name)}</div><div class="meta">${meta}</div></div><div class="side">${side}</div><button class="bellbtn${mute?" off":""}" data-cfg="${t.id}" aria-label="Configuración de ${esc(t.name)}${mute?" (avisos silenciados)":""}">${icons.gear}${mute?`<span class="mute-k">🔕</span>`:""}</button></div>`;
 }
 // Arrastrar la manija (⋮⋮) para cambiar el orden de «Mis equipos»
 
@@ -1489,7 +1494,7 @@ function renderHome(app){
     <div class="section-t">Mis equipos</div>
     ${followed.length>1?`<div class="orden"><span class="small">Ordenar:</span>${ORDENES.map(([k,l])=>`<button class="chip${state.orden===k?" on":""}" data-orden="${k}">${l}</button>`).join("")}</div>`:""}
     <div id="mine" class="${state.orden==="manual"?"":"no-drag"}">${listaMine(followed)}</div>
-    ${followed.length>1?`<div class="small" style="margin:-2px 2px 10px">${state.orden==="manual"?"Arrastra ⋮⋮ para ordenarlos · ":"Para moverlos a mano, elige «Mi orden» · "}🔔 para silenciar un equipo sin dejar de seguirlo.</div>`:followed.length===1?`<div class="small" style="margin:-2px 2px 10px">🔔 silencia sus avisos sin dejar de seguirlo; dentro de la ficha puedes personalizarlos.</div>`:""}
+    ${followed.length>1?`<div class="small" style="margin:-2px 2px 10px">${state.orden==="manual"?"Arrastra ⋮⋮ para ordenarlos · ":"Para moverlos a mano, elige «Mi orden» · "}⚙️ para su etiqueta, avisos, silencio y color.</div>`:followed.length===1?`<div class="small" style="margin:-2px 2px 10px">🔔 silencia sus avisos sin dejar de seguirlo; dentro de la ficha puedes personalizarlos.</div>`:""}
     <button class="addbtn" id="addTeam">+ Seguir un equipo</button>
     <div class="demo-note">Datos de la <b>Real Federación de Fútbol de Madrid</b> (rffm.es): ${TEAMS.length} equipos de fútbol base Infantil, Cadete y Juvenil.${act?` Actualizado ${fdate(act)} a las ${String(act.getHours()).padStart(2,"0")}:${String(act.getMinutes()).padStart(2,"0")}.`:""} App no oficial.</div>
   </main>`;
@@ -1499,6 +1504,7 @@ function renderHome(app){
   $("#addTeam").onclick=()=>{state.view="main";state.chats._main=null;render();setTimeout(()=>window.__ask&&window.__ask("Buscar un equipo"),50)};
   // delegación: sigue funcionando aunque la lista se repinte al cargar resultados
   $("#mine").onclick=e=>{
+    const cfg=e.target.closest("[data-cfg]");if(cfg){e.stopPropagation();openTeamSettings(TEAM.get(cfg.dataset.cfg));return}
     const bell=e.target.closest("[data-bell]");
     if(bell){e.stopPropagation();const t=TEAM.get(bell.dataset.bell);const on=!silenciado(t);silenciar(t,on);
       bell.classList.toggle("off",on);bell.innerHTML=on?icons.bellOff:icons.bell;bell.closest(".team").classList.toggle("mute",on);
