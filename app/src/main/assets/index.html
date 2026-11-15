@@ -963,27 +963,31 @@ function statsActasGrupo(d,lista){
       if(porT){let tramos=[{n:norm(porT.nombre_jugador||""),x:porT,desde:0,hasta:dur}];
         for(const c of cam){const ult=tramos[tramos.length-1];if(c.sal&&c.sal===ult.n&&c.ent){const mi=Math.min(dur,Math.max(0,c.min??dur/2));ult.hasta=mi;tramos.push({n:c.ent,x:porNombre.get(c.ent)||{nombre_jugador:c.ent},desde:mi,hasta:dur})}}
         // goles encajados por tramo (sin minuto: al titular); si el acta trae menos goles que el marcador, el resto al titular
-        const asign=tramos.map(()=>0);let sinMin=0;
+        const asign=tramos.map(()=>0);let sinMin=Math.max(0,encTot-recibidos.length);
         for(const v of recibidos){if(v==null){sinMin++;continue}const i=tramos.findIndex(t=>v>t.desde&&v<=t.hasta);asign[i<0?tramos.length-1:i]++}
-        asign[0]+=sinMin+Math.max(0,encTot-recibidos.length);
+        // los goles sin minuto se reparten en proporción a los minutos que estuvo cada portero
+        if(sinMin)tramos.forEach((t,i)=>asign[i]+=sinMin*(t.hasta-t.desde)/dur);
         tramos.forEach((t,i)=>{const k=id+"|"+claveJ(t.x);const p=P.get(k)||{k,id,eq:nom(id),nombre:t.x.nombre_jugador,pj:0,min:0,enc:0,cero:0,completos:0};
-          p.pj++;p.min+=t.hasta-t.desde;p.enc+=asign[i];if(t.desde===0&&t.hasta===dur){p.completos++;if(asign[i]===0)p.cero++}P.set(k,p)})}
+          p.pj++;p.min+=t.hasta-t.desde;p.enc+=asign[i];if(t.desde===0&&t.hasta===dur){p.completos++;if(asign[i]<0.01)p.cero++}P.set(k,p)})}
       for(const x of plant){const k=id+"|"+claveJ(x);const u=J.get(k)||{k,id,eq:nom(id),nombre:x.nombre_jugador,am:0,ro:0,min:0};
         u.conv=(u.conv||0)+1;if(siNo(x.titular))u.tit=(u.tit||0)+1;u.min+=minutos(norm(x.nombre_jugador||""));J.set(k,u)}}}
   return {eq:Object.values(Eq),jug:[...J.values()],por:[...P.values()],n:lista.length,dur,conCambios:Math.round(conCambios),golesTot,conMinGol};
 }
 function divActasHTML(d,S){
   const fair=S.eq.slice().sort((a,b)=>(a.am+3*a.ro)/a.pj-(b.am+3*b.ro)/b.pj);
-  // Zamora por minutos: goles encajados cada ${S.dur}' (un partido completo); mínimo un tercio de los minutos posibles
-  const minMin=S.dur*Math.max(1,Math.floor(S.n*2/Math.max(1,d.table.length)/3));
-  const zam=S.por.filter(p=>p.min>=minMin).sort((a,b)=>a.enc/a.min-b.enc/b.min||b.min-a.min).slice(0,10);
+  // Zamora por minutos: relación minutos jugados / goles encajados. Para que quien ha jugado poco no salga primero por casualidad,
+  // el ritmo de cada portero se ajusta hacia la media de la división con un peso equivalente a dos partidos (${S.dur*2}').
+  const minTot=S.por.reduce((a,p)=>a+p.min,0),encTot=S.por.reduce((a,p)=>a+p.enc,0);const media=minTot?encTot/minTot:0;const PESO=S.dur*2;
+  S.por.forEach(p=>{p.ritmo=(p.enc+media*PESO)/(p.min+PESO);p.cada=p.enc>0?p.min/p.enc:null;p.vsMedia=media?(p.enc/p.min)/media-1:0});
+  const zam=S.por.filter(p=>p.min>=S.dur/2).sort((a,b)=>a.ritmo-b.ritmo||b.min-a.min).slice(0,10);
   const tj=S.jug.filter(j=>j.am||j.ro).sort((a,b)=>(b.am+3*b.ro)-(a.am+3*a.ro)).slice(0,8);
   const usados=S.jug.filter(j=>j.min).sort((a,b)=>b.min-a.min||(b.tit||0)-(a.tit||0)).slice(0,10);
   const fila=(i,a,b,v)=>`<div class="rk-f"><span class="rk-n">${i+1}</span><span class="rk-e"><b>${a}</b><div class="small">${b}</div></span><span class="rk-v">${v}</span></div>`;
   return `<div class="small">Calculado con ${S.n} actas.</div>
-   <div class="small" style="margin-top:8px"><b>Zamora por minutos jugados</b> (goles encajados cada ${S.dur}')</div>
-   <div class="rk">${zam.map((p,i)=>fila(i,esc(completo(p.nombre)),`${esc(p.eq)} · ${p.min}' en ${p.pj} partido${p.pj===1?"":"s"} · ${p.enc} encajado${p.enc===1?"":"s"}${p.cero?` · ${p.cero} a cero`:""}`,`${f1d(p.enc/p.min*S.dur)}`)).join("")||`<div class="small">Las actas no marcan a los porteros.</div>`}</div>
-   <div class="small" style="opacity:.75;margin-top:4px">Cuentan los minutos en la portería: el titular hasta que le cambian y el que entra por él desde ese minuto. Cada gol se apunta al portero que estaba en el campo en ese minuto. ${S.conCambios<S.n/2?`<b>Ojo:</b> solo ${S.conCambios} de ${S.n} actas traen los cambios; en las demás se cuenta al titular el partido entero.`:`${S.conCambios} de ${S.n} actas traen los cambios.`}${S.conMinGol<S.golesTot?` ${S.golesTot-S.conMinGol} goles no traen minuto y se apuntan al titular.`:""} Aparecen los que han jugado al menos ${minMin}'.</div>
+   <div class="small" style="margin-top:8px"><b>Zamora: minutos jugados y goles encajados</b></div>
+   ${media?`<div class="small">En esta división se encaja <b>un gol cada ${Math.round(1/media)}'</b> de media.</div>`:""}
+   <div class="rk">${zam.map((p,i)=>fila(i,esc(completo(p.nombre)),`${esc(p.eq)} · ${p.min}' en ${p.pj} partido${p.pj===1?"":"s"} · ${Math.round(p.enc*10)/10} encajado${Math.round(p.enc)===1?"":"s"}${p.cero?` · ${p.cero} a cero`:""} · <b style="color:${p.vsMedia<=0?"#2b8a3e":"#e03131"}">${p.vsMedia<=0?Math.round(-p.vsMedia*100)+" % mejor":Math.round(p.vsMedia*100)+" % peor"} que la media</b>`,p.cada?`1 cada ${Math.round(p.cada)}'`:"sin goles")).join("")||`<div class="small">Las actas no marcan a los porteros.</div>`}</div>
+   <div class="small" style="opacity:.75;margin-top:4px">Cuentan los minutos en la portería: el titular hasta que le cambian y el que entra por él desde ese minuto. Cada gol se apunta al portero que estaba en el campo en ese minuto; si el gol no trae minuto, se reparte entre los porteros según los minutos que jugó cada uno. El orden tiene en cuenta los minutos: con pocos minutos, el ritmo se acerca a la media de la división hasta que haya juego suficiente para fiarse. ${S.conCambios<S.n/2?`<b>Ojo:</b> solo ${S.conCambios} de ${S.n} actas traen los cambios; en las demás el titular cuenta el partido entero.`:`${S.conCambios} de ${S.n} actas traen los cambios.`}</div>
    <div class="small" style="margin-top:8px"><b>Juego limpio por equipos</b> (amarilla 1 punto, roja 3, por partido)</div>
    <div class="rk">${fair.map((e,i)=>fila(i,esc(e.name),"",`${tarjeta("a")} ${e.am} ${tarjeta("r")} ${e.ro}`)).join("")}</div>
    <div class="small" style="margin-top:8px"><b>Jugadores con más tarjetas</b></div>
