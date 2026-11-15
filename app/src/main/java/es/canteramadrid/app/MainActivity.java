@@ -173,7 +173,7 @@ public class MainActivity extends Activity {
                             java.util.Iterator<String> it = game.keys();
                             while (it.hasNext()) {
                                 String k = it.next();
-                                if (k.matches("(goles|tarjetas|jugadores)_equipo_(local|visitante)|goles_(local|visitante)|.*(sustitu|cambio).*"))
+                                if (k.matches("(goles|tarjetas|jugadores)_equipo_(local|visitante)|goles_(local|visitante)|.*(sustitu|cambio|suplen|banquillo|entra|sale|alinea).*"))
                                     dep.put(k, game.get(k));
                             }
                             res = dep.toString();
