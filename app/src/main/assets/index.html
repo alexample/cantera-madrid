@@ -919,7 +919,7 @@ function divisionBloques(d){
       <div class="small" style="opacity:.7;margin-top:6px">✓ asegurado · ✗ descenso matemático · – imposible. ${R.SIMS.toLocaleString("es-ES")} simulaciones de los ${R.quedan} partidos que faltan.</div>`,false)}
   // tarjetas y porteros: necesitan las actas (se leen en el móvil, a petición)
   const conActa=d.matches.filter(m=>m.played&&m.acta).length;
-  B.actas=bloque("d-actas","hoja","Tarjetas, porteros y jugadores",ANDROID?`se calcula con las ${conActa} actas`:"solo en la app del móvil",
+  B.actas=bloque("d-actas","hoja","Tarjetas, porteros y jugadores",ANDROID?`Zamora por minutos, tarjetas y minutos jugados · ${conActa} actas`:"solo en la app del móvil",
     ANDROID?(DIVACTAS[d.id]?divActasHTML(d,DIVACTAS[d.id]):`<div class="small">Para las tarjetas, el Zamora (porteros) y los jugadores más utilizados hay que leer las actas de los ${conActa} partidos del grupo. Tarda un poco la primera vez; después se guardan en el móvil.</div><button class="btn" style="margin-top:8px" data-divactas="${esc(d.id)}">${ic("hoja")} Leer las actas y calcular</button>`)
       :`<div class="small">Las tarjetas y los porteros salen de las actas, que solo se leen desde la app del móvil.</div>`,false);
   return B;
@@ -930,33 +930,66 @@ async function leerActasGrupo(d,progreso){
   for(const m of ms){if(!ACTAS[m.acta]){await leerActa(m);await new Promise(r=>setTimeout(r,250))}n++;progreso&&progreso(n,ms.length)}
   return ms.filter(m=>ACTAS[m.acta]).map(m=>({m,g:ACTAS[m.acta].game}));
 }
+// Minutos de cada jugador en un partido a partir del acta: el titular juega desde el 0' hasta que sale; el que entra,
+// desde su minuto hasta el final o hasta que sale. Sin cambios en el acta, el titular juega el partido entero.
+function cambiosActa(g,suf){
+  const out=[];for(const k of Object.keys(g).filter(k=>/(sustitu|cambio)/i.test(k)&&k.toLowerCase().includes(suf)))
+    for(const x of Array.isArray(g[k])?g[k]:[]){const ent=x.nombre_jugador_entra||x.jugador_entra||x.entra||x.nombre_entra,sal=x.nombre_jugador_sale||x.jugador_sale||x.sale||x.nombre_sale;
+      if(ent||sal)out.push({min:minuto(x),ent:ent?norm(ent):null,sal:sal?norm(sal):null})}
+  return out.sort((a,b)=>(a.min??999)-(b.min??999));
+}
 function statsActasGrupo(d,lista){
-  const Eq={},J=new Map(),P=new Map();
+  const Eq={},J=new Map(),P=new Map();let conCambios=0,conMinGol=0,golesTot=0;
   const nom=id=>(d.table.find(r=>r.id===id)||{}).name||"";
-  for(const{m,g}of lista)for(const[suf,id,riv,enc]of[["local",m.home,m.away,m.ag],["visitante",m.away,m.home,m.hg]]){
-    const e=Eq[id]||(Eq[id]={id,name:nom(id),am:0,ro:0,pj:0});e.pj++;
-    for(const x of g["tarjetas_equipo_"+suf]||[]){const c=String(x.codigo_tipo_amonestacion||"");const roja=c==="101"||c==="102"||siNo(x.segunda_amarilla);
-      roja?e.ro++:e.am++;const k=id+"|"+claveJ(x);const j=J.get(k)||{k,id,eq:nom(id),nombre:x.nombre_jugador,am:0,ro:0};roja?j.ro++:j.am++;J.set(k,j)}
-    for(const x of g["jugadores_equipo_"+suf]||[]){const k=id+"|"+claveJ(x);
-      if(siNo(x.portero)&&siNo(x.titular)){const p=P.get(k)||{k,id,eq:nom(id),nombre:x.nombre_jugador,pj:0,enc:0,cero:0};p.pj++;p.enc+=enc;if(enc===0)p.cero++;P.set(k,p)}
-      const u=J.get(k)||{k,id,eq:nom(id),nombre:x.nombre_jugador,am:0,ro:0};u.conv=(u.conv||0)+1;if(siNo(x.titular))u.tit=(u.tit||0)+1;J.set(k,u)}}
-  return {eq:Object.values(Eq),jug:[...J.values()],por:[...P.values()],n:lista.length};
+  const dur=(TEAM.get(d.table[0]&&d.table[0].id)||{}).cat==="inf"||(grupo(d.id)||{}).cat==="inf"?70:80;  // partes de 35' en infantil, 40' en el resto
+  for(const{m,g}of lista){
+    for(const[suf,id,rsuf]of[["local",m.home,"visitante"],["visitante",m.away,"local"]]){
+      const e=Eq[id]||(Eq[id]={id,name:nom(id),am:0,ro:0,pj:0});e.pj++;
+      for(const x of g["tarjetas_equipo_"+suf]||[]){const c=String(x.codigo_tipo_amonestacion||"");const roja=c==="101"||c==="102"||siNo(x.segunda_amarilla);
+        roja?e.ro++:e.am++;const k=id+"|"+claveJ(x);const j=J.get(k)||{k,id,eq:nom(id),nombre:x.nombre_jugador,am:0,ro:0,min:0};roja?j.ro++:j.am++;J.set(k,j)}
+      const plant=g["jugadores_equipo_"+suf]||[];const cam=cambiosActa(g,suf);if(cam.length)conCambios+=0.5;
+      const porNombre=new Map(plant.map(x=>[norm(x.nombre_jugador||""),x]));
+      // intervalos en el campo de cada jugador
+      const dentro=new Map();for(const x of plant)if(siNo(x.titular))dentro.set(norm(x.nombre_jugador||""),[[0,dur]]);
+      for(const c of cam){const mi=Math.min(dur,Math.max(0,c.min??dur/2));
+        if(c.sal&&dentro.has(c.sal)){const iv=dentro.get(c.sal);iv[iv.length-1][1]=mi}
+        if(c.ent){const iv=dentro.get(c.ent)||[];iv.push([mi,dur]);dentro.set(c.ent,iv)}}
+      const minutos=n=>(dentro.get(n)||[]).reduce((a,[x,y])=>a+Math.max(0,y-x),0);
+      // portero en cada minuto: empieza el portero titular; si sale, el que entra en su lugar
+      const golesRiv=(g["goles_equipo_"+rsuf]||[]).filter(x=>!siNo(x.propia_puerta));const propios=(g["goles_equipo_"+suf]||[]).filter(x=>siNo(x.propia_puerta));
+      const recibidos=[...golesRiv,...propios].map(x=>minuto(x));const encTot=suf==="local"?m.ag:m.hg;
+      golesTot+=encTot;conMinGol+=recibidos.filter(v=>v!=null).length;
+      const porT=plant.find(x=>siNo(x.portero)&&siNo(x.titular));
+      if(porT){let tramos=[{n:norm(porT.nombre_jugador||""),x:porT,desde:0,hasta:dur}];
+        for(const c of cam){const ult=tramos[tramos.length-1];if(c.sal&&c.sal===ult.n&&c.ent){const mi=Math.min(dur,Math.max(0,c.min??dur/2));ult.hasta=mi;tramos.push({n:c.ent,x:porNombre.get(c.ent)||{nombre_jugador:c.ent},desde:mi,hasta:dur})}}
+        // goles encajados por tramo (sin minuto: al titular); si el acta trae menos goles que el marcador, el resto al titular
+        const asign=tramos.map(()=>0);let sinMin=0;
+        for(const v of recibidos){if(v==null){sinMin++;continue}const i=tramos.findIndex(t=>v>t.desde&&v<=t.hasta);asign[i<0?tramos.length-1:i]++}
+        asign[0]+=sinMin+Math.max(0,encTot-recibidos.length);
+        tramos.forEach((t,i)=>{const k=id+"|"+claveJ(t.x);const p=P.get(k)||{k,id,eq:nom(id),nombre:t.x.nombre_jugador,pj:0,min:0,enc:0,cero:0,completos:0};
+          p.pj++;p.min+=t.hasta-t.desde;p.enc+=asign[i];if(t.desde===0&&t.hasta===dur){p.completos++;if(asign[i]===0)p.cero++}P.set(k,p)})}
+      for(const x of plant){const k=id+"|"+claveJ(x);const u=J.get(k)||{k,id,eq:nom(id),nombre:x.nombre_jugador,am:0,ro:0,min:0};
+        u.conv=(u.conv||0)+1;if(siNo(x.titular))u.tit=(u.tit||0)+1;u.min+=minutos(norm(x.nombre_jugador||""));J.set(k,u)}}}
+  return {eq:Object.values(Eq),jug:[...J.values()],por:[...P.values()],n:lista.length,dur,conCambios:Math.round(conCambios),golesTot,conMinGol};
 }
 function divActasHTML(d,S){
   const fair=S.eq.slice().sort((a,b)=>(a.am+3*a.ro)/a.pj-(b.am+3*b.ro)/b.pj);
-  const zam=S.por.filter(p=>p.pj>=Math.max(2,Math.floor(S.n/d.table.length/2))).sort((a,b)=>a.enc/a.pj-b.enc/b.pj||b.pj-a.pj).slice(0,8);
+  // Zamora por minutos: goles encajados cada ${S.dur}' (un partido completo); mínimo un tercio de los minutos posibles
+  const minMin=S.dur*Math.max(1,Math.floor(S.n*2/Math.max(1,d.table.length)/3));
+  const zam=S.por.filter(p=>p.min>=minMin).sort((a,b)=>a.enc/a.min-b.enc/b.min||b.min-a.min).slice(0,10);
   const tj=S.jug.filter(j=>j.am||j.ro).sort((a,b)=>(b.am+3*b.ro)-(a.am+3*a.ro)).slice(0,8);
-  const usados=S.jug.filter(j=>j.tit).sort((a,b)=>b.tit-a.tit||b.conv-a.conv).slice(0,8);
+  const usados=S.jug.filter(j=>j.min).sort((a,b)=>b.min-a.min||(b.tit||0)-(a.tit||0)).slice(0,10);
   const fila=(i,a,b,v)=>`<div class="rk-f"><span class="rk-n">${i+1}</span><span class="rk-e"><b>${a}</b><div class="small">${b}</div></span><span class="rk-v">${v}</span></div>`;
   return `<div class="small">Calculado con ${S.n} actas.</div>
-   <div class="small" style="margin-top:8px"><b>Zamora: porteros titulares con menos goles encajados</b></div>
-   <div class="rk">${zam.map((p,i)=>fila(i,esc(completo(p.nombre)),esc(p.eq),`${f1d(p.enc/p.pj)}<span class="small">/p · ${p.pj} p · ${p.cero} a cero</span>`)).join("")||`<div class="small">Las actas no marcan a los porteros.</div>`}</div>
+   <div class="small" style="margin-top:8px"><b>Zamora por minutos jugados</b> (goles encajados cada ${S.dur}')</div>
+   <div class="rk">${zam.map((p,i)=>fila(i,esc(completo(p.nombre)),`${esc(p.eq)} · ${p.min}' en ${p.pj} partido${p.pj===1?"":"s"} · ${p.enc} encajado${p.enc===1?"":"s"}${p.cero?` · ${p.cero} a cero`:""}`,`${f1d(p.enc/p.min*S.dur)}`)).join("")||`<div class="small">Las actas no marcan a los porteros.</div>`}</div>
+   <div class="small" style="opacity:.75;margin-top:4px">Cuentan los minutos en la portería: el titular hasta que le cambian y el que entra por él desde ese minuto. Cada gol se apunta al portero que estaba en el campo en ese minuto. ${S.conCambios<S.n/2?`<b>Ojo:</b> solo ${S.conCambios} de ${S.n} actas traen los cambios; en las demás se cuenta al titular el partido entero.`:`${S.conCambios} de ${S.n} actas traen los cambios.`}${S.conMinGol<S.golesTot?` ${S.golesTot-S.conMinGol} goles no traen minuto y se apuntan al titular.`:""} Aparecen los que han jugado al menos ${minMin}'.</div>
    <div class="small" style="margin-top:8px"><b>Juego limpio por equipos</b> (amarilla 1 punto, roja 3, por partido)</div>
    <div class="rk">${fair.map((e,i)=>fila(i,esc(e.name),"",`${tarjeta("a")} ${e.am} ${tarjeta("r")} ${e.ro}`)).join("")}</div>
    <div class="small" style="margin-top:8px"><b>Jugadores con más tarjetas</b></div>
    <div class="rk">${tj.map((j,i)=>fila(i,esc(completo(j.nombre)),esc(j.eq),`${tarjeta("a")} ${j.am}${j.ro?" "+tarjeta("r")+" "+j.ro:""}`)).join("")||`<div class="small">Nadie ha visto tarjetas todavía.</div>`}</div>
-   <div class="small" style="margin-top:8px"><b>Más veces titulares</b></div>
-   <div class="rk">${usados.map((j,i)=>fila(i,esc(completo(j.nombre)),esc(j.eq),`${j.tit}<span class="small"> de ${j.conv} conv.</span>`)).join("")}</div>`;
+   <div class="small" style="margin-top:8px"><b>Jugadores con más minutos</b></div>
+   <div class="rk">${usados.map((j,i)=>fila(i,esc(completo(j.nombre)),`${esc(j.eq)} · ${j.tit||0} de titular · ${j.conv} conv.`,`${j.min}'`)).join("")}</div>`;
 }
 const CHIPS_DIV=["Clasificación","Última jornada","Próxima jornada","Pichichi","Más goleados","Mejor defensa","Mejor local","Rachas","Tarjetas","Porteros","Pronóstico","Datos de la liga"];
 function answerDiv(d,text){
