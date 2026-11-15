@@ -437,6 +437,21 @@ html[data-theme="noche"] .divrow-i{background:#fff;color:#2a1f70;border-radius:7
 .frm{display:inline-flex;gap:2px}.frm i{width:9px;height:9px;border-radius:2px;display:inline-block}.frm i.W{background:#2b8a3e}.frm i.D{background:#adb5bd}.frm i.L{background:#e03131}
 .lg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.lg div{background:var(--chalk);border-radius:8px;padding:8px 4px;text-align:center}.lg b{display:block;font-size:17px}.lg span{font-size:11px;color:var(--muted)}
 .pr-t td.pr-c{text-align:center;font-weight:600}.st-ley span{margin-left:8px}
+
+/* billete: columnas fijas, nombres de los dos equipos con el mismo estilo y como mucho 3 líneas */
+.mc-eq{grid-template-columns:minmax(0,1fr) 96px minmax(0,1fr)}
+.mc-eq>div{min-width:0}
+.mc-eq .tl{background:transparent;border:none;box-shadow:none;padding:0;color:inherit;font-weight:700;font-size:13px}
+.mc-eq .tl,.mc-yo{display:flex;flex-direction:column;align-items:center;gap:4px}
+.mc-eq .tl .tl-c,.mc-yo .crest{width:34px;height:34px}
+.mc-yo b{overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;text-align:center;font-size:13px;line-height:1.2}
+.blq-c .tl{display:inline-flex;margin:2px 0}
+.mc-riv{color:inherit;text-decoration:none;cursor:pointer}.mc-fi{font-size:11px;font-weight:600;color:var(--pitch2)}html[data-theme="noche"] .mc-fi{color:#5b4bd6}
+.mc-eq .tl .tl-ch::before{content:"ficha "}
+.mc-hora.vivo-box{padding:4px 6px;border:none;display:flex;flex-direction:column;align-items:center;line-height:1.1}
+.mc-hv{font-size:15px;opacity:.75}.mc-vt{font-family:system-ui,sans-serif;font-size:12px!important;font-weight:700;white-space:nowrap}
+html[data-theme="noche"] .mc-eq::before{display:none}
+html[data-theme="noche"] .mc .tl{background:transparent;border:none}
 </style>
 </head>
 <body>
@@ -651,7 +666,7 @@ function ansNext(t){
   const m=nextMatch(t);if(!m)return "No quedan partidos en el calendario de este grupo.";
   const home=m.home===t.id;const r=m.date&&rel(m.date);const c=CAMPOS[m.campo];
   const cuando=m.date?`${r?r[0].toUpperCase()+r.slice(1)+" "+m.date.getDate()+" "+MESES[m.date.getMonth()]:fdate(m.date)}${m.time?" · "+m.time:""}`:"Fecha por confirmar";
-  return `Próximo partido: <b>${home?"en casa":"fuera"}</b> contra <b>${L(rivalOf(m,t.id).id,rivalOf(m,t.id).n)}</b>${fin(rivalOf(m,t.id).n)}
+  const vv=enJuego(t,m);return `${vv?`<span class="badge ${vv.f==="fin"?"D":"vivo-b"}">${vv.f==="fin"?"Terminado":`<i class="vivo-dot"></i>En juego`}</span> <b>${vv.f==="fin"?"esperando el resultado oficial":vv.txt}</b><br>`:"Próximo partido: "}<b>${home?"en casa":"fuera"}</b> contra <b>${L(rivalOf(m,t.id).id,rivalOf(m,t.id).n)}</b>
   <div class="next"><div class="when">${cuando}</div>
   ${c?`<div>${esc(c.name)}</div><div class="small">${esc([c.addr,c.loc].filter(Boolean).join(", "))}</div>${mapLink(c)}`:m.campoN?`<div>${esc(m.campoN)}</div>`:`<div class="small">Campo por confirmar</div>`}</div>
   <div class="small">Jornada ${m.j??"?"} · ${esc(grupoNombre(t.grupos[0]))}</div>${meteoPH(m)}`;
@@ -729,15 +744,18 @@ function pronosticoGrupo(d){
   // nivel de cada equipo (con prudencia al principio: se acerca a la media)
   const gl=jugados.reduce((a,m)=>a+m.hg,0),gv=jugados.reduce((a,m)=>a+m.ag,0);
   const mu=jugados.length?(gl+gv)/(2*jugados.length):1.4;const casa=jugados.length>10?Math.min(1.45,Math.max(1,(gl+.5)/(gv+.5))):1.15;
-  const fuerza=T.map(r=>{const w=r.pj/(r.pj+4);const at=r.pj?(r.gf/r.pj)/mu:1,de=r.pj?(r.gc/r.pj)/mu:1;return {at:1+w*(at-1),de:1+w*(de-1)}});
+  const fuerza=T.map(r=>{const w=r.pj/(r.pj+10);const at=r.pj?(r.gf/r.pj)/mu:1,de=r.pj?(r.gc/r.pj)/mu:1;return {at:1+w*(at-1),de:1+w*(de-1)}});
   const restan=T.map(()=>0);quedan.forEach(m=>{restan[idx.get(m.home)]++;restan[idx.get(m.away)]++});
   const SIMS=5000;const r=azar(([...String(d.id)].reduce((a,c)=>a*31+c.charCodeAt(0),7)^quedan.length*977)>>>0);
   const cuenta=T.map(()=>new Array(N).fill(0));const ptsFin=T.map(()=>[]);
   const pts=new Array(N),dg=new Array(N),gf=new Array(N),ord=[...Array(N).keys()],des=new Array(N);
+  // el nivel real de cada equipo no se conoce con exactitud: en cada simulación se varía un poco (más cuanto menos se ha jugado)
+  const nr=()=>{let u=0,v=0;while(!u)u=r();v=r();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)};
+  const sig=T.map(t=>0.45/Math.sqrt(1+t.pj/6));const at=new Array(N),de=new Array(N);
   for(let s=0;s<SIMS;s++){
-    for(let i=0;i<N;i++){pts[i]=T[i].pts;dg[i]=T[i].gf-T[i].gc;gf[i]=T[i].gf;des[i]=r()}
+    for(let i=0;i<N;i++){pts[i]=T[i].pts;dg[i]=T[i].gf-T[i].gc;gf[i]=T[i].gf;des[i]=r();at[i]=fuerza[i].at*Math.exp(sig[i]*nr());de[i]=fuerza[i].de*Math.exp(sig[i]*nr())}
     for(const m of quedan){const h=idx.get(m.home),a=idx.get(m.away);
-      const lh=Math.max(.15,mu*fuerza[h].at*fuerza[a].de*Math.sqrt(casa)),la=Math.max(.15,mu*fuerza[a].at*fuerza[h].de/Math.sqrt(casa));
+      const lh=Math.max(.15,mu*at[h]*de[a]*Math.sqrt(casa)),la=Math.max(.15,mu*at[a]*de[h]/Math.sqrt(casa));
       const x=poisson(lh,r),y=poisson(la,r);dg[h]+=x-y;dg[a]+=y-x;gf[h]+=x;gf[a]+=y;
       if(x>y)pts[h]+=3;else if(x<y)pts[a]+=3;else{pts[h]++;pts[a]++}}
     ord.sort((i,j)=>pts[j]-pts[i]||dg[j]-dg[i]||gf[j]-gf[i]||des[j]-des[i]);
@@ -782,6 +800,7 @@ function pronosticoHTML(t){
   const {res,e,zonas}=P;
   if(res.quedan===0)return `La liga ya ha terminado: <b>${esc(t.name)}</b> acaba <b>${e.pos}º</b> con ${e.pts} puntos.`;
   const fiable=res.jugadas>=res.jornadasQuedan;
+  if(!fiable)return `Con ${res.jornadasQuedan} jornadas por jugar todavía es pronto para un pronóstico serio: puede pasar casi de todo. ${esc(t.name)} va <b>${e.pos}º</b> con ${e.pts} puntos y aún quedan ${e.max-e.pts} en juego. El pronóstico de ascenso y descenso aparecerá en la ficha a partir de la mitad de la temporada.`;
   const barra=(p,c)=>`<div class="pr-bar"><i style="width:${Math.max(p>0?2:0,Math.round(p*100))}%;background:${c}"></i></div>`;
   const zonaHTML=zonas.map(z=>`<div class="pr-z"><div class="pr-zt"><span class="pr-dot" style="background:${esc(z.c)}"></span><b>${esc(z.n)}</b> <span class="small">(${z.desde===z.hasta?z.desde+"º":z.desde+"º–"+z.hasta+"º"})</span>
      <span class="pr-v">${z.cert?`<span class="${(z.cert==="seguro")!==(z.desde>res.N/2)?"pr-ok":"pr-no"}">${certTxt(z,res.N)[0].toUpperCase()+certTxt(z,res.N).slice(1)}</span>`:pct(z.p)}</span></div>${z.cert?"":barra(z.p,z.c)}</div>`).join("");
@@ -891,7 +910,7 @@ function divisionBloques(d){
      <div class="small">Partido con más goles: J${mg.j} · ${esc(mg.homeN)} <b>${mg.hg}–${mg.ag}</b> ${esc(mg.awayN)}.</div>`,false)}
   // pronóstico de la liga (mismo motor que la ficha del equipo)
   const R=pronosticoGrupo(d);
-  if(R&&R.quedan&&R.zonas.length){const zs=R.zonas;
+  if(R&&R.quedan&&R.zonas.length&&R.jugadas>=R.jornadasQuedan){const zs=R.zonas;
     B.pron=bloque("d-pron","copa","Pronóstico de la liga",`quedan ${R.jornadasQuedan} jornadas`,
      `${R.jugadas>=R.jornadasQuedan?"":`<div class="pr-aviso">${ic("aviso","sm")} Quedan ${R.jornadasQuedan} jornadas: orientativo.</div>`}
       <table class="st pr-t"><tr><th>#</th><th style="text-align:left">Equipo</th>${zs.map(z=>`<th title="${esc(z.n)}"><span class="pr-dot" style="background:${esc(z.c)}"></span> ${esc(z.n.slice(0,4))}.</th>`).join("")}</tr>
@@ -989,10 +1008,11 @@ function fichaInicialHTML(t,f){
     B.ult=bloque("ult","flag","Último resultado",`${{W:"Victoria",D:"Empate",L:"Derrota"}[o]} ${lm.hg}–${lm.ag} ${lm.home===t.id?"ante":"en campo del"} ${esc(riv.n)}${lm.prov?" · provisional":""}`,ansLast(t),f&&f.tipo==="resultado");
     if(lm.acta)B.crono=bloque("crono","reloj","Cronología y convocados",`J${lm.j} · goles, tarjetas, cambios y convocados`,ANDROID?`<div data-slot="crono"><span class="typing"><i></i><i></i><i></i></span> <span class="small">Cargando la cronología…</span></div><!--/slot-->`:`<div>${linkRFFM(urlActaRFFM(lm),"Acta en la RFFM")}</div>`,false)}
   if(nm){const riv=rivalOf(nm,t.id);
-    B.prox=bloque("prox","cal","Próximo partido",`${corto(nm)}${nm.time?" · "+nm.time:""} · ${nm.home===t.id?"en casa":"fuera"} vs ${esc(riv.n)}`,ansNext(t),f&&f.tipo!=="resultado");
+    const vj=enJuego(t,nm);
+    B.prox=bloque("prox",vj&&vj.f!=="fin"?'<i class="vivo-dot" style="background:#e5352b;width:10px;height:10px"></i>':"cal",vj?(vj.f==="fin"?"Partido de hoy · sin resultado aún":"En juego · "+vj.corto):"Próximo partido",`${corto(nm)}${nm.time?" · "+nm.time:""} · ${nm.home===t.id?"en casa":"fuera"} vs ${esc(riv.n)}`,ansNext(t),f&&f.tipo!=="resultado");
     const pv=previaHTML(t,nm);if(pv)B.previa=bloque("previa","lupa","Previa del próximo partido","cómo llega cada equipo · análisis de la IA",pv,false)}
   if(me){const rf=f&&f.tipo==="resultado"?lm:(nm||lm);const[bc,be]=bloquesTabla(t,null,rf?rivalOf(rf,t.id).id:null);B.clas=bc.replace("Clasificación actual","Clasificación");B.evo=be;
-    const P=pronosticoEquipo(t);if(P&&P.res.quedan)B.pron=bloque("pron","copa","Pronóstico de final de liga",pronosticoResumen(P),pronosticoHTML(t),false)}
+    const P=pronosticoEquipo(t);if(P&&P.res.quedan&&P.res.jugadas>=P.res.jornadasQuedan)B.pron=bloque("pron","copa","Pronóstico de final de liga",pronosticoResumen(P),pronosticoHTML(t),false)}
   const orden=f&&f.tipo==="resultado"?["ult","clas","evo","pron","crono","prox","previa"]:["prox","previa","ult","clas","evo","pron","crono"];
   return orden.filter(k=>B[k]).map(k=>B[k]).join("");
 }
@@ -1479,8 +1499,8 @@ function tarjetaPartido(t,m,esProx){
   const fecha=m.date?`${DIAS_C[m.date.getDay()]} ${m.date.getDate()} ${MESES[m.date.getMonth()]}`:"Fecha por confirmar";
   const r=m.played?outcome(m,t.id):null;const vivo=enJuego(t,m);
   const estado=vivo&&vivo.f!=="fin"?`<span class="badge vivo-b"><i class="vivo-dot"></i>En juego</span>`:vivo?`<span class="badge D">Terminado</span>`:m.played?`<span class="badge ${r}">${{W:"Victoria",D:"Empate",L:"Derrota"}[r]}</span>`:esProx?`<span class="badge" style="background:var(--accent)">Próximo</span>`:`<span class="badge D">Pendiente</span>`;
-  const centro=m.played?(m.prov?`<div style="display:flex;flex-direction:column;align-items:center"><div class="mc-res">${m.hg}<span>–</span>${m.ag}</div><div class="small" style="opacity:.75">provisional</div></div>`:`<div class="mc-res">${m.hg}<span>–</span>${m.ag}</div>`):vivo?`<div class="mc-hora vivo-box${vivo.f==="fin"?" off":""}"><div style="font-size:12px;opacity:.8">${m.time}</div><div class="vivo-t" ${vivoAttr(t,m)}>${vivo.txt}</div></div>`:`<div class="mc-hora">${m.time||"--:--"}</div>`;
-  const nom=(id,n)=>id===t.id?`<div class="mc-yo">${crest(t,26)}<b>${esc(n)}</b></div>`:L(id,n);
+  const centro=m.played?(m.prov?`<div style="display:flex;flex-direction:column;align-items:center"><div class="mc-res">${m.hg}<span>–</span>${m.ag}</div><div class="small" style="opacity:.75">provisional</div></div>`:`<div class="mc-res">${m.hg}<span>–</span>${m.ag}</div>`):vivo?`<div class="mc-hora vivo-box${vivo.f==="fin"?" off":""}"><div class="mc-hv">${m.time}</div><div class="vivo-t mc-vt"${vivo.f==="fin"?"":` data-corto="1" ${vivoAttr(t,m)}`}>${vivo.f==="fin"?"sin resultado":vivo.corto}</div></div>`:`<div class="mc-hora">${m.time||"--:--"}</div>`;
+  const nom=(id,n)=>{const o=TEAM.get(id);return id===t.id?`<div class="mc-yo">${crest(t,34)}<b>${esc(n)}</b></div>`:o?`<a class="mc-yo mc-riv" data-ver="${esc(id)}" role="button">${crest(o,34)}<b>${esc(n)}</b><span class="mc-fi">ver ficha ›</span></a>`:`<div class="mc-yo"><b>${esc(n)}</b></div>`};
   const bot=m.played
     ?`<button class="btn" data-fp="${esc(m.gid)}|${m.j}|${esc(m.home)}">${ic("hoja")} Ver partido</button>${m.acta?`<a class="btn ghost" href="${urlActaRFFM(m)}" target="_blank" rel="noopener">${ic("doc")} Acta</a>`:""}`
     :`${c?`<a class="btn ghost" href="${navUrl(c)}" target="_blank" rel="noopener">${ic("ruta")} Cómo llegar</a>`:""}${esProx?`<button class="btn ghost" data-ask="¿Qué tiempo hará?">${ic("solnube")} Tiempo</button>`:""}`;
