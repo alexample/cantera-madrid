@@ -160,6 +160,12 @@ html[data-theme="estadio"] .carr-fijo{background:#070b16;border-bottom-color:#1e
 .colsel{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 10px}.colbt{width:32px;height:32px;border-radius:50%;border:3px solid transparent;cursor:pointer}
 .colbt.on{border-color:var(--ink);box-shadow:0 0 0 2px var(--card) inset}
 .top.eqcol{border-bottom:4px solid var(--eq)!important}.top.eqcol .crest{box-shadow:0 0 0 3px var(--eq)}
+.blqs{margin-top:8px}
+.blq{border:1px solid var(--line);border-radius:12px;margin-top:8px;background:color-mix(in srgb,var(--card) 92%,var(--ink) 8%);overflow:hidden}
+.blq>summary{list-style:none;display:flex;align-items:center;gap:10px;padding:11px 12px;cursor:pointer}.blq>summary::-webkit-details-marker{display:none}
+.blq-i{font-size:18px;flex:none}.blq-t{flex:1;min-width:0;display:flex;flex-direction:column}.blq-t .small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.blq-f{flex:none;font-size:20px;color:var(--muted);transition:transform .15s}.blq[open]>summary .blq-f{transform:rotate(90deg)}
+.blq-c{padding:0 12px 12px}
 .mc-bot{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;min-height:32px}
 .mc-bot .btn{text-decoration:none;font-size:12.5px;padding:7px 11px}
 .carr-hint{text-align:center;opacity:.7;margin-top:2px}
@@ -379,7 +385,7 @@ const fin=s=>/\.$/.test(s)?"":".";
 const rivalOf=(m,id)=>m.home===id?{id:m.away,n:m.awayN}:{id:m.home,n:m.homeN};
 
 /* ---------- estado ---------- */
-const state={col:store.get("colores",{}),auto:{},foco:{},orden:store.get("orden","manual"),pila:[],etq:store.get("etiquetas",{}),avEq:store.get("avEq",{}),tema:store.get("tema","clasico"),follows:store.get("follows",[]).filter(Boolean),verified:store.get("verified",false),chats:{},iah:{},flow:null,view:"home",team:null};
+const state={abiertos:{},col:store.get("colores",{}),auto:{},foco:{},orden:store.get("orden","manual"),pila:[],etq:store.get("etiquetas",{}),avEq:store.get("avEq",{}),tema:store.get("tema","clasico"),follows:store.get("follows",[]).filter(Boolean),verified:store.get("verified",false),chats:{},iah:{},flow:null,view:"home",team:null};
 const ANDROID=typeof window.AndroidApp!=="undefined";
 // Pasa a Android los equipos seguidos (para los avisos en segundo plano)
 function syncAndroid(){if(!ANDROID||!IDX)return;try{AndroidApp.guardarEquipos(JSON.stringify(state.follows.map(id=>TEAM.get(id)).filter(Boolean).map(t=>({id:t.id,g:t.grupos[0],n:t.name,e:state.etq[t.id]||"",av:state.avEq[t.id]||null}))))}catch(e){}}
@@ -472,11 +478,29 @@ function evolucionHTML(t,jSel){
    <text x="${Math.min(x(pts.length-1),W-mr)}" y="${y(ult.pos)+(ult.pos<=2?18:-10)}" text-anchor="end" class="evo-v">${ult.pos}º</text>
   </svg><div class="small evo-det">${det(sel)} · toca una jornada para abrirla</div></div>`;
 }
-function ansTable(t,jSel){
+// Bloque desplegable de la ficha: título + resumen de una línea; el contenido se abre al tocarlo
+const bloque=(id,icono,titulo,resumen,html,abierto)=>`<details class="blq" data-b="${id}"${abierto?" open":""}><summary><span class="blq-i">${icono}</span><span class="blq-t"><b>${titulo}</b>${resumen?`<span class="small">${resumen}</span>`:""}</span><span class="blq-f">›</span></summary><div class="blq-c">${html}</div></details>`;
+function fichaInicialHTML(t,f){
+  const lm=lastMatch(t),nm=nextMatch(t),d=teamGroup(t),me=d&&d.table.find(r=>r.id===t.id);
+  const corto=m=>m&&m.date?`${DIAS_C[m.date.getDay()]} ${m.date.getDate()} ${MESES[m.date.getMonth()].slice(0,3)}`:"";
+  const B={};
+  if(lm){const o=outcome(lm,t.id),riv=rivalOf(lm,t.id);
+    B.ult=bloque("ult","🏁","Último resultado",`${{W:"Victoria",D:"Empate",L:"Derrota"}[o]} ${lm.hg}–${lm.ag} ${lm.home===t.id?"ante":"en campo del"} ${esc(riv.n)}${lm.prov?" · provisional":""}`,ansLast(t),f&&f.tipo==="resultado");
+    if(lm.acta)B.crono=bloque("crono","⏱️","Cronología y convocados",`J${lm.j} · goles, tarjetas, cambios y convocados`,ANDROID?`<div data-slot="crono"><span class="typing"><i></i><i></i><i></i></span> <span class="small">Cargando la cronología…</span></div><!--/slot-->`:`<div>${linkRFFM(urlActaRFFM(lm),"Acta en la RFFM")}</div>`,false)}
+  if(nm){const riv=rivalOf(nm,t.id);
+    B.prox=bloque("prox","📅","Próximo partido",`${corto(nm)}${nm.time?" · "+nm.time:""} · ${nm.home===t.id?"en casa":"fuera"} vs ${esc(riv.n)}`,ansNext(t),f&&f.tipo!=="resultado");
+    const pv=previaHTML(t,nm);if(pv)B.previa=bloque("previa","🔎","Previa del próximo partido","cómo llega cada equipo · análisis de la IA",pv,false)}
+  if(me){B.clas=bloque("clas","📊","Clasificación",`${me.pos}º con ${me.pts} punto${me.pts===1?"":"s"} · ${esc(grupoNombre(d.id))}`,ansTable(t,null,true),false);
+    const ev=evolucionHTML(t,lm&&lm.j);if(ev){const js=[...new Set(d.matches.filter(m=>m.played&&m.j!=null).map(m=>m.j))].sort((a,b)=>a-b);const p1=(tablaHasta(d,js[0]).table.find(r=>r.id===t.id)||{}).pos;
+      B.evo=bloque("evo","📈","Evolución en la clasificación",`J${js[0]}: ${p1}º → J${js[js.length-1]}: ${me.pos}º`,ev,false)}}
+  const orden=f&&f.tipo==="resultado"?["ult","clas","evo","crono","prox","previa"]:["prox","previa","ult","clas","evo","crono"];
+  return orden.filter(k=>B[k]).map(k=>B[k]).join("");
+}
+function ansTable(t,jSel,sinEvo){
   const d=teamGroup(t);const me=d.table.find(r=>r.id===t.id);
   if(!me)return `Clasificación de ${esc(grupoNombre(d.id))}:${tableHTML(d,t.id)}`;
   const lider=d.table[0];
-  return `Va <b>${me.pos}º</b> con <b>${me.pts} puntos</b>${me.pos>1?` a ${lider.pts-me.pts} del líder`:", líder del grupo"}.<div class="small">${esc(grupoNombre(d.id))}</div>${tableHTML(d,t.id)}${evolucionHTML(t,jSel)}<div style="margin-top:6px">${linkRFFM(urlGrupoRFFM(d.id),"Ver en la RFFM")}</div>`;
+  return `Va <b>${me.pos}º</b> con <b>${me.pts} puntos</b>${me.pos>1?` a ${lider.pts-me.pts} del líder`:", líder del grupo"}.<div class="small">${esc(grupoNombre(d.id))}</div>${tableHTML(d,t.id)}${sinEvo?"":evolucionHTML(t,jSel)}<div style="margin-top:6px">${linkRFFM(urlGrupoRFFM(d.id),"Ver en la RFFM")}</div>`;
 }
 function ansScorers(t){
   const d=teamGroup(t);const pl=(d.gol||[]).filter(g=>g[1]===t.id).slice(0,8);
@@ -1412,18 +1436,15 @@ function renderChat(app,t){
   let cronoInicial=null;
   // La ficha se rehace sola si cambian los datos o el día, salvo que el usuario ya haya preguntado o tocado algo
   const sello=(IDX.act||"")+"|"+isoHoy();
-  if(t&&state.chats[key]&&state.auto[key]&&state.auto[key].s!==sello&&state.chats[key].length===state.auto[key].n){delete state.chats[key];delete state.foco[t.id]}
+  if(t&&state.chats[key]&&state.auto[key]&&state.auto[key].s!==sello&&state.chats[key].length===state.auto[key].n){delete state.chats[key];delete state.foco[t.id];delete state.abiertos[key]}
   const nuevo=!state.chats[key]&&t;
   if(!state.chats[key]&&t){
-    const f=focoPartido(t);const tip=`<div class="small" style="margin-top:8px">Desliza los partidos de arriba para ver anteriores y próximos · toca un equipo con › para ver su ficha${state.follows.includes(t.id)&&!etiqueta(t)?" · 🔔 para etiquetarlo y elegir avisos":""}. ${linkRFFM(urlEquipoRFFM(t),"Ficha RFFM")}</div>`;
+    const f=focoPartido(t);
+    const tip=`<div class="small" style="margin-top:10px">Toca cada apartado para desplegarlo · desliza los partidos de arriba · toca un equipo con › para ver su ficha${state.follows.includes(t.id)&&!etiqueta(t)?" · 🔔 para etiquetarlo y elegir avisos":""}. ${linkRFFM(urlEquipoRFFM(t),"Ficha RFFM")}</div>`;
     const msgs=[];
-    if(f&&f.tipo==="resultado"){
-      msgs.push({r:"b",h:`<b>${esc(t.name)}</b>${etiqueta(t)?` · <span class="tag">⭐ ${esc(etiqueta(t))}</span>`:""}<br>`+ansLast(t)+tip});
-      msgs.push({r:"b",h:ansTable(t)});
-      if(f.m.acta&&ANDROID){msgs.push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span> <span class="small">Cargando la cronología…</span>'});cronoInicial=f.m}
-    }else if(f){
-      msgs.push({r:"b",h:`<b>${esc(t.name)}</b>${etiqueta(t)?` · <span class="tag">⭐ ${esc(etiqueta(t))}</span>`:""}<br>`+ansNext(t)+tip});
-      const pv=previaHTML(t,f.m);if(pv)msgs.push({r:"b",h:pv});
+    if(lastMatch(t)||nextMatch(t)){
+      msgs.push({r:"b",h:`<b>${esc(t.name)}</b>${etiqueta(t)?` · <span class="tag">⭐ ${esc(etiqueta(t))}</span>`:""}<div class="blqs">${fichaInicialHTML(t,f)}</div>${tip}`});
+      const lm=lastMatch(t);if(lm&&lm.acta&&ANDROID)cronoInicial=lm;
     }else msgs.push({r:"b",h:`No hay partidos en el calendario de este equipo.`+tip});
     state.chats[key]=msgs;
     state.auto[key]={s:sello,n:msgs.length};
@@ -1439,18 +1460,22 @@ function renderChat(app,t){
   <div class="composer">
   <form class="inp" id="f"><button type="button" id="clr" class="clr" aria-label="Borrar el chat">${icons.trash}</button><input id="q" placeholder="${t?"Pregunta sobre el equipo…":"Escribe o elige una opción…"}" autocomplete="off" enterkeyhint="send"><button aria-label="Enviar">${icons.send}</button></form></div>`;
   const chat=$("#chat");
-  const wide=h=>h&&(h.includes("<table")||h.includes("plist")||h.includes('class="jf"')||h.includes('class="opts'));
+  const wide=h=>h&&(h.includes("<table")||h.includes("plist")||h.includes('class="jf"')||h.includes('class="blqs"')||h.includes('class="opts'));
   const sugerencias=()=>{const ult=state.chats[key][state.chats[key].length-1];if(!ult||ult.r!=="b"||ult.h.includes("typing"))return "";
     const pregUlt=(state.chats[key].filter(m=>m.r==="u").pop()||{}).h||"";
     const lista=chips.filter(c=>esc(c)!==pregUlt);
     return `<div class="sug">${lista.map(c=>`<button class="chip" data-ask="${esc(c)}">${esc(c)}</button>`).join("")}</div>`};
   const draw=()=>{chat.innerHTML=state.chats[key].map(m=>`<div class="msg ${m.r}${wide(m.h)?" wide":""}">${m.h}</div>`).join("")+sugerencias();
     if(t)chat.querySelectorAll(`a[data-ver="${CSS.escape(t.id)}"]`).forEach(a=>{a.replaceWith(Object.assign(document.createElement("b"),{textContent:[...a.childNodes].filter(x=>x.nodeType===3).map(x=>x.textContent).join("")}))}); // el propio equipo no es botón
+    const ab=state.abiertos[key]||{};chat.querySelectorAll("details[data-b]").forEach(d=>{if(d.dataset.b in ab)d.open=ab[d.dataset.b]});
     $("#scroll").scrollTop=1e9;rellenarMeteo(chat)};
+  chat.addEventListener("toggle",e=>{const d=e.target;if(d.matches&&d.matches("details[data-b]")){(state.abiertos[key]=state.abiertos[key]||{})[d.dataset.b]=d.open}},true);
   // Rellena el último mensaje (marcador de carga) con la cronología del partido
-  const cargarCrono=m=>leerActa(m).then(a=>{const msgs=state.chats[key];if(!msgs)return;const i=msgs.map(x=>x.h).lastIndexOf(msgs.filter(x=>x.h.includes("typing")).pop()?.h);
+  const cargarCrono=m=>leerActa(m).then(a=>{const msgs=state.chats[key];if(!msgs)return;
     const h=a?cronoHTML(m,a.game):`No he podido leer el acta ahora mismo. Puedes verla en la web de la federación:<div>${linkRFFM(urlActaRFFM(m),"Acta en la RFFM")}</div>`;
-    if(i>=0)msgs[i]={r:"b",h};else msgs.push({r:"b",h});
+    const ranura=msgs.find(x=>x.h.includes('data-slot="crono"'));
+    if(ranura)ranura.h=ranura.h.replace(/<div data-slot="crono">[\s\S]*?<\/div><!--\/slot-->/,`<div data-slot="crono-ok">${h}</div>`);
+    else{const i=msgs.map(x=>x.h).lastIndexOf(msgs.filter(x=>x.h.includes("typing")).pop()?.h);if(i>=0)msgs[i]={r:"b",h};else msgs.push({r:"b",h})}
     if(t?(state.view==="team"&&state.team===t.id):state.view==="main"){const sc=$("#scroll"),st=sc.scrollTop;draw();sc.scrollTop=st}});
   draw();if(t||state.chats[key].length===1)$("#scroll").scrollTop=0; // la ficha se lee desde arriba
   if(cronoInicial)cargarCrono(cronoInicial);
