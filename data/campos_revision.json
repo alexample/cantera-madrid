@@ -9219,5 +9219,31 @@
 ],
 "tipo": "instalacion",
 "corregido": false
+},
+"11932696": {
+"nombre": "GALAPAGAR - EL CHOPO 2B (HA)",
+"localidad": "Galapagar",
+"rffm": [
+40.582799,
+-4.010576
+],
+"dir_consultada": "CALLE GUADARRAMA 129|Galapagar",
+"direccion_nombre": "Escuela Municipal de Idiomas, 129, Calle de Guadarrama, Los Almendros, Las Columnas, La Navata, Galapagar, Comunidad de Madrid, 28260, España",
+"direccion_gps": [
+40.581902,
+-4.009232
+],
+"dist_rffm_direccion_km": 0.15,
+"entrada": {
+"barrier": "gate"
+},
+"instalacion": "Polideportivo Municipal de Galapagar",
+"dist_instalacion_km": 0.15,
+"navegacion": [
+40.58014,
+-4.008896
+],
+"tipo": "entrada",
+"corregido": false
 }
 }
