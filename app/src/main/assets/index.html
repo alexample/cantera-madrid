@@ -1415,7 +1415,7 @@ function anonimizar(m,g){
   const out={};
   for(const[lado,suf,tid]of[["l","local",m.home],["v","visitante",m.away]]){
     const js=g["jugadores_equipo_"+suf]||[];const porNom=new Map();const nb=NOMBRES[tid]||(NOMBRES[tid]={});
-    const jug=js.map((x,i)=>{const k=claveAnon(x,i);porNom.set(norm(x.nombre_jugador||""),k);if(x.nombre_jugador)nb[k]=x.nombre_jugador;return [k,x.dorsal!=null&&/^\d{1,3}$/.test(String(x.dorsal))?+x.dorsal:null,siNo(x.titular)?1:0,siNo(x.portero)?1:0,siNo(x.capitan)?1:0]});
+    const jug=js.map((x,i)=>{const k=claveAnon(x,i);porNom.set(norm(x.nombre_jugador||""),k);if(x.nombre_jugador)nb[k]=x.nombre_jugador;return [k,x.dorsal!=null&&/^\d{1,3}$/.test(String(x.dorsal))?+x.dorsal:null,siNo(x.titular)?1:0,siNo(x.portero)?1:0,siNo(x.capitan)?1:0,siNo(x.participacion)?1:0]});
     const ref=x=>{const c=String(codJ(x)||"");return /^\d{1,12}$/.test(c)?"c"+c:porNom.get(norm(x.nombre_jugador||""))||null};
     const gol=(g["goles_equipo_"+suf]||[]).map(x=>[ref(x),minuto(x),siNo(x.propia_puerta)?1:0]);
     const tar=(g["tarjetas_equipo_"+suf]||[]).map(x=>{const c=String(x.codigo_tipo_amonestacion||"");return [ref(x),minuto(x),c==="102"||siNo(x.segunda_amarilla)?"d":c==="101"?"r":"a"]}).filter(t=>t[0]);
@@ -1428,7 +1428,7 @@ function reconstruir(m,a){
   const g={};
   for(const[lado,suf,tid]of[["l","local",m.home],["v","visitante",m.away]]){const L=a[lado]||{jug:[],gol:[],tar:[],cam:[]};
     const cj=k=>k&&k[0]==="c"?k.slice(1):undefined,nm=k=>k?nombreClave(tid,k):"";
-    g["jugadores_equipo_"+suf]=L.jug.map(j=>({codjugador:cj(j[0])||(tid+"-"+j[0]),nombre_jugador:nm(j[0]),dorsal:j[1],titular:j[2]?"1":"0",portero:j[3]?"1":"0",capitan:j[4]?"1":"0"}));
+    g["jugadores_equipo_"+suf]=L.jug.map(j=>({codjugador:cj(j[0])||(tid+"-"+j[0]),nombre_jugador:nm(j[0]),dorsal:j[1],titular:j[2]?"1":"0",portero:j[3]?"1":"0",capitan:j[4]?"1":"0",participacion:j[5]?"1":"0"}));
     g["goles_equipo_"+suf]=L.gol.map(x=>({codjugador:x[0]?(cj(x[0])||(tid+"-"+x[0])):undefined,nombre_jugador:nm(x[0]),minuto:x[1],propia_puerta:x[2]?"1":"0"}));
     g["tarjetas_equipo_"+suf]=L.tar.map(x=>({codjugador:cj(x[0])||(tid+"-"+x[0]),nombre_jugador:nm(x[0]),minuto:x[1],codigo_tipo_amonestacion:x[2]==="a"?"100":x[2]==="r"?"101":"102"}));
     g["sustituciones_equipo_"+suf]=L.cam.map(x=>({minuto:x[0],nombre_jugador_entra:x[1]?nm(x[1]):null,nombre_jugador_sale:x[2]?nm(x[2]):null}))}
@@ -1440,6 +1440,12 @@ function juegoDe(m){if(!ANON[m.acta]&&ACTAS[m.acta]){ANON[m.acta]=anonimizar(m,A
 function subirActa(m,g){
   try{const a=anonimizar(m,g);ANON[m.acta]=a;guardarAnon();if(!iaDisponible())return;
     fetch(SRV()+"/cantera-actas",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({codacta:String(m.acta),gid:String(m.gid),...a})}).catch(()=>{});
+    if(!store.get("esq_vals",false)){const V={};const ap=(k,v)=>{if(v==null)return;(V[k]=V[k]||new Set()).add(String(v).slice(0,20))};
+      for(const suf of["local","visitante"]){for(const x of g["jugadores_equipo_"+suf]||[])["participacion","suplente","titular","portero","capitan","posicion_jugador_abreviatura"].forEach(k=>ap(k,x[k]));
+        for(const x of g["goles_equipo_"+suf]||[])ap("tipo_gol",x.tipo_gol);for(const x of g["tarjetas_equipo_"+suf]||[]){ap("codigo_tipo_amonestacion",x.codigo_tipo_amonestacion);ap("segunda_amarilla",x.segunda_amarilla)}
+        for(const x of g["sustituciones_equipo_"+suf]||[])Object.keys(x).forEach(k=>ap("sust_"+k,typeof x[k]))}
+      const out=Object.fromEntries(Object.entries(V).map(([k,v])=>[k,[...v].slice(0,15)]));
+      if(Object.keys(out).length)fetch(SRV()+"/cantera-esquema",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({clave:"acta_valores_"+String(m.acta).slice(-3),contenido:JSON.stringify(out)})}).then(r=>r.ok&&Object.keys(out).some(k=>k.startsWith("sust_"))&&store.set("esq_vals",true)).catch(()=>{})}
     if(!store.get("esq_acta",false)){const esq=o=>Array.isArray(o)?(o.length?[esq(o[0])]:[]):o&&typeof o==="object"?Object.fromEntries(Object.keys(o).slice(0,40).map(k=>[k,esq(o[k])])):o===null?"null":typeof o;
       fetch(SRV()+"/cantera-esquema",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({clave:"acta",contenido:JSON.stringify(esq(g))})}).then(r=>r.ok&&store.set("esq_acta",true)).catch(()=>{})}
   }catch(e){}
@@ -1668,7 +1674,7 @@ function statsJugadores(t,lista){
       const ts=tarj.filter(y=>claveJ(y)===k||norm(y.nombre_jugador||"")===nn);
       const ro=ts.filter(y=>{const c=String(y.codigo_tipo_amonestacion||"");return c==="101"||c==="102"||siNo(y.segunda_amarilla)}).length;
       const am=ts.length-ts.filter(y=>String(y.codigo_tipo_amonestacion||"")==="101").length;
-      const entro=!tit&&hayCambios&&ents.includes(nn);
+      const entro=!tit&&((hayCambios&&ents.includes(nn))||siNo(x.participacion));
       p.conv++;tit?p.tit++:p.sup++;if(entro)p.entro++;p.gol+=gl;p.am+=am;p.ro+=ro;
       if(x.dorsal!=null&&x.dorsal!=="")p.dorsales[x.dorsal]=(p.dorsales[x.dorsal]||0)+1;
       if(siNo(x.portero))p.portero=true;if(x.posicion_jugador_abreviatura)p.por=x.posicion_jugador_abreviatura;
