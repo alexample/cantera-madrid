@@ -455,6 +455,32 @@ html[data-theme="noche"] .mc .tl{background:transparent;border:none}
 html[data-theme="noche"] main#scroll .chip{background:#fff;color:#3b2d93;border:1.5px solid #cfc8f7;font-weight:600;text-transform:none;letter-spacing:0;font-size:13.5px;border-radius:8px;padding:7px 12px}
 html[data-theme="noche"] main#scroll .chip:active{background:#ece8ff}
 .segj{padding:7px 12px}
+
+/* ===== Transiciones suaves ===== */
+@keyframes cm-entrar{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+@keyframes cm-volver{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:none}}
+@keyframes cm-aparecer{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes cm-desplegar{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@keyframes cm-hoja{from{transform:translateY(100%)}to{transform:none}}
+#app.t-entrar>header,#app.t-entrar>main,#app.t-entrar>.carr-fijo,#app.t-entrar>.composer{animation:cm-entrar .28s cubic-bezier(.2,.8,.2,1)}
+#app.t-volver>header,#app.t-volver>main,#app.t-volver>.carr-fijo,#app.t-volver>.composer{animation:cm-volver .28s cubic-bezier(.2,.8,.2,1)}
+.chat .msg.nuevo{animation:cm-aparecer .26s ease-out}
+details.blq[open]>.blq-c{animation:cm-desplegar .24s ease-out}
+details.blq>summary{transition:background-color .2s,color .2s,border-radius .2s}
+.blq-f{transition:transform .22s ease}
+.jd:not([hidden]){animation:cm-desplegar .22s ease-out}
+.jf-c{transition:transform .12s,background-color .2s,box-shadow .2s}.jf-c:active{transform:scale(.96)}
+.team,.divrow,.maincta,.mc,.btn,.chip,.pick{transition:transform .12s ease,background-color .2s,box-shadow .2s}
+.team:active,.divrow:active,.maincta:active,.pick:active,.chip:active,.btn:active{transform:scale(.98)}
+.sheet{animation:cm-hoja .3s cubic-bezier(.2,.8,.2,1)}
+.toast{animation:cm-aparecer .25s ease-out}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* casillas del jugador */
+.jf-st .jf-c{background:var(--bg);border:1.5px solid transparent;border-radius:10px;padding:8px 4px;text-align:center;color:var(--ink);cursor:pointer;font:inherit}
+.jf-st .jf-c b{display:block;font-size:20px}.jf-st .jf-c span{font-size:11px;color:var(--muted)}
+.jf-st .jf-c.on{border-color:var(--pitch2);background:color-mix(in srgb,var(--pitch2) 10%,var(--card))}
+.jd{border:1px solid var(--line);border-radius:10px;padding:6px 10px 8px;margin:0 0 8px;background:var(--card)}.jd-t{font-weight:700;font-size:12.5px;color:var(--pitch2);margin:2px 0 2px}
+.jd .jp{display:flex;flex-wrap:wrap;align-items:center;gap:4px}.jd-x{margin-left:auto;font-size:12.5px;color:var(--muted);display:inline-flex;align-items:center;gap:4px}
 </style>
 </head>
 <body>
@@ -1087,7 +1113,7 @@ function renderDiv(app,gid){
     const chat=$("#chat");
     const inicio=()=>[{r:"b",h:`<b>${esc(grupoNombre(gid))}</b><div class="small">${d.table.length} equipos · toca cada apartado para desplegarlo · toca un equipo para ver su ficha</div><div class="blqs">${Object.values(divisionBloques(d)).join("")}</div>`}];
     if(!state.chats[key])state.chats[key]=inicio();
-    const draw=()=>{chat.innerHTML=state.chats[key].map(m=>`<div class="msg ${m.r}${m.r==="b"?" wide":""}">${m.h}</div>`).join("")+`<div class="sug">${CHIPS_DIV.map(c=>`<button class="chip" data-ask="${esc(c)}">${esc(c)}</button>`).join("")}</div>`;
+    const draw=()=>{chat.innerHTML=state.chats[key].map(m=>`<div class="msg ${m.r}${m.r==="b"?" wide":""}">${m.h}</div>`).join("")+`<div class="sug">${CHIPS_DIV.map(c=>`<button class="chip" data-ask="${esc(c)}">${esc(c)}</button>`).join("")}</div>`;marcarNuevos(chat,key);
       const ab=state.abiertos[key]||{};chat.querySelectorAll("details[data-b]").forEach(x=>{if(x.dataset.b in ab)x.open=ab[x.dataset.b]})};
     chat.addEventListener("toggle",e=>{const x=e.target;if(x.matches&&x.matches("details[data-b]"))(state.abiertos[key]=state.abiertos[key]||{})[x.dataset.b]=x.open},true);
     draw();$("#scroll").scrollTop=0;
@@ -1636,7 +1662,7 @@ function statsJugadores(t,lista){
     const hayCambios=ents.length>0;
     for(const x of js){const k=claveJ(x);if(!J.has(k))J.set(k,{k,nombre:x.nombre_jugador,cod:codJ(x),conv:0,tit:0,sup:0,entro:0,gol:0,am:0,ro:0,dorsales:{},por:x.posicion_jugador_abreviatura||"",partidos:[]});
       const p=J.get(k);const tit=siNo(x.titular);const nn=norm(x.nombre_jugador||"");
-      const gl=goles.filter(y=>claveJ(y)===k||norm(y.nombre_jugador||"")===nn).length;
+      const glL=goles.filter(y=>claveJ(y)===k||norm(y.nombre_jugador||"")===nn);const gl=glL.length;const glm=glL.map(y=>minuto(y));
       const ts=tarj.filter(y=>claveJ(y)===k||norm(y.nombre_jugador||"")===nn);
       const ro=ts.filter(y=>{const c=String(y.codigo_tipo_amonestacion||"");return c==="101"||c==="102"||siNo(y.segunda_amarilla)}).length;
       const am=ts.length-ts.filter(y=>String(y.codigo_tipo_amonestacion||"")==="101").length;
@@ -1644,7 +1670,9 @@ function statsJugadores(t,lista){
       p.conv++;tit?p.tit++:p.sup++;if(entro)p.entro++;p.gol+=gl;p.am+=am;p.ro+=ro;
       if(x.dorsal!=null&&x.dorsal!=="")p.dorsales[x.dorsal]=(p.dorsales[x.dorsal]||0)+1;
       if(siNo(x.portero))p.portero=true;if(x.posicion_jugador_abreviatura)p.por=x.posicion_jugador_abreviatura;
-      p.partidos.push({m,tit,entro,hayCambios,gl,am,ro})}
+      const amm=ts.filter(y=>{const c=String(y.codigo_tipo_amonestacion||"");return !(c==="101")}).map(y=>({min:minuto(y),dos:String(y.codigo_tipo_amonestacion||"")==="102"||siNo(y.segunda_amarilla)}));
+      const rom=ts.filter(y=>{const c=String(y.codigo_tipo_amonestacion||"");return c==="101"||c==="102"||siNo(y.segunda_amarilla)}).map(y=>minuto(y));
+      p.partidos.push({m,tit,entro,hayCambios,gl,am,ro,glm,amm,rom})}
   }
   return [...J.values()].sort((a,b)=>b.conv-a.conv||b.tit-a.tit||b.gol-a.gol||completo(a.nombre).localeCompare(completo(b.nombre)));
 }
@@ -1662,17 +1690,37 @@ const botonSeguirJ=(tid,k,n)=>`<button class="btn${sigueJ(tid,k)?" ghost":""} se
 document.addEventListener("click",e=>{const b=e.target.closest("[data-seguirj]");if(!b)return;e.stopPropagation();const[tid,k,...n]=b.dataset.seguirj.split("|");const nombre=n.join("|");
   const i=state.jugs.findIndex(j=>j.tid===tid&&j.k===k);if(i>=0){state.jugs.splice(i,1);toast("Has dejado de seguir a "+completo(nombre))}else{state.jugs.push({tid,k,n:nombre});toast("Sigues a "+completo(nombre)+". Lo tienes en el inicio.")}
   store.set("jugadores",state.jugs);syncAndroid();document.querySelectorAll(`[data-seguirj="${CSS.escape(b.dataset.seguirj)}"]`).forEach(x=>x.outerHTML=botonSeguirJ(tid,k,nombre))},true);
+function detalleJugador(t,p){
+  const pt=x=>{const r=outcome(x.m,t.id);const riv=rivalOf(x.m,t.id);return `<span class="badge ${r}">${{W:"G",D:"E",L:"P"}[r]}</span> <b>J${x.m.j}</b> ${x.m.home===t.id?"vs":"en"} ${esc(riv.n)} <b>${x.m.hg}–${x.m.ag}</b>`};
+  const mins=a=>a.length?a.map(v=>v==null?"minuto sin indicar":v+"'").join(", "):"";
+  const lista=(sel,extra)=>{const xs=p.partidos.filter(sel).slice().reverse();return xs.length?xs.map(x=>`<div class="jp" data-fp="${esc(firma(x.m))}">${pt(x)}${extra?`<span class="jd-x">${extra(x)}</span>`:""}</div>`).join(""):`<div class="small">Ninguno todavía.</div>`};
+  return {
+    conv:lista(()=>true,x=>x.tit?"titular":x.entro?"entró desde el banquillo":"en el banquillo"),
+    tit:lista(x=>x.tit,()=> "titular"),
+    sup:lista(x=>!x.tit,x=>x.entro?"entró en el partido":"no consta que jugara"),
+    gol:lista(x=>x.gl,x=>`${ic("balon","sm")} ${x.gl} · ${mins(x.glm||[])}`),
+    am:lista(x=>x.am,x=>`${tarjeta("a")} ${mins((x.amm||[]).map(a=>a.min))}${(x.amm||[]).some(a=>a.dos)?" · segunda amarilla":""}`),
+    ro:lista(x=>x.ro,x=>`${tarjeta("r")} ${mins(x.rom||[])}`)};
+}
 function fichaJugadorHTML(t,p,total){
-  const pct=total?Math.round(p.conv*100/total):0;
+  const pct=total?Math.round(p.conv*100/total):0;const D=detalleJugador(t,p);const uid="jd"+Math.random().toString(36).slice(2,8);
   const fila=x=>{const r=outcome(x.m,t.id);const riv=rivalOf(x.m,t.id);
     return `<div class="jp" data-fp="${esc(firma(x.m))}"><span class="badge ${r}">${{W:"G",D:"E",L:"P"}[r]}</span> <b>J${x.m.j}</b> ${x.m.home===t.id?"vs":"en"} ${esc(riv.n)} <b>${x.m.hg}–${x.m.ag}</b>
       <span class="small"> · ${x.tit?"Titular":x.entro?"Entró de suplente":"Suplente"}${x.gl?" · "+ic("balon","sm").repeat(Math.min(x.gl,5)):""}${x.am?" · "+tarjeta("a"):""}${x.ro?" · "+tarjeta("r"):""}</span></div>`};
+  const casilla=(k,v,et)=>`<button class="jf-c" data-jd="${uid}|${k}" aria-expanded="false"><b>${v}</b><span>${et}</span></button>`;
+  const tit={conv:"Partidos en que fue convocado",tit:"Partidos de titular",sup:"Partidos en el banquillo",gol:"Sus goles: partido y minuto",am:"Tarjetas amarillas: partido y minuto",ro:"Tarjetas rojas: partido y minuto"};
   return `<div class="jf"><div class="jf-cab"><div class="jf-dor">${esc(dorsalJ(p)||"·")}</div><div><b style="font-size:17px">${esc(completo(p.nombre))}</b><div class="small">${esc(t.name)}${p.por?" · "+esc(p.por):""}${p.portero?" · Portero":""}</div></div></div>
-  <div class="jf-st"><div><b>${p.conv}</b><span>Convocado</span></div><div><b>${p.tit}</b><span>Titular</span></div><div><b>${p.sup}</b><span>Suplente</span></div><div><b>${p.gol}</b><span>Goles</span></div><div><b>${p.am}</b><span>Amarillas</span></div><div><b>${p.ro}</b><span>Rojas</span></div></div>
-  <div class="small">Convocado en ${p.conv} de ${total} partidos (${pct}%)${p.gol?` · ${(p.gol/p.conv).toFixed(2).replace(".",",")} goles por partido`:""}.</div>
+  <div class="jf-st">${casilla("conv",p.conv,"Convocado")}${casilla("tit",p.tit,"Titular")}${casilla("sup",p.sup,"Suplente")}${casilla("gol",p.gol,"Goles")}${casilla("am",p.am,"Amarillas")}${casilla("ro",p.ro,"Rojas")}</div>
+  ${Object.keys(D).map(k=>`<div class="jd" id="${uid}-${k}" hidden><div class="jd-t">${tit[k]}</div>${D[k]}</div>`).join("")}
+  <div class="small">Convocado en ${p.conv} de ${total} partidos (${pct}%)${p.gol?` · ${(p.gol/p.conv).toFixed(2).replace(".",",")} goles por partido`:""}. Toca cada número para ver en qué partidos.</div>
   <div class="blqs">${bloque("j-pp","hoja","Partido a partido",`${p.partidos.length} partido${p.partidos.length===1?"":"s"} · toca uno para abrirlo`,p.partidos.slice().reverse().map(fila).join(""),false)}</div>
   <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">${botonSeguirJ(t.id,p.k,p.nombre)}${p.cod&&/^\d+$/.test(p.cod)?linkRFFM(urlJugadorRFFM(p),"Ficha en la RFFM"):""}</div></div>`;
 }
+// Abrir / cerrar el detalle de una casilla (con animación); se cierra la que estuviera abierta
+document.addEventListener("click",e=>{const b=e.target.closest("[data-jd]");if(!b)return;e.stopPropagation();
+  const[uid,k]=b.dataset.jd.split("|");const caja=document.getElementById(uid+"-"+k);if(!caja)return;const abrir=caja.hidden;
+  document.querySelectorAll(`[id^="${uid}-"]`).forEach(x=>{x.hidden=true});document.querySelectorAll(`[data-jd^="${uid}|"]`).forEach(x=>{x.classList.remove("on");x.setAttribute("aria-expanded","false")});
+  if(abrir){caja.hidden=false;b.classList.add("on");b.setAttribute("aria-expanded","true")}},true);
 function buscarPartido(acta){for(const d of Object.values(GD)){const m=(d.matches||[]).find(x=>x.acta===acta);if(m)return m}return null}
 
 
@@ -2018,7 +2066,13 @@ async function preguntarIA(key,text,contexto){
 }
 
 /* ---------- vistas ---------- */
+let VOLVIENDO=false,ULTIMA_VISTA="";
+// Solo se anima la aparición de los mensajes nuevos (no los que se redibujan)
+const VISTOS={};function marcarNuevos(chat,key){const ms=chat.querySelectorAll(".msg");const antes=VISTOS[key];if(antes!=null)for(let i=antes;i<ms.length;i++)ms[i].classList.add("nuevo");VISTOS[key]=ms.length}
 function render(){const app=$("#app");app.onclick=null;
+  const vista=state.view+"|"+(state.team||"")+"|"+(state.div||"")+"|"+(state.jug??"");
+  if(vista!==ULTIMA_VISTA&&ULTIMA_VISTA){app.classList.remove("t-entrar","t-volver");void app.offsetWidth;app.classList.add(VOLVIENDO?"t-volver":"t-entrar")}
+  ULTIMA_VISTA=vista;VOLVIENDO=false;
   if(!IDX)return renderLoading(app);
   if(state.view==="home")return renderHome(app);
   if(state.view==="team")return renderTeam(app,TEAM.get(state.team));
@@ -2190,7 +2244,7 @@ function renderChat(app,t){
     const pregUlt=(state.chats[key].filter(m=>m.r==="u").pop()||{}).h||"";
     const lista=chips.filter(c=>esc(c)!==pregUlt);
     return `<div class="sug">${lista.map(c=>`<button class="chip" data-ask="${esc(c)}">${esc(c)}</button>`).join("")}</div>`};
-  const draw=()=>{chat.innerHTML=state.chats[key].map(m=>`<div class="msg ${m.r}${wide(m.h)?" wide":""}">${m.h}</div>`).join("")+sugerencias();
+  const draw=()=>{chat.innerHTML=state.chats[key].map(m=>`<div class="msg ${m.r}${wide(m.h)?" wide":""}">${m.h}</div>`).join("")+sugerencias();marcarNuevos(chat,key);
     if(t)chat.querySelectorAll(`a[data-ver="${CSS.escape(t.id)}"]`).forEach(a=>{a.replaceWith(Object.assign(document.createElement("b"),{textContent:[...a.childNodes].filter(x=>x.nodeType===3).map(x=>x.textContent).join("")}))}); // el propio equipo no es botón
     const ab=state.abiertos[key]||{};chat.querySelectorAll("details[data-b]").forEach(d=>{if(d.dataset.b in ab)d.open=ab[d.dataset.b]});
     $("#scroll").scrollTop=1e9;rellenarMeteo(chat)};
@@ -2232,7 +2286,7 @@ function renderChat(app,t){
       state.chats[key].push({r:"u",h:ic("ia")+" Previa de la IA"});state.chats[key].push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span> <span class="small">Preparando la previa…</span>'});draw();
       previaIA(datos).then(txt=>{const msgs=state.chats[key];msgs.pop();msgs.push({r:"b",h:`<b>${ic("ia")} Previa</b><div style="margin-top:4px">${fmtIA(txt)}</div><div class="small" style="opacity:.7;margin-top:6px">Texto de la IA a partir de los números de arriba; puede equivocarse.</div>`});if(state.view===(t?"team":"main"))draw()});return}
     const jg=e.target.closest("[data-jug]");if(jg){const[eid,k]=jg.dataset.jug.split("|");const eq=TEAM.get(eid);if(!eq)return;
-      state.chats[key].push({r:"u",h:ic("persona")+" "+esc(jg.textContent.replace("›","").trim())});state.chats[key].push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span>'});draw();
+      state.chats[key].push({r:"u",h:ic("persona")+" "+esc(((jg.querySelector(".tl-row")||jg).textContent||"").replace("›","").replace(/^\s*\d+\s+/,"").replace(/\s+/g," ").trim())});state.chats[key].push({r:"b",h:'<span class="typing"><i></i><i></i><i></i></span>'});draw();
       actasEquipo(eq,(n,tot)=>progresoChat(`Leyendo las actas de ${eq.name} ${n}/${tot}…`)).then(lista=>{const st=statsJugadores(eq,lista);const p=st.find(x=>x.k===k);
         const msgs=state.chats[key];msgs.pop();msgs.push({r:"b",h:p?fichaJugadorHTML(eq,p,lista.length):"No encuentro a ese jugador en las actas del equipo."});
         if(state.view===(t?"team":"main"))draw()});return}
@@ -2346,7 +2400,7 @@ function openSettings(){
     $("#upd").onclick=async()=>{$("#upd").textContent="…";await boot(true);closeSheet()};
   });
 }
-function volver(){const p=state.pila.pop();if(p){state.view=p.view;state.team=p.team;if(p.div)state.div=p.div;if(p.jug!=null)state.jug=p.jug}else state.view="home";render()}
+function volver(){VOLVIENDO=true;const p=state.pila.pop();if(p){state.view=p.view;state.team=p.team;if(p.div)state.div=p.div;if(p.jug!=null)state.jug=p.jug}else state.view="home";render()}
 window.atras=()=>{
   if($("#sheet").classList.contains("open")){closeSheet();return true}
   if(state.view!=="home"){volver();return true}
