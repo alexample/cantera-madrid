@@ -210,6 +210,8 @@ public class Avisos extends Worker {
         ed.putStringSet("alarmas", alarmas);
         ed.putLong("ultima_revision", ahora);
         ed.apply();
+        // De madrugada y con wifi: actas nuevas de las divisiones que sigues, poco a poco
+        try { actasDeNoche(c, p, cacheGrupos, ahora); } catch (Exception ignored) { }
         return fallo ? Result.retry() : Result.success();
     }
 
@@ -488,6 +490,65 @@ public class Avisos extends Worker {
             else sb.append(Character.toUpperCase(w.charAt(0))).append(w.substring(1));
         }
         return sb.toString();
+    }
+
+    // ---------- Actas de noche ----------
+    // Entre la 1 y las 7, con wifi, en cada pasada (cada 30 min) se leen como mucho 12 actas nuevas de la federación,
+    // despacio. Antes se mira qué actas ya tiene el servidor compartido para no pedirlas. Se guardan en un fichero
+    // que la app recoge al abrirse (las sube sin nombres y las usa para las estadísticas de jugadores).
+    static final String FICHERO_NOCHE = "actas_noche.json";
+    private void actasDeNoche(Context c, SharedPreferences p, JSONObject cacheGrupos, long ahora) throws Exception {
+        java.util.Calendar cal = java.util.Calendar.getInstance(java.util.TimeZone.getTimeZone("Europe/Madrid"));
+        int h = cal.get(java.util.Calendar.HOUR_OF_DAY);
+        if (h < 1 || h >= 7) return;
+        android.net.ConnectivityManager cm = (android.net.ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm == null || cm.isActiveNetworkMetered()) return;   // solo con wifi
+        Set<String> gids = new java.util.LinkedHashSet<>();
+        java.util.Iterator<String> it = cacheGrupos.keys();
+        while (it.hasNext()) gids.add(it.next());
+        try { JSONArray extra = new JSONArray(p.getString("grupos_noche", "[]")); for (int i = 0; i < extra.length(); i++) gids.add(extra.optString(i)); } catch (Exception ignored) { }
+        Set<String> vistas = new HashSet<>(p.getStringSet("actas_vistas", new HashSet<>()));
+        java.io.File f = new java.io.File(c.getFilesDir(), FICHERO_NOCHE);
+        JSONObject pend = f.exists() ? new JSONObject(Avisos.leerFichero(f)) : new JSONObject();
+        String ua = android.webkit.WebSettings.getDefaultUserAgent(c);
+        int leidas = 0, fallos = 0;
+        for (String gid : gids) {
+            if (gid.isEmpty() || leidas >= 12 || fallos >= 3) break;
+            JSONObject g = cacheGrupos.optJSONObject(gid);
+            if (g == null) { try { g = new JSONObject(descargar(DATOS + "g/" + gid + ".json")); } catch (Exception e) { continue; } }
+            // lo que ya está en el servidor compartido no hace falta pedirlo a la federación
+            try {
+                JSONObject srv = new JSONObject(descargar("https://dondeloechan-ia.alexample.workers.dev/cantera-actas?gid=" + gid)).optJSONObject("actas");
+                if (srv != null) { java.util.Iterator<String> ks = srv.keys(); while (ks.hasNext()) vistas.add(ks.next()); }
+            } catch (Exception ignored) { }
+            JSONArray part = g.optJSONArray("part");
+            if (part == null) continue;
+            String q = "temporada=" + g.optString("temp") + "&competicion=" + g.optString("comp") + "&grupo=" + gid;
+            for (int i = 0; i < part.length() && leidas < 12 && fallos < 3; i++) {
+                JSONArray m = part.optJSONArray(i);
+                if (m == null || m.isNull(7) || m.length() < 12) continue;
+                String ca = m.optString(11);
+                if (ca.isEmpty() || !ca.matches("\\d{1,12}") || vistas.contains(ca) || pend.has(ca)) continue;
+                String game = MainActivity.leerActaRFFM(ca, q, ua);
+                leidas++;
+                if (game == null) { fallos++; Thread.sleep(5000L * fallos); continue; }
+                fallos = 0;
+                pend.put(ca, game);
+                vistas.add(ca);
+                Thread.sleep(3000);
+            }
+        }
+        if (vistas.size() > 6000) vistas.clear();
+        p.edit().putStringSet("actas_vistas", vistas).apply();
+        try (java.io.FileOutputStream o = new java.io.FileOutputStream(f)) { o.write(pend.toString().getBytes("UTF-8")); }
+    }
+
+    static String leerFichero(java.io.File f) throws Exception {
+        try (java.io.FileInputStream in = new java.io.FileInputStream(f)) {
+            ByteArrayOutputStream out = new ByteArrayOutputStream(); byte[] b = new byte[16384]; int n;
+            while ((n = in.read(b)) > 0) out.write(b, 0, n);
+            return out.toString("UTF-8");
+        }
     }
 
     static String descargar(String url) throws Exception {

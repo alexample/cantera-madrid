@@ -161,30 +161,28 @@ public class MainActivity extends Activity {
         public void acta(String codacta, String query, String cb) {
             if (codacta == null || !codacta.matches("\\d{1,12}") || query == null || !query.matches("[0-9a-z=&]{0,120}")) return;
             new Thread(() -> {
-                String res = null;
-                try {
-                    String html = leer("https://www.rffm.es/acta-partido/" + codacta + (query.isEmpty() ? "" : "?" + query));
-                    Matcher m = Pattern.compile("<script id=\"__NEXT_DATA__\"[^>]*>(.*?)</script>", Pattern.DOTALL).matcher(html);
-                    if (m.find()) {
-                        JSONObject pp = new JSONObject(m.group(1)).getJSONObject("props").getJSONObject("pageProps");
-                        // Solo lo deportivo: goles, tarjetas, cambios y alineaciones
-                        JSONObject game = pp.optJSONObject("game");
-                        if (game != null) {
-                            JSONObject dep = new JSONObject();
-                            java.util.Iterator<String> it = game.keys();
-                            while (it.hasNext()) {
-                                String k = it.next();
-                                if (k.matches("(goles|tarjetas|jugadores)_equipo_(local|visitante)|goles_(local|visitante)|.*(sustitu|cambio|suplen|banquillo|entra|sale|alinea).*"))
-                                    dep.put(k, game.get(k));
-                            }
-                            res = dep.toString();
-                        }
-                    }
-                } catch (Exception ignored) { }
-                final String r = res;
+                final String r = leerActaRFFM(codacta, query, web.getSettings().getUserAgentString());
                 runOnUiThread(() -> web.evaluateJavascript("window.__acta && window.__acta(" + JSONObject.quote(cb) + ","
                         + (r == null ? "null" : JSONObject.quote(r)) + ")", null));
             }).start();
+        }
+
+        /** Actas descargadas de noche por el trabajo en segundo plano: se entregan y se vacía el fichero. */
+        @JavascriptInterface
+        public String actasNoche() {
+            try {
+                java.io.File f = new java.io.File(getFilesDir(), Avisos.FICHERO_NOCHE);
+                if (!f.exists()) return "{}";
+                String t = Avisos.leerFichero(f);
+                f.delete();
+                return t;
+            } catch (Exception e) { return "{}"; }
+        }
+
+        /** Grupos extra (de jugadores seguidos) para las actas de noche. */
+        @JavascriptInterface
+        public void guardarGruposNoche(String json) {
+            getSharedPreferences(Avisos.PREFS, Context.MODE_PRIVATE).edit().putString("grupos_noche", json == null ? "[]" : json).apply();
         }
         /** Color de fondo detrás de las barras del sistema (según el tema de la app). */
         /** Plantilla de un equipo desde su ficha de la RFFM: solo [código, nombre, dorsal] de cada jugador, para poner
@@ -287,6 +285,39 @@ public class MainActivity extends Activity {
             }
             return o == null || o == JSONObject.NULL ? "null" : o instanceof Number ? "num" : o instanceof Boolean ? "bool" : "txt";
         } catch (Exception e) { return "?"; }
+    }
+
+    /** Lee un acta de la RFFM y devuelve solo lo deportivo (goles, tarjetas, cambios y alineaciones), o null. */
+    static String leerActaRFFM(String codacta, String query, String ua) {
+        try {
+            String html = leerCon("https://www.rffm.es/acta-partido/" + codacta + (query.isEmpty() ? "" : "?" + query), ua);
+            Matcher m = Pattern.compile("<script id=\"__NEXT_DATA__\"[^>]*>(.*?)</script>", Pattern.DOTALL).matcher(html);
+            if (!m.find()) return null;
+            JSONObject game = new JSONObject(m.group(1)).getJSONObject("props").getJSONObject("pageProps").optJSONObject("game");
+            if (game == null) return null;
+            JSONObject dep = new JSONObject();
+            java.util.Iterator<String> it = game.keys();
+            while (it.hasNext()) {
+                String k = it.next();
+                if (k.matches("(goles|tarjetas|jugadores)_equipo_(local|visitante)|goles_(local|visitante)|.*(sustitu|cambio|suplen|banquillo|entra|sale|alinea).*"))
+                    dep.put(k, game.get(k));
+            }
+            return dep.length() == 0 ? null : dep.toString();
+        } catch (Exception e) { return null; }
+    }
+
+    static String leerCon(String url, String ua) throws Exception {
+        java.net.HttpURLConnection con = (java.net.HttpURLConnection) new java.net.URL(url).openConnection();
+        con.setConnectTimeout(15000);
+        con.setReadTimeout(20000);
+        if (ua != null) con.setRequestProperty("User-Agent", ua);
+        con.setRequestProperty("Accept-Language", "es-ES,es;q=0.9");
+        try (java.io.InputStream in = con.getInputStream()) {
+            java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
+            byte[] buf = new byte[16384]; int n;
+            while ((n = in.read(buf)) > 0) out.write(buf, 0, n);
+            return out.toString("UTF-8");
+        } finally { con.disconnect(); }
     }
 
     private String leer(String url) throws Exception {
