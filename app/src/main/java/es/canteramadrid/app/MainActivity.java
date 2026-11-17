@@ -161,9 +161,11 @@ public class MainActivity extends Activity {
         public void acta(String codacta, String query, String cb) {
             if (codacta == null || !codacta.matches("\\d{1,12}") || query == null || !query.matches("[0-9a-z=&]{0,120}")) return;
             new Thread(() -> {
-                final String r = leerActaRFFM(codacta, query, web.getSettings().getUserAgentString());
-                runOnUiThread(() -> web.evaluateJavascript("window.__acta && window.__acta(" + JSONObject.quote(cb) + ","
-                        + (r == null ? "null" : JSONObject.quote(r)) + ")", null));
+                String rr = null;
+                try { rr = leerActaRFFM(codacta, query, WebSettings.getDefaultUserAgent(MainActivity.this)); } catch (Throwable ignored) { }
+                final String r = rr;
+                runOnUiThread(() -> { try { web.evaluateJavascript("window.__acta && window.__acta(" + JSONObject.quote(cb) + ","
+                        + (r == null ? "null" : JSONObject.quote(r)) + ")", null); } catch (Throwable ignored) { } });
             }).start();
         }
 
@@ -205,10 +207,10 @@ public class MainActivity extends Activity {
                         r.put("esquema", esquema(pp, 0));
                         res = r.toString();
                     }
-                } catch (Exception ignored) { }
+                } catch (Throwable ignored) { }
                 final String r = res;
-                runOnUiThread(() -> web.evaluateJavascript("window.__plantilla && window.__plantilla(" + JSONObject.quote(cb) + ","
-                        + (r == null ? "null" : JSONObject.quote(r)) + ")", null));
+                runOnUiThread(() -> { try { web.evaluateJavascript("window.__plantilla && window.__plantilla(" + JSONObject.quote(cb) + ","
+                        + (r == null ? "null" : JSONObject.quote(r)) + ")", null); } catch (Throwable ignored) { } });
             }).start();
         }
 
@@ -289,7 +291,7 @@ public class MainActivity extends Activity {
 
     /** Lee un acta de la RFFM y devuelve solo lo deportivo (goles, tarjetas, cambios y alineaciones), o null. */
     static String leerActaRFFM(String codacta, String query, String ua) {
-        try {
+        try {  // Throwable: cualquier fallo de red o de memoria devuelve null en vez de cerrar la app
             String html = leerCon("https://www.rffm.es/acta-partido/" + codacta + (query.isEmpty() ? "" : "?" + query), ua);
             Matcher m = Pattern.compile("<script id=\"__NEXT_DATA__\"[^>]*>(.*?)</script>", Pattern.DOTALL).matcher(html);
             if (!m.find()) return null;
@@ -303,7 +305,7 @@ public class MainActivity extends Activity {
                     dep.put(k, game.get(k));
             }
             return dep.length() == 0 ? null : dep.toString();
-        } catch (Exception e) { return null; }
+        } catch (Throwable e) { return null; }
     }
 
     static String leerCon(String url, String ua) throws Exception {

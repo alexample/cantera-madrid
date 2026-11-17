@@ -211,7 +211,7 @@ public class Avisos extends Worker {
         ed.putLong("ultima_revision", ahora);
         ed.apply();
         // De madrugada y con wifi: actas nuevas de las divisiones que sigues, poco a poco
-        try { actasDeNoche(c, p, cacheGrupos, ahora); } catch (Exception ignored) { }
+        try { actasDeNoche(c, p, cacheGrupos, ahora); } catch (Throwable ignored) { }
         return fallo ? Result.retry() : Result.success();
     }
 
