@@ -486,6 +486,7 @@ details.blq>summary{transition:background-color .2s,color .2s,border-radius .2s}
 .estj{background:none;border:none;padding:2px 4px;color:var(--muted);cursor:pointer;line-height:1;vertical-align:middle}.estj .ico{width:18px;height:18px}.estj.on{color:#f59f00}
 td.et{width:26px;padding:0 0 0 2px!important}
 .prow .chev{color:var(--muted);font-size:20px;margin-left:6px}.segok{pointer-events:none}
+.masbtn{margin-top:8px;width:100%}.mas-oculto[hidden]{display:none!important}
 </style>
 </head>
 <body>
@@ -689,7 +690,11 @@ const opts=list=>`<div class="opts">${list.map(o=>`<button class="opt" data-ask=
 const botonSeg=(id)=>state.follows.includes(id)?`<button class="btn ghost segok" aria-label="Siguiendo">${ic("estrella","f sm")} Siguiendo</button>`:`<button class="btn" data-seg="${id}">Seguir</button>`;
 function teamRow(t,extra){return `<div class="prow tap" data-ver="${t.id}">${crest(t,34)}<div class="grow"><b>${esc(t.name)}</b><div class="small">${extra??esc(grupoNombre(t.grupos[0]))}</div></div>${botonSeg(t.id)}<span class="chev">›</span></div>`}
 document.addEventListener("click",e=>{const sg=e.target.closest("[data-seg]");if(!sg)return;e.stopPropagation();e.preventDefault();const id=sg.dataset.seg;follow(id);document.querySelectorAll(`[data-seg="${id}"]`).forEach(b=>b.outerHTML=botonSeg(id));toast("Añadido a tus equipos")},true);
-const teamCards=(ts,ll)=>`<div class="plist">${ts.map(t=>{const d=km(ll,t.ll);return teamRow(t,`${esc(CATN[t.cat])}${t.fem?" fem.":""} · ${esc(t.town||"")}${d!=null?` · a ${d<1?"menos de 1":Math.round(d)} km`:""}<br>${esc(grupoNombre(t.grupos[0]))}`)}).join("")}</div>`;
+// Lista larga: se ven las primeras y un botón despliega el resto de golpe
+function masLista(filas,n=8){if(filas.length<=n+2)return `<div class="plist">${filas.join("")}</div>`;
+  return `<div class="plist">${filas.slice(0,n).join("")}</div><div class="plist mas-oculto" hidden>${filas.slice(n).join("")}</div><button class="btn ghost masbtn" data-mas>Ver ${filas.length-n} más</button>`}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-mas]");if(!b)return;e.stopPropagation();const o=b.previousElementSibling;if(o&&o.classList.contains("mas-oculto")){o.hidden=false;o.style.marginTop="8px";b.remove()}},true);
+const teamCards=(ts,ll)=>masLista(ts.map(t=>{const d=km(ll,t.ll);return teamRow(t,`${esc(CATN[t.cat])}${t.fem?" fem.":""} · ${esc(t.town||"")}${d!=null?` · a ${d<1?"menos de 1":Math.round(d)} km`:""}<br>${esc(grupoNombre(t.grupos[0]))}`)}));
 
 const nombreJ=n=>{const m=String(n).match(/^(.*?),\s*(.+)$/);return m?m[2]+" "+m[1]:n};
 /* ---------- respuestas de la ficha ---------- */
@@ -1848,7 +1853,7 @@ async function preguntaSobreEquipo(text,it){
   if(res.length<=10)return `¿De qué equipo?`+opts(res.slice().sort(ordenEquipos).map(t=>({l:`${t.name} · ${CATN[t.cat]}${t.fem?" fem.":""}`,v:`q:${it.id}:${t.id}`})));
   const clubs=[];const vistos={};for(const t of res){if(!vistos[t.clubKey]){vistos[t.clubKey]=1;clubs.push(t)}}
   const cat=catInText(norm(text))||"";
-  return `¿De qué club?`+opts(clubs.slice(0,12).map(t=>({l:`${t.club} (${res.filter(x=>x.clubKey===t.clubKey).length})`,v:`qc:${it.id}:${t.clubKey}:${cat}`})))+(clubs.length>12?`<div class="small" style="margin-top:6px">Y ${clubs.length-12} clubes más: escribe el nombre del club para afinar.</div>`:"");
+  return `¿De qué club?`+opts(clubs.slice(0,30).map(t=>({l:`${t.club} (${res.filter(x=>x.clubKey===t.clubKey).length})`,v:`qc:${it.id}:${t.clubKey}:${cat}`})))+(clubs.length>30?`<div class="small" style="margin-top:6px">Y ${clubs.length-30} clubes más: escribe el nombre del club para afinar.</div>`:"");
 }
 /* ---------- chat principal ---------- */
 const MENU=[{ic:"pin",l:"¿Qué se juega aquí?"},{ic:"lupa",l:"Buscar un equipo"},{ic:"persona",l:"Buscar un jugador"},{ic:"brujula",l:"Ayúdame a encontrar un equipo"},{ic:"copa",l:"Ver clasificaciones"}];
@@ -1913,10 +1918,9 @@ function listTeams(res,text){
   for(const t of res){if(!byKey[t.clubKey]){byKey[t.clubKey]={key:t.clubKey,name:t.club,teams:[],sample:t};clubs.push(byKey[t.clubKey])}byKey[t.clubKey].teams.push(t)}
   if(clubs.length===1)return clubTeams(clubs[0].key,cat,fem);
   if(res.length<=6)return `He encontrado ${res.length} equipos:`+teamCards(res.slice().sort(ordenEquipos));
-  const top=clubs.slice(0,12);
   return `He encontrado ${res.length} equipos de ${clubs.length} clubes${cat?" ("+CATN[cat]+")":""}. Elige el club para ver todos sus equipos:
-  <div class="plist">${top.map(c=>{const cats=[...new Set(c.teams.map(t=>CATN[t.cat]))].join(", ");const nf=c.teams.filter(t=>t.fem).length;
-    return `<div class="prow">${crest(c.sample,34)}<div class="grow"><b>${esc(c.name)}</b><div class="small">${c.teams.length} equipo${c.teams.length>1?"s":""} · ${esc(cats)}${nf?` · ${nf} femenino${nf>1?"s":""}`:""}${c.sample.town?" · "+esc(c.sample.town):""}</div></div><button class="btn" data-ask="${esc("clubteams:"+c.key+":"+(cat||"")+":"+(fem?"1":""))}">Ver</button></div>`}).join("")}</div>${clubs.length>12?`<div class="small" style="margin-top:6px">Y ${clubs.length-12} clubes más: escribe un nombre más concreto.</div>`:""}`;
+  ${masLista(clubs.map(c=>{const cats=[...new Set(c.teams.map(t=>CATN[t.cat]))].join(", ");const nf=c.teams.filter(t=>t.fem).length;
+    return `<div class="prow">${crest(c.sample,34)}<div class="grow"><b>${esc(c.name)}</b><div class="small">${c.teams.length} equipo${c.teams.length>1?"s":""} · ${esc(cats)}${nf?` · ${nf} femenino${nf>1?"s":""}`:""}${c.sample.town?" · "+esc(c.sample.town):""}</div></div><button class="btn" data-ask="${esc("clubteams:"+c.key+":"+(cat||"")+":"+(fem?"1":""))}">Ver</button></div>`}))}`;
 }
 function answerMain(text){
   const q=norm(text);const cat=catInText(q);
@@ -1935,7 +1939,7 @@ function answerMain(text){
       return "¿Qué competición?"+opts(list.sort((a,b)=>a[1].name.localeCompare(b[1].name)).map(([id,c])=>({l:`${c.name} (${c.groups.length} ${c.groups.length>1?"grupos":"grupo"})`,v:"comp:"+id})))}
   }
   let res=searchTeams(text);
-  if(!res.length){const p=findPlace(text);if(p){const near=nearestTeams(p.ll,{cat,fem:femInText(q)||null,limit:8});if(near.length)return `Equipos${cat?" "+CATN[cat]:""} con campo más cerca de <b>${esc(cap(p.name))}</b>:`+teamCards(near,p.ll)}}
+  if(!res.length){const p=findPlace(text);if(p){const near=nearestTeams(p.ll,{cat,fem:femInText(q)||null,limit:40});if(near.length)return `Equipos${cat?" "+CATN[cat]:""} con campo más cerca de <b>${esc(cap(p.name))}</b>:`+teamCards(near,p.ll)}}
   const r=listTeams(res,text);
   return r&&ULTIMA_CORRECCION?`<div class="small" style="margin-bottom:6px">Resultados para «${esc(ULTIMA_CORRECCION)}»</div>`+r:r;
 }
@@ -1996,9 +2000,18 @@ let GOLEADORES=null;
 async function playerSearch(text){
   if(!GOLEADORES){try{GOLEADORES=(await getJSON("goleadores.json")).map(r=>({n:nombreJ(r[0]),nn:norm(r[0]),t:r[1],g:r[2]}))}catch(e){return "No he podido cargar los datos de jugadores ahora mismo."}}
   const w=norm(text).split(" ").filter(x=>x.length>1);if(!w.length)return null;
-  const res=GOLEADORES.filter(p=>w.every(x=>(" "+p.nn).includes(" "+x))).slice(0,8);
+  const ok=nn=>w.every(x=>(" "+nn).includes(" "+x));
+  // 1) goleadores de la federación (todas las divisiones) · 2) jugadores de las actas y plantillas que ya tiene el móvil
+  const vistos=new Set(),res=[];
+  for(const p of GOLEADORES)if(ok(p.nn)&&TEAM.get(p.t)){const kk=p.t+"|"+p.nn;if(!vistos.has(kk)){vistos.add(kk);res.push(p)}}
+  for(const[tid,m] of Object.entries(NOMBRES)){if(!TEAM.get(tid))continue;for(const[k0,n] of Object.entries(m||{})){if(!/^c\d+$/.test(k0))continue;const k=k0.slice(1),nn=norm(n);if(!ok(nn))continue;const kk=tid+"|"+nn;
+    if(vistos.has(kk)){const g=res.find(r=>r.t===tid&&r.nn===nn);if(g)g.k=k;continue}vistos.add(kk);res.push({n:completo(n),nn,t:tid,g:0,k})}}
   if(!res.length)return null;
-  return `${res.length===1?"He encontrado a este jugador:":`He encontrado ${res.length} jugadores:`}<div class="plist">${res.map(p=>{const t=TEAM.get(p.t);return t?`<div class="prow tap" data-ver="${t.id}">${crest(t,34)}<div class="grow"><b>${esc(p.n)}</b><div class="small">${esc(t.name)} · ${p.g} gol${p.g>1?"es":""}</div></div>${botonSeg(t.id)}<span class="chev">›</span></div>`:""}).join("")}</div><div class="small" style="margin-top:6px">Solo aparecen jugadores con goles registrados por la federación.</div>`;
+  res.sort((a,b)=>b.g-a.g||a.n.localeCompare(b.n));
+  const fila=p=>{const t=TEAM.get(p.t);const sub=`${esc(t.name)} · ${esc(CATN[t.cat]||"")}${p.g?` · ${p.g} gol${p.g>1?"es":""}`:""}`;
+    return p.k?`<div class="prow tap" data-jug="${esc(t.id)}|${esc(p.k)}">${crest(t,34)}<div class="grow"><b class="tl-row">${esc(p.n)}</b><div class="small">${sub}</div></div>${estrellaJ(t.id,p.k,p.n)}<span class="chev">›</span></div>`
+      :`<div class="prow tap" data-ver="${t.id}">${crest(t,34)}<div class="grow"><b>${esc(p.n)}</b><div class="small">${sub}</div></div>${botonSeg(t.id)}<span class="chev">›</span></div>`};
+  return `${res.length===1?"He encontrado a este jugador:":`He encontrado ${res.length} jugadores:`}${masLista(res.map(fila))}<div class="small" style="margin-top:6px">Salen los jugadores con goles en la federación y los de las actas y plantillas que ya has abierto en el móvil. Si no está el que buscas, abre su equipo y toca «Jugadores».</div>`;
 }
 /* asistente: año → zona → club */
 function wizardAsk(){
@@ -2026,7 +2039,7 @@ function wizardAnswer(text){
   if(f.step===1){
     if(/(me da igual|da igual|cualquier|no se)/.test(q))d.place=null;
     else{const p=findPlace(text);
-      if(!p){const byName=searchTeams(text,{cat:d.cat});if(byName.length){state.flow=null;return `He encontrado estos equipos ${CATN[d.cat]}:`+teamCards(byName.slice(0,8))+more()}
+      if(!p){const byName=searchTeams(text,{cat:d.cat});if(byName.length){state.flow=null;return `He encontrado estos equipos ${CATN[d.cat]}:`+teamCards(byName.slice(0,60))+more()}
         return "No conozco ese sitio. Prueba con el municipio o distrito (por ejemplo «Carabanchel», «Móstoles») o pulsa «Me da igual»."+opts(["Me da igual"])}
       d.place=p}
     f.step=2;return (d.place?`Zona: <b>${esc(cap(d.place.name))}</b>.<br><br>`:"")+wizardAsk();
