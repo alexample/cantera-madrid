@@ -9322,119 +9322,25 @@
 "tipo": "entrada",
 "corregido": false
 },
-"1746": {
-"nombre": "VALDEOLMOS",
-"localidad": "Valdeolmos-Alalpardo",
+"1131": {
+"nombre": "TRES CANTOS - FORESTA 3 - F7 (H.A.)",
+"localidad": "Tres Cantos",
 "rffm": [
-40.638194,
--3.450614
+40.607866,
+-3.709559
 ],
-"dir_consultada": "RONDA DE LA DEHESA 4|Valdeolmos-Alalpardo",
-"direccion_nombre": "Calle Ronda de la Dehesa, Alalpardo, Valdeolmos-Alalpardo, Comunidad de Madrid, 28130, España",
+"dir_consultada": "AVDA. LA VEGA S/N|Tres Cantos",
+"direccion_nombre": "Avenida de la Vega, Soto de Viñuelas, Tres Cantos, Comunidad de Madrid, 28760, España",
 "direccion_gps": [
-40.637701,
--3.451241
+40.608283,
+-3.709137
 ],
-"dist_rffm_direccion_km": 0.08,
-"instalacion": "Campo de futbol de Valdeolmos",
+"dist_rffm_direccion_km": 0.06,
+"instalacion": "Polideportivo Miguel de Cervantes",
 "dist_instalacion_km": 0.07,
 "navegacion": [
-40.63786,
--3.449965
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"1330": {
-"nombre": "MÓSTOLES - PTE. DETERMINAR POR AYUNTAMIENTO",
-"localidad": "Móstoles",
-"rffm": null,
-"aviso": "Campo pendiente de asignar"
-},
-"3319752": {
-"nombre": "PVO. MUN. MIGUEL GUILLEN PRIM (HA) LA GAVIA",
-"localidad": "Madrid",
-"rffm": [
-40.373635,
--3.623442
-],
-"dir_consultada": "CALLE DE FUENTIDUEÑA 6|Madrid",
-"direccion_nombre": "Calle de Fuentidueña, Casco Histórico de Vallecas, Villa de Vallecas, Madrid, Comunidad de Madrid, 28031, España",
-"direccion_gps": [
-40.374623,
--3.623481
-],
-"dist_rffm_direccion_km": 0.11,
-"instalacion": "Polideportivo Municipal Manuel Guillén Prim",
-"dist_instalacion_km": 0.04,
-"navegacion": [
-40.373291,
--3.623405
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"2501": {
-"nombre": "ARANJUEZ - EST. MPAL. EL DELEITE (HB)",
-"localidad": "Aranjuez",
-"rffm": [
-40.02346,
--3.6199
-],
-"dir_consultada": "PASEO DEL DELEITE 1|Aranjuez",
-"direccion_nombre": "Paseo de Deleite, Urbanización los Jardines del Deleite, Crisálida, Aranjuez, Comunidad de Madrid, 28300, España",
-"direccion_gps": [
-40.022752,
--3.627537
-],
-"dist_rffm_direccion_km": 0.66,
-"instalacion": "Ciudad Deportiva Las Olivas",
-"dist_instalacion_km": 0.29,
-"navegacion": [
-40.026079,
--3.620009
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"25693593": {
-"nombre": "ARAVACA - STELLA MARIS COLLEGE (HA)",
-"localidad": "Madrid",
-"rffm": [
-40.468149,
--3.773669
-],
-"dir_consultada": "CALLE VALDESQUI 16|Madrid",
-"direccion_nombre": "Calle Valdesquí, Soto de Viñuelas, Tres Cantos, Comunidad de Madrid, 28760, España",
-"direccion_gps": [
-40.612123,
--3.691038
-],
-"dist_rffm_direccion_km": 17.47,
-"aviso": "Coordenadas de la RFFM a 17.5 km de la dirección y sin instalación deportiva: corregido",
-"instalacion": "pitch",
-"dist_instalacion_km": 0.1,
-"navegacion": [
-40.611639,
--3.692087
-],
-"tipo": "instalacion",
-"corregido": true
-},
-"1745": {
-"nombre": "VALDEAVERO - LOS PRADOS (HA)",
-"localidad": "Valdeavero",
-"rffm": [
-40.632906,
--3.338205
-],
-"dir_consultada": "CAMINO DE RIBATEJADA S/N|Valdeavero",
-"sin_geocodificar": true,
-"instalacion": "pitch",
-"dist_instalacion_km": 0.13,
-"navegacion": [
-40.63398,
--3.338783
+40.608373,
+-3.710003
 ],
 "tipo": "instalacion",
 "corregido": false
@@ -9462,113 +9368,27 @@
 "tipo": "instalacion",
 "corregido": false
 },
-"2604": {
-"nombre": "CARABAÑA (HA)",
-"localidad": "Carabaña",
-"rffm": [
-40.259957,
--3.236336
-],
-"dir_consultada": "CAMINO DEL ROBLEDILLO S/N|Carabaña",
-"direccion_nombre": "Camino Bajo del robledillo, Carabaña, Comunidad de Madrid, 28560, España",
-"direccion_gps": [
-40.27496,
--3.228639
-],
-"dist_rffm_direccion_km": 1.79,
-"aviso": "La dirección queda a 1.8 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
-"instalacion": "pitch",
-"dist_instalacion_km": 0.07,
-"navegacion": [
-40.260021,
--3.23715
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"10377422": {
-"nombre": "PINTO - COLEGIO MIRASUR (HA)",
-"localidad": "Pinto",
-"rffm": [
-40.255356,
--3.697311
-],
-"dir_consultada": "CALLE PABLO GARGALLO S/N|Pinto",
-"direccion_nombre": "Calle de Pablo Gargallo, Parque Europa, Pinto, Comunidad de Madrid, 28320, España",
-"direccion_gps": [
-40.255364,
--3.696246
-],
-"dist_rffm_direccion_km": 0.09,
-"instalacion": "pitch",
-"dist_instalacion_km": 0.16,
-"navegacion": [
-40.254992,
--3.699105
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"15708103": {
-"nombre": "CIUDAD DEPORTIVA RAYO VALLECANO",
+"3361210": {
+"nombre": "COTORRUELO 2-B",
 "localidad": "Madrid",
 "rffm": [
-40.370102,
--3.606585
+40.381582,
+-3.723952
 ],
-"dir_consultada": "ENSANCHE DE VALLECAS|Madrid",
-"direccion_nombre": "Ensanche de Vallecas, Villa de Vallecas, Madrid, Comunidad de Madrid, 28051, España",
+"dir_consultada": "VIA LUSITANA 5|Madrid",
+"direccion_nombre": "Vía Lusitana, Abrantes, Carabanchel, Madrid, Comunidad de Madrid, 28025, España",
 "direccion_gps": [
-40.366753,
--3.599326
+40.38283,
+-3.723421
 ],
-"dist_rffm_direccion_km": 0.72,
-"instalacion": "pitch",
-"dist_instalacion_km": 0.33,
+"dist_rffm_direccion_km": 0.15,
+"instalacion": "Complejo de campos de fútbol Ernesto Cotorruelo",
+"dist_instalacion_km": 0.11,
 "navegacion": [
-40.372779,
--3.604816
+40.380586,
+-3.723875
 ],
 "tipo": "instalacion",
-"corregido": false
-},
-"102": {
-"nombre": "COLEGIO NTRA. SRA. DEL BUEN CONSEJO",
-"localidad": "Madrid",
-"rffm": [
-40.446962,
--3.713763
-],
-"dir_consultada": "CALLE DE JUAN MONTALVO 30|Madrid",
-"direccion_nombre": "Nuestra Señora del Buen Consejo, 30, Calle de Juan Montalvo, Ciudad Universitaria, Moncloa-Aravaca, Madrid, Comunidad de Madrid, 28040, España",
-"direccion_gps": [
-40.447329,
--3.712369
-],
-"dist_rffm_direccion_km": 0.12,
-"instalacion": "pitch",
-"dist_instalacion_km": 0.08,
-"navegacion": [
-40.447667,
--3.713426
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"31327": {
-"nombre": "CIUDAD REAL MADRID 4 (HA)",
-"localidad": "Madrid",
-"rffm": [
-40.472653,
--3.611889
-],
-"dir_consultada": "CAMINO DE SINTRA 4|Madrid",
-"sin_geocodificar": true,
-"navegacion": [
-40.472653,
--3.611889
-],
-"tipo": "rffm",
 "corregido": false
 },
 "23289126": {
@@ -9594,145 +9414,6 @@
 "tipo": "instalacion",
 "corregido": false
 },
-"11803684": {
-"nombre": "GETAFE - COLEGIO LOS ANGELES (HA)",
-"localidad": "Getafe",
-"rffm": [
-40.27589,
--3.743259
-],
-"dir_consultada": "PASEO DE TISELIUS 5|Getafe",
-"direccion_nombre": "Paseo de Tiselius, Getafe, Comunidad de Madrid, 28947, España",
-"direccion_gps": [
-40.272801,
--3.741741
-],
-"dist_rffm_direccion_km": 0.37,
-"instalacion": "pitch",
-"dist_instalacion_km": 0.05,
-"navegacion": [
-40.276248,
--3.743612
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"3083901": {
-"nombre": "POZUELO - LA FINCA (HA)",
-"localidad": "Pozuelo De Alarcón",
-"rffm": [
-40.419447,
--3.804801
-],
-"dir_consultada": "PASEO DEL CLUB DEPORTIVO 4|Pozuelo De Alarcón",
-"direccion_nombre": "Edificio 4, 4, Paseo del Club Deportivo, Somosaguas Sur, Húmera, Pozuelo de Alarcón, Comunidad de Madrid, 28223, España",
-"direccion_gps": [
-40.41918,
--3.799873
-],
-"dist_rffm_direccion_km": 0.42,
-"instalacion": "Reebok Sport",
-"dist_instalacion_km": 0.05,
-"navegacion": [
-40.419489,
--3.804159
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"1145002": {
-"nombre": "COLEGIO SEK EL CASTILLO (HA)",
-"localidad": "Villanueva De La Cañada",
-"rffm": [
-40.472821,
--3.941198
-],
-"dir_consultada": "CALLE CASTILLO DE ALARCÓN 49 - URB. VILLAFRANCA DEL CASTILLO|Villanueva De La Cañada",
-"sin_geocodificar": true,
-"instalacion": "pitch",
-"dist_instalacion_km": 0.22,
-"navegacion": [
-40.472256,
--3.938695
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"126": {
-"nombre": "C.D.M. SANTA ANA - MARTIN TEMIÑO (HB)",
-"localidad": "Madrid",
-"rffm": [
-40.500551,
--3.694977
-],
-"dir_consultada": "CALLE AFUERAS A VALVERDE 56|Madrid",
-"direccion_nombre": "Calle de Afueras a Valverde, Valverde, Fuencarral, Fuencarral-El Pardo, Madrid, Comunidad de Madrid, 28034, España",
-"direccion_gps": [
-40.501155,
--3.695615
-],
-"dist_rffm_direccion_km": 0.09,
-"entrada": {
-"access": "permissive",
-"barrier": "gate",
-"wheelchair": "yes"
-},
-"instalacion": "Instalación Deportiva Municipal Básica Tres Olivos II",
-"dist_instalacion_km": 0.13,
-"navegacion": [
-40.50051,
--3.694084
-],
-"tipo": "entrada",
-"corregido": false
-},
-"450": {
-"nombre": "ERNESTO COTORRUELO (HA)",
-"localidad": "Madrid",
-"rffm": [
-40.381582,
--3.723952
-],
-"dir_consultada": "VIA LUSITANA 5|Madrid",
-"direccion_nombre": "Vía Lusitana, Buenavista, Carabanchel, Madrid, Comunidad de Madrid, 28054, España",
-"direccion_gps": [
-40.370498,
--3.737712
-],
-"dist_rffm_direccion_km": 1.7,
-"aviso": "La dirección queda a 1.7 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
-"instalacion": "Complejo de campos de fútbol Ernesto Cotorruelo",
-"dist_instalacion_km": 0.11,
-"navegacion": [
-40.380586,
--3.723875
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"13212589": {
-"nombre": "VILLAVICIOSA DE ODÓN F7 C-3 (HA)",
-"localidad": "Villaviciosa De Odón",
-"rffm": [
-40.362519,
--3.917312
-],
-"dir_consultada": "ALEXANDER GRAHAM BELL, 2|Villaviciosa De Odón",
-"direccion_nombre": "2, Calle Alexander Graham Bell, Villaviciosa de Odón, Comunidad de Madrid, 28670, España",
-"direccion_gps": [
-40.362481,
--3.91733
-],
-"dist_rffm_direccion_km": 0.0,
-"instalacion": "Campos de fútbol de Villaviosa de Odón",
-"dist_instalacion_km": 0.2,
-"navegacion": [
-40.360798,
--3.916748
-],
-"tipo": "instalacion",
-"corregido": false
-},
 "311": {
 "nombre": "PARQUE EUROPA (T)",
 "localidad": "Madrid",
@@ -9743,327 +9424,15 @@
 "dir_consultada": "CALLE GORDOLOBO S/N|Madrid",
 "direccion_nombre": "Calle Gordolobo, Las Águilas, Latina, Madrid, Comunidad de Madrid, 28024, España",
 "direccion_gps": [
-40.386906,
--3.774527
+40.385187,
+-3.776788
 ],
-"dist_rffm_direccion_km": 0.03,
+"dist_rffm_direccion_km": 0.3,
 "instalacion": "Gimnasio",
 "dist_instalacion_km": 0.34,
 "navegacion": [
 40.384528,
 -3.771946
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"27827006": {
-"nombre": "ALCOBENDAS - COLEGIO RUNNYMEDE (H.A.)",
-"localidad": "Alcobendas",
-"rffm": null,
-"dir_consultada": "CALLE DE LA SALVIA 30|Alcobendas",
-"direccion_nombre": "Runnymede College, 30, Calle de la Salvia, La Moraleja, Alcobendas, Comunidad de Madrid, 28109, España",
-"direccion_gps": [
-40.52841,
--3.631118
-],
-"aviso": "La RFFM no da coordenadas: se usa la dirección",
-"instalacion": "Julia Powell Sports Hall & Auditorium",
-"dist_instalacion_km": 0.1,
-"navegacion": [
-40.529046,
--3.630218
-],
-"tipo": "instalacion",
-"corregido": true
-},
-"1131": {
-"nombre": "TRES CANTOS - FORESTA 3 - F7 (H.A.)",
-"localidad": "Tres Cantos",
-"rffm": [
-40.607866,
--3.709559
-],
-"dir_consultada": "AVDA. LA VEGA S/N|Tres Cantos",
-"direccion_nombre": "Avenida de la Vega, Soto de Viñuelas, Tres Cantos, Comunidad de Madrid, 28760, España",
-"direccion_gps": [
-40.611693,
--3.705839
-],
-"dist_rffm_direccion_km": 0.53,
-"instalacion": "Polideportivo Miguel de Cervantes",
-"dist_instalacion_km": 0.07,
-"navegacion": [
-40.608373,
--3.710003
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"16608940": {
-"nombre": "GETAFE - CIUDAD DPTVA 4 (HA) F7",
-"localidad": "Getafe",
-"rffm": [
-40.324852,
--3.714132
-],
-"dir_consultada": "CALLE MARÍA MONTESSORI S/N|Getafe",
-"direccion_nombre": "Calle de María Montessori, Los Espartales, Villaverde Alto, Casco Histórico de Villaverde, Getafe Norte, Getafe, Comunidad de Madrid, 28903, España",
-"direccion_gps": [
-40.324806,
--3.714191
-],
-"dist_rffm_direccion_km": 0.01,
-"entrada": {
-"entrance": "yes"
-},
-"instalacion": "Coliseum",
-"dist_instalacion_km": 0.12,
-"navegacion": [
-40.325619,
--3.716013
-],
-"tipo": "entrada",
-"corregido": false
-},
-"1680": {
-"nombre": "MÓSTOLES - EL SOTO (HB)",
-"localidad": "Móstoles",
-"rffm": [
-40.325675,
--3.88309
-],
-"dir_consultada": "AVDA. DE IKER CASILLAS S/N|Móstoles",
-"direccion_nombre": "Avenida de Iker Casillas, Móstoles, Comunidad de Madrid, 28935, España",
-"direccion_gps": [
-40.325879,
--3.889258
-],
-"dist_rffm_direccion_km": 0.52,
-"instalacion": "pitch",
-"dist_instalacion_km": 0.3,
-"navegacion": [
-40.32644,
--3.879652
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"13564016": {
-"nombre": "COLEGIO ANDEL",
-"localidad": "Alcorcón",
-"rffm": [
-40.338206,
--3.856901
-],
-"dir_consultada": "Fuente Cisneros, 39|Alcorcón",
-"direccion_nombre": "Centro Privado de Educación Primaria y Secundaria Andel, 39, Calle Fuente Cisneros, Fuente Cisneros, Suroeste, Alcorcón, Comunidad de Madrid, 28922, España",
-"direccion_gps": [
-40.338375,
--3.857696
-],
-"dist_rffm_direccion_km": 0.07,
-"instalacion": "sports_centre",
-"dist_instalacion_km": 0.15,
-"navegacion": [
-40.338345,
--3.858701
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"13369406": {
-"nombre": "ALCALA - POLIDEPORTIVO ENSANCHE",
-"localidad": "Alcalá De Henares",
-"rffm": [
-40.500066,
--3.368132
-],
-"dir_consultada": "C/ GABRIELA MISTRAL S/N|Alcalá De Henares",
-"direccion_nombre": "Calle de Gabriela Mistral, El Ensanche, Distrito IV, Alcalá de Henares, Comunidad de Madrid, 28806, España",
-"direccion_gps": [
-40.498389,
--3.368466
-],
-"dist_rffm_direccion_km": 0.19,
-"instalacion": "Centro Deportivo Ensanche",
-"dist_instalacion_km": 0.08,
-"navegacion": [
-40.499755,
--3.369037
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"425": {
-"nombre": "PARQUE LAS CRUCES F/7 (HA)",
-"localidad": "Madrid",
-"rffm": [
-40.375248,
--3.755222
-],
-"dir_consultada": "CAMINO DE LAS CRUCES 4|Madrid",
-"direccion_nombre": "Kiosco El Madroño, 4, Camino de las Cruces, Buenavista, Carabanchel, Madrid, Comunidad de Madrid, 28044, España",
-"direccion_gps": [
-40.375222,
--3.755281
-],
-"dist_rffm_direccion_km": 0.01,
-"instalacion": "Instalación Deportiva Municipal Básica Parque de las Cruces",
-"dist_instalacion_km": 0.16,
-"navegacion": [
-40.376232,
--3.756564
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"1602": {
-"nombre": "ARGANDA - ESTADIO MUNICIPAL.(HB)",
-"localidad": "Arganda Del Rey",
-"rffm": [
-40.31096,
--3.45026
-],
-"dir_consultada": "AVDA. DE VALDEARGANDA 12|Arganda Del Rey",
-"direccion_nombre": "Estadio Municipal de deportes de Arganda del Rey, 12, Avenida de Valdearganda, Los Villares, Arganda del Rey, Comunidad de Madrid, 28500, España",
-"direccion_gps": [
-40.311227,
--3.450455
-],
-"dist_rffm_direccion_km": 0.03,
-"instalacion": "Estadio Municipal de deportes de Arganda del Rey",
-"dist_instalacion_km": 0.01,
-"navegacion": [
-40.310935,
--3.450402
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"385231": {
-"nombre": "ALCOBENDAS - LICEO EUROPEO (HA)",
-"localidad": "Alcobendas",
-"rffm": [
-40.511999,
--3.64277
-],
-"dir_consultada": "CALLE DEL CAMINO DEL SUR 10|Alcobendas",
-"sin_geocodificar": true,
-"instalacion": "sports_centre",
-"dist_instalacion_km": 0.14,
-"navegacion": [
-40.510831,
--3.64348
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"27967976": {
-"nombre": "COLEGIO NUEVA CASTILLA (H.A.)",
-"localidad": "Madrid",
-"rffm": [
-40.37657,
--3.608305
-],
-"dir_consultada": "CALLE MAZATERON 12|Madrid",
-"direccion_nombre": "Colegio Nueva Castilla, 12, Calle de Mazaterón, Ensanche de Vallecas, Villa de Vallecas, Madrid, Comunidad de Madrid, 28051, España",
-"direccion_gps": [
-40.376001,
--3.607634
-],
-"dist_rffm_direccion_km": 0.09,
-"instalacion": "pitch",
-"dist_instalacion_km": 0.02,
-"navegacion": [
-40.37637,
--3.6083
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"13213588": {
-"nombre": "CIEMPOZUELOS-PEÑUELAS F/7-C1(HA)",
-"localidad": "Ciempozuelos",
-"rffm": [
-40.155034,
--3.610134
-],
-"dir_consultada": "CAMINO DE LA PEÑUELA, 1|Ciempozuelos",
-"sin_geocodificar": true,
-"instalacion": "Campos de Fútbol Municipales Las Peñuelas",
-"dist_instalacion_km": 0.06,
-"navegacion": [
-40.155064,
--3.609408
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"853068": {
-"nombre": "FUENLABRADA - ESTADIO FERNANDO TORRES (HB)",
-"localidad": "Fuenlabrada",
-"rffm": [
-40.292239,
--3.826672
-],
-"dir_consultada": "CAMINO DEL MOLINO,S/N|Fuenlabrada",
-"direccion_nombre": "Camino del Molino, El Vivero, El Vivero - Hospital - Universidad, Fuenlabrada, Comunidad de Madrid, 28942, España",
-"direccion_gps": [
-40.286228,
--3.821317
-],
-"dist_rffm_direccion_km": 0.81,
-"instalacion": "Ciudad Deportiva del Oeste",
-"dist_instalacion_km": 0.02,
-"navegacion": [
-40.292329,
--3.826829
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"12287263": {
-"nombre": "MUNICIPAL SAN BLAS 2 (HA)",
-"localidad": "Madrid",
-"rffm": [
-40.419733,
--3.619244
-],
-"dir_consultada": "AVDA. DE GUADALAJARA 16|Madrid",
-"direccion_nombre": "Avenida de Guadalajara, Arcos, San Blas - Canillejas, Madrid, Comunidad de Madrid, 28032, España",
-"direccion_gps": [
-40.420057,
--3.618696
-],
-"dist_rffm_direccion_km": 0.06,
-"instalacion": "pitch",
-"dist_instalacion_km": 0.06,
-"navegacion": [
-40.419448,
--3.61859
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"16526824": {
-"nombre": "STELLA MARIS LA GAVIA",
-"localidad": "Madrid",
-"rffm": [
-40.374171,
--3.604976
-],
-"dir_consultada": "PEÑARANDA DE BRACAMONTE, 9.|Madrid",
-"direccion_nombre": "9, Calle de Peñaranda de Bracamonte, Ensanche de Vallecas, Villa de Vallecas, Madrid, Comunidad de Madrid, 28051, España",
-"direccion_gps": [
-40.372552,
--3.606164
-],
-"dist_rffm_direccion_km": 0.21,
-"instalacion": "pitch",
-"dist_instalacion_km": 0.16,
-"navegacion": [
-40.372779,
--3.604816
 ],
 "tipo": "instalacion",
 "corregido": false
@@ -10091,6 +9460,29 @@
 "tipo": "instalacion",
 "corregido": false
 },
+"102": {
+"nombre": "COLEGIO NTRA. SRA. DEL BUEN CONSEJO",
+"localidad": "Madrid",
+"rffm": [
+40.446962,
+-3.713763
+],
+"dir_consultada": "CALLE DE JUAN MONTALVO 30|Madrid",
+"direccion_nombre": "Nuestra Señora del Buen Consejo, 30, Calle de Juan Montalvo, Ciudad Universitaria, Moncloa-Aravaca, Madrid, Comunidad de Madrid, 28040, España",
+"direccion_gps": [
+40.447329,
+-3.712369
+],
+"dist_rffm_direccion_km": 0.12,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.08,
+"navegacion": [
+40.447667,
+-3.713426
+],
+"tipo": "instalacion",
+"corregido": false
+},
 "23191186": {
 "nombre": "COLEGIO GREDOS SAN DIEGO VALDEBEBAS",
 "localidad": "Madrid",
@@ -10101,15 +9493,159 @@
 "dir_consultada": "CALLE DE FELIX CANDELA S/N|Madrid",
 "direccion_nombre": "Calle de Félix Candela, Valdefuentes, Hortaleza, Madrid, Comunidad de Madrid, 28055, España",
 "direccion_gps": [
-40.496887,
--3.615256
+40.496897,
+-3.613436
 ],
-"dist_rffm_direccion_km": 0.07,
+"dist_rffm_direccion_km": 0.23,
 "navegacion": [
 40.496887,
 -3.616143
 ],
 "tipo": "rffm",
+"corregido": false
+},
+"11803684": {
+"nombre": "GETAFE - COLEGIO LOS ANGELES (HA)",
+"localidad": "Getafe",
+"rffm": [
+40.27589,
+-3.743259
+],
+"dir_consultada": "PASEO DE TISELIUS 5|Getafe",
+"direccion_nombre": "Paseo de Tiselius, Getafe, Comunidad de Madrid, 28947, España",
+"direccion_gps": [
+40.272801,
+-3.741741
+],
+"dist_rffm_direccion_km": 0.37,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.05,
+"navegacion": [
+40.276248,
+-3.743612
+],
+"tipo": "instalacion",
+"corregido": false
+},
+"126": {
+"nombre": "C.D.M. SANTA ANA - MARTIN TEMIÑO (HB)",
+"localidad": "Madrid",
+"rffm": [
+40.500551,
+-3.694977
+],
+"dir_consultada": "CALLE AFUERAS A VALVERDE 56|Madrid",
+"direccion_nombre": "Calle de Afueras a Valverde, Valverde, Fuencarral, Fuencarral-El Pardo, Madrid, Comunidad de Madrid, 28034, España",
+"direccion_gps": [
+40.500636,
+-3.69529
+],
+"dist_rffm_direccion_km": 0.03,
+"entrada": {
+"access": "permissive",
+"barrier": "gate",
+"wheelchair": "yes"
+},
+"instalacion": "Instalación Deportiva Municipal Básica Tres Olivos II",
+"dist_instalacion_km": 0.13,
+"navegacion": [
+40.50051,
+-3.694084
+],
+"tipo": "entrada",
+"corregido": false
+},
+"853068": {
+"nombre": "FUENLABRADA - ESTADIO FERNANDO TORRES (HB)",
+"localidad": "Fuenlabrada",
+"rffm": [
+40.292239,
+-3.826672
+],
+"dir_consultada": "CAMINO DEL MOLINO,S/N|Fuenlabrada",
+"direccion_nombre": "Camino del Molino, El Vivero, El Vivero - Hospital - Universidad, Fuenlabrada, Comunidad de Madrid, 28942, España",
+"direccion_gps": [
+40.28555,
+-3.818134
+],
+"dist_rffm_direccion_km": 1.04,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.33,
+"navegacion": [
+40.291629,
+-3.822822
+],
+"tipo": "instalacion",
+"corregido": false
+},
+"1434": {
+"nombre": "PARLA - ALFREDO DI STEFANO 4 (HA)",
+"localidad": "Parla",
+"rffm": [
+40.233525,
+-3.760004
+],
+"dir_consultada": "AVDA. DE AMÉRICA S/N|Parla",
+"direccion_nombre": "Avenida de América, Las Américas, Parla, Comunidad de Madrid, 28983, España",
+"direccion_gps": [
+40.22809,
+-3.764065
+],
+"dist_rffm_direccion_km": 0.7,
+"instalacion": "Complejo Polideportivo Las Américas",
+"dist_instalacion_km": 0.1,
+"navegacion": [
+40.234005,
+-3.760939
+],
+"tipo": "instalacion",
+"corregido": false
+},
+"24024550": {
+"nombre": "BOADILLA - CLUB LAS ENCINAS (HA) F7",
+"localidad": "Boadilla Del Monte",
+"rffm": [
+40.41749,
+-3.861114
+],
+"dir_consultada": "CTRA. DE POZUELO A BOADILLA Km 4,600|Boadilla Del Monte",
+"direccion_nombre": "Carretera de Pozuelo a Boadilla, Urbanizaciones Este, Boadilla del Monte, Comunidad de Madrid, 28660, España",
+"direccion_gps": [
+40.416939,
+-3.861791
+],
+"dist_rffm_direccion_km": 0.08,
+"navegacion": [
+40.41749,
+-3.861114
+],
+"tipo": "rffm",
+"corregido": false
+},
+"11932702": {
+"nombre": "GALAPAGAR - EL CHOPO F7 (HA)",
+"localidad": "Galapagar",
+"rffm": [
+40.582799,
+-4.010576
+],
+"dir_consultada": "CALLE GUADARRAMA 129|Galapagar",
+"direccion_nombre": "Escuela Municipal de Idiomas, 129, Calle de Guadarrama, Los Almendros, Las Columnas, La Navata, Galapagar, Comunidad de Madrid, 28260, España",
+"direccion_gps": [
+40.581902,
+-4.009232
+],
+"dist_rffm_direccion_km": 0.15,
+"entrada": {
+"barrier": "gate"
+},
+"instalacion": "Polideportivo Municipal de Galapagar",
+"dist_instalacion_km": 0.15,
+"navegacion": [
+40.58014,
+-4.008896
+],
+"tipo": "entrada",
 "corregido": false
 },
 "9235532": {
@@ -10157,70 +9693,6 @@
 "tipo": "instalacion",
 "corregido": false
 },
-"1434": {
-"nombre": "PARLA - ALFREDO DI STEFANO 4 (HA)",
-"localidad": "Parla",
-"rffm": [
-40.233525,
--3.760004
-],
-"dir_consultada": "AVDA. DE AMÉRICA S/N|Parla",
-"direccion_nombre": "Avenida de América, Las Américas, Parla, Comunidad de Madrid, 28983, España",
-"direccion_gps": [
-40.22809,
--3.764065
-],
-"dist_rffm_direccion_km": 0.7,
-"instalacion": "Complejo Polideportivo Las Américas",
-"dist_instalacion_km": 0.1,
-"navegacion": [
-40.234005,
--3.760939
-],
-"tipo": "instalacion",
-"corregido": false
-},
-"28852139": {
-"nombre": "EL CAÑAVERAL (H.A.)",
-"localidad": "Madrid",
-"rffm": null,
-"dir_consultada": "CALLE IGUALDAD 41|Madrid",
-"direccion_nombre": "Calle Igualdad, San Fernando de Henares, Comunidad de Madrid, 28830, España",
-"direccion_gps": [
-40.413867,
--3.520548
-],
-"aviso": "La RFFM no da coordenadas: se usa la dirección",
-"navegacion": [
-40.413867,
--3.520548
-],
-"tipo": "direccion",
-"corregido": true
-},
-"3361210": {
-"nombre": "COTORRUELO 2-B",
-"localidad": "Madrid",
-"rffm": [
-40.381582,
--3.723952
-],
-"dir_consultada": "VIA LUSITANA 5|Madrid",
-"direccion_nombre": "Vía Lusitana, Abrantes, Carabanchel, Madrid, Comunidad de Madrid, 28025, España",
-"direccion_gps": [
-40.383374,
--3.721521
-],
-"dist_rffm_direccion_km": 0.29,
-"instalacion": "Complejo de campos de fútbol Ernesto Cotorruelo",
-"dist_instalacion_km": 0.11,
-"navegacion": [
-40.380586,
--3.723875
-],
-"tipo": "instalacion",
-"corregido": false
-},
 "3278201": {
 "nombre": "GUADARRAMA - COLEGIO GREDOS SAN DIEGO 2 (HA)",
 "localidad": "Guadarrama",
@@ -10244,25 +9716,154 @@
 "tipo": "instalacion",
 "corregido": false
 },
-"1134": {
-"nombre": "S.S. REYES - RAFAEL DELGADO ROSA - DEHESA BOYAL 2A (HA)",
-"localidad": "San Sebastián De Los Reyes",
+"1145002": {
+"nombre": "COLEGIO SEK EL CASTILLO (HA)",
+"localidad": "Villanueva De La Cañada",
 "rffm": [
-40.556964,
--3.627421
+40.472821,
+-3.941198
 ],
-"dir_consultada": "AVDA. NAVARRONDÁN S/N|San Sebastián De Los Reyes",
-"direccion_nombre": "Avenida Navarrondán, Los Tempranales, San Sebastián de los Reyes, Comunidad de Madrid, 28701, España",
-"direccion_gps": [
-40.566783,
--3.631495
-],
-"dist_rffm_direccion_km": 1.14,
-"instalacion": "Polideportivo Municipal Eduardo López Mateo",
-"dist_instalacion_km": 0.24,
+"dir_consultada": "CALLE CASTILLO DE ALARCÓN 49 - URB. VILLAFRANCA DEL CASTILLO|Villanueva De La Cañada",
+"sin_geocodificar": true,
 "navegacion": [
-40.558743,
--3.629114
+40.472821,
+-3.941198
+],
+"tipo": "rffm",
+"corregido": false
+},
+"27827006": {
+"nombre": "ALCOBENDAS - COLEGIO RUNNYMEDE (H.A.)",
+"localidad": "Alcobendas",
+"rffm": null,
+"dir_consultada": "CALLE DE LA SALVIA 30|Alcobendas",
+"direccion_nombre": "Runnymede College, 30, Calle de la Salvia, La Moraleja, Alcobendas, Comunidad de Madrid, 28109, España",
+"direccion_gps": [
+40.52841,
+-3.631118
+],
+"aviso": "La RFFM no da coordenadas: se usa la dirección",
+"instalacion": "Julia Powell Sports Hall & Auditorium",
+"dist_instalacion_km": 0.1,
+"navegacion": [
+40.529046,
+-3.630218
+],
+"tipo": "instalacion",
+"corregido": true
+},
+"1746": {
+"nombre": "VALDEOLMOS",
+"localidad": "Valdeolmos-Alalpardo",
+"rffm": [
+40.638194,
+-3.450614
+],
+"dir_consultada": "RONDA DE LA DEHESA 4|Valdeolmos-Alalpardo",
+"direccion_nombre": "Calle Ronda de la Dehesa, Alalpardo, Valdeolmos-Alalpardo, Comunidad de Madrid, 28130, España",
+"direccion_gps": [
+40.637701,
+-3.451241
+],
+"dist_rffm_direccion_km": 0.08,
+"instalacion": "Campo de futbol de Valdeolmos",
+"dist_instalacion_km": 0.07,
+"navegacion": [
+40.63786,
+-3.449965
+],
+"tipo": "instalacion",
+"corregido": false
+},
+"10377422": {
+"nombre": "PINTO - COLEGIO MIRASUR (HA)",
+"localidad": "Pinto",
+"rffm": [
+40.255356,
+-3.697311
+],
+"dir_consultada": "CALLE PABLO GARGALLO S/N|Pinto",
+"direccion_nombre": "Calle de Pablo Gargallo, Parque Europa, Pinto, Comunidad de Madrid, 28320, España",
+"direccion_gps": [
+40.255364,
+-3.696246
+],
+"dist_rffm_direccion_km": 0.09,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.16,
+"navegacion": [
+40.254992,
+-3.699105
+],
+"tipo": "instalacion",
+"corregido": false
+},
+"1330": {
+"nombre": "MÓSTOLES - PTE. DETERMINAR POR AYUNTAMIENTO",
+"localidad": "Móstoles",
+"rffm": null,
+"aviso": "Campo pendiente de asignar"
+},
+"385231": {
+"nombre": "ALCOBENDAS - LICEO EUROPEO (HA)",
+"localidad": "Alcobendas",
+"rffm": [
+40.511999,
+-3.64277
+],
+"dir_consultada": "CALLE DEL CAMINO DEL SUR 10|Alcobendas",
+"sin_geocodificar": true,
+"instalacion": "sports_centre",
+"dist_instalacion_km": 0.14,
+"navegacion": [
+40.510831,
+-3.64348
+],
+"tipo": "instalacion",
+"corregido": false
+},
+"450": {
+"nombre": "ERNESTO COTORRUELO (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.381582,
+-3.723952
+],
+"dir_consultada": "VIA LUSITANA 5|Madrid",
+"direccion_nombre": "Vía Lusitana, Abrantes, Carabanchel, Madrid, Comunidad de Madrid, 28025, España",
+"direccion_gps": [
+40.38283,
+-3.723421
+],
+"dist_rffm_direccion_km": 0.15,
+"instalacion": "Complejo de campos de fútbol Ernesto Cotorruelo",
+"dist_instalacion_km": 0.11,
+"navegacion": [
+40.380586,
+-3.723875
+],
+"tipo": "instalacion",
+"corregido": false
+},
+"3319752": {
+"nombre": "PVO. MUN. MIGUEL GUILLEN PRIM (HA) LA GAVIA",
+"localidad": "Madrid",
+"rffm": [
+40.373635,
+-3.623442
+],
+"dir_consultada": "CALLE DE FUENTIDUEÑA 6|Madrid",
+"direccion_nombre": "Calle de Fuentidueña, Casco Histórico de Vallecas, Villa de Vallecas, Madrid, Comunidad de Madrid, 28031, España",
+"direccion_gps": [
+40.372297,
+-3.622144
+],
+"dist_rffm_direccion_km": 0.19,
+"instalacion": "Polideportivo Municipal Manuel Guillén Prim",
+"dist_instalacion_km": 0.04,
+"navegacion": [
+40.373291,
+-3.623405
 ],
 "tipo": "instalacion",
 "corregido": false
@@ -10283,30 +9884,129 @@
 "tipo": "rffm",
 "corregido": false
 },
-"11932702": {
-"nombre": "GALAPAGAR - EL CHOPO F7 (HA)",
-"localidad": "Galapagar",
+"31327": {
+"nombre": "CIUDAD REAL MADRID 4 (HA)",
+"localidad": "Madrid",
 "rffm": [
-40.582799,
--4.010576
+40.472653,
+-3.611889
 ],
-"dir_consultada": "CALLE GUADARRAMA 129|Galapagar",
-"direccion_nombre": "Escuela Municipal de Idiomas, 129, Calle de Guadarrama, Los Almendros, Las Columnas, La Navata, Galapagar, Comunidad de Madrid, 28260, España",
-"direccion_gps": [
-40.581902,
--4.009232
-],
-"dist_rffm_direccion_km": 0.15,
-"entrada": {
-"barrier": "gate"
-},
-"instalacion": "Polideportivo Municipal de Galapagar",
-"dist_instalacion_km": 0.15,
+"dir_consultada": "CAMINO DE SINTRA 4|Madrid",
+"sin_geocodificar": true,
 "navegacion": [
-40.58014,
--4.008896
+40.472653,
+-3.611889
 ],
-"tipo": "entrada",
+"tipo": "rffm",
+"corregido": false
+},
+"12287263": {
+"nombre": "MUNICIPAL SAN BLAS 2 (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.419733,
+-3.619244
+],
+"dir_consultada": "AVDA. DE GUADALAJARA 16|Madrid",
+"direccion_nombre": "Avenida de Guadalajara, Arcos, San Blas - Canillejas, Madrid, Comunidad de Madrid, 28037, España",
+"direccion_gps": [
+40.420906,
+-3.61946
+],
+"dist_rffm_direccion_km": 0.13,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.06,
+"navegacion": [
+40.419448,
+-3.61859
+],
+"tipo": "instalacion",
+"corregido": false
+},
+"1134": {
+"nombre": "S.S. REYES - RAFAEL DELGADO ROSA - DEHESA BOYAL 2A (HA)",
+"localidad": "San Sebastián De Los Reyes",
+"rffm": [
+40.556964,
+-3.627421
+],
+"dir_consultada": "AVDA. NAVARRONDÁN S/N|San Sebastián De Los Reyes",
+"direccion_nombre": "Avenida Navarrondán, Los Tempranales, San Sebastián de los Reyes, Comunidad de Madrid, 28701, España",
+"direccion_gps": [
+40.5665,
+-3.631579
+],
+"dist_rffm_direccion_km": 1.12,
+"instalacion": "Polideportivo Municipal Eduardo López Mateo",
+"dist_instalacion_km": 0.24,
+"navegacion": [
+40.558743,
+-3.629114
+],
+"tipo": "instalacion",
+"corregido": false
+},
+"13213588": {
+"nombre": "CIEMPOZUELOS-PEÑUELAS F/7-C1(HA)",
+"localidad": "Ciempozuelos",
+"rffm": [
+40.155034,
+-3.610134
+],
+"dir_consultada": "CAMINO DE LA PEÑUELA, 1|Ciempozuelos",
+"sin_geocodificar": true,
+"instalacion": "Campos de Fútbol Municipales Las Peñuelas",
+"dist_instalacion_km": 0.06,
+"navegacion": [
+40.155064,
+-3.609408
+],
+"tipo": "instalacion",
+"corregido": false
+},
+"1680": {
+"nombre": "MÓSTOLES - EL SOTO (HB)",
+"localidad": "Móstoles",
+"rffm": [
+40.325675,
+-3.88309
+],
+"dir_consultada": "AVDA. DE IKER CASILLAS S/N|Móstoles",
+"direccion_nombre": "Avenida de Iker Casillas, Móstoles, Comunidad de Madrid, 28935, España",
+"direccion_gps": [
+40.325879,
+-3.889258
+],
+"dist_rffm_direccion_km": 0.52,
+"navegacion": [
+40.325675,
+-3.88309
+],
+"tipo": "rffm",
+"corregido": false
+},
+"2604": {
+"nombre": "CARABAÑA (HA)",
+"localidad": "Carabaña",
+"rffm": [
+40.259957,
+-3.236336
+],
+"dir_consultada": "CAMINO DEL ROBLEDILLO S/N|Carabaña",
+"direccion_nombre": "Camino Bajo del robledillo, Carabaña, Comunidad de Madrid, 28560, España",
+"direccion_gps": [
+40.27496,
+-3.228639
+],
+"dist_rffm_direccion_km": 1.79,
+"aviso": "La dirección queda a 1.8 km, pero se mantiene la ubicación de la RFFM (hay una instalación deportiva en ese punto)",
+"instalacion": "pitch",
+"dist_instalacion_km": 0.07,
+"navegacion": [
+40.260021,
+-3.23715
+],
+"tipo": "instalacion",
 "corregido": false
 },
 "12278209": {
@@ -10332,28 +10032,314 @@
 "tipo": "instalacion",
 "corregido": false
 },
-"24024550": {
-"nombre": "BOADILLA - CLUB LAS ENCINAS (HA) F7",
-"localidad": "Boadilla Del Monte",
+"16526824": {
+"nombre": "STELLA MARIS LA GAVIA",
+"localidad": "Madrid",
 "rffm": [
-40.41749,
--3.861114
+40.374171,
+-3.604976
 ],
-"dir_consultada": "CTRA. DE POZUELO A BOADILLA Km 4,600|Boadilla Del Monte",
-"direccion_nombre": "Carretera de Pozuelo a Boadilla, Viñas Viejas, Boadilla del Monte, Comunidad de Madrid, 28660, España",
+"dir_consultada": "PEÑARANDA DE BRACAMONTE, 9.|Madrid",
+"direccion_nombre": "9, Calle de Peñaranda de Bracamonte, Ensanche de Vallecas, Villa de Vallecas, Madrid, Comunidad de Madrid, 28051, España",
 "direccion_gps": [
-40.409473,
--3.873178
+40.372552,
+-3.606164
 ],
-"dist_rffm_direccion_km": 1.36,
-"entrada": {
-"barrier": "gate"
+"dist_rffm_direccion_km": 0.21,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.16,
+"navegacion": [
+40.372779,
+-3.604816
+],
+"tipo": "instalacion",
+"corregido": false
 },
-"instalacion": "Complejo Deportivo Municipal Ángel Nieto",
+"13369406": {
+"nombre": "ALCALA - POLIDEPORTIVO ENSANCHE",
+"localidad": "Alcalá De Henares",
+"rffm": [
+40.500066,
+-3.368132
+],
+"dir_consultada": "C/ GABRIELA MISTRAL S/N|Alcalá De Henares",
+"direccion_nombre": "Calle de Gabriela Mistral, El Ensanche, Distrito IV, Alcalá de Henares, Comunidad de Madrid, 28806, España",
+"direccion_gps": [
+40.498389,
+-3.368466
+],
+"dist_rffm_direccion_km": 0.19,
+"instalacion": "Centro Deportivo Ensanche",
+"dist_instalacion_km": 0.08,
+"navegacion": [
+40.499755,
+-3.369037
+],
+"tipo": "instalacion",
+"corregido": false
+},
+"13212589": {
+"nombre": "VILLAVICIOSA DE ODÓN F7 C-3 (HA)",
+"localidad": "Villaviciosa De Odón",
+"rffm": [
+40.362519,
+-3.917312
+],
+"dir_consultada": "ALEXANDER GRAHAM BELL, 2|Villaviciosa De Odón",
+"direccion_nombre": "2, Calle Alexander Graham Bell, Villaviciosa de Odón, Comunidad de Madrid, 28670, España",
+"direccion_gps": [
+40.362481,
+-3.91733
+],
+"dist_rffm_direccion_km": 0.0,
+"navegacion": [
+40.362519,
+-3.917312
+],
+"tipo": "rffm",
+"corregido": false
+},
+"1602": {
+"nombre": "ARGANDA - ESTADIO MUNICIPAL.(HB)",
+"localidad": "Arganda Del Rey",
+"rffm": [
+40.31096,
+-3.45026
+],
+"dir_consultada": "AVDA. DE VALDEARGANDA 12|Arganda Del Rey",
+"direccion_nombre": "Estadio Municipal de deportes de Arganda del Rey, 12, Avenida de Valdearganda, Los Villares, Arganda del Rey, Comunidad de Madrid, 28500, España",
+"direccion_gps": [
+40.311227,
+-3.450455
+],
+"dist_rffm_direccion_km": 0.03,
+"instalacion": "Estadio Municipal de deportes de Arganda del Rey",
+"dist_instalacion_km": 0.01,
+"navegacion": [
+40.310935,
+-3.450402
+],
+"tipo": "instalacion",
+"corregido": false
+},
+"25693593": {
+"nombre": "ARAVACA - STELLA MARIS COLLEGE (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.468149,
+-3.773669
+],
+"dir_consultada": "CALLE VALDESQUI 16|Madrid",
+"direccion_nombre": "Calle Valdesquí, Soto de Viñuelas, Tres Cantos, Comunidad de Madrid, 28760, España",
+"direccion_gps": [
+40.612123,
+-3.691038
+],
+"dist_rffm_direccion_km": 17.47,
+"aviso": "Coordenadas de la RFFM a 17.5 km de la dirección y sin instalación deportiva: corregido",
+"instalacion": "pitch",
+"dist_instalacion_km": 0.1,
+"navegacion": [
+40.611639,
+-3.692087
+],
+"tipo": "instalacion",
+"corregido": true
+},
+"28852139": {
+"nombre": "EL CAÑAVERAL (H.A.)",
+"localidad": "Madrid",
+"rffm": null,
+"dir_consultada": "CALLE IGUALDAD 41|Madrid",
+"direccion_nombre": "Calle Igualdad, San Fernando de Henares, Comunidad de Madrid, 28830, España",
+"direccion_gps": [
+40.413867,
+-3.520548
+],
+"aviso": "La RFFM no da coordenadas: se usa la dirección",
+"navegacion": [
+40.413867,
+-3.520548
+],
+"tipo": "direccion",
+"corregido": true
+},
+"1745": {
+"nombre": "VALDEAVERO - LOS PRADOS (HA)",
+"localidad": "Valdeavero",
+"rffm": [
+40.632906,
+-3.338205
+],
+"dir_consultada": "CAMINO DE RIBATEJADA S/N|Valdeavero",
+"sin_geocodificar": true,
+"instalacion": "pitch",
 "dist_instalacion_km": 0.13,
 "navegacion": [
-40.417231,
--3.860906
+40.63398,
+-3.338783
+],
+"tipo": "instalacion",
+"corregido": false
+},
+"425": {
+"nombre": "PARQUE LAS CRUCES F/7 (HA)",
+"localidad": "Madrid",
+"rffm": [
+40.375248,
+-3.755222
+],
+"dir_consultada": "CAMINO DE LAS CRUCES 4|Madrid",
+"direccion_nombre": "Kiosco El Madroño, 4, Camino de las Cruces, Buenavista, Carabanchel, Madrid, Comunidad de Madrid, 28044, España",
+"direccion_gps": [
+40.375222,
+-3.755281
+],
+"dist_rffm_direccion_km": 0.01,
+"instalacion": "Instalación Deportiva Municipal Básica Parque de las Cruces",
+"dist_instalacion_km": 0.16,
+"navegacion": [
+40.376232,
+-3.756564
+],
+"tipo": "instalacion",
+"corregido": false
+},
+"13564016": {
+"nombre": "COLEGIO ANDEL",
+"localidad": "Alcorcón",
+"rffm": [
+40.338206,
+-3.856901
+],
+"dir_consultada": "Fuente Cisneros, 39|Alcorcón",
+"direccion_nombre": "Centro Privado de Educación Primaria y Secundaria Andel, 39, Calle Fuente Cisneros, Fuente Cisneros, Suroeste, Alcorcón, Comunidad de Madrid, 28922, España",
+"direccion_gps": [
+40.338375,
+-3.857696
+],
+"dist_rffm_direccion_km": 0.07,
+"navegacion": [
+40.338206,
+-3.856901
+],
+"tipo": "rffm",
+"corregido": false
+},
+"3083901": {
+"nombre": "POZUELO - LA FINCA (HA)",
+"localidad": "Pozuelo De Alarcón",
+"rffm": [
+40.419447,
+-3.804801
+],
+"dir_consultada": "PASEO DEL CLUB DEPORTIVO 4|Pozuelo De Alarcón",
+"direccion_nombre": "Edificio 4, 4, Paseo del Club Deportivo, Somosaguas Sur, Húmera, Pozuelo de Alarcón, Comunidad de Madrid, 28223, España",
+"direccion_gps": [
+40.41918,
+-3.799873
+],
+"dist_rffm_direccion_km": 0.42,
+"instalacion": "Reebok Sport",
+"dist_instalacion_km": 0.05,
+"navegacion": [
+40.419489,
+-3.804159
+],
+"tipo": "instalacion",
+"corregido": false
+},
+"15708103": {
+"nombre": "CIUDAD DEPORTIVA RAYO VALLECANO",
+"localidad": "Madrid",
+"rffm": [
+40.370102,
+-3.606585
+],
+"dir_consultada": "ENSANCHE DE VALLECAS|Madrid",
+"direccion_nombre": "Ensanche de Vallecas, Villa de Vallecas, Madrid, Comunidad de Madrid, 28051, España",
+"direccion_gps": [
+40.366753,
+-3.599326
+],
+"dist_rffm_direccion_km": 0.72,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.33,
+"navegacion": [
+40.372779,
+-3.604816
+],
+"tipo": "instalacion",
+"corregido": false
+},
+"27967976": {
+"nombre": "COLEGIO NUEVA CASTILLA (H.A.)",
+"localidad": "Madrid",
+"rffm": [
+40.37657,
+-3.608305
+],
+"dir_consultada": "CALLE MAZATERON 12|Madrid",
+"direccion_nombre": "Colegio Nueva Castilla, 12, Calle de Mazaterón, Ensanche de Vallecas, Villa de Vallecas, Madrid, Comunidad de Madrid, 28051, España",
+"direccion_gps": [
+40.376001,
+-3.607634
+],
+"dist_rffm_direccion_km": 0.09,
+"instalacion": "pitch",
+"dist_instalacion_km": 0.02,
+"navegacion": [
+40.37637,
+-3.6083
+],
+"tipo": "instalacion",
+"corregido": false
+},
+"2501": {
+"nombre": "ARANJUEZ - EST. MPAL. EL DELEITE (HB)",
+"localidad": "Aranjuez",
+"rffm": [
+40.02346,
+-3.6199
+],
+"dir_consultada": "PASEO DEL DELEITE 1|Aranjuez",
+"direccion_nombre": "Paseo de Deleite, Urbanización los Jardines del Deleite, Vergel, Aranjuez, Comunidad de Madrid, 28300, España",
+"direccion_gps": [
+40.025007,
+-3.615815
+],
+"dist_rffm_direccion_km": 0.39,
+"instalacion": "Ciudad Deportiva Las Olivas",
+"dist_instalacion_km": 0.29,
+"navegacion": [
+40.026079,
+-3.620009
+],
+"tipo": "instalacion",
+"corregido": false
+},
+"16608940": {
+"nombre": "GETAFE - CIUDAD DPTVA 4 (HA) F7",
+"localidad": "Getafe",
+"rffm": [
+40.324852,
+-3.714132
+],
+"dir_consultada": "CALLE MARÍA MONTESSORI S/N|Getafe",
+"direccion_nombre": "Calle de María Montessori, Los Espartales, Villaverde Alto, Casco Histórico de Villaverde, Getafe Norte, Getafe, Comunidad de Madrid, 28903, España",
+"direccion_gps": [
+40.324806,
+-3.714191
+],
+"dist_rffm_direccion_km": 0.01,
+"entrada": {
+"entrance": "yes"
+},
+"instalacion": "Coliseum",
+"dist_instalacion_km": 0.12,
+"navegacion": [
+40.325619,
+-3.716013
 ],
 "tipo": "entrada",
 "corregido": false
