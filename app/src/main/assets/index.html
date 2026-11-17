@@ -222,12 +222,14 @@ tr.tap td.p::after{content:" ›";font-weight:800;color:var(--pitch2)}
 html[data-theme="estadio"] .tl{background:rgba(184,245,61,.08);border-color:rgba(184,245,61,.28);color:#eef3ff}
 html[data-theme="estadio"] .tl:active{background:#b8f53d;color:#08101f}
 .team{cursor:pointer;user-select:none;-webkit-user-select:none}
-.drag{width:22px;align-self:stretch;display:grid;place-items:center;color:var(--muted);touch-action:none;cursor:grab;margin-left:-6px;flex:none}
+.drag{width:26px;align-self:stretch;display:grid;place-items:center;color:var(--muted);touch-action:none;cursor:grab;margin-left:-6px;flex:none}
 .drag svg{width:16px;height:16px}
 .bellbtn{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;flex:none;color:var(--pitch2);background:var(--chalk)}
 .bellbtn svg{width:18px;height:18px}
 .bellbtn.off{color:var(--muted);background:transparent;border:1px dashed var(--line)}
-.team.dragging{z-index:5;position:relative;box-shadow:0 12px 30px rgba(0,0,0,.25);transform:scale(1.02)}
+.team.dragging{box-shadow:0 18px 36px rgba(0,0,0,.35);transform:scale(1.03);opacity:.97}
+.hueco{border:2px dashed color-mix(in srgb,var(--pitch2) 55%,transparent);border-radius:var(--radius);margin-bottom:8px;background:color-mix(in srgb,var(--pitch2) 8%,transparent)}
+.team{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 .team.mute .nm{opacity:.85}
 .toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 24px);transform:translateX(-50%);background:#1d2b24;color:#fff;padding:10px 16px;border-radius:12px;font-size:14px;z-index:20;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:90%;text-align:center}
 html[data-theme="estadio"] .toast{background:#b8f53d;color:#08101f}
@@ -385,7 +387,7 @@ html[data-theme="noche"] .tag{border-radius:4px;padding:1px 7px;font-size:10.5px
 html[data-theme="noche"] .bellbtn{width:30px;height:30px;border-radius:7px;background:transparent;color:#cfc6ff}
 html[data-theme="noche"] .bellbtn svg{width:19px;height:19px}
 html[data-theme="noche"] .bellbtn.off{border:none;color:#8f86c9}
-html[data-theme="noche"] .drag{opacity:.45}
+html[data-theme="noche"] .drag{opacity:.7}
 html[data-theme="noche"] .iconbtn{width:36px;height:36px;border-radius:8px}
 html[data-theme="noche"] .iconbtn svg{width:19px;height:19px}
 html[data-theme="noche"] .orden .chip,html[data-theme="noche"] .chips .chip{border-radius:7px;padding:5px 10px;font-size:12px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
@@ -2138,25 +2140,40 @@ function listaMine(followed){
   return h;
 }
 
+// Reordenar «Mis equipos»: mantener pulsada una fila (o arrastrar desde ⠿) y moverla. La fila sigue al dedo,
+// las demás se apartan con animación y, cerca de los bordes de la pantalla, la lista se desplaza sola.
 function activarArrastre(cont){
-  cont.onpointerdown=e=>{
-    if(state.orden!=="manual")return;
-    const h=e.target.closest("[data-drag]");if(!h)return;
-    const row=h.closest(".team");e.preventDefault();h.setPointerCapture(e.pointerId);
-    const filas=()=>[...cont.querySelectorAll(".team")];
-    const y0=e.clientY;let dy=0;row.classList.add("dragging");window.__arrastrando=true;
-    const alto=row.getBoundingClientRect().height+10;
-    let base=y0;
-    const mover2=ev=>{dy=ev.clientY-base;row.style.transform=`translateY(${dy}px) scale(1.02)`;
-      const fs=filas();const i=fs.indexOf(row);
-      if(dy>alto*0.6&&i<fs.length-1){fs[i+1].after(row);base+=alto;row.style.transform=`translateY(${ev.clientY-base}px) scale(1.02)`}
-      else if(dy<-alto*0.6&&i>0){fs[i-1].before(row);base-=alto;row.style.transform=`translateY(${ev.clientY-base}px) scale(1.02)`}};
-    const fin=()=>{h.removeEventListener("pointermove",mover2);h.removeEventListener("pointerup",fin);h.removeEventListener("pointercancel",fin);
-      row.classList.remove("dragging");row.style.transform="";
-      state.follows=filas().map(r=>r.dataset.team);store.set("follows",state.follows);syncAndroid();
-      setTimeout(()=>window.__arrastrando=false,50)};
-    h.addEventListener("pointermove",mover2);h.addEventListener("pointerup",fin);h.addEventListener("pointercancel",fin);
+  let arr=null,espera=null;
+  const sc=()=>{let n=cont.parentElement;while(n&&n!==document.body){const st=getComputedStyle(n);if(/(auto|scroll)/.test(st.overflowY)&&n.scrollHeight>n.clientHeight)return n;n=n.parentElement}return document.scrollingElement};
+  const filas=()=>[...cont.querySelectorAll(".team")];
+  const flip=(antes)=>{for(const f of filas()){if(f===arr.row)continue;const a=antes.get(f);if(a==null)continue;const d=a-f.getBoundingClientRect().top;if(d){f.style.transition="none";f.style.transform=`translateY(${d}px)`;requestAnimationFrame(()=>{f.style.transition="transform .18s ease";f.style.transform=""})}}};
+  const empezar=(row,ev)=>{
+    if(state.orden!=="manual"){state.orden="manual";store.set("orden","manual");toast("Orden cambiado a «Mi orden». Mantén pulsado otra vez para mover.");render();return}
+    const r=row.getBoundingClientRect();const hueco=document.createElement("div");hueco.className="hueco";hueco.style.height=r.height+"px";
+    row.after(hueco);row.classList.add("dragging");Object.assign(row.style,{position:"fixed",left:r.left+"px",top:r.top+"px",width:r.width+"px",zIndex:50,transition:"none",pointerEvents:"none"});
+    arr={row,hueco,st:row.getAttribute("style")||"",dy:ev.clientY-r.top,y:ev.clientY,sc:sc(),raf:0};window.__arrastrando=true;try{navigator.vibrate&&navigator.vibrate(12)}catch(e){}
+    const paso=()=>{if(!arr)return;const H=window.innerHeight,y=arr.y;const v=y<80?-(80-y)/6:y>H-80?(y-(H-80))/6:0;if(v){arr.sc.scrollTop+=v;colocar()}arr.raf=requestAnimationFrame(paso)};arr.raf=requestAnimationFrame(paso);
   };
+  const colocar=()=>{const top=arr.y-arr.dy;arr.row.style.top=top+"px";const mid=top+arr.row.offsetHeight/2;
+    const fs=filas().filter(f=>f!==arr.row);let destino=null;for(const f of fs){const b=f.getBoundingClientRect();if(mid<b.top+b.height/2){destino=f;break}}
+    const antes=new Map(fs.map(f=>[f,f.getBoundingClientRect().top]));
+    if(destino){if(arr.hueco.nextElementSibling!==destino)destino.before(arr.hueco);else return}else{const ult=fs[fs.length-1];if(ult&&ult.nextElementSibling!==arr.hueco&&arr.hueco.previousElementSibling!==ult)ult.after(arr.hueco);else if(!ult)return}
+    flip(antes)};
+  const soltar=()=>{clearTimeout(espera);espera=null;if(!arr)return;cancelAnimationFrame(arr.raf);const{row,hueco,st}=arr;const b=hueco.getBoundingClientRect();
+    row.style.transition="top .16s ease";row.style.top=b.top+"px";
+    setTimeout(()=>{hueco.replaceWith(row);row.classList.remove("dragging");row.setAttribute("style",st);
+      state.follows=filas().map(r=>r.dataset.team);store.set("follows",state.follows);syncAndroid();setTimeout(()=>window.__arrastrando=false,60)},170);arr=null};
+  // el desplazamiento de la página se bloquea solo mientras se arrastra
+  document.addEventListener("touchmove",ev=>{if(arr)ev.preventDefault()},{passive:false});
+  cont.onpointerdown=e=>{
+    const row=e.target.closest(".team");if(!row||e.button>0)return;
+    const asa=e.target.closest("[data-drag]");const x0=e.clientX,y0=e.clientY;
+    if(asa){e.preventDefault();empezar(row,e)}else espera=setTimeout(()=>{espera=null;empezar(row,{clientY:y0})},380);
+    const mover=ev=>{if(espera&&(Math.abs(ev.clientX-x0)>8||Math.abs(ev.clientY-y0)>8)){clearTimeout(espera);espera=null}if(arr){arr.y=ev.clientY;colocar()}};
+    const fin=()=>{window.removeEventListener("pointermove",mover);window.removeEventListener("pointerup",fin);window.removeEventListener("pointercancel",fin);soltar()};
+    window.addEventListener("pointermove",mover);window.addEventListener("pointerup",fin);window.addEventListener("pointercancel",fin);
+  };
+  cont.oncontextmenu=e=>{if(e.target.closest(".team"))e.preventDefault()};
 }
 function renderHome(app){
   state.pila=[];
@@ -2170,7 +2187,7 @@ function renderHome(app){
     <div class="section-t">Mis equipos</div>
     ${followed.length>1?`<div class="orden"><span class="small">Ordenar:</span>${ORDENES.map(([k,l])=>`<button class="chip${state.orden===k?" on":""}" data-orden="${k}">${l}</button>`).join("")}</div>`:""}
     <div id="mine" class="${state.orden==="manual"?"":"no-drag"}">${listaMine(followed)}</div>
-    ${followed.length>1?`<div class="small" style="margin:-2px 2px 10px">${state.orden==="manual"?"Arrastra ⋮⋮ para ordenarlos · ":"Para moverlos a mano, elige «Mi orden» · "}${ic("engranaje","sm")} para su etiqueta, avisos, silencio y color.</div>`:followed.length===1?`<div class="small" style="margin:-2px 2px 10px">${ic("engranaje","sm")} para su etiqueta, avisos y color; puedes silenciarlo sin dejar de seguirlo; dentro de la ficha puedes personalizarlos.</div>`:""}
+    ${followed.length>1?`<div class="small" style="margin:-2px 2px 10px">${state.orden==="manual"?"Mantén pulsado un equipo (o arrastra ⋮⋮) para moverlo · ":"Mantén pulsado un equipo para ordenarlos a mano · "}${ic("engranaje","sm")} para su etiqueta, avisos, silencio y color.</div>`:followed.length===1?`<div class="small" style="margin:-2px 2px 10px">${ic("engranaje","sm")} para su etiqueta, avisos y color; puedes silenciarlo sin dejar de seguirlo; dentro de la ficha puedes personalizarlos.</div>`:""}
     <button class="addbtn" id="addTeam">+ Seguir un equipo</button>
     ${state.jugs.length?`<div class="section-t">Mis jugadores</div>${state.jugs.map((j,i)=>{const eq=TEAM.get(j.tid);return `<button class="divrow" data-jugv="${i}"><span class="divrow-i">${ic("persona")}</span><span class="grow"><b>${esc(completo(j.n))}</b><span class="small">${esc(eq?eq.name:"")}${j.st?` · ${j.st.conv} conv. · ${j.st.tit} titular · ${j.st.gol} gol${j.st.gol===1?"":"es"}`:""}</span></span><span class="divrow-f">›</span></button>`}).join("")}`:""}
     ${(()=>{const gs=[...new Set(followed.map(t=>t.grupos[0]).filter(Boolean))];if(!gs.length)return "";
