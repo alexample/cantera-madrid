@@ -483,6 +483,8 @@ details.blq>summary{transition:background-color .2s,color .2s,border-radius .2s}
 .jf-st .jf-c.on{border-color:var(--pitch2);background:color-mix(in srgb,var(--pitch2) 10%,var(--card))}
 .jd{border:1px solid var(--line);border-radius:10px;padding:6px 10px 8px;margin:0 0 8px;background:var(--card)}.jd-t{font-weight:700;font-size:12.5px;color:var(--pitch2);margin:2px 0 2px}
 .jd .jp{display:flex;flex-wrap:wrap;align-items:center;gap:4px}.jd-x{margin-left:auto;font-size:12.5px;color:var(--muted);display:inline-flex;align-items:center;gap:4px}
+.estj{background:none;border:none;padding:2px 4px;color:var(--muted);cursor:pointer;line-height:1;vertical-align:middle}.estj .ico{width:18px;height:18px}.estj.on{color:#f59f00}
+td.et{width:26px;padding:0 0 0 2px!important}
 </style>
 </head>
 <body>
@@ -594,6 +596,7 @@ const state={jugs:store.get("jugadores",[]),evoSinRival:store.get("evo_sin_rival
 const ANDROID=typeof window.AndroidApp!=="undefined";
 // Pasa a Android los equipos seguidos (para los avisos en segundo plano)
 function syncAndroid(){if(!ANDROID||!IDX)return;
+  try{AndroidApp.guardarJugadores&&AndroidApp.guardarJugadores(JSON.stringify(state.jugs.filter(j=>/^\d{1,12}$/.test(j.k)).map(j=>({tid:j.tid,gid:(TEAM.get(j.tid)||{grupos:[]}).grupos[0]||"",cod:j.k,n:j.n}))))}catch(e){}
   try{AndroidApp.guardarGruposNoche&&AndroidApp.guardarGruposNoche(JSON.stringify([...new Set(state.jugs.map(j=>(TEAM.get(j.tid)||{grupos:[]}).grupos[0]).filter(Boolean))]))}catch(e){}try{AndroidApp.guardarEquipos(JSON.stringify(state.follows.map(id=>TEAM.get(id)).filter(Boolean).map(t=>({id:t.id,g:t.grupos[0],n:t.name,e:state.etq[t.id]||"",av:state.avEq[t.id]||null}))))}catch(e){}}
 const etiqueta=t=>state.etq[t.id]||"";
 const silenciado=t=>!!(state.avEq[t.id]&&state.avEq[t.id].silencio);
@@ -1524,7 +1527,7 @@ function cronoHTML(m,g){
     return `<div class="cr-row"><div class="cr-l">${e.lado==="L"?celda:""}</div><div class="cr-m">${e.min!=null?e.min+"'":"–"}</div><div class="cr-r">${e.lado==="V"?celda:""}</div></div>`}).join("");
   const alin=suf=>{const js=(g["jugadores_equipo_"+suf]||[]);const tit=js.filter(x=>siNo(x.titular)),sup=js.filter(x=>!siNo(x.titular));
     const eqId=suf==="local"?m.home:m.away;const tap=ANDROID&&TEAM.get(eqId);
-    const li=x=>`<div class="small${tap?" jl":""}"${tap?` data-jug="${esc(eqId)}|${esc(claveJ(x))}"`:""}>${x.dorsal!=null&&x.dorsal!==""?`<b>${esc(x.dorsal)}</b> `:""}${esc(corto(x.nombre_jugador))}${x.posicion_jugador_abreviatura?` <span style="opacity:.6">${esc(x.posicion_jugador_abreviatura)}</span>`:""}${siNo(x.capitan)?" (C)":""}${siNo(x.portero)?" "+ic("guante","sm"):""}${tap?" ›":""}</div>`;
+    const li=x=>`<div class="small${tap?" jl":""}"${tap?` data-jug="${esc(eqId)}|${esc(claveJ(x))}"`:""}>${x.dorsal!=null&&x.dorsal!==""?`<b>${esc(x.dorsal)}</b> `:""}${esc(corto(x.nombre_jugador))}${x.posicion_jugador_abreviatura?` <span style="opacity:.6">${esc(x.posicion_jugador_abreviatura)}</span>`:""}${siNo(x.capitan)?" (C)":""}${siNo(x.portero)?" "+ic("guante","sm"):""}${tap?" ›":""}${tap&&codJ(x)?" "+estrellaJ(eqId,String(codJ(x)),x.nombre_jugador||""):""}</div>`;
     return js.length?`${tit.length&&sup.length?`<div class="small" style="margin-top:4px;opacity:.75">Titulares</div>`:""}${tit.map(li).join("")}${sup.length?`<div class="small" style="margin-top:4px;opacity:.75">Suplentes</div>${sup.map(li).join("")}`:""}`:`<div class="small">El acta no publica los convocados.</div>`};
   const hayCambios=ev.some(e=>e.tipo==="cambio");
   return `<b>Cronología</b> · J${m.j}${m.date?" · "+fdate(m.date):""}
@@ -1688,16 +1691,17 @@ const dorsalJ=p=>{const e=Object.entries(p.dorsales).sort((a,b)=>b[1]-a[1]);retu
 const urlJugadorRFFM=p=>p.cod?`https://www.rffm.es/fichajugador/${encodeURIComponent(p.cod)}`:"";
 function plantillaHTML(t,st,total){
   if(!st.length)return `Las actas de este equipo no traen convocados.<div>${linkRFFM(urlEquipoRFFM(t),"Plantilla en la RFFM")}</div>`;
-  return `<b>Jugadores</b> · ${total} partido${total===1?"":"s"} con acta<div class="small" style="opacity:.75">Toca un jugador para ver su ficha.</div>
-  <table class="st jt"><tr><th style="text-align:left">Jugador</th><th title="Convocado">Conv</th><th title="Titular">Tit</th><th title="Suplente">Sup</th><th title="Goles">${ic("balon","sm")}</th><th title="Amarillas">${tarjeta("a")}</th><th title="Rojas">${tarjeta("r")}</th></tr>
-  ${st.map(p=>`<tr class="tap" data-jug="${esc(t.id)}|${esc(p.k)}"><td class="n"><span class="tl-row">${dorsalJ(p)?`<b>${esc(dorsalJ(p))}</b> `:""}${esc(corto(p.nombre))}${p.portero?" "+ic("guante","sm"):""}</span></td><td>${p.conv}</td><td>${p.tit}</td><td>${p.sup}</td><td>${p.gol||""}</td><td>${p.am||""}</td><td>${p.ro||""}</td></tr>`).join("")}</table>
+  return `<b>Jugadores</b> · ${total} partido${total===1?"":"s"} con acta<div class="small" style="opacity:.75">Toca un jugador para ver su ficha · ${ic("estrella","sm")} para seguirlo y recibir avisos tras cada partido.</div>
+  <table class="st jt"><tr><th></th><th style="text-align:left">Jugador</th><th title="Convocado">Conv</th><th title="Titular">Tit</th><th title="Suplente">Sup</th><th title="Goles">${ic("balon","sm")}</th><th title="Amarillas">${tarjeta("a")}</th><th title="Rojas">${tarjeta("r")}</th></tr>
+  ${st.map(p=>`<tr class="tap" data-jug="${esc(t.id)}|${esc(p.k)}"><td class="et">${estrellaJ(t.id,p.k,p.nombre)}</td><td class="n"><span class="tl-row">${dorsalJ(p)?`<b>${esc(dorsalJ(p))}</b> `:""}${esc(corto(p.nombre))}${p.portero?" "+ic("guante","sm"):""}</span></td><td>${p.conv}</td><td>${p.tit}</td><td>${p.sup}</td><td>${p.gol||""}</td><td>${p.am||""}</td><td>${p.ro||""}</td></tr>`).join("")}</table>
   <div class="small" style="opacity:.75;margin-top:4px">Conv: convocado · Tit: titular · Sup: en el banquillo. ${st.some(p=>p.entro)?"":"Las actas de la federación no suelen recoger los cambios, así que no se sabe si un suplente llegó a jugar."}</div>`;
 }
 const sigueJ=(tid,k)=>state.jugs.some(j=>j.tid===tid&&j.k===k);
+const estrellaJ=(tid,k,n)=>`<button class="estj${sigueJ(tid,k)?" on":""}" data-seguirj="${esc(tid)}|${esc(k)}|${esc(n)}" aria-label="${sigueJ(tid,k)?"Dejar de seguir":"Seguir"} a ${esc(completo(n))}">${ic("estrella",sigueJ(tid,k)?"f":"")}</button>`;
 const botonSeguirJ=(tid,k,n)=>`<button class="btn${sigueJ(tid,k)?" ghost":""} segj" data-seguirj="${esc(tid)}|${esc(k)}|${esc(n)}">${ic("estrella",sigueJ(tid,k)?"f":"")} ${sigueJ(tid,k)?"Siguiendo":"Seguir a este jugador"}</button>`;
 document.addEventListener("click",e=>{const b=e.target.closest("[data-seguirj]");if(!b)return;e.stopPropagation();const[tid,k,...n]=b.dataset.seguirj.split("|");const nombre=n.join("|");
   const i=state.jugs.findIndex(j=>j.tid===tid&&j.k===k);if(i>=0){state.jugs.splice(i,1);toast("Has dejado de seguir a "+completo(nombre))}else{state.jugs.push({tid,k,n:nombre});toast("Sigues a "+completo(nombre)+". Lo tienes en el inicio.")}
-  store.set("jugadores",state.jugs);syncAndroid();document.querySelectorAll(`[data-seguirj="${CSS.escape(b.dataset.seguirj)}"]`).forEach(x=>x.outerHTML=botonSeguirJ(tid,k,nombre))},true);
+  store.set("jugadores",state.jugs);syncAndroid();document.querySelectorAll(`[data-seguirj="${CSS.escape(b.dataset.seguirj)}"]`).forEach(x=>x.outerHTML=x.classList.contains("estj")?estrellaJ(tid,k,nombre):botonSeguirJ(tid,k,nombre))},true);
 function detalleJugador(t,p){
   const pt=x=>{const r=outcome(x.m,t.id);const riv=rivalOf(x.m,t.id);return `<span class="badge ${r}">${{W:"G",D:"E",L:"P"}[r]}</span> <b>J${x.m.j}</b> ${x.m.home===t.id?"vs":"en"} ${esc(riv.n)} <b>${x.m.hg}–${x.m.ag}</b>`};
   const mins=a=>a.length?a.map(v=>v==null?"minuto sin indicar":v+"'").join(", "):"";

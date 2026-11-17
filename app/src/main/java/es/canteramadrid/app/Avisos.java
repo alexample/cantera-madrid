@@ -60,6 +60,7 @@ public class Avisos extends Worker {
     static final String CANAL_ASIGNADO = "partido_asignado";
     static final String CANAL_PREVIO = "antes_del_partido";
     static final String CANAL_METEO = "mal_tiempo";
+    static final String CANAL_JUGADOR = "jugadores";
     private static final String TRABAJO = "revisar-equipos";
     static final TimeZone MADRID = TimeZone.getTimeZone("Europe/Madrid");
 
@@ -96,6 +97,9 @@ public class Avisos extends Worker {
         NotificationChannel mt = new NotificationChannel(CANAL_METEO, "Mal tiempo para el partido", NotificationManager.IMPORTANCE_DEFAULT);
         mt.setDescription("Unas 24 h antes, si se prevé lluvia, nieve, tormenta, viento fuerte o hay aviso meteorológico.");
         nm.createNotificationChannel(mt);
+        NotificationChannel jg = new NotificationChannel(CANAL_JUGADOR, "Jugadores que sigues", NotificationManager.IMPORTANCE_DEFAULT);
+        jg.setDescription("Al terminar el partido: si fue titular, suplente o no convocado, sus goles y sus tarjetas.");
+        nm.createNotificationChannel(jg);
     }
 
     static boolean puedeNotificar(Context c) {
@@ -210,6 +214,8 @@ public class Avisos extends Worker {
         ed.putStringSet("alarmas", alarmas);
         ed.putLong("ultima_revision", ahora);
         ed.apply();
+        // Jugadores seguidos: resumen de su partido en cuanto el acta está disponible
+        try { avisosJugadores(c, p, cacheGrupos, ahora); } catch (Throwable ignored) { }
         // De madrugada y con wifi: actas nuevas de las divisiones que sigues, poco a poco
         try { actasDeNoche(c, p, cacheGrupos, ahora); } catch (Throwable ignored) { }
         return fallo ? Result.retry() : Result.success();
@@ -491,6 +497,129 @@ public class Avisos extends Worker {
         }
         return sb.toString();
     }
+
+    // ---------- Jugadores seguidos ----------
+    // Para cada jugador seguido (con su código de la federación), en los partidos de su equipo ya terminados en los
+    // últimos 3 días: se busca el acta (primero en el servidor compartido, si no en la federación) y se avisa una vez
+    // con titular / suplente / no convocado, goles con minuto y tarjetas.
+    private void avisosJugadores(Context c, SharedPreferences p, JSONObject cacheGrupos, long ahora) throws Exception {
+        JSONArray js = new JSONArray(p.getString("jugadores", "[]"));
+        if (js.length() == 0) return;
+        Set<String> hechos = new HashSet<>(p.getStringSet("jug_avisados", new HashSet<>()));
+        java.io.File f = new java.io.File(c.getFilesDir(), FICHERO_NOCHE);
+        JSONObject pend = null;
+        JSONObject srvCache = new JSONObject();
+        int lecturas = 0;
+        String ua = android.webkit.WebSettings.getDefaultUserAgent(c);
+        java.text.SimpleDateFormat iso = new java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US);
+        String limite = iso.format(new java.util.Date(ahora - 3L * 86400000L));
+        for (int i = 0; i < js.length(); i++) {
+            JSONObject j = js.optJSONObject(i);
+            if (j == null) continue;
+            String cod = j.optString("cod"), tid = j.optString("tid"), gid = j.optString("gid"), nom = j.optString("n");
+            if (!cod.matches("\\d{1,12}") || gid.isEmpty()) continue;
+            JSONObject g = cacheGrupos.optJSONObject(gid);
+            if (g == null) { try { g = new JSONObject(descargar(DATOS + "g/" + gid + ".json")); cacheGrupos.put(gid, g); } catch (Exception e) { continue; } }
+            JSONArray part = g.optJSONArray("part");
+            if (part == null) continue;
+            for (int k = 0; k < part.length(); k++) {
+                JSONArray m = part.optJSONArray(k);
+                if (m == null || m.length() < 12 || m.isNull(7) || m.isNull(8)) continue;
+                if (!tid.equals(m.optString(3)) && !tid.equals(m.optString(5))) continue;
+                if (m.optString(1).compareTo(limite) < 0) continue;
+                String ca = m.optString(11);
+                if (ca.isEmpty() || hechos.contains(cod + "|" + ca)) continue;
+                boolean local = tid.equals(m.optString(3));
+                // 1) servidor compartido (sin nombres, con códigos)
+                JSONObject anon = null;
+                try {
+                    if (!srvCache.has(gid)) srvCache.put(gid, new JSONObject(descargar("https://dondeloechan-ia.alexample.workers.dev/cantera-actas?gid=" + gid)).optJSONObject("actas"));
+                    JSONObject a = srvCache.optJSONObject(gid);
+                    if (a != null) anon = a.optJSONObject(ca);
+                } catch (Exception ignored) { }
+                String texto = null;
+                if (anon != null) texto = resumenAnon(anon.optJSONObject(local ? "l" : "v"), "c" + cod);
+                else if (lecturas < 4) {
+                    // 2) la federación (y se guarda para que la app la suba al servidor)
+                    String q = "temporada=" + g.optString("temp") + "&competicion=" + g.optString("comp") + "&grupo=" + gid;
+                    String game = MainActivity.leerActaRFFM(ca, q, ua);
+                    lecturas++;
+                    if (game != null) {
+                        texto = resumenActa(new JSONObject(game), local ? "local" : "visitante", cod);
+                        if (pend == null) pend = f.exists() ? new JSONObject(leerFichero(f)) : new JSONObject();
+                        pend.put(ca, game);
+                    }
+                    Thread.sleep(2000);
+                }
+                if (texto == null) continue;   // acta aún sin publicar: se vuelve a mirar en la próxima pasada
+                String marcador = m.optString(4) + " " + m.optInt(7) + "-" + m.optInt(8) + " " + m.optString(6);
+                notificar(c, CANAL_JUGADOR, ("j" + cod + ca).hashCode(), nombreBonito(nom) + " · " + texto.split("\n")[0],
+                        marcador + (texto.contains("\n") ? "\n" + texto.substring(texto.indexOf('\n') + 1) : ""), abrirEquipo(c, tid, ("j" + cod).hashCode()), null);
+                hechos.add(cod + "|" + ca);
+            }
+        }
+        if (hechos.size() > 3000) hechos.clear();
+        p.edit().putStringSet("jug_avisados", hechos).apply();
+        if (pend != null) try (java.io.FileOutputStream o = new java.io.FileOutputStream(f)) { o.write(pend.toString().getBytes("UTF-8")); }
+    }
+
+    private static String nombreBonito(String n) {
+        String[] pz = n.split(",", 2);
+        String s = pz.length == 2 ? pz[1].trim() + " " + pz[0].trim() : n;
+        StringBuilder b = new StringBuilder();
+        for (String w : s.toLowerCase(java.util.Locale.ROOT).split("\\s+")) if (!w.isEmpty()) b.append(Character.toUpperCase(w.charAt(0))).append(w.substring(1)).append(' ');
+        return b.toString().trim();
+    }
+
+    private static String minutos(java.util.List<String> l) {
+        StringBuilder b = new StringBuilder();
+        for (String m : l) { if (b.length() > 0) b.append(", "); b.append(m == null || m.isEmpty() ? "?" : m + "'"); }
+        return b.toString();
+    }
+
+    private static String componer(boolean conv, boolean tit, boolean jugo, java.util.List<String> goles, java.util.List<String> am, java.util.List<String> ro) {
+        if (!conv) return "No convocado";
+        StringBuilder t = new StringBuilder(tit ? "Titular" : jugo ? "Suplente · salió al campo" : "Suplente");
+        if (!goles.isEmpty()) t.append(" · ").append(goles.size()).append(goles.size() == 1 ? " gol" : " goles");
+        if (!am.isEmpty()) t.append(" · ").append(am.size() == 1 ? "amarilla" : am.size() + " amarillas");
+        if (!ro.isEmpty()) t.append(" · roja");
+        StringBuilder d = new StringBuilder();
+        if (!goles.isEmpty()) d.append("⚽ ").append(minutos(goles));
+        if (!am.isEmpty()) d.append(d.length() > 0 ? "   " : "").append("🟨 ").append(minutos(am));
+        if (!ro.isEmpty()) d.append(d.length() > 0 ? "   " : "").append("🟥 ").append(minutos(ro));
+        return d.length() > 0 ? t + "\n" + d : t.toString();
+    }
+
+    // Acta compartida: {jug:[[clave,dorsal,tit,por,cap,part]], gol:[[clave,min,pp]], tar:[[clave,min,tipo]]}
+    private static String resumenAnon(JSONObject l, String clave) {
+        if (l == null) return null;
+        boolean conv = false, tit = false, jugo = false;
+        JSONArray jug = l.optJSONArray("jug");
+        for (int i = 0; jug != null && i < jug.length(); i++) { JSONArray x = jug.optJSONArray(i); if (x != null && clave.equals(x.optString(0))) { conv = true; tit = x.optInt(2) == 1; jugo = tit || x.optInt(5) == 1; } }
+        java.util.List<String> goles = new java.util.ArrayList<>(), am = new java.util.ArrayList<>(), ro = new java.util.ArrayList<>();
+        JSONArray gl = l.optJSONArray("gol");
+        for (int i = 0; gl != null && i < gl.length(); i++) { JSONArray x = gl.optJSONArray(i); if (x != null && clave.equals(x.optString(0)) && x.optInt(2) == 0) goles.add(x.isNull(1) ? null : String.valueOf(x.optInt(1))); }
+        JSONArray tr = l.optJSONArray("tar");
+        for (int i = 0; tr != null && i < tr.length(); i++) { JSONArray x = tr.optJSONArray(i); if (x != null && clave.equals(x.optString(0))) { String mn = x.isNull(1) ? null : String.valueOf(x.optInt(1)); if ("a".equals(x.optString(2))) am.add(mn); else ro.add(mn); } }
+        return componer(conv, tit, jugo, goles, am, ro);
+    }
+
+    // Acta de la federación (campos con nombre)
+    private static String resumenActa(JSONObject g, String suf, String cod) {
+        boolean conv = false, tit = false, jugo = false;
+        JSONArray jug = g.optJSONArray("jugadores_equipo_" + suf);
+        for (int i = 0; jug != null && i < jug.length(); i++) { JSONObject x = jug.optJSONObject(i); if (x != null && cod.equals(x.optString("codjugador"))) { conv = true; tit = si(x.optString("titular")); jugo = tit || si(x.optString("participacion")); } }
+        java.util.List<String> goles = new java.util.ArrayList<>(), am = new java.util.ArrayList<>(), ro = new java.util.ArrayList<>();
+        JSONArray gl = g.optJSONArray("goles_equipo_" + suf);
+        for (int i = 0; gl != null && i < gl.length(); i++) { JSONObject x = gl.optJSONObject(i); if (x != null && cod.equals(x.optString("codjugador"))) goles.add(x.optString("minuto")); }
+        JSONArray tr = g.optJSONArray("tarjetas_equipo_" + suf);
+        for (int i = 0; tr != null && i < tr.length(); i++) { JSONObject x = tr.optJSONObject(i); if (x != null && cod.equals(x.optString("codjugador"))) {
+            String t = x.optString("codigo_tipo_amonestacion"); boolean roja = "101".equals(t) || "102".equals(t) || si(x.optString("segunda_amarilla"));
+            (roja ? ro : am).add(x.optString("minuto")); } }
+        return componer(conv, tit, jugo, goles, am, ro);
+    }
+
+    private static boolean si(String v) { return "1".equals(v) || "S".equalsIgnoreCase(v) || "true".equalsIgnoreCase(v); }
 
     // ---------- Actas de noche ----------
     // Entre la 1 y las 7, con wifi, en cada pasada (cada 30 min) se leen como mucho 12 actas nuevas de la federación,

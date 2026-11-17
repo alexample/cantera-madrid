@@ -181,6 +181,13 @@ public class MainActivity extends Activity {
             } catch (Exception e) { return "{}"; }
         }
 
+        /** Jugadores seguidos (código de la federación, equipo y grupo) para sus avisos tras cada partido. */
+        @JavascriptInterface
+        public void guardarJugadores(String json) {
+            getSharedPreferences(Avisos.PREFS, Context.MODE_PRIVATE).edit().putString("jugadores", json == null ? "[]" : json).apply();
+            Avisos.programar(MainActivity.this);
+        }
+
         /** Grupos extra (de jugadores seguidos) para las actas de noche. */
         @JavascriptInterface
         public void guardarGruposNoche(String json) {
