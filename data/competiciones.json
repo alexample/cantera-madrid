@@ -4,49 +4,49 @@
 "codigo": "26738289",
 "nombre": "COPA RFEF FASE AUTONÓMICA",
 "categoria": "TERCERA FEDERACION",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-11",
 "codigo": "26738226",
 "nombre": "TERCERA FEDERACIÓN RFEF",
 "categoria": "TERCERA FEDERACION",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-11",
 "codigo": "28733581",
 "nombre": "COPA DE AFICIONADOS RFFM 2026/2027",
 "categoria": "PRIMERA DIVISION AUTONOMICA AFICIONADO",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-11",
 "codigo": "26737698",
 "nombre": "PRIMERA DIVISIÓN AUTONÓMICA AFICIONADO",
 "categoria": "PRIMERA DIVISION AUTONOMICA AFICIONADO",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-11",
 "codigo": "26737701",
 "nombre": "PREFERENTE AFICIONADO",
 "categoria": "PREFERENTE AFICIONADO",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-11",
 "codigo": "26737706",
 "nombre": "PRIMERA AFICIONADO",
 "categoria": "PRIMERA AFICIONADO",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-11",
 "codigo": "26738300",
 "nombre": "SEGUNDA AFICIONADO",
 "categoria": "SEGUNDA AFICIONADO",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-11",
@@ -172,35 +172,35 @@
 "codigo": "26738128",
 "nombre": "SUPERLIGA ALEVÍN",
 "categoria": "SUPERLIGA ALEVIN",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-11",
 "codigo": "26738051",
 "nombre": "DIVISIÓN DE HONOR ALEVÍN",
 "categoria": "DIVISION DE HONOR ALEVIN",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-11",
 "codigo": "26737845",
 "nombre": "PRIMERA DIVISIÓN AUTONÓMICA ALEVÍN",
 "categoria": "PRIMERA DIVISION AUTONOMICA ALEVIN",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-11",
 "codigo": "26737850",
 "nombre": "PREFERENTE ALEVÍN",
 "categoria": "PREFERENTE ALEVIN",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-11",
 "codigo": "26737859",
 "nombre": "PRIMERA ALEVIN",
 "categoria": "PRIMERA ALEVIN",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-11",
@@ -214,28 +214,28 @@
 "codigo": "27786100",
 "nombre": "TERCERA FEDERACIÓN DE FÚTBOL FEMENINO",
 "categoria": "TERCERA FEDERACION DE FÚTBOL FEMENINO",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-11",
 "codigo": "26738252",
 "nombre": "PRIMERA DIVISIÓN AUTONÓMICA FEMENINO",
 "categoria": "PRIMERA DIVISION AUTONÓMICA FEMENINO",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-11",
 "codigo": "26738262",
 "nombre": "PREFERENTE FÚTBOL FEMENINO",
 "categoria": "PREFERENTE FUTBOL FEMENINO",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-11",
 "codigo": "26737874",
 "nombre": "PRIMERA FÚTBOL FEMENINO",
 "categoria": "PRIMERA FUTBOL FEMENINO",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-11",
@@ -305,35 +305,35 @@
 "codigo": "26737923",
 "nombre": "DIVISION DE HONOR ALEVIN F-7",
 "categoria": "DIVISION DE HONOR ALEV-F7",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-7",
 "codigo": "26738066",
 "nombre": "PRIMERA DIVISION AUTONOMICA ALEVIN F-7",
 "categoria": "PRIMERA DIVISION AUTONOMICA ALEV.F-7",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-7",
 "codigo": "26738132",
 "nombre": "PREFERENTE ALEVIN F-7",
 "categoria": "PREFERENTE ALEVIN F-7",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-7",
 "codigo": "26738141",
 "nombre": "PRIMERA ALEVIN F-7",
 "categoria": "PRIMERA ALEVIN F-7",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-7",
 "codigo": "26738071",
 "nombre": "SEGUNDA ALEVIN F-7",
 "categoria": "SEGUNDA ALEVIN F-7",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-7",
@@ -382,7 +382,7 @@
 "codigo": "26738230",
 "nombre": "PRIMERA FEMENINO SENIOR F-7",
 "categoria": "PRIMERA FEMENINO SENIOR F-7",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-7",
@@ -424,21 +424,21 @@
 "codigo": "26738260",
 "nombre": "PRIMERA DIVISION AUTONOMICA FEMENINO ALEVIN F-7",
 "categoria": "PRIMERA DIVISION AUTONOMICA FEMENINO ALEVIN F-7",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-7",
 "codigo": "26737919",
 "nombre": "PREFERENTE FEMENINO ALEVIN F-7",
 "categoria": "PREFERENTE FEMENINO ALEVIN F-7",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-7",
 "codigo": "26738057",
 "nombre": "PRIMERA FEMENINO ALEVIN F-7",
 "categoria": "PRIMERA FEMENINO ALEVIN F-7",
-"incluida": false
+"incluida": true
 },
 {
 "tipo": "Futbol-7",
@@ -452,6 +452,13 @@
 "codigo": "26738376",
 "nombre": "FUTBOL ANDANDO F-7",
 "categoria": "FUTBOL ANDANDO F-7",
+"incluida": false
+},
+{
+"tipo": "Futbol-7",
+"codigo": "27957934",
+"nombre": "FUTBOL INCLUSIVO",
+"categoria": "FUTBOL INCLUSIVO",
 "incluida": false
 },
 {

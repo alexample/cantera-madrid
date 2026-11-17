@@ -1,11 +1,19 @@
 {
- "act": "2026-11-17T14:12:42+00:00",
+ "act": "2026-11-17T20:03:37+00:00",
  "temporada": "2026-2027",
- "grupos": 247,
- "grupos_previstos": 247,
- "equipos": 3562,
- "campos": 423,
- "segundos": 293,
- "peticiones": 777,
- "errores": []
+ "grupos": 429,
+ "grupos_previstos": 429,
+ "equipos": 5731,
+ "campos": 470,
+ "segundos": 1305,
+ "peticiones": 1387,
+ "fallos": 6,
+ "errores": [
+  "goleadores 26737748: Sin respuesta: https://www.rffm.es/competicion/goleadores?temporada=22&competicion=26737742&grupo=26737748&tipojuego=1",
+  "grupo 26737750 (PREFERENTE CADETE Grupo 8): Sin respuesta: https://www.rffm.es/competicion/calendario?temporada=22&competicion=26737742&grupo=26737750&tipojuego=1&jornada=1",
+  "goleadores 26737749: Sin respuesta: https://www.rffm.es/competicion/goleadores?temporada=22&competicion=26737742&grupo=26737749&tipojuego=1",
+  "clasificación 26737754: Sin respuesta: https://www.rffm.es/competicion/clasificaciones?temporada=22&competicion=26737751&grupo=26737754&tipojuego=1",
+  "clasificación 26737753: Sin respuesta: https://www.rffm.es/competicion/clasificaciones?temporada=22&competicion=26737751&grupo=26737753&tipojuego=1",
+  "clasificación 26737752: Sin respuesta: https://www.rffm.es/competicion/clasificaciones?temporada=22&competicion=26737751&grupo=26737752&tipojuego=1"
+ ]
 }
