@@ -485,6 +485,7 @@ details.blq>summary{transition:background-color .2s,color .2s,border-radius .2s}
 .jd .jp{display:flex;flex-wrap:wrap;align-items:center;gap:4px}.jd-x{margin-left:auto;font-size:12.5px;color:var(--muted);display:inline-flex;align-items:center;gap:4px}
 .estj{background:none;border:none;padding:2px 4px;color:var(--muted);cursor:pointer;line-height:1;vertical-align:middle}.estj .ico{width:18px;height:18px}.estj.on{color:#f59f00}
 td.et{width:26px;padding:0 0 0 2px!important}
+.prow .chev{color:var(--muted);font-size:20px;margin-left:6px}.segok{pointer-events:none}
 </style>
 </head>
 <body>
@@ -684,7 +685,10 @@ function consultaCampo(c){const n=nombreCampoGoogle(c.name);return [/campo|estad
 function navUrl(c){return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(consultaCampo(c))}&travelmode=driving`}
 function mapLink(c,label){if(!c)return"";return `<a class="map" href="${navUrl(c)}" target="_blank" rel="noopener">${icons.pin} ${label||"Cómo llegar"}</a>`}
 const opts=list=>`<div class="opts">${list.map(o=>`<button class="opt" data-ask="${esc(o.v||o.l||o)}">${o.ic?`<span class="opt-i">${IC[o.ic]?ic(o.ic):o.ic}</span>`:""}${esc(o.l||o)}</button>`).join("")}</div>`;
-function teamRow(t,extra){const f=state.follows.includes(t.id);return `<div class="prow">${crest(t,34)}<div class="grow"><b>${esc(t.name)}</b><div class="small">${extra??esc(grupoNombre(t.grupos[0]))}</div></div><button class="btn ${f?"ghost":""}" data-open="${t.id}">${f?"Abrir":"Seguir"}</button></div>`}
+// Tocar la fila abre la ficha sin seguir el equipo; el botón «Seguir» lo añade a tus equipos sin salir de la lista
+const botonSeg=(id)=>state.follows.includes(id)?`<button class="btn ghost segok" aria-label="Siguiendo">${ic("estrella","f sm")} Siguiendo</button>`:`<button class="btn" data-seg="${id}">Seguir</button>`;
+function teamRow(t,extra){return `<div class="prow tap" data-ver="${t.id}">${crest(t,34)}<div class="grow"><b>${esc(t.name)}</b><div class="small">${extra??esc(grupoNombre(t.grupos[0]))}</div></div>${botonSeg(t.id)}<span class="chev">›</span></div>`}
+document.addEventListener("click",e=>{const sg=e.target.closest("[data-seg]");if(!sg)return;e.stopPropagation();e.preventDefault();const id=sg.dataset.seg;follow(id);document.querySelectorAll(`[data-seg="${id}"]`).forEach(b=>b.outerHTML=botonSeg(id));toast("Añadido a tus equipos")},true);
 const teamCards=(ts,ll)=>`<div class="plist">${ts.map(t=>{const d=km(ll,t.ll);return teamRow(t,`${esc(CATN[t.cat])}${t.fem?" fem.":""} · ${esc(t.town||"")}${d!=null?` · a ${d<1?"menos de 1":Math.round(d)} km`:""}<br>${esc(grupoNombre(t.grupos[0]))}`)}).join("")}</div>`;
 
 const nombreJ=n=>{const m=String(n).match(/^(.*?),\s*(.+)$/);return m?m[2]+" "+m[1]:n};
@@ -1994,7 +1998,7 @@ async function playerSearch(text){
   const w=norm(text).split(" ").filter(x=>x.length>1);if(!w.length)return null;
   const res=GOLEADORES.filter(p=>w.every(x=>(" "+p.nn).includes(" "+x))).slice(0,8);
   if(!res.length)return null;
-  return `${res.length===1?"He encontrado a este jugador:":`He encontrado ${res.length} jugadores:`}<div class="plist">${res.map(p=>{const t=TEAM.get(p.t);return t?`<div class="prow">${crest(t,34)}<div class="grow"><b>${esc(p.n)}</b><div class="small">${esc(t.name)} · ${p.g} gol${p.g>1?"es":""}</div></div><button class="btn ${state.follows.includes(t.id)?"ghost":""}" data-open="${t.id}">${state.follows.includes(t.id)?"Abrir":"Seguir"}</button></div>`:""}).join("")}</div><div class="small" style="margin-top:6px">Solo aparecen jugadores con goles registrados por la federación.</div>`;
+  return `${res.length===1?"He encontrado a este jugador:":`He encontrado ${res.length} jugadores:`}<div class="plist">${res.map(p=>{const t=TEAM.get(p.t);return t?`<div class="prow tap" data-ver="${t.id}">${crest(t,34)}<div class="grow"><b>${esc(p.n)}</b><div class="small">${esc(t.name)} · ${p.g} gol${p.g>1?"es":""}</div></div>${botonSeg(t.id)}<span class="chev">›</span></div>`:""}).join("")}</div><div class="small" style="margin-top:6px">Solo aparecen jugadores con goles registrados por la federación.</div>`;
 }
 /* asistente: año → zona → club */
 function wizardAsk(){
@@ -2033,7 +2037,7 @@ function wizardAnswer(text){
     if(text.startsWith("club:"))club=text.slice(5);
     else if(!/no (lo )?se|ni idea|ninguno/.test(q)){const r=searchTeams(text,{cat:d.cat,fem:d.fem});if(r.length)club=r[0].clubKey}
     if(club){const ts=TEAMS.filter(t=>t.clubKey===club&&t.cat===d.cat&&(d.fem==null||t.fem===d.fem)).sort(ordenEquipos);
-      return `${ts.length===1?"Este es su equipo:":`El club tiene ${ts.length} equipos ${CATN[d.cat]}. Elige el suyo:`}${teamCards(ts,ll)}<div class="small" style="margin-top:6px">Pulsa «Seguir» para tener su ficha con resultados, próximo partido y clasificación.</div>${more()}`}
+      return `${ts.length===1?"Este es su equipo:":`El club tiene ${ts.length} equipos ${CATN[d.cat]}. Elige el suyo:`}${teamCards(ts,ll)}<div class="small" style="margin-top:6px">Toca el equipo para ver su ficha o «Seguir» para tener su ficha con resultados, próximo partido y clasificación.</div>${more()}`}
     const ts=ll?nearestTeams(ll,{cat:d.cat,fem:d.fem,limit:6}):[];
     if(!ts.length)return `Hay ${TEAMS.filter(t=>t.cat===d.cat).length} equipos ${CATN[d.cat]}. Escribe el nombre del club o el municipio para encontrarlo.`+opts(["Buscar un equipo"]);
     return `Equipos <b>${CATN[d.cat]}</b> con campo más cerca de ${esc(cap(d.place.name))}:${teamCards(ts,ll)}${more()}`;

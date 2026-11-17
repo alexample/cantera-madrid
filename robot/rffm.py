@@ -360,6 +360,10 @@ def main():
     escudos = {}
     for g in hechos:
         escudos.update(g.get("esc") or {})
+    # La liga primero y las copas al final: la ficha del equipo usa su primer grupo
+    copa = {g["id"] for g in hechos if re.search(r"\b(COPA|TROFEO|TORNEO)\b", norm(g["competicion"]))}
+    for e in equipos.values():
+        e["g"].sort(key=lambda gid: gid in copa)
     for tid, e in equipos.items():
         if casa[tid]:
             e["campo"] = casa[tid].most_common(1)[0][0]
