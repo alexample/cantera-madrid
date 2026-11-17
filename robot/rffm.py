@@ -3,7 +3,7 @@
 Robot de datos de Cantera Madrid.
 
 Descarga de la web pública de la Real Federación de Fútbol de Madrid (www.rffm.es)
-los grupos de fútbol 11 Infantil, Cadete y Juvenil de la temporada en curso:
+los grupos de fútbol 11 y 7 Alevín, Infantil, Cadete, Juvenil y Senior de la temporada en curso:
 calendario y resultados, clasificación, goleadores y campos (con coordenadas).
 
 Solo usa rutas que robots.txt permite: /api/*, /competicion/* y /campo/*.
@@ -36,8 +36,12 @@ from collections import Counter, defaultdict
 BASE = "https://www.rffm.es"
 UA = "Mozilla/5.0 (compatible; CanteraMadridBot/1.0; +https://github.com/alexample/cantera-madrid)"
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
-CATEGORIAS = [("JUVENIL", "juv", "Juvenil"), ("CADETE", "cad", "Cadete"), ("INFANTIL", "inf", "Infantil")]
-EXCLUIR = ("SALA", "PLAYA")
+# El orden importa: primero las de base (una liga «femenino cadete» es cadete), al final las senior.
+CATEGORIAS = [("JUVENIL", "juv", "Juvenil"), ("CADETE", "cad", "Cadete"), ("INFANTIL", "inf", "Infantil"),
+              ("ALEV", "ale", "Alevín"),
+              ("AFICIONADO", "sen", "Senior"), ("TERCERA FEDERACION", "sen", "Senior"), ("SENIOR", "sen", "Senior"),
+              ("FEMENINO", "sen", "Senior")]
+EXCLUIR = ("SALA", "PLAYA", "UNIVERSITARI", "VETERAN", "BENJAMIN", "ANDANDO", "INCLUSIV", "DEBUTANTE")
 
 _lock = threading.Lock()
 _ultimo = [0.0]

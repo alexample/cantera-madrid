@@ -493,15 +493,18 @@ td.et{width:26px;padding:0 0 0 2px!important}
 <div class="sheet" id="sheet"></div>
 <script>
 /* ============================================================
-   CANTERA MADRID — fútbol base (Infantil, Cadete, Juvenil) de la Comunidad de Madrid
+   CANTERA MADRID — fútbol (Alevín, Infantil, Cadete, Juvenil, Senior) de la Comunidad de Madrid
    Datos: RFFM (www.rffm.es), descargados por el robot del repositorio (data/*.json).
    ============================================================ */
 const RAW="https://raw.githubusercontent.com/alexample/cantera-madrid/main/data/";
 const DATA_BASE=(()=>{try{return new URLSearchParams(location.search).get("datos")||RAW}catch(e){return RAW}})();
 const IA_URL="https://dondeloechan-ia.alexample.workers.dev/cantera-ia";
 const TODAY=new Date();TODAY.setHours(0,0,0,0);
-const CATN={inf:"Infantil",cad:"Cadete",juv:"Juvenil"};
-const CAT_ORDER=["inf","cad","juv"];
+const CATN={ale:"Alevín",inf:"Infantil",cad:"Cadete",juv:"Juvenil",sen:"Senior"};
+const CAT_ORDER=["ale","inf","cad","juv","sen"];
+// Duración de cada parte y del descanso por categoría (RFFM): alevín 30', infantil 35', cadete y juvenil 40', senior 45' con 15' de descanso
+const PARTE={ale:30,inf:35,cad:40,juv:40,sen:45},DESCANSO={sen:15};
+const parteDe=c=>PARTE[c]||40,descansoDe=c=>DESCANSO[c]||10;
 
 /* ---------- utilidades ---------- */
 const $=s=>document.querySelector(s);
@@ -572,7 +575,7 @@ const lastMatch=t=>teamMatches(t).filter(m=>m.played).sort((a,b)=>(a.date||0)-(b
 function enJuego(t,m,ahora=Date.now()){
   if(!m||m.played||!m.date||!m.time||!/^\d{1,2}:\d{2}/.test(m.time))return null;
   const[h,mi]=m.time.split(":").map(Number);const ini=new Date(m.date);ini.setHours(h,mi,0,0);
-  const parte=t&&t.cat==="inf"?35:40,desc=10,fin=parte*2+desc;const min=(ahora-ini)/6e4;
+  const parte=parteDe(t&&t.cat),desc=descansoDe(t&&t.cat),fin=parte*2+desc;const min=(ahora-ini)/6e4;
   if(min<0||min>fin+120)return null;
   if(min<parte)return {f:"1",corto:"1ª parte",txt:`1ª parte · ${Math.floor(min)+1}'`};
   if(min<parte+desc)return {f:"d",corto:"Descanso",txt:`Descanso · ${Math.ceil(parte+desc-min)}' para la 2ª`};
@@ -991,7 +994,7 @@ function cambiosActa(g,suf){
 function statsActasGrupo(d,lista){
   const Eq={},J=new Map(),P=new Map();let conCambios=0,conMinGol=0,golesTot=0;
   const nom=id=>(d.table.find(r=>r.id===id)||{}).name||"";
-  const dur=(TEAM.get(d.table[0]&&d.table[0].id)||{}).cat==="inf"||(grupo(d.id)||{}).cat==="inf"?70:80;  // partes de 35' en infantil, 40' en el resto
+  const dur=2*parteDe((grupo(d.id)||{}).cat||(TEAM.get(d.table[0]&&d.table[0].id)||{}).cat);  // duración del partido según la categoría
   for(const{m,g}of lista){
     for(const[suf,id,rsuf]of[["local",m.home,"visitante"],["visitante",m.away,"local"]]){
       const e=Eq[id]||(Eq[id]={id,name:nom(id),am:0,ro:0,pj:0});e.pj++;
@@ -1195,11 +1198,11 @@ function findRival(t,q){
 }
 /* ---------- búsqueda ---------- */
 const SEASON=(()=>{const d=new Date();return d.getMonth()>=6?d.getFullYear():d.getFullYear()-1})();
-const CAT_YEARS={juv:[SEASON-18,SEASON-16],cad:[SEASON-15,SEASON-14],inf:[SEASON-13,SEASON-12]};
-const OTHER_YEARS=[{name:"Alevín",y:[SEASON-11,SEASON-10]},{name:"Benjamín",y:[SEASON-9,SEASON-8]},{name:"Prebenjamín",y:[SEASON-7,SEASON-6]}];
-const yrs=id=>CAT_YEARS[id][0]+"–"+CAT_YEARS[id][1];
+const CAT_YEARS={sen:[1940,SEASON-19],juv:[SEASON-18,SEASON-16],cad:[SEASON-15,SEASON-14],inf:[SEASON-13,SEASON-12],ale:[SEASON-11,SEASON-10]};
+const OTHER_YEARS=[{name:"Benjamín",y:[SEASON-9,SEASON-8]},{name:"Prebenjamín",y:[SEASON-7,SEASON-6]}];
+const yrs=id=>id==="sen"?(SEASON-19)+" o antes":CAT_YEARS[id][0]+"–"+CAT_YEARS[id][1];
 function catFromYear(y){for(const c of CAT_ORDER){const[a,b]=CAT_YEARS[c];if(y>=a&&y<=b)return{cat:c}}for(const o of OTHER_YEARS)if(y>=o.y[0]&&y<=o.y[1])return{other:o.name};return{none:true}}
-const catInText=q=>/infantil/.test(q)?"inf":/cadete/.test(q)?"cad":/juvenil/.test(q)?"juv":null;
+const catInText=q=>/infantil/.test(q)?"inf":/cadete/.test(q)?"cad":/juvenil/.test(q)?"juv":/alevin/.test(q)?"ale":/(senior|aficionad|amateur|tercera federacion)/.test(q)?"sen":null;
 const femInText=q=>/femenin|chicas|nina/.test(q);
 // Municipios y distritos (coordenadas aproximadas). Se completa con las localidades de los campos de la RFFM.
 const PLACES={"madrid":[40.4168,-3.7038],"vallecas":[40.384,-3.658],"puente de vallecas":[40.391,-3.668],"villa de vallecas":[40.373,-3.62],"entrevias":[40.381,-3.67],"carabanchel":[40.383,-3.735],"latina":[40.403,-3.741],"aluche":[40.389,-3.76],"hortaleza":[40.473,-3.641],"fuencarral":[40.493,-3.705],"moratalaz":[40.407,-3.645],"villaverde":[40.346,-3.7],"usera":[40.385,-3.706],"tetuan":[40.46,-3.698],"chamartin":[40.459,-3.677],"ciudad lineal":[40.443,-3.651],"san blas":[40.43,-3.611],"barajas":[40.473,-3.58],"vicalvaro":[40.4,-3.6],"arganzuela":[40.398,-3.697],"retiro":[40.411,-3.676],"salamanca":[40.427,-3.678],"chamberi":[40.434,-3.704],"centro":[40.415,-3.707],"moncloa":[40.435,-3.719],"aravaca":[40.459,-3.783],"sanchinarro":[40.494,-3.66],"valdebebas":[40.483,-3.618],"las tablas":[40.507,-3.668],"alcala de henares":[40.482,-3.364],"alcala":[40.482,-3.364],"colmenar viejo":[40.659,-3.765],"las rozas":[40.492,-3.873],"getafe":[40.305,-3.733],"tres cantos":[40.601,-3.708],"leganes":[40.328,-3.764],"mostoles":[40.322,-3.865],"fuenlabrada":[40.284,-3.794],"alcorcon":[40.345,-3.824],"parla":[40.237,-3.775],"alcobendas":[40.547,-3.642],"san sebastian de los reyes":[40.547,-3.626],"sanse":[40.547,-3.626],"torrejon de ardoz":[40.456,-3.48],"torrejon":[40.456,-3.48],"coslada":[40.426,-3.561],"rivas":[40.326,-3.518],"rivas vaciamadrid":[40.326,-3.518],"majadahonda":[40.473,-3.872],"pozuelo":[40.435,-3.814],"pozuelo de alarcon":[40.435,-3.814],"boadilla":[40.405,-3.877],"boadilla del monte":[40.405,-3.877],"collado villalba":[40.634,-4.005],"villalba":[40.634,-4.005],"pinto":[40.241,-3.7],"valdemoro":[40.191,-3.674],"aranjuez":[40.033,-3.603],"arganda":[40.3,-3.438],"arganda del rey":[40.3,-3.438],"san fernando de henares":[40.425,-3.535],"villaviciosa de odon":[40.357,-3.9],"navalcarnero":[40.289,-4.013],"torrelodones":[40.577,-3.928],"galapagar":[40.578,-4.002],"algete":[40.597,-3.497],"mejorada del campo":[40.395,-3.488],"ciempozuelos":[40.159,-3.621],"humanes":[40.25,-3.828],"moralzarzal":[40.675,-3.97],"villanueva de la canada":[40.446,-4.003],"villanueva del pardillo":[40.49,-3.966],"brunete":[40.405,-3.998],"griñon":[40.212,-3.85],"paracuellos de jarama":[40.505,-3.528],"daganzo":[40.544,-3.456],"meco":[40.553,-3.328],"velilla de san antonio":[40.365,-3.484],"san martin de la vega":[40.21,-3.57],"guadarrama":[40.672,-4.089],"el escorial":[40.582,-4.126],"san lorenzo de el escorial":[40.591,-4.147],"soto del real":[40.754,-3.78],"el molar":[40.735,-3.58],"buitrago":[40.995,-3.636],"cobeña":[40.565,-3.505],"sevilla la nueva":[40.347,-4.026]};
@@ -1996,7 +1999,7 @@ async function playerSearch(text){
 /* asistente: año → zona → club */
 function wizardAsk(){
   const f=state.flow,d=f.data;
-  if(f.step===0)return `Vamos a encontrarlo en tres preguntas.<br><b>1/3 · ¿En qué año nació el jugador?</b> También me vale su edad.${opts([...CAT_ORDER.map(c=>({l:`${yrs(c)} · ${CATN[c]}`,v:"Nació en "+CAT_YEARS[c][0]})),{l:"Otro año",v:"Otro año"}])}`;
+  if(f.step===0)return `Vamos a encontrarlo en tres preguntas.<br><b>1/3 · ¿En qué año nació el jugador?</b> También me vale su edad.${opts([...CAT_ORDER.map(c=>({l:`${yrs(c)} · ${CATN[c]}`,v:"Nació en "+(c==="sen"?SEASON-19:CAT_YEARS[c][0])})),{l:"Otro año",v:"Otro año"}])}`;
   if(f.step===0.5)return `<b>¿Qué tipo de equipo?</b>${opts([{l:"Masculino o mixto",v:"Masculino"},{l:"Femenino",v:"Femenino"},{l:"Cualquiera",v:"Cualquiera"}])}`;
   if(f.step===1)return `<b>2/3 · ¿Dónde vive o dónde juega?</b> Escribe un municipio o barrio (por ejemplo «Alcorcón» o «Carabanchel»).${opts(["Me da igual"])}`;
   if(f.step===2){const near=nearestClubs(d.place&&d.place.ll,d.cat,5,d.fem);
@@ -2005,13 +2008,13 @@ function wizardAsk(){
 function wizardAnswer(text){
   const f=state.flow,d=f.data,q=norm(text);
   if(f.step===0){
-    if(q==="otro ano")return `Escribe el año de nacimiento, por ejemplo «2012». La app cubre Infantil (${yrs("inf")}), Cadete (${yrs("cad")}) y Juvenil (${yrs("juv")}).`;
+    if(q==="otro ano")return `Escribe el año de nacimiento, por ejemplo «2012». La app cubre Alevín (${yrs("ale")}), Infantil (${yrs("inf")}), Cadete (${yrs("cad")}), Juvenil (${yrs("juv")}) y Senior (${yrs("sen")}).`;
     let y=(q.match(/\b(19|20)\d{2}\b/)||[])[0];const age=!y&&(q.match(/\b(\d{1,2})\b/)||[])[1];
     if(age){y=SEASON-(+age);d.fromAge=true}
     if(!y)return "No lo he entendido. Escribe el año de nacimiento (por ejemplo «2012») o la edad (por ejemplo «13 años»).";
     y=+y;const r=catFromYear(y);
-    if(r.other){state.flow=null;return `Nacido en ${y} juega en <b>${r.other}</b>. De momento la app cubre Infantil, Cadete y Juvenil.${more()}`}
-    if(r.none)return `Con ${y} no encaja en fútbol base. Infantil ${yrs("inf")}, Cadete ${yrs("cad")}, Juvenil ${yrs("juv")}.`;
+    if(r.other){state.flow=null;return `Nacido en ${y} juega en <b>${r.other}</b>. De momento la app cubre de Alevín a Senior.${more()}`}
+    if(r.none)return `Con ${y} no encaja en ninguna categoría. Alevín ${yrs("ale")}, Infantil ${yrs("inf")}, Cadete ${yrs("cad")}, Juvenil ${yrs("juv")}, Senior ${yrs("sen")}.`;
     d.cat=r.cat;d.year=y;f.step=0.5;
     return `Nacido en ${y}${d.fromAge?" (calculado por la edad)":""} → <b>${CATN[d.cat]}</b> esta temporada.<br><br>`+wizardAsk();
   }
@@ -2064,7 +2067,7 @@ function contextoEquipo(t){
   const gol=(d.gol||[]).filter(g=>g[1]===t.id);if(gol.length){L.push("","GOLEADORES DEL EQUIPO:");gol.forEach(g=>L.push(`${nombreJ(g[0])}: ${g[2]}`))}
   return L.join("\n");
 }
-function contextoGeneral(){return `Hoy es ${fdate(TODAY)} de ${TODAY.getFullYear()}. La app tiene ${TEAMS.length} equipos de fútbol 11 Infantil, Cadete y Juvenil de la Comunidad de Madrid (datos de la RFFM). En este chat se buscan equipos por club, municipio o categoría; las fichas de cada equipo dan resultados, calendario y clasificación. Categorías por año de nacimiento esta temporada: Infantil ${yrs("inf")}, Cadete ${yrs("cad")}, Juvenil ${yrs("juv")}, Alevín ${OTHER_YEARS[0].y.join("–")}.`}
+function contextoGeneral(){return `Hoy es ${fdate(TODAY)} de ${TODAY.getFullYear()}. La app tiene ${TEAMS.length} equipos de fútbol 11 y 7 (Alevín, Infantil, Cadete, Juvenil y Senior) de la Comunidad de Madrid (datos de la RFFM). En este chat se buscan equipos por club, municipio o categoría; las fichas de cada equipo dan resultados, calendario y clasificación. Categorías por año de nacimiento esta temporada: Alevín ${yrs("ale")}, Infantil ${yrs("inf")}, Cadete ${yrs("cad")}, Juvenil ${yrs("juv")}, Senior ${yrs("sen")}, Benjamín ${OTHER_YEARS[0].y.join("–")}.`}
 const fmtIA=t=>esc(t).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/^- /gm,"• ").replace(/\n/g,"<br>");
 async function preguntarIA(key,text,contexto){
   if(!iaDisponible())return null;
@@ -2203,7 +2206,7 @@ function renderHome(app){
     ${(()=>{const gs=[...new Set(followed.map(t=>t.grupos[0]).filter(Boolean))];if(!gs.length)return "";
       return `<div class="section-t">Mis divisiones</div>${gs.map(gid=>{const g=grupo(gid);if(!g)return "";const eqs=followed.filter(t=>t.grupos[0]===gid);
         return `<button class="divrow" data-div="${esc(gid)}"><span class="divrow-i">${ic("copa")}</span><span class="grow"><b>${esc(g.comp)}</b><span class="small">${esc(g.grupo)} · ${eqs.map(t=>esc(etiqueta(t)||t.name)).join(", ")}</span></span><span class="divrow-f">›</span></button>`}).join("")}`})()}
-    <div class="demo-note">Datos de la <b>Real Federación de Fútbol de Madrid</b> (rffm.es): ${TEAMS.length} equipos de fútbol base Infantil, Cadete y Juvenil.${act?` Actualizado ${fdate(act)} a las ${String(act.getHours()).padStart(2,"0")}:${String(act.getMinutes()).padStart(2,"0")}.`:""} App no oficial.</div>
+    <div class="demo-note">Datos de la <b>Real Federación de Fútbol de Madrid</b> (rffm.es): ${TEAMS.length} equipos de fútbol Alevín, Infantil, Cadete, Juvenil y Senior.${act?` Actualizado ${fdate(act)} a las ${String(act.getHours()).padStart(2,"0")}:${String(act.getMinutes()).padStart(2,"0")}.`:""} App no oficial.</div>
   </main>`;
   $("#gear").onclick=openSettings;
   $("#openMain").onclick=()=>{state.view="main";render()};
