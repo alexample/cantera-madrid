@@ -32,12 +32,37 @@ jobs:
         # Las direcciones ya localizadas se reutilizan; OpenStreetMap se descarga una vez por pasada
         run: python robot/campos.py --todos | tee campos.log
       - name: Guardar cambios
+        # El robot de resultados puede haber subido datos mientras tanto (tarda ~8 min): en vez de un rebase que choca
+        # en indice.json, se parte siempre de lo último de main y se vuelven a aplicar encima solo las ubicaciones.
         if: always()
         run: |
           git config user.name "Robot de datos"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data
-          if git diff --cached --quiet; then echo "Sin cambios"; exit 0; fi
-          git commit -m "Campos: ubicación verificada y punto de entrada (robot)"
-          git pull --rebase origin main
-          git push
+          if git diff --quiet -- data; then echo "Sin cambios"; exit 0; fi
+          mkdir -p /tmp/campos && cp data/campos.json data/campos_revision.json /tmp/campos/ && cp data/campos_estado.json /tmp/campos/ 2>/dev/null || true
+          for intento in 1 2 3 4; do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python - <<'PY'
+          import json, os
+          D = "data"
+          nuevo = json.load(open("/tmp/campos/campos.json", encoding="utf-8"))
+          ruta = os.path.join(D, "campos.json")
+          campos = json.load(open(ruta, encoding="utf-8")) if os.path.exists(ruta) else {}
+          for k, v in nuevo.items():
+              campos[k] = v          # las ubicaciones verificadas mandan; los campos nuevos del robot se conservan
+          json.dump(campos, open(ruta, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+          ix_ruta = os.path.join(D, "indice.json")
+          ix = json.load(open(ix_ruta, encoding="utf-8"))
+          for k in ix.get("campos", {}):
+              if k in nuevo:
+                  ix["campos"][k] = nuevo[k]
+          json.dump(ix, open(ix_ruta, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+          PY
+            cp /tmp/campos/campos_revision.json data/ && { cp /tmp/campos/campos_estado.json data/ 2>/dev/null || true; }
+            git add data
+            if git diff --cached --quiet; then echo "Sin cambios"; exit 0; fi
+            git commit -qm "Campos: ubicación verificada y punto de entrada (robot)"
+            if git push -q; then echo "Guardado (intento $intento)"; exit 0; fi
+            sleep $((intento * 20))
+          done
+          echo "No se pudo guardar tras 4 intentos"; exit 1
