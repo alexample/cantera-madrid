@@ -1,10 +1,6 @@
 {
- "osm_elementos": 4117,
- "osm_tipos": {
-  "way_con_centro": 3559,
-  "relation_con_centro": 94,
-  "node": 464
- },
+ "osm_elementos": 0,
+ "osm_tipos": {},
  "revisados": 471,
- "act": "2026-11-21T12:05:49Z"
+ "act": "2026-11-21T13:12:25Z"
 }
