@@ -10252,5 +10252,23 @@
 ],
 "tipo": "entrada",
 "corregido": false
+},
+"28772570": {
+"nombre": "SS REYES -RAFAEL DELGADO ROSA -DEHESA BOYAL 1A (HA)",
+"localidad": "San Sebastián De Los Reyes",
+"rffm": [
+40.556964,
+-3.627421
+],
+"dir_consultada": "AVDA NAVARRONDAN, S/N|San Sebastián De Los Reyes",
+"sin_geocodificar": true,
+"instalacion": "Polideportivo Municipal Eduardo López Mateo",
+"dist_instalacion_km": 0.24,
+"navegacion": [
+40.558743,
+-3.629114
+],
+"tipo": "instalacion",
+"corregido": false
 }
 }
