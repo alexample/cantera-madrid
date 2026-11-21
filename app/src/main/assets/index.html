@@ -487,6 +487,8 @@ details.blq>summary{transition:background-color .2s,color .2s,border-radius .2s}
 td.et{width:26px;padding:0 0 0 2px!important}
 .prow .chev{color:var(--muted);font-size:20px;margin-left:6px}.segok{pointer-events:none}
 .masbtn{margin-top:8px;width:100%}.mas-oculto[hidden]{display:none!important}
+.imp .prow{cursor:pointer}.imp input{width:20px;height:20px;accent-color:var(--pitch2);flex:none}
+details.hist summary{list-style:none;margin-top:6px}details.hist summary::-webkit-details-marker{display:none}details.hist summary::after{content:" ›";}
 </style>
 </head>
 <body>
@@ -504,9 +506,11 @@ const IA_URL="https://dondeloechan-ia.alexample.workers.dev/cantera-ia";
 const TODAY=new Date();TODAY.setHours(0,0,0,0);
 const CATN={ale:"Alevín",inf:"Infantil",cad:"Cadete",juv:"Juvenil",sen:"Senior"};
 const CAT_ORDER=["ale","inf","cad","juv","sen"];
-// Duración de cada parte y del descanso por categoría (RFFM): alevín 30', infantil 35', cadete y juvenil 40', senior 45' con 15' de descanso
-const PARTE={ale:30,inf:35,cad:40,juv:40,sen:45},DESCANSO={sen:15};
-const parteDe=c=>PARTE[c]||40,descansoDe=c=>DESCANSO[c]||10;
+// Duración por categoría (reglamentos RFFM): alevín F7 2×25', alevín F11 2×30', infantil 2×35', cadete 2×40',
+// juvenil y senior 2×45'. Descanso de 15' en juvenil y senior, 10' en el resto.
+const PARTE={ale:30,inf:35,cad:40,juv:45,sen:45},DESCANSO={juv:15,sen:15};
+const esF7=gid=>{const g=gid&&typeof IDX!=="undefined"&&IDX.grupos&&IDX.grupos[gid];return !!g&&/(\bF-?7\b|FUTBOL[ -]?7|FÚTBOL[ -]?7)/i.test(g[1]+" "+g[2])};
+const parteDe=(c,gid)=>c==="ale"&&esF7(gid)?25:(PARTE[c]||40),descansoDe=c=>DESCANSO[c]||10;
 
 /* ---------- utilidades ---------- */
 const $=s=>document.querySelector(s);
@@ -577,7 +581,7 @@ const lastMatch=t=>teamMatches(t).filter(m=>m.played).sort((a,b)=>(a.date||0)-(b
 function enJuego(t,m,ahora=Date.now()){
   if(!m||m.played||!m.date||!m.time||!/^\d{1,2}:\d{2}/.test(m.time))return null;
   const[h,mi]=m.time.split(":").map(Number);const ini=new Date(m.date);ini.setHours(h,mi,0,0);
-  const parte=parteDe(t&&t.cat),desc=descansoDe(t&&t.cat),fin=parte*2+desc;const min=(ahora-ini)/6e4;
+  const parte=parteDe(t&&t.cat,t&&t.grupos&&t.grupos[0]),desc=descansoDe(t&&t.cat),fin=parte*2+desc;const min=(ahora-ini)/6e4;
   if(min<0||min>fin+120)return null;
   if(min<parte)return {f:"1",corto:"1ª parte",txt:`1ª parte · ${Math.floor(min)+1}'`};
   if(min<parte+desc)return {f:"d",corto:"Descanso",txt:`Descanso · ${Math.ceil(parte+desc-min)}' para la 2ª`};
@@ -635,6 +639,7 @@ const IC={
   lupa:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L20.5 20.5"/>',
   vs:'<path d="M4 7h11l-3-3M20 17H9l3 3"/>',
   hoja:'<rect x="5" y="3.5" width="14" height="17.5" rx="2.5"/><path d="M9 3.5h6v3H9zM8.5 11h7M8.5 14.5h7M8.5 18h4"/>',
+  compartir:'<circle cx="6" cy="12" r="2.4"/><circle cx="17.5" cy="6" r="2.4"/><circle cx="17.5" cy="18" r="2.4"/><path d="M8.2 10.9l7.1-3.7M8.2 13.1l7.1 3.7"/>',
   doc:'<path d="M6.5 3.5h7l4 4v13h-11z"/><path d="M13.5 3.5v4h4M9 12h6M9 15.5h6"/>',
   pin:'<path d="M12 21s6.5-6.1 6.5-11.2A6.5 6.5 0 0 0 5.5 9.8C5.5 14.9 12 21 12 21z"/><circle cx="12" cy="10" r="2.3"/>',
   ruta:'<circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="6" r="2.2"/><path d="M8.2 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.8"/>',
@@ -667,6 +672,7 @@ const ic=(n,cls="")=>`<svg class="ico${cls?" "+cls:""}" viewBox="0 0 24 24" aria
 const tarjeta=(c)=>`<svg class="tarj" viewBox="0 0 14 18" aria-hidden="true"><rect x="2" y="1.5" width="10" height="15" rx="2" transform="rotate(8 7 9)" fill="${c==="r"?"#e03131":"#fab005"}"/></svg>`;
 
 const icons={
+  info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.6" r=".6" fill="currentColor"/></svg>',
   back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>',
   gear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>',
   send:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
@@ -1003,7 +1009,7 @@ function cambiosActa(g,suf){
 function statsActasGrupo(d,lista){
   const Eq={},J=new Map(),P=new Map();let conCambios=0,conMinGol=0,golesTot=0;
   const nom=id=>(d.table.find(r=>r.id===id)||{}).name||"";
-  const dur=2*parteDe((grupo(d.id)||{}).cat||(TEAM.get(d.table[0]&&d.table[0].id)||{}).cat);  // duración del partido según la categoría
+  const dur=2*parteDe((grupo(d.id)||{}).cat||(TEAM.get(d.table[0]&&d.table[0].id)||{}).cat,d.id);  // duración del partido según la categoría
   for(const{m,g}of lista){
     for(const[suf,id,rsuf]of[["local",m.home,"visitante"],["visitante",m.away,"local"]]){
       const e=Eq[id]||(Eq[id]={id,name:nom(id),am:0,ro:0,pj:0});e.pj++;
@@ -2280,7 +2286,7 @@ function renderChat(app,t){
   const colT=t&&colorEquipo(t);
   app.innerHTML=`<header class="top${colT?" eqcol":""}"${colT?` style="--eq:${colT}"`:""}><div class="toprow"><button class="iconbtn" id="back" aria-label="Volver">${icons.back}</button>
     ${t?crest(t,40):""}<div class="grow">${t&&etiqueta(t)?`<span class="tag">${ic("estrella","f")} ${esc(etiqueta(t))}</span>`:""}<h1 class="tn" style="font-size:21px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(t.name):"Chat principal"}</h1><div class="sub" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t?esc(grupoNombre(t.grupos[0])):"Equipos y jugadores de Madrid"}</div></div>
-    ${t?(state.follows.includes(t.id)?`<button class="iconbtn" id="tset" aria-label="Configuración del equipo">${icons.gear}</button>`:`<button class="btn" id="tfol" style="flex:none">Seguir</button>`):""}</div></header>
+    ${t?(state.follows.includes(t.id)?`<button class="iconbtn" id="tinfo" aria-label="Historia del club">${icons.info}</button><button class="iconbtn" id="tset" aria-label="Configuración del equipo">${icons.gear}</button>`:`<button class="btn" id="tfol" style="flex:none">Seguir</button>`):""}</div></header>
   ${t?`<div class="carr-fijo">${carruselHTML(t)}</div>`:""}
   <main id="scroll"><div class="chat" id="chat"></div></main>
   <div class="composer">
@@ -2365,6 +2371,7 @@ function renderChat(app,t){
     $("#no").onclick=closeSheet;
     $("#yes").onclick=()=>{delete state.chats[key];state.iah[key]=[];if(!t)state.flow=null;closeSheet();render();toast("Chat borrado")}});
   if(t&&$("#tset"))$("#tset").onclick=()=>openTeamSettings(t);
+  if(t&&$("#tinfo"))$("#tinfo").onclick=()=>historiaClub(t);
   if(t&&$("#tfol"))$("#tfol").onclick=()=>{follow(t.id);render();setTimeout(()=>openTeamSettings(t),150)};
 }
 function openSheet(html,bind){$("#sheet").innerHTML=html;$("#sheetBg").style.display="block";requestAnimationFrame(()=>$("#sheet").classList.add("open"));bind&&bind()}
@@ -2429,6 +2436,9 @@ function openSettings(){
    ${sw("previo","Antes del partido","Con el campo y cómo llegar.")}
    ${sw("meteo","Mal tiempo (24 h antes)","Si se prevé lluvia, nieve, tormenta, viento fuerte o hay aviso meteorológico oficial.")}
    <div class="tog"><div class="grow"><b>¿Cuánto antes?</b></div><div class="chips" style="padding:0">${[1,2,3,4,6].map(h=>`<button class="chip" data-h="${h}" style="${av.horas===h?"background:var(--pitch2);color:#fff":""}">${h} h</button>`).join("")}</div></div>
+   <div class="section-t">Compartir mis equipos</div>
+   <div class="small" style="margin-bottom:8px">Crea un fichero con los equipos que sigues para mandarlo por WhatsApp, correo… La otra persona lo abre con la app y elige cuáles seguir.</div>
+   <div style="display:flex;gap:8px;margin-bottom:6px"><button class="btn" id="expEq" style="flex:1">${ic("compartir","sm")} Exportar</button><button class="btn ghost" id="impEq" style="flex:1">Importar fichero</button></div>
    <div class="section-t">Apariencia</div>
    <div class="themes">
     <button class="theme ${state.tema==="noche"?"on":""}" data-tema="noche"><div class="pv" style="background:radial-gradient(circle,rgba(255,255,255,.6) 1px,transparent 1.6px) 0 0/23px 19px,linear-gradient(180deg,#0e0930,#2a1e6e)"><div style="position:absolute;left:8px;right:8px;bottom:8px;height:18px;border-radius:6px;background:#e9e5ff;box-shadow:inset 0 -6px 0 #5b4bd6"></div></div><b>Noche</b><div class="small">Violeta, billetes</div></button>
@@ -2441,6 +2451,7 @@ function openSettings(){
     const guardar=()=>{if(ANDROID)try{AndroidApp.guardarAjustes(JSON.stringify(av))}catch(e){}};
     document.querySelectorAll("[data-sw]").forEach(b=>b.onclick=()=>{const k=b.dataset.sw;av[k]=!av[k];b.classList.toggle("on",av[k]);guardar()});
     document.querySelectorAll("[data-h]").forEach(b=>b.onclick=()=>{av.horas=+b.dataset.h;document.querySelectorAll("[data-h]").forEach(x=>x.style.cssText=+x.dataset.h===av.horas?"background:var(--pitch2);color:#fff":"");guardar()});
+    $("#expEq").onclick=exportarEquipos;$("#impEq").onclick=()=>{closeSheet();importarFichero()};
     if($("#permiso"))$("#permiso").onclick=()=>{try{AndroidApp.pedirPermiso();AndroidApp.abrirAjustesNotificaciones()}catch(e){}};
     document.querySelectorAll("[data-tema]").forEach(b=>b.onclick=()=>{state.tema=b.dataset.tema;store.set("tema",state.tema);aplicarTema();document.querySelectorAll("[data-tema]").forEach(x=>x.classList.toggle("on",x.dataset.tema===state.tema))});
     $("#vsw").onclick=()=>{state.verified=!state.verified;store.set("verified",state.verified);$("#vsw").classList.toggle("on",state.verified)};
@@ -2453,8 +2464,64 @@ window.atras=()=>{
   if(state.view!=="home"){volver();return true}
   return false;
 };
+/* ---------- historia del club (Wikipedia) ---------- */
+const CLUB_URL="https://dondeloechan-ia.alexample.workers.dev/cantera-club";
+function datosClubHTML(t){
+  const ts=TEAMS.filter(x=>x.clubKey===t.clubKey);const porCat={};ts.forEach(x=>porCat[x.cat]=(porCat[x.cat]||0)+1);
+  const campos={};ts.forEach(x=>{if(x.campo)campos[x.campo.name||x.campo.nombre||""]=(campos[x.campo.name||x.campo.nombre||""]||0)+1});
+  const campo=Object.entries(campos).filter(c=>c[0]).sort((a,b)=>b[1]-a[1])[0];
+  return `<div style="font-weight:700;margin:14px 0 4px">Esta temporada</div><div class="small" style="line-height:1.6">${ts.length} equipo${ts.length>1?"s":""} en la federación: ${CAT_ORDER.filter(c=>porCat[c]).map(c=>`${CATN[c]} ${porCat[c]}`).join(" · ")}${t.town?`<br>Localidad: ${esc(t.town)}`:""}${campo?`<br>Campo habitual: ${esc(bonito(campo[0]))}`:""}</div>`;
+}
+async function historiaClub(t){
+  const cab=`<h3 style="display:flex;gap:10px;align-items:center">${crest(t,34)}<span>${esc(t.club)}</span></h3>`;
+  openSheet(cab+`<div class="small" style="margin:10px 0">Buscando la historia del club…</div>`+datosClubHTML(t));
+  const k="club_"+t.clubKey;let d=store.get(k,null);
+  if(!d||Date.now()-(d.ts||0)>14*864e5){
+    try{const r=await fetch(`${CLUB_URL}?club=${encodeURIComponent(t.club)}&pueblo=${encodeURIComponent(t.town||"")}`);d=await r.json();d.ts=Date.now();if(!d.error)store.set(k,d)}catch(e){d={error:"sin conexión"}}
+  }
+  if(!$("#sheet").classList.contains("open"))return;
+  const parr=x=>String(x||"").split(/\n+/).filter(Boolean).map(p=>`<p style="margin:0 0 8px;line-height:1.5">${esc(p)}</p>`).join("");
+  const cuerpo=d&&d.texto?`<div style="margin-top:8px">${parr(d.texto)}</div>${d.historia?`<details class="hist"><summary style="cursor:pointer;font-weight:700;margin:6px 0">Historia</summary>${parr(d.historia)}</details>`:""}
+    <div class="small" style="margin-top:6px">Fuente: <a href="${esc(d.url)}" target="_blank" rel="noopener">Wikipedia · ${esc(d.titulo)}</a></div>`
+    :`<div class="small" style="margin:10px 0;line-height:1.5">${d&&d.error==="sin conexión"?"No hay conexión para buscar la historia del club.":"Este club no tiene artículo en Wikipedia, así que no hay una historia publicada que mostrar. Muchos clubes de cantera no lo tienen."}</div>`;
+  $("#sheet").innerHTML=cab+cuerpo+datosClubHTML(t);
+}
+/* ---------- compartir mis equipos (fichero) ---------- */
+function exportarEquipos(){
+  const eq=state.follows.map(id=>TEAM.get(id)).filter(Boolean);
+  if(!eq.length){toast("Aún no sigues ningún equipo");return}
+  const datos={app:"cantera-madrid",tipo:"equipos",v:1,fecha:new Date().toISOString().slice(0,10),
+    equipos:eq.map(t=>({id:t.id,n:t.name,cat:t.cat,c:state.col[t.id]||null}))};
+  const json=JSON.stringify(datos,null,1),nombre="cantera-equipos.json";
+  const texto=`Mis ${eq.length} equipo${eq.length>1?"s":""} de Cantera Madrid. Abre el fichero con la app (o en Ajustes → Importar equipos).`;
+  if(ANDROID&&AndroidApp.compartirFichero){try{AndroidApp.compartirFichero(nombre,json,texto);return}catch(e){}}
+  const f=new File([json],nombre,{type:"application/json"});
+  if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],text:texto}).catch(()=>{});return}
+  const a=document.createElement("a");a.href=URL.createObjectURL(f);a.download=nombre;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000);
+}
+function importarFichero(){
+  if(ANDROID&&AndroidApp.elegirFichero){try{AndroidApp.elegirFichero();return}catch(e){}}
+  const i=document.createElement("input");i.type="file";i.accept=".json,application/json";
+  i.onchange=()=>{const f=i.files[0];if(f)f.text().then(importarEquipos)};i.click();
+}
+function importarEquipos(texto){
+  let d;try{d=JSON.parse(texto)}catch(e){toast("El fichero no es de Cantera Madrid");return}
+  if(!d||d.app!=="cantera-madrid"||!Array.isArray(d.equipos)){toast("El fichero no es de Cantera Madrid");return}
+  const lista=d.equipos.slice(0,60).map(x=>({x,t:TEAM.get(String(x.id))})).filter(o=>o.t);
+  const falta=d.equipos.length-lista.length;
+  if(!lista.length){toast("Ninguno de esos equipos está en la temporada actual");return}
+  openSheet(`<h3>Importar equipos</h3>
+   <div class="small" style="margin-bottom:10px">El fichero trae ${d.equipos.length} equipo${d.equipos.length>1?"s":""}${d.fecha?` (guardado el ${esc(d.fecha.split("-").reverse().join("/"))})`:""}. Marca los que quieras seguir.</div>
+   <div class="plist imp">${lista.map(({t})=>{const ya=state.follows.includes(t.id);return `<label class="prow"><input type="checkbox" data-imp="${t.id}" ${ya?"checked disabled":"checked"}>${crest(t,30)}<div class="grow"><b>${esc(t.name)}</b><div class="small">${ya?"Ya lo sigues":esc(grupoNombre(t.grupos[0]))}</div></div></label>`}).join("")}</div>
+   ${falta?`<div class="small" style="margin-top:6px">${falta} equipo${falta>1?"s":""} ya no está${falta>1?"n":""} en la temporada actual.</div>`:""}
+   <button class="btn" id="impOk" style="width:100%;margin-top:12px">Seguir los marcados</button>`,()=>{
+    $("#impOk").onclick=()=>{let n=0;document.querySelectorAll("[data-imp]:not(:disabled)").forEach(c=>{if(c.checked){const id=c.dataset.imp;const x=(lista.find(o=>o.t.id===id)||{}).x||{};
+        if(x.c&&COLORES.includes(x.c)&&!Object.values(state.col).includes(x.c))state.col[id]=x.c;follow(id);n++}});
+      store.set("colores",state.col);closeSheet();toast(n?`${n} equipo${n>1?"s":""} añadido${n>1?"s":""}`:"No se ha añadido ninguno");state.view="home";render()}})
+}
+window.ficheroRecibido=()=>{if(!IDX)return;let t="";try{t=AndroidApp.ficheroPendiente()}catch(e){}if(t)importarEquipos(t)};
 window.abrirEquipo=id=>{if(!IDX||!TEAM.get(id)){window.__pendiente=id;return}closeSheet();state.view="team";state.team=id;render()};
-function abrirPendiente(){const h=(location.hash.match(/^#e-(.+)$/)||[])[1];const id=window.__pendiente||h;if(id&&TEAM.get(id)){window.__pendiente=null;try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}state.view="team";state.team=id;render()}}
+function abrirPendiente(){if(ANDROID)setTimeout(()=>window.ficheroRecibido(),300);const h=(location.hash.match(/^#e-(.+)$/)||[])[1];const id=window.__pendiente||h;if(id&&TEAM.get(id)){window.__pendiente=null;try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}state.view="team";state.team=id;render()}}
 aplicarTema();
 async function boot(fresh){
   const cached=store.get("indice",null);

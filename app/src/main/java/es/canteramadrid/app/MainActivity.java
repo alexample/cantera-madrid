@@ -48,6 +48,9 @@ public class MainActivity extends Activity {
     private static final int VERDE = Color.parseColor("#0F5132");
 
     private WebView web;
+    /** Contenido de un fichero de equipos recibido (abierto o compartido) que la página recoge al cargar. */
+    private String ficheroRecibido;
+    private static final int ELEGIR_FICHERO = 21;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -119,6 +122,7 @@ public class MainActivity extends Activity {
         Avisos.crearCanales(this);
         Avisos.programar(this);
 
+        recibirFichero(getIntent());
         String equipo = getIntent() != null ? getIntent().getStringExtra("equipo") : null;
         if (savedInstanceState != null) web.restoreState(savedInstanceState);
         else web.loadUrl(equipo != null ? START + "#e-" + equipo : START);
@@ -129,8 +133,45 @@ public class MainActivity extends Activity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
+        if (recibirFichero(intent)) { web.evaluateJavascript("window.ficheroRecibido && window.ficheroRecibido()", null); return; }
         String equipo = intent.getStringExtra("equipo");
         if (equipo != null) web.evaluateJavascript("window.abrirEquipo && window.abrirEquipo(" + JSONObject.quote(equipo) + ")", null);
+    }
+
+    /** Si el intent trae un fichero (abrir con… / compartir con…), lo lee y lo deja para la página. */
+    private boolean recibirFichero(Intent in) {
+        if (in == null) return false;
+        Uri u = null;
+        if (Intent.ACTION_VIEW.equals(in.getAction())) u = in.getData();
+        else if (Intent.ACTION_SEND.equals(in.getAction())) {
+            u = in.getParcelableExtra(Intent.EXTRA_STREAM);
+            if (u == null && in.getStringExtra(Intent.EXTRA_TEXT) != null) { ficheroRecibido = in.getStringExtra(Intent.EXTRA_TEXT); return true; }
+        }
+        if (u == null) return false;
+        String t = leerUri(u);
+        if (t == null) return false;
+        ficheroRecibido = t;
+        return true;
+    }
+
+    private String leerUri(Uri u) {
+        try (InputStream in = getContentResolver().openInputStream(u)) {
+            if (in == null) return null;
+            ByteArrayOutputStream b = new ByteArrayOutputStream();
+            byte[] buf = new byte[8192]; int n; long total = 0;
+            while ((n = in.read(buf)) > 0) { b.write(buf, 0, n); total += n; if (total > 512 * 1024) return null; }
+            return b.toString("UTF-8");
+        } catch (Throwable e) { return null; }
+    }
+
+    @Override
+    protected void onActivityResult(int code, int res, Intent data) {
+        super.onActivityResult(code, res, data);
+        if (code != ELEGIR_FICHERO) return;
+        String t = (res == RESULT_OK && data != null && data.getData() != null) ? leerUri(data.getData()) : null;
+        if (t == null) return;
+        ficheroRecibido = t;
+        web.evaluateJavascript("window.ficheroRecibido && window.ficheroRecibido()", null);
     }
 
     /** Lo que la página puede pedir a Android. */
@@ -179,6 +220,43 @@ public class MainActivity extends Activity {
                 f.delete();
                 return t;
             } catch (Exception e) { return "{}"; }
+        }
+
+        /** Comparte un fichero de texto (los equipos que sigues) con WhatsApp, correo, Drive… */
+        @JavascriptInterface
+        public void compartirFichero(String nombre, String contenido, String texto) {
+            runOnUiThread(() -> {
+                try {
+                    java.io.File dir = new java.io.File(getCacheDir(), "compartir");
+                    dir.mkdirs();
+                    java.io.File f = new java.io.File(dir, nombre.replaceAll("[^A-Za-z0-9._-]", "_"));
+                    try (java.io.FileOutputStream o = new java.io.FileOutputStream(f)) { o.write(contenido.getBytes("UTF-8")); }
+                    Uri u = androidx.core.content.FileProvider.getUriForFile(MainActivity.this, getPackageName() + ".ficheros", f);
+                    Intent i = new Intent(Intent.ACTION_SEND).setType("application/json")
+                            .putExtra(Intent.EXTRA_STREAM, u).putExtra(Intent.EXTRA_TEXT, texto)
+                            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    startActivity(Intent.createChooser(i, "Compartir mis equipos"));
+                } catch (Throwable ignored) { }
+            });
+        }
+
+        /** Abre el selector de ficheros para importar equipos. */
+        @JavascriptInterface
+        public void elegirFichero() {
+            runOnUiThread(() -> {
+                try {
+                    Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("*/*");
+                    startActivityForResult(i, ELEGIR_FICHERO);
+                } catch (Throwable ignored) { }
+            });
+        }
+
+        /** Fichero recibido pendiente (se entrega una sola vez). */
+        @JavascriptInterface
+        public String ficheroPendiente() {
+            String t = ficheroRecibido;
+            ficheroRecibido = null;
+            return t == null ? "" : t;
         }
 
         /** Jugadores seguidos (código de la federación, equipo y grupo) para sus avisos tras cada partido. */
