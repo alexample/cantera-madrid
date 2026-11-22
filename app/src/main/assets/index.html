@@ -2478,12 +2478,22 @@ function datosClubHTML(t){
 }
 // Ficha del club en la federación (fundación, web, redes, equipos que ha tenido): la lee el móvil al tocar (i)
 const ESPERA_CL={};window.__club=(cb,json)=>{const f=ESPERA_CL[cb];if(f){delete ESPERA_CL[cb];f(json?JSON.parse(json):null)}};
-function fichaClubFed(t){
+// Fichero de clubes (datos públicos de cada club en la federación: web, redes, fundación, equipos), por código de equipo
+let CLUBES=null;
+async function cargarClubes(){
+  if(CLUBES)return CLUBES;const c=store.get("clubes",null);
+  if(c&&Date.now()-(c.ts||0)<7*864e5){CLUBES=c;return c}
+  try{const d=await getJSON("clubes.json",{fresh:true});d.ts=Date.now();store.set("clubes",d);CLUBES=d}catch(e){CLUBES=c||{club:{},eq:{}}}
+  return CLUBES;
+}
+function clubFijo(t){const C=CLUBES||{club:{},eq:{}};const cid=C.eq&&C.eq[t.id];const c=cid&&C.club[cid];if(!c)return null;
+  return {cod:cid,nombre_club:c.n,portal_web:c.web,instagram:c.ig,facebook:c.fb,twitter:c.x,fecha_fundacion:c.fund,eqN:c.eq,actN:c.act}}
+function fichaClubFed(t,cid){
   const k="clubf2_"+t.clubKey,ya=store.get(k,null);
   if(ya&&Date.now()-(ya.ts||0)<30*864e5)return Promise.resolve(ya);
-  if(!ANDROID||!AndroidApp.club||!/^\d+$/.test(t.id))return Promise.resolve(null);
+  if(!ANDROID||!AndroidApp.club||!/^\d+$/.test(cid||t.id))return Promise.resolve(null);
   return new Promise(res=>{const cb="c"+Date.now()+Math.random().toString(36).slice(2,6);const to=setTimeout(()=>{delete ESPERA_CL[cb];res(null)},45000);
-    ESPERA_CL[cb]=d=>{clearTimeout(to);if(d){d.ts=Date.now();store.set(k,d)}res(d)};try{AndroidApp.club(t.id,cb)}catch(e){clearTimeout(to);res(null)}});
+    ESPERA_CL[cb]=d=>{clearTimeout(to);if(d){d.ts=Date.now();store.set(k,d)}res(d)};try{AndroidApp.club(cid?"c"+cid:t.id,cb)}catch(e){clearTimeout(to);res(null)}});
 }
 const urlWeb=w=>w?(/^https?:\/\//i.test(w)?w:"https://"+w.replace(/^\/+/,"")):"";
 function fechaFund(f){if(!f)return "";const m=String(f).match(/^(\d{4})-(\d{2})-(\d{2})/);if(m)return m[2]==="01"&&m[3]==="01"?m[1]:`${m[3]}/${m[2]}/${m[1]}`;const n=String(f).match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})/);if(n)return n[1]==="01"&&n[2]==="01"||n[1]==="1"&&n[2]==="1"?n[3]:`${n[1].padStart(2,"0")}/${n[2].padStart(2,"0")}/${n[3]}`;return esc(f)}
@@ -2495,7 +2505,9 @@ const RED_IC={
   x:['X','#111111','<circle cx="12" cy="12" r="3.6"/><path d="M15.6 12v1.4a2.4 2.4 0 004.8 0V12a8.4 8.4 0 10-3.3 6.7"/>'],
   youtube:['YouTube','#e62117','<rect x="3" y="6" width="18" height="12" rx="3.5"/><path d="M10.5 9.5v5l4.3-2.5z" fill="currentColor"/>']};
 function redesHTML(fed,d){
-  const r={};const pon=(k,u)=>{if(u&&!r[k])r[k]=/^https?:/i.test(u)?u:"https://"+String(u).replace(/^\/+/,"")};
+  const BASE={instagram:"https://www.instagram.com/",facebook:"https://www.facebook.com/",x:"https://x.com/",tiktok:"https://www.tiktok.com/@",youtube:"https://www.youtube.com/@"};
+  const r={};const pon=(k,u)=>{u=String(u||"").trim();if(!u||r[k])return;
+    if(/^https?:/i.test(u))r[k]=u;else if(/^(www\.)?[a-z]+\.(com|es)\//i.test(u))r[k]="https://"+u;else{const h=u.replace(/^@/,"").replace(/\/+$/,"");if(/^[A-Za-z0-9_.\-]{2,}$/.test(h))r[k]=BASE[k]+h}};
   if(fed){pon("instagram",fed.instagram);pon("facebook",fed.facebook);pon("x",fed.twitter)}
   for(const x of [fed&&fed.redes,d&&d.redes])if(x)for(const k of Object.keys(RED_IC))pon(k,x[k]);
   const ks=Object.keys(RED_IC).filter(k=>r[k]);
@@ -2504,7 +2516,7 @@ function redesHTML(fed,d){
 }
 function fedClubHTML(f){
   if(!f)return "";
-  const eq=f.equipos||[],act=eq.filter(e=>e[2]==="1").length;
+  const eq=f.equipos&&f.equipos.length?f.equipos:Array(f.eqN||0).fill(0),act=f.equipos&&f.equipos.length?f.equipos.filter(e=>e[2]==="1").length:(f.actN||0);
   const anio=fechaFund(f.fecha_fundacion);
   const filas=[anio?`<b>Fundado:</b> ${anio}${/^\d{4}$/.test(anio)?` · hace ${new Date().getFullYear()-(+anio)} años`:""}`:"",
     f.portal_web?`<b>Web:</b> <a href="${esc(urlWeb(f.portal_web))}" target="_blank" rel="noopener">${esc(f.portal_web.replace(/^https?:\/\//,"").replace(/\/$/,""))}</a>`:"",
@@ -2513,8 +2525,11 @@ function fedClubHTML(f){
 }
 async function historiaClub(t){
   const cab=`<h3 style="display:flex;gap:10px;align-items:center">${crest(t,34)}<span>${esc(t.club)}</span></h3>`;
-  openSheet(cab+`<div class="small" style="margin:10px 0">Buscando la historia del club…</div>`+datosClubHTML(t));
-  const fed=await fichaClubFed(t);
+  await cargarClubes();const fijo=clubFijo(t);
+  openSheet(cab+`<div class="small" style="margin:10px 0">Buscando la historia del club…</div>`+redesHTML(fijo,null)+fedClubHTML(fijo)+datosClubHTML(t));
+  const fed0=await fichaClubFed(t,fijo&&fijo.cod);
+  // Lo leído ahora en la federación manda; lo que falte se completa con el fichero de clubes
+  const fed=fijo||fed0?Object.assign({},fijo||{},...Object.entries(fed0||{}).filter(([k,v])=>v!==""&&v!=null).map(([k,v])=>({[k]:v}))):null;
   const k="club3_"+t.clubKey;let d=store.get(k,null);
   if(!d||Date.now()-(d.ts||0)>14*864e5){
     try{const r=await fetch(`${CLUB_URL}?club=${encodeURIComponent(t.club)}&pueblo=${encodeURIComponent(t.town||"")}`);d=await r.json();

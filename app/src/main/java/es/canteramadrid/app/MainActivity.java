@@ -385,14 +385,15 @@ public class MainActivity extends Activity {
          *  Solo se lee cuando el usuario toca (i): fichaequipo/<equipo> → codigo_club → fichaclub/<club>. */
         @JavascriptInterface
         public void club(String equipo, String cb) {
-            if (equipo == null || !equipo.matches("\\d{1,12}")) return;
+            // «c<código>» = ya se conoce el código del club (fichero de clubes): se va directo a su ficha
+            if (equipo == null || !equipo.matches("c?\\d{1,12}")) return;
             new Thread(() -> {
                 String res = null;
                 try {
                     Pattern nd = Pattern.compile("<script id=\"__NEXT_DATA__\"[^>]*>(.*?)</script>", Pattern.DOTALL);
-                    Matcher m = nd.matcher(leer("https://www.rffm.es/fichaequipo/" + equipo));
-                    String cod = null;
-                    if (m.find()) {
+                    String cod = equipo.startsWith("c") ? equipo.substring(1) : null;
+                    Matcher m = nd.matcher(cod != null ? "" : leer("https://www.rffm.es/fichaequipo/" + equipo));
+                    if (cod == null && m.find()) {
                         JSONObject t = new JSONObject(m.group(1)).getJSONObject("props").getJSONObject("pageProps").optJSONObject("team");
                         if (t != null) cod = t.optString("codigo_club", null);
                     }
