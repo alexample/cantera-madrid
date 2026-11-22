@@ -299,6 +299,50 @@ public class MainActivity extends Activity {
             }).start();
         }
 
+        /** Ficha del club en la federación (fundación, web, redes y equipos que ha tenido), a partir de un equipo suyo.
+         *  Solo se lee cuando el usuario toca (i): fichaequipo/<equipo> → codigo_club → fichaclub/<club>. */
+        @JavascriptInterface
+        public void club(String equipo, String cb) {
+            if (equipo == null || !equipo.matches("\\d{1,12}")) return;
+            new Thread(() -> {
+                String res = null;
+                try {
+                    Pattern nd = Pattern.compile("<script id=\"__NEXT_DATA__\"[^>]*>(.*?)</script>", Pattern.DOTALL);
+                    Matcher m = nd.matcher(leer("https://www.rffm.es/fichaequipo/" + equipo));
+                    String cod = null;
+                    if (m.find()) {
+                        JSONObject t = new JSONObject(m.group(1)).getJSONObject("props").getJSONObject("pageProps").optJSONObject("team");
+                        if (t != null) cod = t.optString("codigo_club", null);
+                    }
+                    if (cod != null && cod.matches("\\d{1,12}")) {
+                        Matcher m2 = nd.matcher(leer("https://www.rffm.es/fichaclub/" + cod));
+                        if (m2.find()) {
+                            JSONObject c = new JSONObject(m2.group(1)).getJSONObject("props").getJSONObject("pageProps").optJSONObject("club");
+                            if (c != null) {
+                                JSONObject r = new JSONObject();
+                                r.put("cod", cod);
+                                // Solo datos públicos del club como entidad (nada de personas)
+                                for (String k : new String[]{"nombre_club", "fecha_fundacion", "portal_web", "twitter", "facebook", "instagram", "localidad", "escudo", "delegacion"})
+                                    if (!c.isNull(k) && c.optString(k).trim().length() > 0) r.put(k, c.optString(k).trim());
+                                JSONArray eq = new JSONArray();
+                                JSONArray todos = c.optJSONArray("equipos_club");
+                                for (int i = 0; todos != null && i < todos.length(); i++) {
+                                    JSONObject x = todos.optJSONObject(i);
+                                    if (x == null) continue;
+                                    eq.put(new JSONArray().put(x.optString("categoria")).put(x.optString("nombre_equipo")).put(x.optString("en_competicion")));
+                                }
+                                r.put("equipos", eq);
+                                res = r.toString();
+                            }
+                        }
+                    }
+                } catch (Throwable ignored) { }
+                final String r = res;
+                runOnUiThread(() -> { try { web.evaluateJavascript("window.__club && window.__club(" + JSONObject.quote(cb) + ","
+                        + (r == null ? "null" : JSONObject.quote(r)) + ")", null); } catch (Throwable ignored) { } });
+            }).start();
+        }
+
         @JavascriptInterface
         public void colorBarras(String hex) {
             runOnUiThread(() -> {

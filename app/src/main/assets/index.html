@@ -488,6 +488,7 @@ td.et{width:26px;padding:0 0 0 2px!important}
 .prow .chev{color:var(--muted);font-size:20px;margin-left:6px}.segok{pointer-events:none}
 .masbtn{margin-top:8px;width:100%}.mas-oculto[hidden]{display:none!important}
 .imp .prow{cursor:pointer}.imp input{width:20px;height:20px;accent-color:var(--pitch2);flex:none}
+#sheet a{color:var(--pitch2);font-weight:600}
 details.hist summary{list-style:none;margin-top:6px}details.hist summary::-webkit-details-marker{display:none}details.hist summary::after{content:" ›";}
 </style>
 </head>
@@ -2472,19 +2473,43 @@ function datosClubHTML(t){
   const campo=Object.entries(campos).filter(c=>c[0]).sort((a,b)=>b[1]-a[1])[0];
   return `<div style="font-weight:700;margin:14px 0 4px">Esta temporada</div><div class="small" style="line-height:1.6">${ts.length} equipo${ts.length>1?"s":""} en la federación: ${CAT_ORDER.filter(c=>porCat[c]).map(c=>`${CATN[c]} ${porCat[c]}`).join(" · ")}${t.town?`<br>Localidad: ${esc(t.town)}`:""}${campo?`<br>Campo habitual: ${esc(bonito(campo[0]))}`:""}</div>`;
 }
+// Ficha del club en la federación (fundación, web, redes, equipos que ha tenido): la lee el móvil al tocar (i)
+const ESPERA_CL={};window.__club=(cb,json)=>{const f=ESPERA_CL[cb];if(f){delete ESPERA_CL[cb];f(json?JSON.parse(json):null)}};
+function fichaClubFed(t){
+  const k="clubf_"+t.clubKey,ya=store.get(k,null);
+  if(ya&&Date.now()-(ya.ts||0)<30*864e5)return Promise.resolve(ya);
+  if(!ANDROID||!AndroidApp.club||!/^\d+$/.test(t.id))return Promise.resolve(null);
+  return new Promise(res=>{const cb="c"+Date.now()+Math.random().toString(36).slice(2,6);const to=setTimeout(()=>{delete ESPERA_CL[cb];res(null)},15000);
+    ESPERA_CL[cb]=d=>{clearTimeout(to);if(d){d.ts=Date.now();store.set(k,d)}res(d)};try{AndroidApp.club(t.id,cb)}catch(e){clearTimeout(to);res(null)}});
+}
+const urlWeb=w=>w?(/^https?:\/\//i.test(w)?w:"https://"+w.replace(/^\/+/,"")):"";
+function fechaFund(f){if(!f)return "";const m=String(f).match(/^(\d{4})-(\d{2})-(\d{2})/);if(m)return m[2]==="01"&&m[3]==="01"?m[1]:`${m[3]}/${m[2]}/${m[1]}`;const n=String(f).match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})/);if(n)return n[1]==="01"&&n[2]==="01"||n[1]==="1"&&n[2]==="1"?n[3]:`${n[1].padStart(2,"0")}/${n[2].padStart(2,"0")}/${n[3]}`;return esc(f)}
+function fedClubHTML(f){
+  if(!f)return "";
+  const red=(u,n)=>u?`<a href="${esc(/^https?:/i.test(u)?u:"https://"+u)}" target="_blank" rel="noopener">${n}</a>`:"";
+  const redes=[red(f.twitter,"X / Twitter"),red(f.facebook,"Facebook"),red(f.instagram,"Instagram")].filter(Boolean);
+  const eq=f.equipos||[],act=eq.filter(e=>e[2]==="1").length;
+  const anio=fechaFund(f.fecha_fundacion);
+  const filas=[anio?`<b>Fundado:</b> ${anio}${/^\d{4}$/.test(anio)?` · hace ${new Date().getFullYear()-(+anio)} años`:""}`:"",
+    f.portal_web?`<b>Web:</b> <a href="${esc(urlWeb(f.portal_web))}" target="_blank" rel="noopener">${esc(f.portal_web.replace(/^https?:\/\//,"").replace(/\/$/,""))}</a>`:"",
+    redes.length?`<b>Redes:</b> ${redes.join(" · ")}`:"",
+    eq.length?`<b>Equipos inscritos en la federación:</b> ${eq.length}${act?` (${act} compitiendo ahora)`:""}`:""].filter(Boolean);
+  return filas.length?`<div style="font-weight:700;margin:14px 0 4px">Ficha en la federación</div><div class="small" style="line-height:1.7">${filas.join("<br>")}</div>`:"";
+}
 async function historiaClub(t){
   const cab=`<h3 style="display:flex;gap:10px;align-items:center">${crest(t,34)}<span>${esc(t.club)}</span></h3>`;
   openSheet(cab+`<div class="small" style="margin:10px 0">Buscando la historia del club…</div>`+datosClubHTML(t));
-  const k="club_"+t.clubKey;let d=store.get(k,null);
+  const fed=await fichaClubFed(t);
+  const k="club2_"+t.clubKey;let d=store.get(k,null);
   if(!d||Date.now()-(d.ts||0)>14*864e5){
-    try{const r=await fetch(`${CLUB_URL}?club=${encodeURIComponent(t.club)}&pueblo=${encodeURIComponent(t.town||"")}`);d=await r.json();d.ts=Date.now();if(!d.error)store.set(k,d)}catch(e){d={error:"sin conexión"}}
+    try{const r=await fetch(`${CLUB_URL}?club=${encodeURIComponent(t.club)}&pueblo=${encodeURIComponent(t.town||"")}${fed&&fed.portal_web?"&web="+encodeURIComponent(fed.portal_web):""}`);d=await r.json();d.ts=Date.now();if(!d.error)store.set(k,d)}catch(e){d={error:"sin conexión"}}
   }
   if(!$("#sheet").classList.contains("open"))return;
   const parr=x=>String(x||"").split(/\n+/).filter(Boolean).map(p=>`<p style="margin:0 0 8px;line-height:1.5">${esc(p)}</p>`).join("");
-  const cuerpo=d&&d.texto?`<div style="margin-top:8px">${parr(d.texto)}</div>${d.historia?`<details class="hist"><summary style="cursor:pointer;font-weight:700;margin:6px 0">Historia</summary>${parr(d.historia)}</details>`:""}
-    <div class="small" style="margin-top:6px">Fuente: <a href="${esc(d.url)}" target="_blank" rel="noopener">Wikipedia · ${esc(d.titulo)}</a></div>`
-    :`<div class="small" style="margin:10px 0;line-height:1.5">${d&&d.error==="sin conexión"?"No hay conexión para buscar la historia del club.":"Este club no tiene artículo en Wikipedia, así que no hay una historia publicada que mostrar. Muchos clubes de cantera no lo tienen."}</div>`;
-  $("#sheet").innerHTML=cab+cuerpo+datosClubHTML(t);
+  const fuente=d&&d.texto?(d.fuente==="web del club"?`Resumen hecho a partir de <a href="${esc(d.url)}" target="_blank" rel="noopener">la web del club</a>. Puede contener imprecisiones: consulta el original.`:`Fuente: <a href="${esc(d.url)}" target="_blank" rel="noopener">Wikipedia · ${esc(d.titulo)}</a>`):"";
+  const cuerpo=d&&d.texto?`<div style="margin-top:8px">${parr(d.texto)}</div>${d.historia?`<details class="hist"><summary style="cursor:pointer;font-weight:700;margin:6px 0">Historia</summary>${parr(d.historia)}</details>`:""}<div class="small" style="margin-top:6px">${fuente}</div>`
+    :`<div class="small" style="margin:10px 0;line-height:1.5">${d&&d.error==="sin conexión"?"No hay conexión para buscar la historia del club.":`No he encontrado una historia publicada de este club: no tiene artículo en Wikipedia${fed&&fed.portal_web?" y su web no la cuenta":fed?" ni web registrada en la federación":""}.`}</div>`;
+  $("#sheet").innerHTML=cab+cuerpo+fedClubHTML(fed)+datosClubHTML(t);
 }
 /* ---------- compartir mis equipos (fichero) ---------- */
 function exportarEquipos(){
