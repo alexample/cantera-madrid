@@ -138,6 +138,88 @@ public class MainActivity extends Activity {
         if (equipo != null) web.evaluateJavascript("window.abrirEquipo && window.abrirEquipo(" + JSONObject.quote(equipo) + ")", null);
     }
 
+    /** Descarga una página siguiendo redirecciones (también de http a https). Devuelve {url final, html}. */
+    private String[] leerWeb(String url) {
+        String ua = WebSettings.getDefaultUserAgent(this);
+        for (int salto = 0; salto < 4 && url != null; salto++) {
+            HttpURLConnection con = null;
+            try {
+                con = (HttpURLConnection) new URL(url).openConnection();
+                con.setInstanceFollowRedirects(false);
+                con.setConnectTimeout(8000); con.setReadTimeout(10000);
+                con.setRequestProperty("User-Agent", ua);
+                con.setRequestProperty("Accept-Language", "es-ES,es;q=0.9");
+                int code = con.getResponseCode();
+                if (code >= 300 && code < 400 && con.getHeaderField("Location") != null) { url = new URL(new URL(url), con.getHeaderField("Location")).toString(); continue; }
+                if (code != 200) return null;
+                String tipo = con.getContentType();
+                if (tipo != null && !tipo.contains("html")) return null;
+                try (InputStream in = con.getInputStream()) {
+                    ByteArrayOutputStream out = new ByteArrayOutputStream();
+                    byte[] buf = new byte[16384]; int n;
+                    while ((n = in.read(buf)) > 0 && out.size() < 900000) out.write(buf, 0, n);
+                    return new String[]{url, out.toString("UTF-8")};
+                }
+            } catch (Throwable e) { return null; } finally { if (con != null) con.disconnect(); }
+        }
+        return null;
+    }
+
+    static String textoDeHtml(String h) {
+        return h.replaceAll("(?is)<(script|style|noscript|svg|nav|footer|header)\\b.*?</\\1>", " ")
+                .replaceAll("(?i)<br\\s*/?>|</p>|</h\\d>|</li>", "\n").replaceAll("<[^>]+>", " ")
+                .replace("&nbsp;", " ").replace("&amp;", "&").replace("&quot;", "\"").replaceAll("&#0?39;|&apos;", "'")
+                .replaceAll("&[a-zA-Z]+;", " ").replaceAll("[ \t]+", " ").replaceAll("\n\\s*", "\n").trim();
+    }
+
+    private void webDelClub(String web, JSONObject r) throws Exception {
+        String base = web.matches("(?i)^https?://.*") ? web : "https://" + web.replaceAll("^/+", "");
+        String[] ini = leerWeb(base);
+        if (ini == null && base.startsWith("https://")) ini = leerWeb("http://" + base.substring(8));
+        if (ini == null) return;
+        String host = Uri.parse(ini[0]).getHost();
+        if (host == null) return;
+        host = host.replaceFirst("^www\\.", "");
+        // Redes sociales
+        JSONObject red = new JSONObject();
+        String[][] pat = {{"instagram", "instagram\\.com/[A-Za-z0-9_.]{2,}"}, {"tiktok", "tiktok\\.com/@[A-Za-z0-9_.]{2,}"},
+                {"facebook", "facebook\\.com/[A-Za-z0-9_.\\-]{3,}"}, {"x", "(?:twitter|x)\\.com/[A-Za-z0-9_]{2,}"},
+                {"youtube", "youtube\\.com/(?:@|c/|channel/|user/)[A-Za-z0-9_.\\-]{2,}"}};
+        Matcher a = Pattern.compile("(?i)<a\\b[^>]*href=[\"']([^\"'#]+)[\"'][^>]*>(.*?)</a>", Pattern.DOTALL).matcher(ini[1]);
+        java.util.List<String[]> cand = new java.util.ArrayList<>();
+        while (a.find()) {
+            String href = a.group(1).trim();
+            if (href.matches("(?i)https?://.*")) {
+                if (!href.matches("(?i).*(sharer|share\\?|intent/|/share\\b|/p/|/reel/|/status/|/watch|/posts/|/video/).*"))
+                    for (String[] pp : pat) if (!red.has(pp[0]) && Pattern.compile(pp[1], Pattern.CASE_INSENSITIVE).matcher(href).find()) red.put(pp[0], href.split("[?#]")[0]);
+            }
+            String abs;
+            try { abs = new URL(new URL(ini[0]), href).toString(); } catch (Exception e) { continue; }
+            String h2 = Uri.parse(abs).getHost();
+            if (h2 == null || !h2.replaceFirst("^www\\.", "").equalsIgnoreCase(host)) continue;
+            String t = (textoDeHtml(a.group(2)) + " " + Uri.parse(abs).getPath()).toLowerCase(java.util.Locale.ROOT);
+            int pt = t.contains("histori") ? 6 : t.matches("(?s).*(quienes somos|quiénes somos|nosotros|el club|nuestro club).*") ? 3 : 0;
+            if (pt > 0) { boolean ya = false; for (String[] c : cand) if (c[0].equals(abs)) ya = true; if (!ya) cand.add(new String[]{abs, String.valueOf(pt)}); }
+        }
+        if (red.length() > 0) r.put("redes", red);
+        cand.sort((x, y) -> Integer.parseInt(y[1]) - Integer.parseInt(x[1]));
+        // Texto de historia: la mejor página candidata (o la portada si ya la cuenta)
+        java.util.List<String[]> paginas = new java.util.ArrayList<>();
+        for (int i = 0; i < Math.min(2, cand.size()); i++) { String[] pg = leerWeb(cand.get(i)[0]); if (pg != null) paginas.add(pg); }
+        paginas.add(ini);
+        Pattern clave = Pattern.compile("(?i)fund[oóa]|histori|naci[oó]|se cre[oó]");
+        for (String[] pg : paginas) {
+            String t = textoDeHtml(pg[1]);
+            Matcher m = clave.matcher(t);
+            if (m.find()) {
+                int i = Math.max(0, m.start() - 600);
+                r.put("webtexto", t.substring(i, Math.min(t.length(), m.start() + 5000)));
+                r.put("weburl", pg[0]);
+                break;
+            }
+        }
+    }
+
     /** Si el intent trae un fichero (abrir con… / compartir con…), lo lee y lo deja para la página. */
     private boolean recibirFichero(Intent in) {
         if (in == null) return false;
@@ -332,6 +414,9 @@ public class MainActivity extends Activity {
                                     eq.put(new JSONArray().put(x.optString("categoria")).put(x.optString("nombre_equipo")).put(x.optString("en_competicion")));
                                 }
                                 r.put("equipos", eq);
+                                // La web del club la lee el móvil (el servidor gratuito tiene muy poco tiempo de cálculo):
+                                // redes sociales enlazadas y el texto de su página de historia, si la tiene.
+                                if (r.has("portal_web")) { try { webDelClub(r.optString("portal_web"), r); } catch (Throwable ignored) { } }
                                 res = r.toString();
                             }
                         }

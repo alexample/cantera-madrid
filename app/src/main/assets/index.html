@@ -2479,10 +2479,10 @@ function datosClubHTML(t){
 // Ficha del club en la federación (fundación, web, redes, equipos que ha tenido): la lee el móvil al tocar (i)
 const ESPERA_CL={};window.__club=(cb,json)=>{const f=ESPERA_CL[cb];if(f){delete ESPERA_CL[cb];f(json?JSON.parse(json):null)}};
 function fichaClubFed(t){
-  const k="clubf_"+t.clubKey,ya=store.get(k,null);
+  const k="clubf2_"+t.clubKey,ya=store.get(k,null);
   if(ya&&Date.now()-(ya.ts||0)<30*864e5)return Promise.resolve(ya);
   if(!ANDROID||!AndroidApp.club||!/^\d+$/.test(t.id))return Promise.resolve(null);
-  return new Promise(res=>{const cb="c"+Date.now()+Math.random().toString(36).slice(2,6);const to=setTimeout(()=>{delete ESPERA_CL[cb];res(null)},15000);
+  return new Promise(res=>{const cb="c"+Date.now()+Math.random().toString(36).slice(2,6);const to=setTimeout(()=>{delete ESPERA_CL[cb];res(null)},45000);
     ESPERA_CL[cb]=d=>{clearTimeout(to);if(d){d.ts=Date.now();store.set(k,d)}res(d)};try{AndroidApp.club(t.id,cb)}catch(e){clearTimeout(to);res(null)}});
 }
 const urlWeb=w=>w?(/^https?:\/\//i.test(w)?w:"https://"+w.replace(/^\/+/,"")):"";
@@ -2497,7 +2497,7 @@ const RED_IC={
 function redesHTML(fed,d){
   const r={};const pon=(k,u)=>{if(u&&!r[k])r[k]=/^https?:/i.test(u)?u:"https://"+String(u).replace(/^\/+/,"")};
   if(fed){pon("instagram",fed.instagram);pon("facebook",fed.facebook);pon("x",fed.twitter)}
-  if(d&&d.redes)for(const k of Object.keys(RED_IC))pon(k,d.redes[k]);
+  for(const x of [fed&&fed.redes,d&&d.redes])if(x)for(const k of Object.keys(RED_IC))pon(k,x[k]);
   const ks=Object.keys(RED_IC).filter(k=>r[k]);
   if(!ks.length)return "";
   return `<div style="font-weight:700;margin:14px 0 6px">Redes sociales</div><div class="redes">${ks.map(k=>`<a class="red" href="${esc(r[k])}" target="_blank" rel="noopener" style="--rc:${RED_IC[k][1]}"><svg viewBox="0 0 24 24" aria-hidden="true">${RED_IC[k][2]}</svg>${RED_IC[k][0]}</a>`).join("")}</div>`;
@@ -2515,15 +2515,18 @@ async function historiaClub(t){
   const cab=`<h3 style="display:flex;gap:10px;align-items:center">${crest(t,34)}<span>${esc(t.club)}</span></h3>`;
   openSheet(cab+`<div class="small" style="margin:10px 0">Buscando la historia del club…</div>`+datosClubHTML(t));
   const fed=await fichaClubFed(t);
-  const k="club2_"+t.clubKey;let d=store.get(k,null);
+  const k="club3_"+t.clubKey;let d=store.get(k,null);
   if(!d||Date.now()-(d.ts||0)>14*864e5){
-    try{const r=await fetch(`${CLUB_URL}?club=${encodeURIComponent(t.club)}&pueblo=${encodeURIComponent(t.town||"")}${fed&&fed.portal_web?"&web="+encodeURIComponent(fed.portal_web):""}`);d=await r.json();d.ts=Date.now();if(!d.error)store.set(k,d)}catch(e){d={error:"sin conexión"}}
+    try{const r=await fetch(`${CLUB_URL}?club=${encodeURIComponent(t.club)}&pueblo=${encodeURIComponent(t.town||"")}`);d=await r.json();
+      // Sin Wikipedia: resumen del texto de historia de su web (lo ha leído el móvil)
+      if(!d.texto&&fed&&fed.webtexto&&fed.weburl){try{const r2=await fetch(CLUB_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({club:t.club,texto:fed.webtexto,url:fed.weburl})});const w=await r2.json();if(w&&w.texto)d=w}catch(e){}}
+      d.ts=Date.now();if(!d.error)store.set(k,d)}catch(e){d={error:"sin conexión"}}
   }
   if(!$("#sheet").classList.contains("open"))return;
   const parr=x=>String(x||"").split(/\n+/).filter(Boolean).map(p=>`<p style="margin:0 0 8px;line-height:1.5">${esc(p)}</p>`).join("");
   const fuente=d&&d.texto?(d.fuente==="web del club"?`Resumen hecho a partir de <a href="${esc(d.url)}" target="_blank" rel="noopener">la web del club</a>. Puede contener imprecisiones: consulta el original.`:`Fuente: <a href="${esc(d.url)}" target="_blank" rel="noopener">Wikipedia · ${esc(d.titulo)}</a>`):"";
   const cuerpo=d&&d.texto?`<div style="margin-top:8px">${parr(d.texto)}</div>${d.historia?`<details class="hist"><summary style="cursor:pointer;font-weight:700;margin:6px 0">Historia</summary>${parr(d.historia)}</details>`:""}<div class="small" style="margin-top:6px">${fuente}</div>`
-    :`<div class="small" style="margin:10px 0;line-height:1.5">${d&&d.error==="sin conexión"?"No hay conexión para buscar la historia del club.":`No he encontrado una historia publicada de este club: no tiene artículo en Wikipedia${fed&&fed.portal_web?" y su web no la cuenta":fed?" ni web registrada en la federación":""}.`}</div>`;
+    :`<div class="small" style="margin:10px 0;line-height:1.5">${d&&d.error==="sin conexión"?"No se ha podido buscar la historia del club ahora mismo. Vuelve a probar en un rato.":`No he encontrado una historia publicada de este club: no tiene artículo en Wikipedia${fed&&fed.portal_web?" y su web no la cuenta":fed?" ni web registrada en la federación":""}.`}</div>`;
   $("#sheet").innerHTML=cab+cuerpo+redesHTML(fed,d)+fedClubHTML(fed)+datosClubHTML(t);
 }
 /* ---------- compartir mis equipos (fichero) ---------- */
