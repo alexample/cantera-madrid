@@ -146,7 +146,7 @@ public class MainActivity extends Activity {
             try {
                 con = (HttpURLConnection) new URL(url).openConnection();
                 con.setInstanceFollowRedirects(false);
-                con.setConnectTimeout(8000); con.setReadTimeout(10000);
+                con.setConnectTimeout(5000); con.setReadTimeout(6000);
                 con.setRequestProperty("User-Agent", ua);
                 con.setRequestProperty("Accept-Language", "es-ES,es;q=0.9");
                 int code = con.getResponseCode();
@@ -228,7 +228,7 @@ public class MainActivity extends Activity {
         cand.sort((x, y) -> Integer.parseInt(y[1]) - Integer.parseInt(x[1]));
         // Texto de historia: la mejor página candidata (o la portada si ya la cuenta)
         java.util.List<String[]> paginas = new java.util.ArrayList<>();
-        for (int i = 0; i < Math.min(2, cand.size()); i++) { String[] pg = leerWeb(cand.get(i)[0]); if (pg != null) paginas.add(pg); }
+        for (int i = 0; i < Math.min(1, cand.size()); i++) { String[] pg = leerWeb(cand.get(i)[0]); if (pg != null) paginas.add(pg); }
         paginas.add(ini);
         Pattern clave = Pattern.compile("(?i)fund[oóa]|histori|naci[oó]|se cre[oó]");
         for (String[] pg : paginas) {

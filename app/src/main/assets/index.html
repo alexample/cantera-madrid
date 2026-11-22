@@ -2492,7 +2492,7 @@ function fichaClubFed(t,cid){
   const k="clubf2_"+t.clubKey,ya=store.get(k,null);
   if(ya&&Date.now()-(ya.ts||0)<30*864e5)return Promise.resolve(ya);
   if(!ANDROID||!AndroidApp.club||!/^\d+$/.test(cid||t.id))return Promise.resolve(null);
-  return new Promise(res=>{const cb="c"+Date.now()+Math.random().toString(36).slice(2,6);const to=setTimeout(()=>{delete ESPERA_CL[cb];res(null)},45000);
+  return new Promise(res=>{const cb="c"+Date.now()+Math.random().toString(36).slice(2,6);const to=setTimeout(()=>{delete ESPERA_CL[cb];res(null)},25000);
     ESPERA_CL[cb]=d=>{clearTimeout(to);if(d){d.ts=Date.now();store.set(k,d)}res(d)};try{AndroidApp.club(cid?"c"+cid:t.id,cb)}catch(e){clearTimeout(to);res(null)}});
 }
 const urlWeb=w=>w?(/^https?:\/\//i.test(w)?w:"https://"+w.replace(/^\/+/,"")):"";
@@ -2534,24 +2534,33 @@ function historiaClub(t){
 }
 async function historiaClubX(t,cab){
   await cargarClubes();const fijo=clubFijo(t);
-  if(!$("#sheet").classList.contains("open"))return;
-  $("#sheet").innerHTML=(cab+`<div class="small" style="margin:10px 0">Buscando la historia del club…</div>`+redesHTML(fijo,null)+fedClubHTML(fijo)+datosClubHTML(t));
-  const fed0=await fichaClubFed(t,fijo&&fijo.cod);
-  // Lo leído ahora en la federación manda; lo que falte se completa con el fichero de clubes
-  const fed=fijo||fed0?Object.assign({},fijo||{},...Object.entries(fed0||{}).filter(([k,v])=>v!==""&&v!=null).map(([k,v])=>({[k]:v}))):null;
-  const k="club3_"+t.clubKey;let d=store.get(k,null);
-  if(!d||Date.now()-(d.ts||0)>14*864e5){
-    try{const r=await fetchT(`${CLUB_URL}?club=${encodeURIComponent(t.club)}&pueblo=${encodeURIComponent(t.town||"")}`);d=await r.json();
-      // Sin Wikipedia: resumen del texto de historia de su web (lo ha leído el móvil)
-      if(!d.texto&&fed&&fed.webtexto&&fed.weburl){try{const r2=await fetchT(CLUB_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({club:t.club,texto:fed.webtexto,url:fed.weburl})});const w=await r2.json();if(w&&w.texto)d=w}catch(e){}}
-      d.ts=Date.now();if(!d.error)store.set(k,d)}catch(e){d={error:"sin conexión"}}
-  }
-  if(!$("#sheet").classList.contains("open"))return;
+  const abierta=()=>$("#sheet").classList.contains("open");
+  const k="club3_"+t.clubKey;let d=store.get(k,null);if(d&&Date.now()-(d.ts||0)>14*864e5)d=null;
+  let fed=fijo,estado=d?"fin":"buscando";
   const parr=x=>String(x||"").split(/\n+/).filter(Boolean).map(p=>`<p style="margin:0 0 8px;line-height:1.5">${esc(p)}</p>`).join("");
-  const fuente=d&&d.texto?(d.fuente==="web del club"?`Resumen hecho a partir de <a href="${esc(d.url)}" target="_blank" rel="noopener">la web del club</a>. Puede contener imprecisiones: consulta el original.`:`Fuente: <a href="${esc(d.url)}" target="_blank" rel="noopener">Wikipedia · ${esc(d.titulo)}</a>`):"";
-  const cuerpo=d&&d.texto?`<div style="margin-top:8px">${parr(d.texto)}</div>${d.historia?`<details class="hist"><summary style="cursor:pointer;font-weight:700;margin:6px 0">Historia</summary>${parr(d.historia)}</details>`:""}<div class="small" style="margin-top:6px">${fuente}</div>`
-    :`<div class="small" style="margin:10px 0;line-height:1.5">${d&&d.error==="sin conexión"?"No se ha podido buscar la historia del club ahora mismo. Vuelve a probar en un rato.":`No he encontrado una historia publicada de este club: no tiene artículo en Wikipedia${fed&&fed.portal_web?" y su web no la cuenta":fed?" ni web registrada en la federación":""}.`}</div>`;
-  $("#sheet").innerHTML=cab+cuerpo+redesHTML(fed,d)+fedClubHTML(fed)+datosClubHTML(t);
+  // Se pinta cada vez que llega algo: nunca se espera a una parte para enseñar las demás
+  const pintar=()=>{if(!abierta())return;
+    const fuente=d&&d.texto?(d.fuente==="web del club"?`Resumen hecho a partir de <a href="${esc(d.url)}" target="_blank" rel="noopener">la web del club</a>. Puede contener imprecisiones: consulta el original.`:`Fuente: <a href="${esc(d.url)}" target="_blank" rel="noopener">Wikipedia · ${esc(d.titulo)}</a>`):"";
+    const msg=t=>`<div class="small" style="margin:10px 0;line-height:1.5">${t}</div>`;
+    const cuerpo=d&&d.texto?`<div style="margin-top:8px">${parr(d.texto)}</div>${d.historia?`<details class="hist"><summary style="cursor:pointer;font-weight:700;margin:6px 0">Historia</summary>${parr(d.historia)}</details>`:""}<div class="small" style="margin-top:6px">${fuente}</div>`
+      :estado==="buscando"?msg("Buscando la historia del club…"):estado==="resumiendo"?msg("Leyendo la historia en la web del club…")
+      :d&&d.error?msg("No se ha podido buscar la historia del club ahora mismo. Vuelve a probar en un rato.")
+      :msg(`No he encontrado una historia publicada de este club: no tiene artículo en Wikipedia${fed&&fed.portal_web?" y su web no la cuenta":fed?" ni web registrada en la federación":""}.`);
+    $("#sheet").innerHTML=cab+cuerpo+redesHTML(fed,d)+fedClubHTML(fed)+datosClubHTML(t)};
+  pintar();
+  // Ficha del club leída por el móvil (en paralelo): lo nuevo manda, lo que falte sale del fichero de clubes
+  const pFed=fichaClubFed(t,fijo&&fijo.cod).then(f0=>{if(f0)fed=Object.assign({},fijo||{},...Object.entries(f0).filter(([k,v])=>v!==""&&v!=null).map(([k,v])=>({[k]:v})));pintar();return f0}).catch(()=>null);
+  if(!d){
+    try{const r=await fetchT(`${CLUB_URL}?club=${encodeURIComponent(t.club)}&pueblo=${encodeURIComponent(t.town||"")}`,{},12000);d=await r.json()}catch(e){d={error:"sin conexión"}}
+    if(d&&!d.texto&&!d.error){
+      estado="resumiendo";pintar();
+      const f0=await Promise.race([pFed,new Promise(r=>setTimeout(()=>r(null),25000))]);
+      const w=fed||{};
+      if(f0&&w.webtexto&&w.weburl){try{const r2=await fetchT(CLUB_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({club:t.club,texto:w.webtexto,url:w.weburl})},20000);const x=await r2.json();if(x&&x.texto)d=x}catch(e){}}
+    }
+    if(d&&!d.error){d.ts=Date.now();store.set(k,d)}
+  }
+  estado="fin";pintar();
 }
 /* ---------- compartir mis equipos (fichero) ---------- */
 function exportarEquipos(){
