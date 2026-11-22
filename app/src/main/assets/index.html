@@ -2379,6 +2379,8 @@ function renderChat(app,t){
   if(t&&$("#tfol"))$("#tfol").onclick=()=>{follow(t.id);render();setTimeout(()=>openTeamSettings(t),150)};
 }
 function openSheet(html,bind){$("#sheet").innerHTML=html;$("#sheetBg").style.display="block";requestAnimationFrame(()=>$("#sheet").classList.add("open"));bind&&bind()}
+// La hoja cuenta como abierta desde que se pide abrir (la clase «open» llega un fotograma después)
+const sheetAbierta=()=>$("#sheetBg").style.display==="block";
 function closeSheet(){$("#sheet").classList.remove("open");$("#sheetBg").style.display="none"}
 $("#sheetBg").onclick=closeSheet;
 function openTeamSettings(t){
@@ -2464,7 +2466,7 @@ function openSettings(){
 }
 function volver(){VOLVIENDO=true;const p=state.pila.pop();if(p){state.view=p.view;state.team=p.team;if(p.div)state.div=p.div;if(p.jug!=null)state.jug=p.jug}else state.view="home";render()}
 window.atras=()=>{
-  if($("#sheet").classList.contains("open")){closeSheet();return true}
+  if(sheetAbierta()){closeSheet();return true}
   if(state.view!=="home"){volver();return true}
   return false;
 };
@@ -2530,11 +2532,11 @@ function historiaClub(t){
   // La ficha se abre al momento con lo que ya hay; el resto se va completando
   let base="";try{base=datosClubHTML(t)}catch(e){}
   openSheet(cab+`<div class="small" style="margin:10px 0">Buscando la historia del club…</div>`+base);
-  historiaClubX(t,cab).catch(e=>{if($("#sheet").classList.contains("open"))$("#sheet").innerHTML=cab+`<div class="small" style="margin:10px 0;line-height:1.5">No se ha podido cargar toda la información del club (${esc(String(e&&e.message||e))}).</div>`+base});
+  historiaClubX(t,cab).catch(e=>{if(sheetAbierta())$("#sheet").innerHTML=cab+`<div class="small" style="margin:10px 0;line-height:1.5">No se ha podido cargar toda la información del club (${esc(String(e&&e.message||e))}).</div>`+base});
 }
 async function historiaClubX(t,cab){
   await cargarClubes();const fijo=clubFijo(t);
-  const abierta=()=>$("#sheet").classList.contains("open");
+  const abierta=()=>sheetAbierta();
   const k="club3_"+t.clubKey;let d=store.get(k,null);if(d&&Date.now()-(d.ts||0)>14*864e5)d=null;
   let fed=fijo,estado=d?"fin":"buscando";
   const parr=x=>String(x||"").split(/\n+/).filter(Boolean).map(p=>`<p style="margin:0 0 8px;line-height:1.5">${esc(p)}</p>`).join("");
