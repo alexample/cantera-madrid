@@ -2483,7 +2483,7 @@ let CLUBES=null;
 async function cargarClubes(){
   if(CLUBES)return CLUBES;const c=store.get("clubes",null);
   if(c&&Date.now()-(c.ts||0)<7*864e5){CLUBES=c;return c}
-  try{const d=await getJSON("clubes.json",{fresh:true});d.ts=Date.now();store.set("clubes",d);CLUBES=d}catch(e){CLUBES=c||{club:{},eq:{}}}
+  try{const r=await fetchT(DATA_BASE+"clubes.json?t="+Date.now(),{cache:"no-store"},12000);if(!r.ok)throw 0;const d=await r.json();d.ts=Date.now();store.set("clubes",d);CLUBES=d}catch(e){CLUBES=c||{club:{},eq:{}}}
   return CLUBES;
 }
 function clubFijo(t){const C=CLUBES||{club:{},eq:{}};const cid=C.eq&&C.eq[t.id];const c=cid&&C.club[cid];if(!c)return null;
@@ -2523,18 +2523,27 @@ function fedClubHTML(f){
     eq.length?`<b>Equipos inscritos en la federación:</b> ${eq.length}${act?` (${act} compitiendo ahora)`:""}`:""].filter(Boolean);
   return filas.length?`<div style="font-weight:700;margin:14px 0 4px">Ficha en la federación</div><div class="small" style="line-height:1.7">${filas.join("<br>")}</div>`:"";
 }
-async function historiaClub(t){
+// Fetch con tiempo máximo (para que la ficha nunca se quede colgada)
+function fetchT(url,op={},ms=15000){const c=new AbortController();const t=setTimeout(()=>c.abort(),ms);return fetch(url,{...op,signal:c.signal}).finally(()=>clearTimeout(t))}
+function historiaClub(t){
   const cab=`<h3 style="display:flex;gap:10px;align-items:center">${crest(t,34)}<span>${esc(t.club)}</span></h3>`;
+  // La ficha se abre al momento con lo que ya hay; el resto se va completando
+  let base="";try{base=datosClubHTML(t)}catch(e){}
+  openSheet(cab+`<div class="small" style="margin:10px 0">Buscando la historia del club…</div>`+base);
+  historiaClubX(t,cab).catch(e=>{if($("#sheet").classList.contains("open"))$("#sheet").innerHTML=cab+`<div class="small" style="margin:10px 0;line-height:1.5">No se ha podido cargar toda la información del club (${esc(String(e&&e.message||e))}).</div>`+base});
+}
+async function historiaClubX(t,cab){
   await cargarClubes();const fijo=clubFijo(t);
-  openSheet(cab+`<div class="small" style="margin:10px 0">Buscando la historia del club…</div>`+redesHTML(fijo,null)+fedClubHTML(fijo)+datosClubHTML(t));
+  if(!$("#sheet").classList.contains("open"))return;
+  $("#sheet").innerHTML=(cab+`<div class="small" style="margin:10px 0">Buscando la historia del club…</div>`+redesHTML(fijo,null)+fedClubHTML(fijo)+datosClubHTML(t));
   const fed0=await fichaClubFed(t,fijo&&fijo.cod);
   // Lo leído ahora en la federación manda; lo que falte se completa con el fichero de clubes
   const fed=fijo||fed0?Object.assign({},fijo||{},...Object.entries(fed0||{}).filter(([k,v])=>v!==""&&v!=null).map(([k,v])=>({[k]:v}))):null;
   const k="club3_"+t.clubKey;let d=store.get(k,null);
   if(!d||Date.now()-(d.ts||0)>14*864e5){
-    try{const r=await fetch(`${CLUB_URL}?club=${encodeURIComponent(t.club)}&pueblo=${encodeURIComponent(t.town||"")}`);d=await r.json();
+    try{const r=await fetchT(`${CLUB_URL}?club=${encodeURIComponent(t.club)}&pueblo=${encodeURIComponent(t.town||"")}`);d=await r.json();
       // Sin Wikipedia: resumen del texto de historia de su web (lo ha leído el móvil)
-      if(!d.texto&&fed&&fed.webtexto&&fed.weburl){try{const r2=await fetch(CLUB_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({club:t.club,texto:fed.webtexto,url:fed.weburl})});const w=await r2.json();if(w&&w.texto)d=w}catch(e){}}
+      if(!d.texto&&fed&&fed.webtexto&&fed.weburl){try{const r2=await fetchT(CLUB_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({club:t.club,texto:fed.webtexto,url:fed.weburl})});const w=await r2.json();if(w&&w.texto)d=w}catch(e){}}
       d.ts=Date.now();if(!d.error)store.set(k,d)}catch(e){d={error:"sin conexión"}}
   }
   if(!$("#sheet").classList.contains("open"))return;

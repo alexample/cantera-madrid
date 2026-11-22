@@ -165,11 +165,34 @@ public class MainActivity extends Activity {
         return null;
     }
 
+    /** Texto visible de una página. Sin expresiones con retroceso sobre todo el HTML (en páginas grandes desbordan la pila). */
     static String textoDeHtml(String h) {
-        return h.replaceAll("(?is)<(script|style|noscript|svg|nav|footer|header)\\b.*?</\\1>", " ")
-                .replaceAll("(?i)<br\\s*/?>|</p>|</h\\d>|</li>", "\n").replaceAll("<[^>]+>", " ")
-                .replace("&nbsp;", " ").replace("&amp;", "&").replace("&quot;", "\"").replaceAll("&#0?39;|&apos;", "'")
-                .replaceAll("&[a-zA-Z]+;", " ").replaceAll("[ \t]+", " ").replaceAll("\n\\s*", "\n").trim();
+        if (h.length() > 400000) h = h.substring(0, 400000);
+        StringBuilder b = new StringBuilder(h.length() / 3);
+        String low = h.toLowerCase(java.util.Locale.ROOT);
+        String[] bloques = {"script", "style", "noscript", "svg"};
+        int i = 0, n = h.length();
+        while (i < n) {
+            char ch = h.charAt(i);
+            if (ch == '<') {
+                boolean saltado = false;
+                for (String t : bloques) {
+                    if (low.startsWith("<" + t, i)) {
+                        int fin = low.indexOf("</" + t, i);
+                        if (fin < 0) { i = n; } else { int c = low.indexOf('>', fin); i = c < 0 ? n : c + 1; }
+                        saltado = true; break;
+                    }
+                }
+                if (saltado) { b.append(' '); continue; }
+                int c = h.indexOf('>', i);
+                if (c < 0) break;
+                String tag = low.substring(i, Math.min(c, i + 4));
+                b.append(tag.startsWith("<br") || tag.startsWith("</p") || tag.startsWith("</h") || tag.startsWith("</l") || tag.startsWith("</d") ? '\n' : ' ');
+                i = c + 1;
+            } else { b.append(ch); i++; }
+        }
+        return b.toString().replace("&nbsp;", " ").replace("&amp;", "&").replace("&quot;", "\"").replace("&#39;", "'").replace("&apos;", "'")
+                .replaceAll("&[a-zA-Z]{2,8};", " ").replaceAll("[ \t]+", " ").replaceAll("\n\\s*", "\n").trim();
     }
 
     private void webDelClub(String web, JSONObject r) throws Exception {
@@ -185,7 +208,7 @@ public class MainActivity extends Activity {
         String[][] pat = {{"instagram", "instagram\\.com/[A-Za-z0-9_.]{2,}"}, {"tiktok", "tiktok\\.com/@[A-Za-z0-9_.]{2,}"},
                 {"facebook", "facebook\\.com/[A-Za-z0-9_.\\-]{3,}"}, {"x", "(?:twitter|x)\\.com/[A-Za-z0-9_]{2,}"},
                 {"youtube", "youtube\\.com/(?:@|c/|channel/|user/)[A-Za-z0-9_.\\-]{2,}"}};
-        Matcher a = Pattern.compile("(?i)<a\\b[^>]*href=[\"']([^\"'#]+)[\"'][^>]*>(.*?)</a>", Pattern.DOTALL).matcher(ini[1]);
+        Matcher a = Pattern.compile("(?i)<a\\b[^>]{0,400}?href=[\"']([^\"'#]{1,400})[\"'][^>]{0,400}>([^<]{0,200})").matcher(ini[1].length() > 400000 ? ini[1].substring(0, 400000) : ini[1]);
         java.util.List<String[]> cand = new java.util.ArrayList<>();
         while (a.find()) {
             String href = a.group(1).trim();
